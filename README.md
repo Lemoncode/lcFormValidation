@@ -8,50 +8,6 @@ lcFormValidation is a form library validation:
 
 lc-FormValidation is third party / framework agnostic, although it will integrate quite well with libraries like React / Redux.
 
-# How to run a sample #
-
-**Work in progress: we are working on closing a first release of this library, we expect to register it in npm in the following two three weeks, in the mean time you can download the source code and run the samples following the instructions below.**
-
-
-Prerequisites: In order to get these examples up and running you will have to get installed typings and webpack node modules globally. 
-
-![npm install typings -g](./ReadmeResources/3564429451-TypingsGlobal.png "npm install typings -g")
-
-![npm install webpack -g](./ReadmeResources/2715795082-WebpackGlobal.png "npm install webpack -g")
-
-
-If you want to start from the source code, follow this steps:
-
-First download the source code from Git.
-
-* Navigate to the lib folder (Note: this process will be less painful and added to preinstall when the following [bug](https://github.com/npm/npm/issues/10379) gets fixed on npm.
-
-* Execute npm install
-
-![lcFormValidation\lib\npm install](./ReadmeResources/libinstall.png "lcFormValidation\lib\npm install")
-
-* Execute webpack
-
-![lcFormValidation\lib\webpack](./ReadmeResources/libwebpack.png "lcFormValidation\lib\webpack")
-
-* Navigate to one the samples folders, e.g. "samples/react/00 Simple Form".
-
-![lcFormValidation\samples\react\00 Simple Form](./ReadmeResources/4033361775-samplepath.png "lcFormValidation\samples\react\00 Simple Form")
-
-* Execute npm install (this is connected to the local lib folder(*)).
-
-![npm install](./ReadmeResources/1382845270-npminstallsimpleformpng.png "npm install")
-
-
-* Execute npmn start
-
-![npm start](./ReadmeResources/135386995-npmstart.png "npm start")
-
-
-* Open your favourite browser and navigate to http://localhost/8080
-
-
-
 # Why another form library? #
 
 Form validation is a complex issue, usually we can find solutions that cover the simple scenarios and are focused on building RAD development just by adding some attributes / annotations to given fields or HTML fields (e.g. input), the disadvantage that we have found to this approach:
@@ -147,12 +103,53 @@ Login form validation implementation
                                                 return Promise.resolve(validationResult);
                                             }
                                             )
-
-
   }
 }
 
 ```
+
+
+# How to run a sample #
+
+**Work in progress: we are working on closing a first release of this library, we expect to register it in npm in the following two three weeks, in the mean time you can download the source code and run the samples following the instructions below.**
+
+
+Prerequisites: In order to get these examples up and running you will have to get installed typings and webpack node modules globally. 
+
+![npm install typings -g](./ReadmeResources/3564429451-TypingsGlobal.png "npm install typings -g")
+
+![npm install webpack -g](./ReadmeResources/2715795082-WebpackGlobal.png "npm install webpack -g")
+
+
+If you want to start from the source code, follow this steps:
+
+First download the source code from Git.
+
+* Navigate to the lib folder (Note: this process will be less painful and added to preinstall when the following [bug](https://github.com/npm/npm/issues/10379) gets fixed on npm.
+
+* Execute npm install
+
+![lcFormValidation\lib\npm install](./ReadmeResources/libinstall.png "lcFormValidation\lib\npm install")
+
+* Execute webpack
+
+![lcFormValidation\lib\webpack](./ReadmeResources/libwebpack.png "lcFormValidation\lib\webpack")
+
+* Navigate to one the samples folders, e.g. "samples/react/00 Simple Form".
+
+![lcFormValidation\samples\react\00 Simple Form](./ReadmeResources/4033361775-samplepath.png "lcFormValidation\samples\react\00 Simple Form")
+
+* Execute npm install (this is connected to the local lib folder(*)).
+
+![npm install](./ReadmeResources/1382845270-npminstallsimpleformpng.png "npm install")
+
+
+* Execute npmn start
+
+![npm start](./ReadmeResources/135386995-npmstart.png "npm start")
+
+
+* Open your favourite browser and navigate to http://localhost/8080
 
 
 # Samples forms implemented #
