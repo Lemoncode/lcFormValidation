@@ -166,5 +166,7 @@ We are looking for contributors to implement samples and support for libraries s
 
 # Future Enhancements #
 
+* Prepare npm package install.
+* Add CI integration.
 * Allow connecting with array fields / table like scenario.
 * Allow this to be easily be used outside the context of a web form (e.g. rest api server side)
