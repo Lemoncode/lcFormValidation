@@ -24,6 +24,16 @@ If you want to start from the source code, follow this steps:
 
 First download the source code from Git.
 
+* Navigate to the lib folder (Note: this process will be less painful and added to preinstall when the following [bug](https://github.com/npm/npm/issues/10379) gets fixed on npm.
+
+* Execute npm install
+
+![lcFormValidation\lib\npm install](./ReadmeResources/libinstall.png "lcFormValidation\lib\npm install")
+
+* Execute webpack
+
+![lcFormValidation\lib\webpack](./ReadmeResources/libwebpack.png "lcFormValidation\lib\webpack")
+
 * Navigate to one the samples folders, e.g. "samples/react/00 Simple Form".
 
 ![lcFormValidation\samples\react\00 Simple Form](./ReadmeResources/4033361775-samplepath.png "lcFormValidation\samples\react\00 Simple Form")
