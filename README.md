@@ -10,7 +10,7 @@ lc-FormValidation is third party / framework agnostic, although it will integrat
 
 # How to run a sample #
 
-** Work in progress: we are working on closing a first release of this library, we expect to register it in npm in the following two three weeks, in the mean time you can download the source code and run the samples following the instructions below. **
+**Work in progress: we are working on closing a first release of this library, we expect to register it in npm in the following two three weeks, in the mean time you can download the source code and run the samples following the instructions below.**
 
 
 Prerequisites: In order to get these examples up and running you will have to get installed typings and webpack node modules globally. 
@@ -23,6 +23,16 @@ Prerequisites: In order to get these examples up and running you will have to ge
 If you want to start from the source code, follow this steps:
 
 First download the source code from Git.
+
+* Navigate to the lib folder (Note: this process will be less painful and added to preinstall when the following [bug](https://github.com/npm/npm/issues/10379) gets fixed on npm.
+
+* Execute npm install
+
+![lcFormValidation\lib\npm install](./ReadmeResources/libinstall.png "lcFormValidation\lib\npm install")
+
+* Execute webpack
+
+![lcFormValidation\lib\webpack](./ReadmeResources/libwebpack.png "lcFormValidation\lib\webpack")
 
 * Navigate to one the samples folders, e.g. "samples/react/00 Simple Form".
 
