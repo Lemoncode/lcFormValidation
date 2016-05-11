@@ -15,9 +15,10 @@ lc-FormValidation is third party / framework agnostic, although it will integrat
 
 Prerequisites: In order to get these examples up and running you will have to get installed typings and webpack node modules globally. 
 
-![alt text](./ReadmeResources/3564429451-TypingsGlobal.png "InstalTypings")
+![npm install typings -g](./ReadmeResources/3564429451-TypingsGlobal.png "npm install typings -g")
 
-![Webpack Global.png](https://bitbucket.org/repo/946LLa/images/2715795082-Webpack%20Global.png)
+![npm install webpack -g](./ReadmeResources/2715795082-WebpackGlobal.png "npm install webpack -g")
+
 
 If you want to start from the source code, follow this steps:
 
