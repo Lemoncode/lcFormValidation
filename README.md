@@ -66,7 +66,7 @@ Then we can inherit from that base class and define our own specific form valida
 
 The idea is to encapsulate all the common functionality in a base class, and create independent classes that will inherit from this base class to implement the validation of each individual form.
 
-![validationCropped.png](https://bitbucket.org/repo/5z5nng/images/3705480844-validationCropped.png)
+![validation class diagram](./ReadmeResources/validation.png "validation class diagram")
 
 By following this approach:
 
@@ -106,7 +106,7 @@ export class BaseFormValidation {
 
 Let's say we want to add validation support for a login form (validations to be performed: name field is required).
 
-![loginForm.png](https://bitbucket.org/repo/946LLa/images/3450125931-loginForm.png)
+![login form](./ReadmeResources/loginform.png "login form")
 
 Login form validation implementation
 
