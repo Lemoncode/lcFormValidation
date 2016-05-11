@@ -116,7 +116,7 @@ export class BaseFormValidation {
 
 Let's say we want to add validation support for a login form (validations to be performed: name field is required).
 
-![login form](./ReadmeResources/loginform.png "login form")
+![login form](./ReadmeResources/loginForm.png "login form")
 
 Login form validation implementation
 
