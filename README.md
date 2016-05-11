@@ -26,16 +26,17 @@ First download the source code from Git.
 
 * Navigate to one the samples folders, e.g. "samples/react/00 Simple Form".
 
-![samplepath.png](https://bitbucket.org/repo/946LLa/images/4033361775-samplepath.png)
+![lcFormValidation\samples\react\00 Simple Form](./ReadmeResources/4033361775-samplepath.png "lcFormValidation\samples\react\00 Simple Form")
 
 * Execute npm install (this is connected to the local lib folder(*)).
 
-![npminstallsimpleformpng.png](https://bitbucket.org/repo/946LLa/images/1382845270-npminstallsimpleformpng.png)
+![npm install](./ReadmeResources/1382845270-npminstallsimpleformpng.png "npm install")
 
 
 * Execute npmn start
 
-![npmstart.png](https://bitbucket.org/repo/946LLa/images/135386995-npmstart.png)
+![npm start](./ReadmeResources/135386995-npmstart.png "npm start")
+
 
 * Open your favourite browser and navigate to http://localhost/8080
 
