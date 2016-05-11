@@ -2,8 +2,7 @@
   "name": "reactboiler",
   "version": "1.0.0",
   "description": "",
-  "scripts": {
-    "preinstall": "npm uninstall lc-form-validation && cd ..\\..\\..\\lib\\ && npm install && webpack",
+  "scripts": {    
     "postinstall": "typings install",
     "start": "webpack-dev-server"
   },
