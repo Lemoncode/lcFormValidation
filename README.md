@@ -10,7 +10,7 @@ lc-FormValidation is third party / framework agnostic, although it will integrat
 
 # How to run a sample #
 
-** Work in progress: we are working on closing a first release of this library, we expect to register it in npm in the following two three weeks, in the mean time you can download the source code and run the samples following the instructions below. **
+**Work in progress: we are working on closing a first release of this library, we expect to register it in npm in the following two three weeks, in the mean time you can download the source code and run the samples following the instructions below.**
 
 
 Prerequisites: In order to get these examples up and running you will have to get installed typings and webpack node modules globally. 
