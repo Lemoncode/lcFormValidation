@@ -95,8 +95,6 @@ FormBaseValidation implementation (already implemented by the library):
 
 
 ```
-#!typescript
-
 export class BaseFormValidation {
     _validationEngine: IValidationEngine;
 
@@ -122,8 +120,6 @@ Login form validation implementation
 
 
 ```
-#!typescript
-
   public constructor() {
       super();
 
