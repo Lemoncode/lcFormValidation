@@ -144,7 +144,7 @@ First download the source code from Git.
 ![npm install](./ReadmeResources/1382845270-npminstallsimpleformpng.png "npm install")
 
 
-* Execute npmn start
+* Execute npm start
 
 ![npm start](./ReadmeResources/135386995-npmstart.png "npm start")
 
