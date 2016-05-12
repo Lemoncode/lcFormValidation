@@ -5,7 +5,7 @@
   "main": "lc-form-validation.js",
   "scripts": {
     "postinstall": "typings install",
-    "test": "karma start --browsers PhantomJS"
+    "test": "karma start --browsers PhantomJS --single-run "
   },
   "repository": {
     "type": "git",
