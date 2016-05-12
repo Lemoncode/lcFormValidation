@@ -151,6 +151,7 @@ First download the source code from Git.
 
 * Open your favourite browser and navigate to http://localhost/8080
 
+If you want to run the unit tests that are located under the lib folder from the command line you will need to install karma-cli globally (npm install karma-cli -g), in order to run them, type from your command line "karma start".
 
 # Samples forms implemented #
 
