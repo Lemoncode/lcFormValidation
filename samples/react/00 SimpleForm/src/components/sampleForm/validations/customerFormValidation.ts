@@ -14,7 +14,7 @@ class CustomerFormValidation extends BaseFormValidation {
 
       // TODO: Implement Issue #17
       // TODO: Implement Issue #6
-      this._validationEngine.addValidationRuleToField('fullname',
+      this._validationEngine.addFieldValidationAsync('fullname',
                                             (vm, value) : Promise<FieldValidationResult> => {
                                                 // Required field
                                                 // in this case no async stuff

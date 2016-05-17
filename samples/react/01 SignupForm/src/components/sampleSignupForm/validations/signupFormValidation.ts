@@ -12,27 +12,27 @@ class SignupFormValidation extends BaseFormValidation {
       {formFieldName: 'login', vmFieldName: 'login'}
     ]);
 
-    this._validationEngine.addValidationRuleToField('password',
+    this._validationEngine.addFieldValidationAsync('password',
     (vm, value) : Promise<FieldValidationResult> => {
       return this.requiredValidationHandler(vm, value);
     });
 
-    this._validationEngine.addValidationRuleToField('confirmPassword',
+    this._validationEngine.addFieldValidationAsync('confirmPassword',
     (vm, value) : Promise<FieldValidationResult> => {
       return this.passwordAndConfirmPasswordValidationHandler(vm, value);
     });
 
-    this._validationEngine.addValidationRuleToField('confirmPassword',
+    this._validationEngine.addFieldValidationAsync('confirmPassword',
     (vm, value) : Promise<FieldValidationResult> => {
       return this.requiredValidationHandler(vm, value);
     });
 
-    this._validationEngine.addValidationRuleToField('login',
+    this._validationEngine.addFieldValidationAsync('login',
     (vm, value) : Promise<FieldValidationResult> => {
       return this.loginExistOnGitHubValidationHandler(vm, value);
     },{ OnBlur : true });
 
-    this._validationEngine.addValidationRuleToField('login',
+    this._validationEngine.addFieldValidationAsync('login',
     (vm, value) : Promise<FieldValidationResult> => {
       return this.requiredValidationHandler(vm, value);
     });

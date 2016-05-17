@@ -32,8 +32,10 @@ declare module "lc-form-validation" {
       isFormPristine(): boolean;
       validateFullForm(vm: any): Promise<FormValidationResult>;
       triggerFieldValidation(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult>;
-      addValidationRuleToField(key: string, validation: (vm, value) => Promise<FieldValidationResult>, filter?: any): any;
-      addValidationRuleToForm(validation: (vm) => Promise<FieldValidationResult>): any;
+      addFieldValidation(key : string, validation : (vm, value) => FieldValidationResult, filter? : any);
+      addFieldValidationAsync(key : string, validation : (vm, value) => Promise<FieldValidationResult>, filter? : any);
+      addFormValidation(validation : (vm) => FieldValidationResult);
+      addFormValidationAsync(validation : (vm) => Promise<FieldValidationResult>);
       isValidationInProgress(): boolean;
   }
 
