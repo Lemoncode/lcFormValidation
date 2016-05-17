@@ -1064,4 +1064,215 @@ describe('ValidationEngine Validate Form', () => {
             expect(promise).to.eventually.be.rejected.notify(done);
         });
     });
+
+    describe('Group #4 => When calling validateFullForm and addFieldValidation', () => {
+      it('Spec #1 => should return a failed FormValidationResult with one fieldErrors equals ' +
+                '{ succeeded: false, key: "nameId", type: "REQUIRED", errorMessage: "Mandatory Field" }' +
+            'When passing one sync validation rule with key equals "nameId" and viewModel equals { id: "1", fullname: "" }', (done) => {
+            // Arrange
+            const validationEngine = new ValidationEngine();
+            const viewModel = {id: '1', fullname: ''};
+
+            // Act
+            validationEngine.initialize([{formFieldName: 'nameId', vmFieldName: 'fullname'}]);
+
+            validationEngine.addFieldValidation('nameId',
+                                                  (vm, value) : FieldValidationResult => {
+                                                      // Required field
+                                                      // in this case no async stuff
+                                                      // we can directly resolve the promise
+                                                      let isFieldInformed : boolean = (value != null && value.length > 0);
+                                                      // We could use string ID's if multilanguage is required
+                                                      let errorInfo : string = (isFieldInformed) ? "" : "Mandatory field";
+
+                                                      const validationResult : FieldValidationResult = new FieldValidationResult();
+                                                      validationResult.type = "REQUIRED";
+                                                      validationResult.succeeded = isFieldInformed;
+                                                      validationResult.errorMessage = errorInfo;
+
+                                                      return validationResult;
+                                                  }
+                                                );
+
+            validationEngine.validateFullForm(viewModel)
+              .then((formValidationResult : FormValidationResult) => {
+                expect(formValidationResult.succeeded).to.be.false;
+
+                expect(formValidationResult.fieldErrors).to.have.length(1);
+                expect(formValidationResult.fieldErrors[0].succeeded).to.be.false;
+                expect(formValidationResult.fieldErrors[0].key).to.be.equal('nameId');
+                expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
+                expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('Mandatory field');
+                done();
+              });
+        });
+
+        it('Spec #2 => should return a succeeded FormValidationResult with one fieldErrors equals { succeeded: true, key: "nameId", type: "REQUIRED", errorMessage: "" }' +
+            'When passing one sync validation rule with key equals "nameId" and viewModel equals { id: "1", fullname: "john" }', (done) => {
+            // Arrange
+            const validationEngine : ValidationEngine = new ValidationEngine();
+            const viewModel = {id: '1', fullname: 'john'};
+
+            // Act
+            validationEngine.initialize([{formFieldName: 'nameId', vmFieldName: 'fullname'}]);
+
+            validationEngine.addFieldValidation('nameId',
+                                                  (vm, value) : FieldValidationResult => {
+                                                      // Required field
+                                                      // in this case no async stuff
+                                                      // we can directly resolve the promise
+                                                      let isFieldInformed : boolean = (value != null && value.length > 0);
+                                                      // We could use string ID's if multilanguage is required
+                                                      let errorInfo : string = (isFieldInformed) ? "" : "Mandatory field";
+
+                                                      const validationResult : FieldValidationResult = new FieldValidationResult();
+                                                      validationResult.type = "REQUIRED";
+                                                      validationResult.succeeded = isFieldInformed;
+                                                      validationResult.errorMessage = errorInfo;
+
+                                                      return validationResult;
+                                                  }
+                                                );
+
+            validationEngine.validateFullForm(viewModel)
+              .then((formValidationResult : FormValidationResult) => {
+                expect(formValidationResult.succeeded).to.be.true;
+
+                expect(formValidationResult.fieldErrors).to.have.length(1);
+                expect(formValidationResult.fieldErrors[0].succeeded).to.be.true;
+                expect(formValidationResult.fieldErrors[0].key).to.be.equal('nameId');
+                expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
+                expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('');
+                done();
+              });
+        });
+
+        it('Spec #3 => should return a failed FormValidationResult with two fieldErrors first equals ' +
+                '{ succeeded: false, key: "nameId", type: "REQUIRED", errorMessage: "Mandatory Field" }' +
+                'and second equals { succeeded: false, key: "password", type: "REQUIRED", errorMessage: "Mandatory Field" }' +
+            'When passing one sync validation rule with key equals "nameId", one async validation rule with key equals "password" '+
+              'and viewModel equals { id: "1", fullname: "", password: ""  }', (done) => {
+            // Arrange
+            const validationEngine = new ValidationEngine();
+            const viewModel = {id: '1', fullname: '', password: "" };
+
+            // Act
+            validationEngine.initialize([
+                                          {formFieldName: 'nameId', vmFieldName: 'fullname'},
+                                          {formFieldName: 'password', vmFieldName: 'password'},
+            ]);
+
+            validationEngine.addFieldValidation('nameId',
+                                                  (vm, value) : FieldValidationResult => {
+                                                      let isFieldInformed : boolean = (value != null && value.length > 0);
+                                                      let errorInfo : string = (isFieldInformed) ? "" : "Mandatory field";
+
+                                                      const validationResult : FieldValidationResult = new FieldValidationResult();
+                                                      validationResult.type = "REQUIRED";
+                                                      validationResult.succeeded = isFieldInformed;
+                                                      validationResult.errorMessage = errorInfo;
+
+                                                      return validationResult;
+                                                  }
+                                                );
+
+            validationEngine.addFieldValidationAsync('password',
+                                                (vm, value) : Promise<FieldValidationResult> => {
+                                                    let isFieldInformed : boolean = (value != null && value.length > 0);
+                                                    let errorInfo : string = (isFieldInformed) ? "" : "Mandatory field";
+
+                                                    const validationResult : FieldValidationResult = new FieldValidationResult();
+                                                    validationResult.type = "REQUIRED";
+                                                    validationResult.succeeded = isFieldInformed;
+                                                    validationResult.errorMessage = errorInfo;
+
+                                                    return Promise.resolve(validationResult);
+                                                }
+                                              );
+
+            validationEngine.validateFullForm(viewModel)
+              .then((formValidationResult : FormValidationResult) => {
+                expect(formValidationResult.succeeded).to.be.false;
+
+                expect(formValidationResult.fieldErrors).to.have.length(2);
+
+                expect(formValidationResult.fieldErrors[0].succeeded).to.be.false;
+                expect(formValidationResult.fieldErrors[0].key).to.be.equal('nameId');
+                expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
+                expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('Mandatory field');
+
+                expect(formValidationResult.fieldErrors[1].succeeded).to.be.false;
+                expect(formValidationResult.fieldErrors[1].key).to.be.equal('password');
+                expect(formValidationResult.fieldErrors[1].type).to.equal('REQUIRED');
+                expect(formValidationResult.fieldErrors[1].errorMessage).to.equal('Mandatory field');
+
+                done();
+              });
+        });
+
+        it('Spec #4 => should return a succeeded FormValidationResult with two fieldErrors first equals ' +
+                '{ succeeded: true, key: "nameId", type: "REQUIRED", errorMessage: "" }' +
+                'and second equals { succeeded: true, key: "password", type: "REQUIRED", errorMessage: "" }' +
+            'When passing one sync validation rule with key equals "nameId", one async validation rule with key equals "password" and viewModel equals ' +
+                '{ id: "1", fullname: "john", password: "123" }', (done) => {
+            // Arrange
+            const validationEngine : ValidationEngine = new ValidationEngine();
+            const viewModel = {id: '1', fullname: 'john', password: '123'};
+
+            // Act
+            validationEngine.initialize([
+                                            {formFieldName: 'nameId', vmFieldName: 'fullname'},
+                                            {formFieldName: 'password', vmFieldName: 'password'},
+            ]);
+
+            // name mandatory
+            validationEngine.addFieldValidation('nameId',
+                                                  (vm, value) : FieldValidationResult => {
+                                                      let isFieldInformed : boolean = (value != null && value.length > 0);
+                                                      let errorInfo : string = (isFieldInformed) ? "" : "Mandatory field";
+
+                                                      const validationResult : FieldValidationResult = new FieldValidationResult();
+                                                      validationResult.type = "REQUIRED";
+                                                      validationResult.succeeded = isFieldInformed;
+                                                      validationResult.errorMessage = errorInfo;
+
+                                                      return validationResult;
+                                                  }
+                                                );
+
+            // password mandatory and min length 3
+            validationEngine.addFieldValidationAsync('password',
+                                                  (vm, value) : Promise<FieldValidationResult> => {
+                                                      let isFieldInformed : boolean = (value != null && value.length > 0);
+                                                      let errorInfo : string = (isFieldInformed) ? "" : "Mandatory field";
+
+                                                      const validationResult : FieldValidationResult = new FieldValidationResult();
+                                                      validationResult.type = "REQUIRED";
+                                                      validationResult.succeeded = isFieldInformed;
+                                                      validationResult.errorMessage = errorInfo;
+
+                                                      return Promise.resolve(validationResult);
+                                                  }
+                                                );
+
+            validationEngine.validateFullForm(viewModel)
+              .then((formValidationResult : FormValidationResult) => {
+                expect(formValidationResult.succeeded).to.be.true;
+
+                expect(formValidationResult.fieldErrors).to.have.length(2);
+
+                expect(formValidationResult.fieldErrors[0].succeeded).to.be.true;
+                expect(formValidationResult.fieldErrors[0].key).to.be.equal('nameId');
+                expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
+                expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('');
+
+                expect(formValidationResult.fieldErrors[1].succeeded).to.be.true;
+                expect(formValidationResult.fieldErrors[1].key).to.be.equal('password');
+                expect(formValidationResult.fieldErrors[1].type).to.equal('REQUIRED');
+                expect(formValidationResult.fieldErrors[1].errorMessage).to.equal('');
+
+                done();
+              });
+        });
+    });
 });
