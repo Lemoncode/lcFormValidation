@@ -13,6 +13,7 @@ export interface IValidationEngine {
     validateFullForm(vm : any) : Promise<FormValidationResult>;
     triggerFieldValidation(vm : any, key: string, value: any, filter? : any)  : Promise<FieldValidationResult>;
     // TODO: Implement Issue #15
+    // TODO: Implement Issue #3 Github
     addValidationRuleToField(key : string, validation : (vm, value) => Promise<FieldValidationResult>, filter? : any);
     addValidationRuleToForm(validation : (vm) => Promise<FieldValidationResult>);
     isValidationInProgress() : boolean;
