@@ -163,7 +163,7 @@ export class ValidationEngine implements IValidationEngine {
 
   addFormValidation(validation : (vm) => FieldValidationResult) {
     const validationAsync = (vm) : Promise<FieldValidationResult> => {
-      return Promise.resolve(vm);
+      return Promise.resolve(validation(vm));
     }
 
     this.addFormValidationAsync(validationAsync);
