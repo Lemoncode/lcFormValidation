@@ -1,7 +1,7 @@
 {
   "name": "lc-form-validation",
   "version": "0.1.0",
-  "description": "lcFormValidation is form library validation: heavily based on javascript (no html attributes / annotions), async by default. lcFormValidation is third party / framework agnostic, it can be easily integrated with frameworks likeReact.",
+  "description": "lcFormValidation is form library validation: heavily based on javascript (no html attributes / annotations), async by default. lcFormValidation is third party / framework agnostic, it can be easily integrated with frameworks like React.",
   "main": "lc-form-validation.js",
   "scripts": {
     "postinstall": "typings install",
@@ -38,5 +38,26 @@
   },
   "dependencies": {
     "es6-promise": "^3.1.2"
-  }
+  },
+  "keywords": [
+    "validation",
+    "form validation",
+    "react validation",
+    "validator",
+    "lc-form-validation"
+  ],
+  "contributors": [
+    {
+      "name": "Braulio Díez",
+      "email": "braulio.diez@lemoncode.net"
+    },
+    {
+      "name": "Daniel Sánchez",
+      "email": "daniel.sanchez@lemoncode.net"
+    },
+    {
+      "name": "Jaime Salas",
+      "email": "jaime.salas@lemoncode.net"
+    }
+  ]
 }
