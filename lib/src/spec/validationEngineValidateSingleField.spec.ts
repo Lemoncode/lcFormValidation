@@ -16,7 +16,7 @@ describe('lcFormValidation simple form', () => {
       // Act
       formValidationBase.initialize([{formFieldName: 'nameId', vmFieldName: 'fullname'}]);
 
-      formValidationBase.addValidationRuleToField('nameId',
+      formValidationBase.addFieldValidationAsync('nameId',
                                             (vm, value) : Promise<FieldValidationResult> => {
                                                 // Required field
                                                 // in this case no async stuff
@@ -56,7 +56,7 @@ describe('lcFormValidation simple form', () => {
       // Act
       formValidationBase.initialize([{formFieldName: 'nameId', vmFieldName: 'fullname'}]);
 
-      formValidationBase.addValidationRuleToField('nameId',
+      formValidationBase.addFieldValidationAsync('nameId',
                                             (vm, value) : Promise<FieldValidationResult> => {
                                                 // Required field
                                                 // in this case no async stuff
@@ -95,7 +95,7 @@ describe('lcFormValidation simple form', () => {
       // Act
       formValidationBase.initialize([{formFieldName: 'nameId', vmFieldName: 'fullname'}]);
 
-      formValidationBase.addValidationRuleToField('nameId',
+      formValidationBase.addFieldValidationAsync('nameId',
                                             (vm, value) : Promise<FieldValidationResult> => {
                                                 // Required field
                                                 // in this case no async stuff
@@ -134,7 +134,7 @@ describe('lcFormValidation simple form', () => {
       // Act
       formValidationBase.initialize([{formFieldName: 'nameId', vmFieldName: 'fullname'}]);
 
-      formValidationBase.addValidationRuleToField('nameId',
+      formValidationBase.addFieldValidationAsync('nameId',
                                             (vm, value) : Promise<FieldValidationResult> => {
                                                 let error = true;
 

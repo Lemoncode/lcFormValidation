@@ -13,8 +13,10 @@ export interface IValidationEngine {
     validateFullForm(vm : any) : Promise<FormValidationResult>;
     triggerFieldValidation(vm : any, key: string, value: any, filter? : any)  : Promise<FieldValidationResult>;
     // TODO: Implement Issue #15
-    addValidationRuleToField(key : string, validation : (vm, value) => Promise<FieldValidationResult>, filter? : any);
-    addValidationRuleToForm(validation : (vm) => Promise<FieldValidationResult>);
+    addFieldValidation(key : string, validation : (vm, value) => FieldValidationResult, filter? : any);
+    addFieldValidationAsync(key : string, validation : (vm, value) => Promise<FieldValidationResult>, filter? : any);
+    addFormValidation(validation : (vm) => FieldValidationResult);
+    addFormValidationAsync(validation : (vm) => Promise<FieldValidationResult>);
     isValidationInProgress() : boolean;
 }
 
@@ -142,7 +144,15 @@ export class ValidationEngine implements IValidationEngine {
         this._validationsPerField[key] !== null;
   }
 
-  addValidationRuleToField(key : string, validation : (vm, value) => Promise<FieldValidationResult>, filter : any = consts.defaultFilter)
+  addFieldValidation(key : string, validation : (vm, value) => FieldValidationResult, filter : any = consts.defaultFilter) {
+    const validationAsync = (vm, value) : Promise<FieldValidationResult> => {
+       return Promise.resolve(validation(vm,value))
+    }
+
+    this.addFieldValidationAsync(key, validationAsync, filter);
+  }
+
+  addFieldValidationAsync(key : string, validation : (vm, value) => Promise<FieldValidationResult>, filter : any = consts.defaultFilter)
   {
       if(!this.isFieldKeyMappingDefined(key)) {
         this._validationsPerField[key] = [];
@@ -151,7 +161,15 @@ export class ValidationEngine implements IValidationEngine {
       this._validationsPerField[key].push({validationFn: validation, filter: filter});
   }
 
-  addValidationRuleToForm(validation : (vm) => Promise<FieldValidationResult>)
+  addFormValidation(validation : (vm) => FieldValidationResult) {
+    const validationAsync = (vm) : Promise<FieldValidationResult> => {
+      return Promise.resolve(validation(vm));
+    }
+
+    this.addFormValidationAsync(validationAsync);
+  }
+
+  addFormValidationAsync(validation : (vm) => Promise<FieldValidationResult>)
   {
     this._validationsGlobalForm.push(validation);
   }

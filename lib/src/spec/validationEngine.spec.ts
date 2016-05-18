@@ -142,7 +142,7 @@ describe('lcFormValidation', () => {
             return Promise.resolve(fieldValidationResult);
         };
         let validationEngine = new ValidationEngine();
-        validationEngine.addValidationRuleToField("test2", validationFn);
+        validationEngine.addFieldValidationAsync("test2", validationFn);
 
         //Act
         let result = validationEngine.isFieldKeyMappingDefined(key);
@@ -160,7 +160,7 @@ describe('lcFormValidation', () => {
             return Promise.resolve(fieldValidationResult);
         }
         let validationEngine = new ValidationEngine();
-        validationEngine.addValidationRuleToField(key, validationFn);
+        validationEngine.addFieldValidationAsync(key, validationFn);
 
         //Act
         let result = validationEngine.isFieldKeyMappingDefined(key);
