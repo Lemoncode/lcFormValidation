@@ -14,13 +14,9 @@ class CustomerFormValidation extends BaseFormValidation {
 
       // TODO: Implement Issue #17
       // TODO: Implement Issue #6
-      this._validationEngine.addFieldValidationAsync('fullname',
-                                            (vm, value) : Promise<FieldValidationResult> => {
-                                                // Required field
-                                                // in this case no async stuff
-                                                // we can directly resolve the promise
+      this._validationEngine.addFieldValidation('fullname',
+                                            (vm, value) : FieldValidationResult => {
                                                 let isFieldInformed : boolean = (value && value.length > 0);
-                                                // We could use string ID's if multilanguage is required
                                                 let errorInfo : string = (isFieldInformed) ? "" : "Mandatory field";
 
                                                 const validationResult : FieldValidationResult = new FieldValidationResult();
@@ -28,7 +24,7 @@ class CustomerFormValidation extends BaseFormValidation {
                                                 validationResult.succeeded = isFieldInformed;
                                                 validationResult.errorMessage = errorInfo;
 
-                                                return Promise.resolve(validationResult);
+                                                return validationResult;
                                             }
                                             )
 

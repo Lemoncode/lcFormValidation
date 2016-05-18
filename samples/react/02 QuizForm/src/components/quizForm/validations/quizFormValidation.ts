@@ -6,7 +6,7 @@ class QuizFormValidation extends BaseFormValidation {
   public constructor() {
     super();
 
-    this._validationEngine.addFormValidationAsync((vm) => {
+    this._validationEngine.addFormValidation((vm) => {
       const _vm : QuizEntity = <QuizEntity>vm;
       let isQuizPassed : boolean = this.isThereAnyQuestionSelected(_vm);
       let errorInfo : string = (isQuizPassed) ? '' : 'Failed';
@@ -14,7 +14,7 @@ class QuizFormValidation extends BaseFormValidation {
       fieldValidationResult.type = 'QUIZ_VALIDATION';
       fieldValidationResult.succeeded = isQuizPassed;
       fieldValidationResult.errorMessage = errorInfo;
-      return Promise.resolve(fieldValidationResult);
+      return fieldValidationResult;
     });
   }
 

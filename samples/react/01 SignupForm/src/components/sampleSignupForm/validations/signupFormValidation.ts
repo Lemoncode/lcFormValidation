@@ -12,18 +12,18 @@ class SignupFormValidation extends BaseFormValidation {
       {formFieldName: 'login', vmFieldName: 'login'}
     ]);
 
-    this._validationEngine.addFieldValidationAsync('password',
-    (vm, value) : Promise<FieldValidationResult> => {
+    this._validationEngine.addFieldValidation('password',
+    (vm, value) : FieldValidationResult => {
       return this.requiredValidationHandler(vm, value);
     });
 
-    this._validationEngine.addFieldValidationAsync('confirmPassword',
-    (vm, value) : Promise<FieldValidationResult> => {
+    this._validationEngine.addFieldValidation('confirmPassword',
+    (vm, value) : FieldValidationResult => {
       return this.passwordAndConfirmPasswordValidationHandler(vm, value);
     });
 
-    this._validationEngine.addFieldValidationAsync('confirmPassword',
-    (vm, value) : Promise<FieldValidationResult> => {
+    this._validationEngine.addFieldValidation('confirmPassword',
+    (vm, value) : FieldValidationResult => {
       return this.requiredValidationHandler(vm, value);
     });
 
@@ -32,14 +32,14 @@ class SignupFormValidation extends BaseFormValidation {
       return this.loginExistOnGitHubValidationHandler(vm, value);
     },{ OnBlur : true });
 
-    this._validationEngine.addFieldValidationAsync('login',
-    (vm, value) : Promise<FieldValidationResult> => {
+    this._validationEngine.addFieldValidation('login',
+    (vm, value) : FieldValidationResult => {
       return this.requiredValidationHandler(vm, value);
-    });
+    },{ OnChange: true, OnBlur : true });
   }
 
-  requiredValidationHandler(vm : any, value: any) : Promise<FieldValidationResult> {
-    const isFieldInformed : boolean = (value && value.length > 0);
+  requiredValidationHandler(vm : any, value: any) : FieldValidationResult {
+    const isFieldInformed : boolean = (value != null && value.length > 0);
     const errorInfo : string = (isFieldInformed) ? '' : 'Mandatory field';
 
     const fieldValidationResult : FieldValidationResult = new FieldValidationResult();
@@ -47,10 +47,10 @@ class SignupFormValidation extends BaseFormValidation {
     fieldValidationResult.succeeded = isFieldInformed;
     fieldValidationResult.errorMessage = errorInfo;
 
-    return Promise.resolve(fieldValidationResult);
+    return fieldValidationResult;
   }
 
-  passwordAndConfirmPasswordValidationHandler(vm : any, value: any) : Promise<FieldValidationResult> {
+  passwordAndConfirmPasswordValidationHandler(vm : any, value: any) : FieldValidationResult {
     const passwordAndConfirmPasswordAreEqual : boolean = vm.password === value;
     const errorInfo : string = (passwordAndConfirmPasswordAreEqual) ? '' : 'Passwords do not match';
 
@@ -59,7 +59,7 @@ class SignupFormValidation extends BaseFormValidation {
     fieldValidationResult.succeeded = passwordAndConfirmPasswordAreEqual;
     fieldValidationResult.errorMessage = errorInfo;
 
-    return Promise.resolve(fieldValidationResult);
+    return fieldValidationResult;
   }
 
   loginExistOnGitHubValidationHandler (vm : any, value: any) : Promise<FieldValidationResult> {
