@@ -27,7 +27,7 @@ In a form validation we can find features / code that can be placed in a base cl
 
 Then we can inherit from that base class and define our own specific form validations:
 
-* Add in the constructor of the inherited class the mappings between form field Id's and form and entity field Id, plus defining the validations per field to be executed. 
+* Add in the constructor of the inherited class the mappings between form field Id's and form and entity field Id, plus defining the validations per field to be executed.
 
 The idea is to encapsulate all the common functionality in a base class, and create independent classes that will inherit from this base class to implement the validation of each individual form.
 
@@ -113,7 +113,7 @@ Login form validation implementation
 **Work in progress: we are working on closing a first release of this library, we expect to register it in npm in the following two three weeks, in the mean time you can download the source code and run the samples following the instructions below.**
 
 
-Prerequisites: In order to get these examples up and running you will have to get installed typings and webpack node modules globally. 
+Prerequisites: In order to get these examples up and running you will have to get installed typings and webpack node modules globally.
 
 ![npm install typings -g](./ReadmeResources/3564429451-TypingsGlobal.png "npm install typings -g")
 
@@ -163,7 +163,6 @@ We are looking for contributors to implement samples and support for libraries s
 
 # Future Enhancements #
 
-* Prepare npm package install.
 * Add CI integration.
 * Allow connecting with array fields / table like scenario.
 * Allow this to be easily be used outside the context of a web form (e.g. rest api server side)
