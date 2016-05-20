@@ -20,11 +20,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://bdiezbotella@bitbucket.org/bdiezbotella/lcformvalidation.git"
+    "url": "https://github.com/Lemoncode/lcFormValidation"
   },
   "author": "Braulio Díez Botella",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/bdiezbotella/lcformvalidation#readme",
+  "homepage": "https://github.com/Lemoncode/lcFormValidation/blob/master/README.md",
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
