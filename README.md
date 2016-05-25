@@ -27,7 +27,7 @@ In a form validation we can find features / code that can be placed in a base cl
 
 Then we can inherit from that base class and define our own specific form validations:
 
-* Add in the constructor of the inherited class the mappings between form field Id's and form and entity field Id, plus defining the validations per field to be executed. 
+* Add in the constructor of the inherited class the mappings between form field Id's and form and entity field Id, plus defining the validations per field to be executed.
 
 The idea is to encapsulate all the common functionality in a base class, and create independent classes that will inherit from this base class to implement the validation of each individual form.
 
@@ -42,8 +42,9 @@ By following this approach:
     * The formValidationBase.
     * Each specific form validation class.
     * The generic validator helpers.
-* We can just run this javascript code in the client and serverside (e.g. node solution) ** (NOTE) We expect to create a sample showing how this could be implemented soon.*
-*
+* We can just run this javascript code in the client and serverside (e.g. node solution) ** (NOTE) We expect to create a sample showing how this could be implemented soon.
+
+
 # FormBaseValidation + Sample Form #
 
 FormBaseValidation implementation (already implemented by the library):
@@ -83,13 +84,9 @@ Login form validation implementation
           {formFieldName: 'password', vmFieldName: 'password'}
       ]);
 
-      // TODO: Implement Issue #17
-      // TODO: Implement Issue #6
       this._validationEngine.addValidationRuleToField('fullname',
                                             (vm, value) : Promise<FieldValidationResult> => {
                                                 // Required field
-                                                // in this case no async stuff
-                                                // we can directly resolve the promise
                                                 let isFieldInformed : boolean = (value && value.length > 0);
                                                 // We could use string ID's if multilanguage is required
                                                 let errorInfo : string = (isFieldInformed) ? "" : "Mandatory field";
@@ -110,15 +107,22 @@ Login form validation implementation
 
 # How to run a sample #
 
-**Work in progress: we are working on closing a first release of this library, we expect to register it in npm in the following two three weeks, in the mean time you can download the source code and run the samples following the instructions below.**
+To install the stable version:
 
+```
+npm install --save lc-form-validation
+```
 
-Prerequisites: In order to get these examples up and running you will have to get installed typings and webpack node modules globally. 
+This assumes you are using [npm](https://www.npmjs.com/) as your package manager.  
+If you don’t, you can [access these files on npmcdn](https://npmcdn.com/lc-form-validation/), download them, or point your package manager to them.
 
-![npm install typings -g](./ReadmeResources/3564429451-TypingsGlobal.png "npm install typings -g")
+Prerequisites: In order to get these examples up and running you will have to get installed typings and webpack node modules globally.
 
-![npm install webpack -g](./ReadmeResources/2715795082-WebpackGlobal.png "npm install webpack -g")
+```
+npm install typings -g
 
+npm install webpack -g
+```
 
 If you want to start from the source code, follow this steps:
 
@@ -128,25 +132,33 @@ First download the source code from Git.
 
 * Execute npm install
 
-![lcFormValidation\lib\npm install](./ReadmeResources/libinstall.png "lcFormValidation\lib\npm install")
+```
+lcFormValidation\lib> npm install
+```
 
-* Execute webpack
+* Execute build
 
-![lcFormValidation\lib\webpack](./ReadmeResources/libwebpack.png "lcFormValidation\lib\webpack")
+```
+lcFormValidation\lib> npm run build
+```
 
 * Navigate to one the samples folders, e.g. "samples/react/00 Simple Form".
 
-![lcFormValidation\samples\react\00 Simple Form](./ReadmeResources/4033361775-samplepath.png "lcFormValidation\samples\react\00 Simple Form")
+```
+lcFormValidation> cd "samples/react/00 SimpleForm"
+```
 
-* Execute npm install (this is connected to the local lib folder(*)).
+* Execute npm install (this is connected to the local lib folder).
 
-![npm install](./ReadmeResources/1382845270-npminstallsimpleformpng.png "npm install")
-
+```
+lcFormValidation\lib\samples\react\00 SimpleForm> npm install
+```
 
 * Execute npm start
 
-![npm start](./ReadmeResources/135386995-npmstart.png "npm start")
-
+```
+lcFormValidation\lib\samples\react\00 SimpleForm> npm start
+```
 
 * Open your favourite browser and navigate to http://localhost/8080
 
@@ -163,7 +175,5 @@ We are looking for contributors to implement samples and support for libraries s
 
 # Future Enhancements #
 
-* Prepare npm package install.
-* Add CI integration.
 * Allow connecting with array fields / table like scenario.
 * Allow this to be easily be used outside the context of a web form (e.g. rest api server side)

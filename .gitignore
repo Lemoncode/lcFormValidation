@@ -4,3 +4,5 @@ dist/
 typings/
 *.orig
 .idea/
+lib/README.md
+lib/ReadmeResources/
