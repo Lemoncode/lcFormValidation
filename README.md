@@ -83,13 +83,9 @@ Login form validation implementation
           {formFieldName: 'password', vmFieldName: 'password'}
       ]);
 
-      // TODO: Implement Issue #17
-      // TODO: Implement Issue #6
       this._validationEngine.addValidationRuleToField('fullname',
                                             (vm, value) : Promise<FieldValidationResult> => {
                                                 // Required field
-                                                // in this case no async stuff
-                                                // we can directly resolve the promise
                                                 let isFieldInformed : boolean = (value && value.length > 0);
                                                 // We could use string ID's if multilanguage is required
                                                 let errorInfo : string = (isFieldInformed) ? "" : "Mandatory field";
@@ -110,8 +106,14 @@ Login form validation implementation
 
 # How to run a sample #
 
-**Work in progress: we are working on closing a first release of this library, we expect to register it in npm in the following two three weeks, in the mean time you can download the source code and run the samples following the instructions below.**
+To install the stable version:
 
+```
+npm install --save lc-form-validation
+```
+
+This assumes you are using [npm](https://www.npmjs.com/) as your package manager.  
+If you don’t, you can [access these files on npmcdn](https://npmcdn.com/lc-form-validation/), download them, or point your package manager to them.
 
 Prerequisites: In order to get these examples up and running you will have to get installed typings and webpack node modules globally.
 
@@ -163,6 +165,5 @@ We are looking for contributors to implement samples and support for libraries s
 
 # Future Enhancements #
 
-* Add CI integration.
 * Allow connecting with array fields / table like scenario.
 * Allow this to be easily be used outside the context of a web form (e.g. rest api server side)
