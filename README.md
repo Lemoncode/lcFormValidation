@@ -42,8 +42,9 @@ By following this approach:
     * The formValidationBase.
     * Each specific form validation class.
     * The generic validator helpers.
-* We can just run this javascript code in the client and serverside (e.g. node solution) ** (NOTE) We expect to create a sample showing how this could be implemented soon.*
-*
+* We can just run this javascript code in the client and serverside (e.g. node solution) ** (NOTE) We expect to create a sample showing how this could be implemented soon.
+
+
 # FormBaseValidation + Sample Form #
 
 FormBaseValidation implementation (already implemented by the library):
@@ -117,10 +118,11 @@ If you don’t, you can [access these files on npmcdn](https://npmcdn.com/lc-for
 
 Prerequisites: In order to get these examples up and running you will have to get installed typings and webpack node modules globally.
 
-![npm install typings -g](./ReadmeResources/3564429451-TypingsGlobal.png "npm install typings -g")
+```
+npm install typings -g
 
-![npm install webpack -g](./ReadmeResources/2715795082-WebpackGlobal.png "npm install webpack -g")
-
+npm install webpack -g
+```
 
 If you want to start from the source code, follow this steps:
 
@@ -130,25 +132,33 @@ First download the source code from Git.
 
 * Execute npm install
 
-![lcFormValidation\lib\npm install](./ReadmeResources/libinstall.png "lcFormValidation\lib\npm install")
+```
+lcFormValidation\lib> npm install
+```
 
-* Execute webpack
+* Execute build
 
-![lcFormValidation\lib\webpack](./ReadmeResources/libwebpack.png "lcFormValidation\lib\webpack")
+```
+lcFormValidation\lib> npm run build
+```
 
 * Navigate to one the samples folders, e.g. "samples/react/00 Simple Form".
 
-![lcFormValidation\samples\react\00 Simple Form](./ReadmeResources/4033361775-samplepath.png "lcFormValidation\samples\react\00 Simple Form")
+```
+lcFormValidation> cd "samples/react/00 SimpleForm"
+```
 
-* Execute npm install (this is connected to the local lib folder(*)).
+* Execute npm install (this is connected to the local lib folder).
 
-![npm install](./ReadmeResources/1382845270-npminstallsimpleformpng.png "npm install")
-
+```
+lcFormValidation\lib\samples\react\00 SimpleForm> npm install
+```
 
 * Execute npm start
 
-![npm start](./ReadmeResources/135386995-npmstart.png "npm start")
-
+```
+lcFormValidation\lib\samples\react\00 SimpleForm> npm start
+```
 
 * Open your favourite browser and navigate to http://localhost/8080
 
