@@ -1,4 +1,4 @@
-/// <reference path="../../typings/browser/ambient/es6-promise/index.d.ts"/>
+/// <reference path="../../typings/globals/es6-promise/index.d.ts"/>
 
 declare module "lc-form-validation" {
 
