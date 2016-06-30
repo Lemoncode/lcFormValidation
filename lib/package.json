@@ -9,6 +9,7 @@
     "build:prod": "cross-env NODE_ENV=production webpack --output-filename dist/lc-form-validation.min.js",
     "build:dev": "cross-env NODE_ENV=development webpack --output-filename dist/lc-form-validation.js",
     "build": "npm run clean && npm run build:dev && npm run build:prod",
+    "postinstall": "typings install",
     "prepublish": "npm run build"
   },
   "files": [
