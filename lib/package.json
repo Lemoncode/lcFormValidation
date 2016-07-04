@@ -29,6 +29,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
+    "codeclimate-test-reporter": "^0.3.3",
     "copy-webpack-plugin": "^1.1.1",
     "cross-env": "^1.0.7",
     "json-loader": "^0.5.4",
