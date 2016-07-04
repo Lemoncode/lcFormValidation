@@ -1,4 +1,4 @@
 language: node_js
 script: cd lib && npm install && npm test
 after_script:
-  - node node_modules/codeclimate-test-reporter/bin/codeclimate.js < lib/coverage/tests/lcov.info
+  - codeclimate-test-reporter < coverage/tests/lcov.info
