@@ -1,6 +1,6 @@
-/// <reference path="../../typings/globals/es6-promise/index.d.ts"/>
-
 declare module "lc-form-validation" {
+
+  import { Promise } from 'es6-promise';
 
   export class FormNameToFieldNameMapping {
     formFieldName: string;
