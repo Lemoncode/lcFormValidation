@@ -1,5 +1,3 @@
-declare module "lc-form-validation" {
-
   import { Promise } from 'es6-promise';
 
   export class FormNameToFieldNameMapping {
@@ -45,4 +43,3 @@ declare module "lc-form-validation" {
       validateField(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult>;
       validateForm(vm: any): Promise<FormValidationResult>;
   }
-}

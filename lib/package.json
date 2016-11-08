@@ -1,6 +1,6 @@
 {
   "name": "lc-form-validation",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "description": "lcFormValidation is form library validation: heavily based on javascript (no html attributes / annotations), async by default. lcFormValidation is third party / framework agnostic, it can be easily integrated with frameworks like React.",
   "main": "dist/lc-form-validation.js",
   "scripts": {
@@ -17,6 +17,7 @@
     "src",
     "lcformvalidation.d.ts",
     "package.json",
+	  "typings.json",
     "README.md",
     "ReadmeResources"
   ],
