@@ -1,4 +1,3 @@
-// IMPORTANT !! Remember to copy to this project the lasted lib and updated .d.ts !!!
 import { FieldValidationResult, BaseFormValidation } from 'lc-form-validation';
 
 class CustomerFormValidation extends BaseFormValidation {
