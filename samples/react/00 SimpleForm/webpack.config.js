@@ -14,15 +14,29 @@ module.exports = {
       extensions: ['', '.js', '.ts', '.tsx']
   },
 
-  entry: [
-    './index.tsx',
-    './css/site.css',
-    '../node_modules/bootstrap/dist/css/bootstrap.css'
-  ],
+  entry: {
+    app: './index.tsx',
+    styles: [
+      './css/site.css',
+    ],
+    vendor: [
+      "bootstrap",
+      "core-js",
+      "lc-form-validation",
+      "react",
+      "react-dom",
+      "react-redux",
+      "redux",
+      "redux-thunk"
+    ],
+    vendorStyles: [
+      '../node_modules/bootstrap/dist/css/bootstrap.css'
+    ]
+  },
 
   output: {
     path: path.join(basePath, "dist"),
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
 
   //https://webpack.github.io/docs/webpack-dev-server.html#webpack-dev-server-cli
@@ -58,13 +72,14 @@ module.exports = {
 	},
 
   plugins:[
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
     //Generate index.html in /dist => https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html', //Name of file in ./dist/
       template: 'index.html' //Name of template in ./src
     }),
     //Generate bundle.css => https://github.com/webpack/extract-text-webpack-plugin
-    new ExtractTextPlugin('bundle.css'),
+    new ExtractTextPlugin('[name].css'),
     //Expose jquery used by bootstrap
     new webpack.ProvidePlugin({
       $: "jquery",
