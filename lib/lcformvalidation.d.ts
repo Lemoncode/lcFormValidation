@@ -1,4 +1,4 @@
-  import { Promise } from 'es6-promise';
+  import {} from 'core-js';
 
   export class FormNameToFieldNameMapping {
     formFieldName: string;

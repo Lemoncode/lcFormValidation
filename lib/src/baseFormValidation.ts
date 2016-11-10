@@ -1,4 +1,4 @@
-import { Promise } from 'es6-promise';
+import {} from 'core-js';
 import { IValidationEngine, ValidationEngine } from './validationEngine';
 import { FieldValidationResult, FormValidationResult } from './entities';
 import { consts } from './consts';

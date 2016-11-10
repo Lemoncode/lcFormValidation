@@ -1,3 +1,4 @@
+import {} from 'core-js';
 import { FormNameToFieldNameMapping, FieldValidationResult } from './entities';
 import {consts} from './consts';
 
@@ -41,14 +42,14 @@ export class ValidationDispatcher {
           currentIndex++;
           this.fireSingleValidation(resolve, reject, validationParams, currentIndex);
         }
-    }).catch(() => {         
+    }).catch(() => {
          reject(currentIndex);
     });
   }
 
   private fieldValidationFailedOrLastOne(fieldValidationResult : FieldValidationResult, index : number, numberOfItems : number) {
-    return !fieldValidationResult || 
-           !fieldValidationResult.succeeded || 
+    return !fieldValidationResult ||
+           !fieldValidationResult.succeeded ||
            this.isLastElement(index, numberOfItems);
   }
 
