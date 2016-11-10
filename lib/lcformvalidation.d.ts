@@ -4,6 +4,7 @@
     formFieldName: string;
     vmFieldName: string;
   }
+  
   export class FieldValidation {
       validationFn: (vm, value) => Promise<FieldValidationResult>;
       filter: any;
