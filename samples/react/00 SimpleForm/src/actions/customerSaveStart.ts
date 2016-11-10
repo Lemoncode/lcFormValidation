@@ -1,4 +1,3 @@
-import {Promise} from 'es6-promise';
 import {actionsDef} from './actionsDef';
 // IMPORTANT !! npm install will install the lcFormValidatin from local but not the d.ts
 import {FormValidationResult} from 'lc-form-validation';

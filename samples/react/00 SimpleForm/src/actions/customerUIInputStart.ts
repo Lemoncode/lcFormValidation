@@ -1,4 +1,3 @@
-import {Promise} from 'es6-promise';
 import {actionsDef} from './actionsDef';
 import {FieldValidationResult} from 'lc-form-validation';
 import {customerUIInputCompleted} from './customerUInputCompleted';

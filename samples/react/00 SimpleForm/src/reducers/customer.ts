@@ -1,4 +1,4 @@
-import objectAssign = require('object-assign');
+import {} from 'core-js';
 import {CustomerEntity} from '../entity/customerEntity';
 import { CustomerErrors } from '../entity/customerErrors';
 import {FormValidationResult, FieldValidationResult} from 'lc-form-validation';
@@ -30,28 +30,28 @@ export let customerReducer =  (state : CustomerState = new CustomerState(), acti
 }
 
 function customerProcessUIInputCompleted(state: CustomerState, action: ICustomerUIInputCompletedAction) : CustomerState {
-    let newCustomer : CustomerEntity = objectAssign({}, state.customer, {
+    let newCustomer : CustomerEntity = Object.assign({}, state.customer, {
         [action.fieldName]: action.value
     });
 
-    let newCustomerErrors : CustomerErrors = objectAssign({}, state.customerErrors, {
+    let newCustomerErrors : CustomerErrors = Object.assign({}, state.customerErrors, {
         [action.fieldName]: action.fieldValidationResult
     });
 
-    return objectAssign({}, state, {
+    return Object.assign({}, state, {
         customer: newCustomer,
         customerErrors: newCustomerErrors
     });
 }
 
 function customerSaveCompleted(state: CustomerState, action: ICustomerSaveCompletedAction) : CustomerState {
-    let newCustomerErrors : CustomerErrors = objectAssign({}, state.customerErrors);
+    let newCustomerErrors : CustomerErrors = Object.assign({}, state.customerErrors);
 
     action.formValidationResult.fieldErrors.forEach(fieldValidationResult => {
       newCustomerErrors[fieldValidationResult.key] = fieldValidationResult;
     });
 
-    return objectAssign({}, state, {
+    return Object.assign({}, state, {
         customerErrors: newCustomerErrors
     });
 }
