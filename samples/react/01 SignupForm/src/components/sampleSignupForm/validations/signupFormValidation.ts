@@ -1,4 +1,4 @@
-import { Promise } from 'es6-promise';
+import {} from 'core-js';
 import { BaseFormValidation, FieldValidationResult } from 'lc-form-validation';
 import { gitHub } from '../../../api/gitHub';
 

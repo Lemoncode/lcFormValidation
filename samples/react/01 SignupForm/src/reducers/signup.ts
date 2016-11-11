@@ -1,4 +1,4 @@
-import objectAssign = require('object-assign');
+import {} from 'core-js';
 import { SignupEntity } from '../entity/signupEntity';
 import { SignupErrors } from '../entity/signupErrors';
 import { FormValidationResult, FieldValidationResult } from 'lc-form-validation';
@@ -30,28 +30,28 @@ export let signupReducer = (state : SignupState = new SignupState(), action) : S
 }
 
 function signupProcessCompleted (state : SignupState, action : ISignupUIOnInteractionCompletedAction) : SignupState {
-  let newSignup : SignupEntity = objectAssign({}, state.signup, {
+  let newSignup : SignupEntity = Object.assign({}, state.signup, {
     [action.fieldName]: action.value
   });
 
-  let newSignupErrors : SignupErrors = objectAssign({}, state.signupErrors, {
+  let newSignupErrors : SignupErrors = Object.assign({}, state.signupErrors, {
     [action.fieldName]: action.fieldValidationResult
   });
 
-  return objectAssign({}, state, {
+  return Object.assign({}, state, {
     signup : newSignup,
     signupErrors: newSignupErrors
   });
 }
 
 function performSignupCompleted(state : SignupState, action : ISignupRequestCompletedAction) : SignupState {
-  let newSignupErrors : SignupErrors = objectAssign({}, state.signupErrors);
+  let newSignupErrors : SignupErrors = Object.assign({}, state.signupErrors);
 
   action.formValidationResult.fieldErrors.forEach(fieldValidationResult => {
     newSignupErrors[fieldValidationResult.key] = fieldValidationResult;
   });
 
-  return objectAssign({}, state, {
+  return Object.assign({}, state, {
     signupErrors: newSignupErrors
   });
 }
