@@ -1,3 +1,4 @@
+import {} from 'mocha';
 import * as chai from 'chai';
 import {expect} from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
