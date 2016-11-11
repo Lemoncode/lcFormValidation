@@ -21,6 +21,7 @@ module.exports = {
     ],
     vendor: [
       "bootstrap",
+      "jquery",
       "core-js",
       "lc-form-validation",
       "react",
