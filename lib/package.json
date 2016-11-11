@@ -30,6 +30,7 @@
   "homepage": "https://github.com/Lemoncode/lcFormValidation/blob/master/README.md",
   "devDependencies": {
     "@types/chai": "^3.4.34",
+    "@types/chai-as-promised": "0.0.29",
     "@types/core-js": "^0.9.34",
     "@types/sinon": "^1.16.31",
     "chai": "^3.5.0",
