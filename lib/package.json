@@ -32,6 +32,7 @@
     "@types/chai": "^3.4.34",
     "@types/chai-as-promised": "0.0.29",
     "@types/core-js": "^0.9.34",
+    "@types/mocha": "^2.2.32",
     "@types/sinon": "^1.16.31",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
