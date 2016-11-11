@@ -1,9 +1,10 @@
-  import { Promise } from 'es6-promise';
+  import {} from 'core-js';
 
   export class FormNameToFieldNameMapping {
     formFieldName: string;
     vmFieldName: string;
   }
+  
   export class FieldValidation {
       validationFn: (vm, value) => Promise<FieldValidationResult>;
       filter: any;

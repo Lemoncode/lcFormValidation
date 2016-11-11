@@ -1,4 +1,3 @@
-import { Promise } from 'es6-promise';
 import { FieldValidationResult } from 'lc-form-validation';
 import { signupUIOnInteractionCompleted } from './signupUIOnInteractionCompleted';
 import { signupFormValidation } from '../components/sampleSignupForm/validations/signupFormValidation';

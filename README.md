@@ -120,8 +120,6 @@ Prerequisites: In order to get these examples up and running you will have to ge
 
 ```
 npm install typings -g
-
-npm install webpack -g
 ```
 
 If you want to start from the source code, follow this steps:

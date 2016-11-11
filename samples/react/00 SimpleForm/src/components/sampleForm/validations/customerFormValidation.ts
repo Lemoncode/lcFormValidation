@@ -1,5 +1,3 @@
-// IMPORTANT !! Remember to copy to this project the lasted lib and updated .d.ts !!!
-import { Promise } from 'es6-promise';
 import { FieldValidationResult, BaseFormValidation } from 'lc-form-validation';
 
 class CustomerFormValidation extends BaseFormValidation {

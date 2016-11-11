@@ -1,3 +1,4 @@
+import {} from 'core-js';
 import {FieldValidation, FieldValidationResult} from './entities';
 
 export class EntitiesMapper {

@@ -1,3 +1,5 @@
+import {} from 'core-js';
+
 export class FormNameToFieldNameMapping {
   formFieldName : string;
   vmFieldName : string;

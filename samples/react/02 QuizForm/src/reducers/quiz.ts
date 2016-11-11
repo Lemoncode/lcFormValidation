@@ -1,4 +1,4 @@
-import objectAssign = require('object-assign');
+import {} from 'core-js';
 import { QuizEntity } from '../entity/quizEntity';
 import { Question } from '../entity/quizEntity';
 import { FormValidationResult, FieldValidationResult } from 'lc-form-validation';
@@ -29,7 +29,7 @@ export let quizReducer = (state : QuizState = new QuizState(), action : any) : Q
       return quizResolveCompleted(state, action);
 
     case actionsDef.quiz.RESET_QUIZ_RESOLVE_COMPLETED:
-      return objectAssign({}, state, { quizResolveCompleted : false });
+      return Object.assign({}, state, { quizResolveCompleted : false });
 
     default :
       return state;
@@ -37,10 +37,11 @@ export let quizReducer = (state : QuizState = new QuizState(), action : any) : Q
 }
 
 function quizProcessUIInputCompleted (state : QuizState, action : IQuizUIInputCompletedAction) : QuizState {
-  let newQuiz : QuizEntity = objectAssign({}, state.quiz, {
+  let newQuiz : QuizEntity = Object.assign({}, state.quiz, {
     [action.questionId] : new Question(action.value)
   });
-  return objectAssign({}, state, {
+
+  return Object.assign({}, state, {
     quiz: newQuiz
   });
 }
@@ -52,7 +53,7 @@ function quizResolveCompleted (state : QuizState, action : IQuizResolveCompleted
     newFieldValidationResult = action.formValidationResult.formGlobalErrors[0];
   }
 
-  return objectAssign({}, state, {
+  return Object.assign({}, state, {
     quizResult: newFieldValidationResult,
     quizResolveCompleted: true
   });

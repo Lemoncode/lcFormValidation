@@ -1,6 +1,6 @@
-import { Promise } from "es6-promise";
+import {} from 'core-js';
 import { FormNameToFieldNameMapping, FormValidationResult, FieldValidationResult, FieldValidation } from "./entities";
-import {consts} from './consts';
+import { consts } from './consts';
 import { validationsDispatcher } from './validationsDispatcher';
 import { validationsResultBuilder } from './validationsResultBuilder';
 import { fieldValidationEventFilter } from './fieldValidationEventFilter';

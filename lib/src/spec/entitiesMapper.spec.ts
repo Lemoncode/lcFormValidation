@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { Promise } from "es6-promise";
+import {Promise} from 'core-js';
 import {FieldValidation, FieldValidationResult} from '../entities';
 import {entitiesMapper} from '../entitiesMapper';
 
@@ -89,7 +89,7 @@ describe('mapper ', () => {
 
             result[0](null, null).then((fieldValidationResult) => {
               // Assert
-              expect(fieldValidationResult.errorMessage).to.be.equal("error test");
+              expect(fieldValidationResult.errorMessage).to.be.equal("error test1");
               done();
             });
 

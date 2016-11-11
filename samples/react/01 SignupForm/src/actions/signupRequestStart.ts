@@ -1,4 +1,3 @@
-import {Promise} from 'es6-promise';
 import {FormValidationResult} from 'lc-form-validation';
 import {signupRequestCompleted} from './signupRequestCompleted';
 import {signupFormValidation} from '../components/sampleSignupForm/validations/signupFormValidation';

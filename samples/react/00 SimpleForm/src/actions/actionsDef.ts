@@ -1,4 +1,3 @@
-
 export const actionsDef = {
    customer: {
         CUSTOMER_PROCESS_UI_INPUT_START: 'CUSTOMER_UI_INPUT_START',
