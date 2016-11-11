@@ -3,7 +3,6 @@
     "chai": "registry:dt/chai#3.4.0+20160601211834",
     "chai-as-promised": "registry:dt/chai-as-promised#0.0.0+20160423070304",
     "mocha": "registry:dt/mocha#2.2.5+20160619032855",
-    "promises-a-plus": "registry:dt/promises-a-plus#0.0.0+20160317120654",
-    "sinon": "registry:dt/sinon#1.16.0+20160517064723"
+    "promises-a-plus": "registry:dt/promises-a-plus#0.0.0+20160317120654"
   }
 }
