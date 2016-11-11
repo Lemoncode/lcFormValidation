@@ -2,7 +2,7 @@
   "name": "reactboiler",
   "version": "1.0.0",
   "description": "",
-  "scripts": {    
+  "scripts": {
     "postinstall": "typings install",
     "start": "webpack-dev-server"
   },
@@ -10,10 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.5",
-    "es6-promise": "^3.1.2",
+    "core-js": "^2.4.1",
     "jquery": "^2.1.4",
-    "lc-form-validation": "file:../../../lib/dist",
-    "object-assign": "^4.0.1",
+    "lc-form-validation": "file:../../../lib/",
     "react": "~0.14.7",
     "react-dom": "^0.14.7",
     "react-redux": "^4.4.1",
