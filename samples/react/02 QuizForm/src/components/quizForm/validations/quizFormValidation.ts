@@ -1,4 +1,3 @@
-import { Promise } from 'es6-promise';
 import { FieldValidationResult, BaseFormValidation } from 'lc-form-validation';
 import { QuizEntity, Question } from '../../../entity/quizEntity';
 
