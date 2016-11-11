@@ -29,6 +29,7 @@
   "license": "MIT",
   "homepage": "https://github.com/Lemoncode/lcFormValidation/blob/master/README.md",
   "devDependencies": {
+    "@types/core-js": "^0.9.34",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
     "codeclimate-test-reporter": "^0.3.3",
