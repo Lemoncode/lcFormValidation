@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "postinstall": "typings install",
     "start": "webpack-dev-server"
   },
   "author": "Braulio Diez",
@@ -20,13 +19,19 @@
     "redux-thunk": "^2.0.1"
   },
   "devDependencies": {
+    "@types/core-js": "^0.9.34",
+    "@types/react": "^0.14.47",
+    "@types/react-dom": "^0.14.18",
+    "@types/react-redux": "^4.4.32",
+    "@types/redux": "^3.6.31",
+    "@types/redux-thunk": "^2.1.31",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
     "html-webpack-plugin": "^2.9.0",
     "style-loader": "^0.13.0",
     "ts-loader": "^0.8.1",
-    "typescript": "^1.8.9",
+    "typescript": "^2.0.9",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.13",
     "webpack-dev-server": "~1.10.1"
