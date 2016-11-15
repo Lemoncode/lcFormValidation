@@ -114,7 +114,7 @@ npm install --save lc-form-validation
 ```
 
 This assumes you are using [npm](https://www.npmjs.com/) as your package manager.  
-If you don’t, you can [access these files on npmcdn](https://npmcdn.com/lc-form-validation/), download them, or point your package manager to them.
+If you don’t, you can [access these files on unpkg](https://unpkg.com/lc-form-validation/), download them, or point your package manager to them.
 
 Prerequisites: In order to get these examples up and running you will have to get installed typings and webpack node modules globally.
 
