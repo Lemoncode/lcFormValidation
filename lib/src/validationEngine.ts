@@ -88,8 +88,7 @@ export class ValidationEngine implements IValidationEngine {
     return this.validateSingleField(formViewModel, key, value, filter);
   }
 
-  validateGlobalFormValidations(vm : any)  : Array<Promise<FieldValidationResult>>
-  {
+  validateGlobalFormValidations(vm : any)  : Array<Promise<FieldValidationResult>> {
     this._asyncValidationInProgressCount++;
 
     let globalFieldResultValidations = new Array<Promise<FieldValidationResult>>();
@@ -150,15 +149,16 @@ export class ValidationEngine implements IValidationEngine {
     }
 
     this.addFieldValidationAsync(key, validationAsync, filter);
+    return this;
   }
 
-  addFieldValidationAsync(key : string, validation : (vm, value) => Promise<FieldValidationResult>, filter : any = consts.defaultFilter)
-  {
+  addFieldValidationAsync(key : string, validation : (vm, value) => Promise<FieldValidationResult>, filter : any = consts.defaultFilter) {
       if(!this.isFieldKeyMappingDefined(key)) {
         this._validationsPerField[key] = [];
       }
 
       this._validationsPerField[key].push({validationFn: validation, filter: filter});
+      return this;
   }
 
   addFormValidation(validation : (vm) => FieldValidationResult) {
