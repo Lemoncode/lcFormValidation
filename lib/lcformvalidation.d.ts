@@ -4,7 +4,7 @@
     formFieldName: string;
     vmFieldName: string;
   }
-  
+
   export class FieldValidation {
       validationFn: (vm, value) => Promise<FieldValidationResult>;
       filter: any;
@@ -31,8 +31,8 @@
       isFormPristine(): boolean;
       validateFullForm(vm: any): Promise<FormValidationResult>;
       triggerFieldValidation(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult>;
-      addFieldValidation(key : string, validation : (vm, value) => FieldValidationResult, filter? : any);
-      addFieldValidationAsync(key : string, validation : (vm, value) => Promise<FieldValidationResult>, filter? : any);
+      addFieldValidation(key : string, validation : (vm, value) => FieldValidationResult, filter? : any): IValidationEngine;
+      addFieldValidationAsync(key : string, validation : (vm, value) => Promise<FieldValidationResult>, filter? : any): IValidationEngine;
       addFormValidation(validation : (vm) => FieldValidationResult);
       addFormValidationAsync(validation : (vm) => Promise<FieldValidationResult>);
       isValidationInProgress(): boolean;

@@ -12,30 +12,27 @@ class SignupFormValidation extends BaseFormValidation {
       {formFieldName: 'login', vmFieldName: 'login'}
     ]);
 
-    this._validationEngine.addFieldValidation('password',
-    (vm, value) : FieldValidationResult => {
-      return this.requiredValidationHandler(vm, value);
-    });
-
-    this._validationEngine.addFieldValidation('confirmPassword',
-    (vm, value) : FieldValidationResult => {
-      return this.passwordAndConfirmPasswordValidationHandler(vm, value);
-    });
-
-    this._validationEngine.addFieldValidation('confirmPassword',
-    (vm, value) : FieldValidationResult => {
-      return this.requiredValidationHandler(vm, value);
-    });
-
-    this._validationEngine.addFieldValidationAsync('login',
-    (vm, value) : Promise<FieldValidationResult> => {
-      return this.loginExistOnGitHubValidationHandler(vm, value);
-    },{ OnBlur : true });
-
-    this._validationEngine.addFieldValidation('login',
-    (vm, value) : FieldValidationResult => {
-      return this.requiredValidationHandler(vm, value);
-    },{ OnChange: true, OnBlur : true });
+    this._validationEngine
+      .addFieldValidation('password',
+        (vm, value) : FieldValidationResult => {
+          return this.requiredValidationHandler(vm, value);
+        })
+      .addFieldValidation('confirmPassword',
+        (vm, value) : FieldValidationResult => {
+          return this.passwordAndConfirmPasswordValidationHandler(vm, value);
+        })
+      .addFieldValidation('confirmPassword',
+        (vm, value) : FieldValidationResult => {
+          return this.requiredValidationHandler(vm, value);
+        })
+      .addFieldValidationAsync('login',
+        (vm, value) : Promise<FieldValidationResult> => {
+          return this.loginExistOnGitHubValidationHandler(vm, value);
+        },{ OnBlur : true })
+      .addFieldValidation('login',
+        (vm, value) : FieldValidationResult => {
+          return this.requiredValidationHandler(vm, value);
+        },{ OnChange: true, OnBlur : true });
   }
 
   requiredValidationHandler(vm : any, value: any) : FieldValidationResult {
