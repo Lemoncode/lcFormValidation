@@ -12,7 +12,8 @@ class ValidationParams {
 }
 
 export class ValidationDispatcher {
-  fireSingleFieldValidations(vm: any,
+  fireSingleFieldValidations(
+    vm: any,
     value: any,
     validationsPerField: Array<(vm, value) => Promise<FieldValidationResult>>
   ): Promise<FieldValidationResult> {
@@ -29,7 +30,8 @@ export class ValidationDispatcher {
     return fieldValidationResultPromise;
   }
 
-  private fireSingleValidation(resolve: any,
+  private fireSingleValidation(
+    resolve: any,
     reject: any,
     validationParams: ValidationParams,
     currentIndex: number
@@ -53,22 +55,21 @@ export class ValidationDispatcher {
       this.isLastElement(index, numberOfItems);
   }
 
-  fireAllFieldsValidations(vm: any,
-    formFieldToViewModelKeyValues: Array<FormNameToFieldNameMapping>,
+  fireAllFieldsValidations(
+    vm: Object,
     validationFn: (vm, key, value) => Promise<FieldValidationResult>
   ): Array<Promise<FieldValidationResult>> {
 
-    let fieldValidationResultsPromises: Array<Promise<FieldValidationResult>> = [];
+    let fieldValidationResultsPromises: Promise<FieldValidationResult>[] = [];
 
-    if (this.areParametersDefined(vm, formFieldToViewModelKeyValues, validationFn)) {
-
-      formFieldToViewModelKeyValues.forEach((formFieldToViewModel: FormNameToFieldNameMapping) => {
-        const vmFieldValue = vm[formFieldToViewModel.vmFieldName];
+    if (this.areParametersDefined(vm, validationFn)) {
+      for (let vmKey in vm) {
+        const vmFieldValue = vm[vmKey];
         if (vmFieldValue !== undefined) {
-          let fieldValidationResultsPromise = validationFn(vm, formFieldToViewModel.formFieldName, vmFieldValue);
+          let fieldValidationResultsPromise = validationFn(vm, vmKey, vmFieldValue);
           fieldValidationResultsPromises.push(fieldValidationResultsPromise);
         }
-      });
+      }
     }
 
     return fieldValidationResultsPromises;
