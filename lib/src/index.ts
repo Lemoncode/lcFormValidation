@@ -2,8 +2,8 @@ import { FormNameToFieldNameMapping, FormValidationResult, FieldValidationResult
 import { BaseFormValidation } from './baseFormValidation';
 
 export {
-    FormNameToFieldNameMapping,
-    FormValidationResult,
-    FieldValidationResult,
-    BaseFormValidation
+  FormNameToFieldNameMapping,
+  FormValidationResult,
+  FieldValidationResult,
+  BaseFormValidation
 }

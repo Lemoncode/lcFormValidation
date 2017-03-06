@@ -2,15 +2,15 @@ import { actionsDef } from './actionsDef';
 import { FieldValidationResult } from 'lc-form-validation';
 
 interface ISignupUIOnInteractionCompletedAction {
-  type : string;
-  fieldName : string;
-  value : any;
-  fieldValidationResult : FieldValidationResult;
+  type: string;
+  fieldName: string;
+  value: any;
+  fieldValidationResult: FieldValidationResult;
 }
 
-let signupUIOnInteractionCompleted = (fieldName : string, value : any, fieldValidationResult : FieldValidationResult) : ISignupUIOnInteractionCompletedAction => {
+let signupUIOnInteractionCompleted = (fieldName: string, value: any, fieldValidationResult: FieldValidationResult): ISignupUIOnInteractionCompletedAction => {
   return {
-    type : actionsDef.signup.SIGNUP_PROCESS_UI_INTERACTION_COMPLETED,
+    type: actionsDef.signup.SIGNUP_PROCESS_UI_INTERACTION_COMPLETED,
     fieldName,
     value,
     fieldValidationResult
