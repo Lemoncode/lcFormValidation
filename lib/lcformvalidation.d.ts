@@ -26,7 +26,6 @@
   }
 
   export interface IValidationEngine {
-      initialize(formNameToFieldNameMappings : Array<FormNameToFieldNameMapping>): void;
       isFormDirty(): boolean;
       isFormPristine(): boolean;
       validateFullForm(vm: any): Promise<FormValidationResult>;
