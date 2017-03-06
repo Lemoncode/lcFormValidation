@@ -7,7 +7,7 @@ import { ContainerQuizForm } from './quizForm/quizForm.container';
 
 let store = createStore(
   reducers
-  ,applyMiddleware(ReduxThunk)
+  , applyMiddleware(ReduxThunk)
 );
 
 
@@ -15,13 +15,13 @@ interface Props extends React.Props<App> {
 }
 
 export default class App extends React.Component<Props, {}> {
-   public render() {
-       return (
-         <Provider store={store}>
-            <div className="container-fluid">
-                <ContainerQuizForm/>
-            </div>
-         </Provider>
-       );
+  public render() {
+    return (
+      <Provider store={store}>
+        <div className="container-fluid">
+          <ContainerQuizForm />
+        </div>
+      </Provider>
+    );
   }
 }

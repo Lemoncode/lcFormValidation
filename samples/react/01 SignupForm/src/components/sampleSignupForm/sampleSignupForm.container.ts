@@ -13,10 +13,10 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    fireValidationField: (viewModel : any, fieldName : string, value : any, filter? : any) => {
+    fireValidationField: (viewModel: any, fieldName: string, value: any, filter?: any) => {
       return dispatch(signupUIOnInteractionStart(viewModel, fieldName, value, filter));
     },
-    performSignup: (signup : SignupEntity) => {
+    performSignup: (signup: SignupEntity) => {
       return dispatch(signupRequestStart(signup));
     }
   }

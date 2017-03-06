@@ -1,4 +1,4 @@
-import {} from 'core-js';
+import { } from 'core-js';
 import { BaseFormValidation, FieldValidationResult } from 'lc-form-validation';
 import { gitHub } from '../../../api/gitHub';
 
@@ -7,39 +7,39 @@ class SignupFormValidation extends BaseFormValidation {
     super();
 
     this._validationEngine.initialize([
-      {formFieldName: 'password', vmFieldName:'password'},
-      {formFieldName:'confirmPassword', vmFieldName:'confirmPassword'},
-      {formFieldName: 'login', vmFieldName: 'login'}
+      { formFieldName: 'password', vmFieldName: 'password' },
+      { formFieldName: 'confirmPassword', vmFieldName: 'confirmPassword' },
+      { formFieldName: 'login', vmFieldName: 'login' }
     ]);
 
     this._validationEngine
       .addFieldValidation('password',
-        (vm, value) : FieldValidationResult => {
-          return this.requiredValidationHandler(vm, value);
-        })
+      (vm, value): FieldValidationResult => {
+        return this.requiredValidationHandler(vm, value);
+      })
       .addFieldValidation('confirmPassword',
-        (vm, value) : FieldValidationResult => {
-          return this.passwordAndConfirmPasswordValidationHandler(vm, value);
-        })
+      (vm, value): FieldValidationResult => {
+        return this.passwordAndConfirmPasswordValidationHandler(vm, value);
+      })
       .addFieldValidation('confirmPassword',
-        (vm, value) : FieldValidationResult => {
-          return this.requiredValidationHandler(vm, value);
-        })
+      (vm, value): FieldValidationResult => {
+        return this.requiredValidationHandler(vm, value);
+      })
       .addFieldValidationAsync('login',
-        (vm, value) : Promise<FieldValidationResult> => {
-          return this.loginExistOnGitHubValidationHandler(vm, value);
-        },{ OnBlur : true })
+      (vm, value): Promise<FieldValidationResult> => {
+        return this.loginExistOnGitHubValidationHandler(vm, value);
+      }, { OnBlur: true })
       .addFieldValidation('login',
-        (vm, value) : FieldValidationResult => {
-          return this.requiredValidationHandler(vm, value);
-        },{ OnChange: true, OnBlur : true });
+      (vm, value): FieldValidationResult => {
+        return this.requiredValidationHandler(vm, value);
+      }, { OnChange: true, OnBlur: true });
   }
 
-  requiredValidationHandler(vm : any, value: any) : FieldValidationResult {
-    const isFieldInformed : boolean = (value != null && value.length > 0);
-    const errorInfo : string = (isFieldInformed) ? '' : 'Mandatory field';
+  requiredValidationHandler(vm: any, value: any): FieldValidationResult {
+    const isFieldInformed: boolean = (value != null && value.length > 0);
+    const errorInfo: string = (isFieldInformed) ? '' : 'Mandatory field';
 
-    const fieldValidationResult : FieldValidationResult = new FieldValidationResult();
+    const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
     fieldValidationResult.type = 'REQUIRED';
     fieldValidationResult.succeeded = isFieldInformed;
     fieldValidationResult.errorMessage = errorInfo;
@@ -47,11 +47,11 @@ class SignupFormValidation extends BaseFormValidation {
     return fieldValidationResult;
   }
 
-  passwordAndConfirmPasswordValidationHandler(vm : any, value: any) : FieldValidationResult {
-    const passwordAndConfirmPasswordAreEqual : boolean = vm.password === value;
-    const errorInfo : string = (passwordAndConfirmPasswordAreEqual) ? '' : 'Passwords do not match';
+  passwordAndConfirmPasswordValidationHandler(vm: any, value: any): FieldValidationResult {
+    const passwordAndConfirmPasswordAreEqual: boolean = vm.password === value;
+    const errorInfo: string = (passwordAndConfirmPasswordAreEqual) ? '' : 'Passwords do not match';
 
-    const fieldValidationResult : FieldValidationResult = new FieldValidationResult();
+    const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
     fieldValidationResult.type = 'PASSWORD_MATCH';
     fieldValidationResult.succeeded = passwordAndConfirmPasswordAreEqual;
     fieldValidationResult.errorMessage = errorInfo;
@@ -59,13 +59,13 @@ class SignupFormValidation extends BaseFormValidation {
     return fieldValidationResult;
   }
 
-  loginExistOnGitHubValidationHandler (vm : any, value: any) : Promise<FieldValidationResult> {
+  loginExistOnGitHubValidationHandler(vm: any, value: any): Promise<FieldValidationResult> {
     return gitHub.doesLoginExists(value)
-    .then((loginExists) => this.resolveLoginExists(loginExists));
+      .then((loginExists) => this.resolveLoginExists(loginExists));
   }
 
-  resolveLoginExists(loginExists : boolean) : Promise<FieldValidationResult> {
-    const fieldValidationResult : FieldValidationResult = new FieldValidationResult();
+  resolveLoginExists(loginExists: boolean): Promise<FieldValidationResult> {
+    const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
     fieldValidationResult.type = 'USER_GITHUB';
     fieldValidationResult.succeeded = !loginExists;
     fieldValidationResult.errorMessage = (loginExists) ? 'This user exists on GitHub' : '';

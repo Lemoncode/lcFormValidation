@@ -1,4 +1,4 @@
-import {} from 'core-js';
+import { } from 'core-js';
 import { QuizEntity } from '../entity/quizEntity';
 import { Question } from '../entity/quizEntity';
 import { FormValidationResult, FieldValidationResult } from 'lc-form-validation';
@@ -9,9 +9,9 @@ import { IQuizResetQuizResolveCompletedAction } from '../actions/resetQuizResolv
 
 
 export class QuizState {
-  quiz : QuizEntity;
-  quizResult : FieldValidationResult;
-  quizResolveCompleted : boolean;
+  quiz: QuizEntity;
+  quizResult: FieldValidationResult;
+  quizResolveCompleted: boolean;
 
   constructor() {
     this.quiz = new QuizEntity();
@@ -20,25 +20,25 @@ export class QuizState {
   }
 }
 
-export let quizReducer = (state : QuizState = new QuizState(), action : any) : QuizState => {
+export let quizReducer = (state: QuizState = new QuizState(), action: any): QuizState => {
   switch (action.type) {
-    case actionsDef.quiz.UI_INPUT_CHANGE :
+    case actionsDef.quiz.UI_INPUT_CHANGE:
       return quizProcessUIInputCompleted(state, action);
 
-    case actionsDef.quiz.QUIZ_RESOLVE_COMPLETED :
+    case actionsDef.quiz.QUIZ_RESOLVE_COMPLETED:
       return quizResolveCompleted(state, action);
 
     case actionsDef.quiz.RESET_QUIZ_RESOLVE_COMPLETED:
-      return Object.assign({}, state, { quizResolveCompleted : false });
+      return Object.assign({}, state, { quizResolveCompleted: false });
 
-    default :
+    default:
       return state;
   }
 }
 
-function quizProcessUIInputCompleted (state : QuizState, action : IQuizUIInputCompletedAction) : QuizState {
-  let newQuiz : QuizEntity = Object.assign({}, state.quiz, {
-    [action.questionId] : new Question(action.value)
+function quizProcessUIInputCompleted(state: QuizState, action: IQuizUIInputCompletedAction): QuizState {
+  let newQuiz: QuizEntity = Object.assign({}, state.quiz, {
+    [action.questionId]: new Question(action.value)
   });
 
   return Object.assign({}, state, {
@@ -46,8 +46,8 @@ function quizProcessUIInputCompleted (state : QuizState, action : IQuizUIInputCo
   });
 }
 
-function quizResolveCompleted (state : QuizState, action : IQuizResolveCompletedAction) : QuizState {
-  let newFieldValidationResult : FieldValidationResult;
+function quizResolveCompleted(state: QuizState, action: IQuizResolveCompletedAction): QuizState {
+  let newFieldValidationResult: FieldValidationResult;
 
   if (action.formValidationResult.formGlobalErrors.length > 0) {
     newFieldValidationResult = action.formValidationResult.formGlobalErrors[0];

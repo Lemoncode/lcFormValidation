@@ -1,11 +1,11 @@
-import {FormValidationResult} from 'lc-form-validation';
-import {signupRequestCompleted} from './signupRequestCompleted';
-import {signupFormValidation} from '../components/sampleSignupForm/validations/signupFormValidation';
+import { FormValidationResult } from 'lc-form-validation';
+import { signupRequestCompleted } from './signupRequestCompleted';
+import { signupFormValidation } from '../components/sampleSignupForm/validations/signupFormValidation';
 
-export function signupRequestStart(viewModel : any) {
-  return ( dispatcher) => {
+export function signupRequestStart(viewModel: any) {
+  return (dispatcher) => {
     signupFormValidation.validateForm(viewModel).then(
-      function(formValidationResult : FormValidationResult) {
+      function (formValidationResult: FormValidationResult) {
         if (formValidationResult.succeeded) {
           console.log("Sign up completed");
         }

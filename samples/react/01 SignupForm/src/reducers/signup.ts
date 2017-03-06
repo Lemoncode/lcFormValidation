@@ -1,4 +1,4 @@
-import {} from 'core-js';
+import { } from 'core-js';
 import { SignupEntity } from '../entity/signupEntity';
 import { SignupErrors } from '../entity/signupErrors';
 import { FormValidationResult, FieldValidationResult } from 'lc-form-validation';
@@ -7,8 +7,8 @@ import { ISignupRequestCompletedAction } from '../actions/signupRequestCompleted
 import { ISignupUIOnInteractionCompletedAction } from '../actions/signupUIOnInteractionCompleted';
 
 class SignupState {
-  signup : SignupEntity;
-  signupErrors : SignupErrors;
+  signup: SignupEntity;
+  signupErrors: SignupErrors;
 
   public constructor() {
     this.signup = new SignupEntity();
@@ -16,8 +16,8 @@ class SignupState {
   }
 }
 
-export let signupReducer = (state : SignupState = new SignupState(), action) : SignupState => {
-  switch(action.type) {
+export let signupReducer = (state: SignupState = new SignupState(), action): SignupState => {
+  switch (action.type) {
     case actionsDef.signup.SIGNUP_PROCESS_UI_INTERACTION_COMPLETED:
       return signupProcessCompleted(state, action);
 
@@ -29,23 +29,23 @@ export let signupReducer = (state : SignupState = new SignupState(), action) : S
   }
 }
 
-function signupProcessCompleted (state : SignupState, action : ISignupUIOnInteractionCompletedAction) : SignupState {
-  let newSignup : SignupEntity = Object.assign({}, state.signup, {
+function signupProcessCompleted(state: SignupState, action: ISignupUIOnInteractionCompletedAction): SignupState {
+  let newSignup: SignupEntity = Object.assign({}, state.signup, {
     [action.fieldName]: action.value
   });
 
-  let newSignupErrors : SignupErrors = Object.assign({}, state.signupErrors, {
+  let newSignupErrors: SignupErrors = Object.assign({}, state.signupErrors, {
     [action.fieldName]: action.fieldValidationResult
   });
 
   return Object.assign({}, state, {
-    signup : newSignup,
+    signup: newSignup,
     signupErrors: newSignupErrors
   });
 }
 
-function performSignupCompleted(state : SignupState, action : ISignupRequestCompletedAction) : SignupState {
-  let newSignupErrors : SignupErrors = Object.assign({}, state.signupErrors);
+function performSignupCompleted(state: SignupState, action: ISignupRequestCompletedAction): SignupState {
+  let newSignupErrors: SignupErrors = Object.assign({}, state.signupErrors);
 
   action.formValidationResult.fieldErrors.forEach(fieldValidationResult => {
     newSignupErrors[fieldValidationResult.key] = fieldValidationResult;

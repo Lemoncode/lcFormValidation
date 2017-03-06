@@ -1,17 +1,17 @@
 import * as React from 'react';
-import {Input} from '../common/input';
-import {SignupEntity} from '../../entity/signupEntity';
+import { Input } from '../common/input';
+import { SignupEntity } from '../../entity/signupEntity';
 import { SignupErrors } from '../../entity/signupErrors';
 
 interface Props extends React.Props<any> {
-  signup : SignupEntity;
-  errors : SignupErrors;
-  fireValidationField : (viewModel : any, fieldName : string, value : string, filter? : any) => void;
-  performSignup : (signup : SignupEntity) => void;
+  signup: SignupEntity;
+  errors: SignupErrors;
+  fireValidationField: (viewModel: any, fieldName: string, value: string, filter?: any) => void;
+  performSignup: (signup: SignupEntity) => void;
 }
 
 export class SampleSignupForm extends React.Component<Props, {}> {
-  private applyFieldValidation(event, filter : any = undefined) {
+  private applyFieldValidation(event, filter: any = undefined) {
     const field = event.target.name;
     const value = event.target.value;
 
@@ -34,10 +34,10 @@ export class SampleSignupForm extends React.Component<Props, {}> {
           onChange={(event) => {
             this.applyFieldValidation(event);
           }}
-          onBlur={(event) =>{
-            this.applyFieldValidation(event, { OnBlur : true });
+          onBlur={(event) => {
+            this.applyFieldValidation(event, { OnBlur: true });
           }}
-          error={(this.props.errors.login) ? this.props.errors.login.errorMessage : ''}/>
+          error={(this.props.errors.login) ? this.props.errors.login.errorMessage : ''} />
 
         <Input
           name="password"
@@ -46,7 +46,7 @@ export class SampleSignupForm extends React.Component<Props, {}> {
           onChange={(event) => {
             this.applyFieldValidation(event);
           }}
-          error={(this.props.errors.password) ? this.props.errors.password.errorMessage : ''}/>
+          error={(this.props.errors.password) ? this.props.errors.password.errorMessage : ''} />
 
         <Input
           name="confirmPassword"
@@ -55,9 +55,9 @@ export class SampleSignupForm extends React.Component<Props, {}> {
           onChange={(event) => {
             this.applyFieldValidation(event);
           }}
-          error={(this.props.errors.confirmPassword) ? this.props.errors.confirmPassword.errorMessage : ''}/>
+          error={(this.props.errors.confirmPassword) ? this.props.errors.confirmPassword.errorMessage : ''} />
         <input type="submit" value="Save" className="btn btn-default"
-          onClick={(event) => {this.onSave(event)}}/>
+          onClick={(event) => { this.onSave(event) }} />
       </form>
     );
   }

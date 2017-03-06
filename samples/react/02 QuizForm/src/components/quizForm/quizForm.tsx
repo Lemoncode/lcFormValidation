@@ -5,12 +5,12 @@ import { QuizEntity } from '../../entity/quizEntity';
 import { FieldValidationResult } from 'lc-form-validation';
 
 interface Props extends React.Props<QuizForm> {
-  quiz : QuizEntity;
-  quizResult : FieldValidationResult;
-  onSelectedQuestionHandler : (questionId : string, value : boolean) => void;
-  quizResolve : (quiz : QuizEntity) => void;
-  quizResolveCompleted : boolean;
-  resetQuizResolveCompleted : () => void;
+  quiz: QuizEntity;
+  quizResult: FieldValidationResult;
+  onSelectedQuestionHandler: (questionId: string, value: boolean) => void;
+  quizResolve: (quiz: QuizEntity) => void;
+  quizResolveCompleted: boolean;
+  resetQuizResolveCompleted: () => void;
 }
 
 export class QuizForm extends React.Component<Props, {}> {
@@ -30,7 +30,7 @@ export class QuizForm extends React.Component<Props, {}> {
     }
   }
 
-  private showToastr(nextProps: Props) : void {
+  private showToastr(nextProps: Props): void {
     if (nextProps.quizResult.succeeded) {
       toastr.success('Test passed');
     } else {
@@ -49,7 +49,7 @@ export class QuizForm extends React.Component<Props, {}> {
             isSelected={this.props.quiz.questionA.isSelected}
             onChange={(event) => {
               this.onSelectedQuestion(event);
-            }}/>
+            }} />
 
           <Question
             name="questionB"
@@ -57,7 +57,7 @@ export class QuizForm extends React.Component<Props, {}> {
             isSelected={this.props.quiz.questionB.isSelected}
             onChange={(event) => {
               this.onSelectedQuestion(event);
-            }}/>
+            }} />
 
           <Question
             name="questionC"
@@ -65,12 +65,12 @@ export class QuizForm extends React.Component<Props, {}> {
             isSelected={this.props.quiz.questionC.isSelected}
             onChange={(event) => {
               this.onSelectedQuestion(event);
-            }}/>
+            }} />
 
-            <input type="submit" value="Validate" className="btn btn-default"
-              onClick={(event) => {
-                this.onQuizResolve(event);
-              }}/>
+          <input type="submit" value="Validate" className="btn btn-default"
+            onClick={(event) => {
+              this.onQuizResolve(event);
+            }} />
         </form>
       </div>
     );

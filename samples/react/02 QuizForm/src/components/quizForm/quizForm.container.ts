@@ -8,20 +8,20 @@ import { resetQuizResolveCompleted } from '../../actions/resetQuizResolveComplet
 let mapStateToProps = (state) => {
   return {
     quiz: state.quiz.quiz,
-    quizResult : state.quiz.quizResult,
-    quizResolveCompleted : state.quiz.quizResolveCompleted
+    quizResult: state.quiz.quizResult,
+    quizResolveCompleted: state.quiz.quizResolveCompleted
   }
 }
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    onSelectedQuestionHandler : (questionId : string, value : boolean) => {
+    onSelectedQuestionHandler: (questionId: string, value: boolean) => {
       return dispatch(quizUIInputCompleted(questionId, value));
     },
-    quizResolve: (quiz : QuizEntity) => {
+    quizResolve: (quiz: QuizEntity) => {
       return dispatch(quizResolveStart(quiz));
     },
-    resetQuizResolveCompleted : () => {
+    resetQuizResolveCompleted: () => {
       return dispatch(resetQuizResolveCompleted());
     }
   }

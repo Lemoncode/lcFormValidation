@@ -7,7 +7,7 @@ import { SampleSignupContainer } from './sampleSignupForm/sampleSignupForm.conta
 
 let store = createStore(
   reducers
-  ,applyMiddleware(ReduxThunk)
+  , applyMiddleware(ReduxThunk)
 );
 
 
@@ -15,13 +15,13 @@ interface Props extends React.Props<App> {
 }
 
 export default class App extends React.Component<Props, {}> {
-   public render() {
-       return (
-         <Provider store={store}>
-            <div className="container-fluid">
-                <SampleSignupContainer />
-            </div>
-         </Provider>
-       );
+  public render() {
+    return (
+      <Provider store={store}>
+        <div className="container-fluid">
+          <SampleSignupContainer />
+        </div>
+      </Provider>
+    );
   }
 }
