@@ -27,7 +27,6 @@
     "@types/react-redux": "^4.4.32",
     "@types/redux": "^3.6.31",
     "@types/redux-thunk": "^2.1.31",
-    "@types/whatwg-fetch": "0.0.32",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
