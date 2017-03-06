@@ -1,7 +1,7 @@
 export class SignupEntity {
-  login : string;
-  password : string;
-  confirmPassword : string;
+  login: string;
+  password: string;
+  confirmPassword: string;
 
   public constructor() {
     this.login = '';

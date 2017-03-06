@@ -6,10 +6,10 @@ class QuizFormValidation extends BaseFormValidation {
     super();
 
     this._validationEngine.addFormValidation((vm) => {
-      const _vm : QuizEntity = <QuizEntity>vm;
-      let isQuizPassed : boolean = this.isThereAnyQuestionSelected(_vm);
-      let errorInfo : string = (isQuizPassed) ? '' : 'Failed';
-      const fieldValidationResult : FieldValidationResult = new FieldValidationResult();
+      const _vm: QuizEntity = <QuizEntity>vm;
+      let isQuizPassed: boolean = this.isThereAnyQuestionSelected(_vm);
+      let errorInfo: string = (isQuizPassed) ? '' : 'Failed';
+      const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
       fieldValidationResult.type = 'QUIZ_VALIDATION';
       fieldValidationResult.succeeded = isQuizPassed;
       fieldValidationResult.errorMessage = errorInfo;
@@ -17,10 +17,10 @@ class QuizFormValidation extends BaseFormValidation {
     });
   }
 
-  private isThereAnyQuestionSelected (quiz : QuizEntity) : boolean {
-    let _anyQuestionSelected : boolean = false;
+  private isThereAnyQuestionSelected(quiz: QuizEntity): boolean {
+    let _anyQuestionSelected: boolean = false;
     for (let question in quiz) {
-      let  _question = <Question>quiz[question];
+      let _question = <Question>quiz[question];
       _anyQuestionSelected = _question.isSelected;
       if (_anyQuestionSelected) {
         break;

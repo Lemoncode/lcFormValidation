@@ -1,7 +1,7 @@
 export class QuizEntity {
-  questionA : Question; 
-  questionB : Question;
-  questionC : Question;
+  questionA: Question;
+  questionB: Question;
+  questionC: Question;
 
   public constructor() {
     this.questionA = new Question(false);
@@ -11,9 +11,9 @@ export class QuizEntity {
 }
 
 export class Question {
-  isSelected : boolean;
+  isSelected: boolean;
 
-  constructor(_isSelected : boolean) {
+  constructor(_isSelected: boolean) {
     this.isSelected = _isSelected;
   }
 }

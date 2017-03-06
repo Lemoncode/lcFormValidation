@@ -1,12 +1,12 @@
-import {actionsDef} from './actionsDef';
-import {FormValidationResult} from 'lc-form-validation';
+import { actionsDef } from './actionsDef';
+import { FormValidationResult } from 'lc-form-validation';
 
 interface ICustomerSaveCompletedAction {
-    type: string;
-    formValidationResult: FormValidationResult;
+  type: string;
+  formValidationResult: FormValidationResult;
 }
 
-let customerSaveCompleted = (formValidationResult: FormValidationResult) : ICustomerSaveCompletedAction => {
+let customerSaveCompleted = (formValidationResult: FormValidationResult): ICustomerSaveCompletedAction => {
   return {
     type: actionsDef.customer.CUSTOMER_SAVE_COMPLETED,
     formValidationResult
@@ -14,6 +14,6 @@ let customerSaveCompleted = (formValidationResult: FormValidationResult) : ICust
 }
 
 export {
-    ICustomerSaveCompletedAction,
-    customerSaveCompleted
+  ICustomerSaveCompletedAction,
+  customerSaveCompleted
 }
