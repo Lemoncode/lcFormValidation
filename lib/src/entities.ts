@@ -11,7 +11,7 @@ export class FieldValidation {
 }
 
 export class FieldValidationResult {
-  key: string;
+  key?: string;
   type: string;
   succeeded: boolean;
   errorMessage: string;

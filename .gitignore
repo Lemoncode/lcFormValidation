@@ -8,3 +8,4 @@ lib/README.md
 lib/ReadmeResources/
 lib/coverage/
 yarn.lock
+.vscode/
