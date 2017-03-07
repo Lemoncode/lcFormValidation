@@ -10,14 +10,14 @@ describe('ValidationEngine Validate Form', () => {
   describe('Group #1 => When calling validateFullForm and addFieldValidationAsync', () => {
     it('Spec #1 => should return a failed FormValidationResult with one fieldErrors equals ' +
       '{ succeeded: false, key: "fullname", type: "REQUIRED", errorMessage: "Mandatory Field" } ' +
-      'When passing one validation rule with key equals "fullname" and viewModel equals { id: "1", fullname: "" }', (done) => {
+      ' when passing one validation rule with key equals "fullname" and viewModel equals { id: "1", fullname: "" }', (done) => {
         // Arrange
         const validationEngine = new ValidationEngine();
         const viewModel = { id: '1', fullname: '' };
 
         // Act
         validationEngine.addFieldValidationAsync('fullname',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // Required field
             // in this case no async stuff
             // we can directly resolve the promise
@@ -57,7 +57,7 @@ describe('ValidationEngine Validate Form', () => {
 
         // Act
         validationEngine.addFieldValidationAsync('fullname',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // Required field
             // in this case no async stuff
             // we can directly resolve the promise
@@ -98,7 +98,7 @@ describe('ValidationEngine Validate Form', () => {
         // Act
         // name mandatory
         validationEngine.addFieldValidationAsync('fullname',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // Required field
             // in this case no async stuff
             // we can directly resolve the promise
@@ -117,7 +117,7 @@ describe('ValidationEngine Validate Form', () => {
 
         // password mandatory and min length 3
         validationEngine.addFieldValidationAsync('password',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // We will isolate this into common functions
             // Required field
             // in this case no async stuff
@@ -136,7 +136,7 @@ describe('ValidationEngine Validate Form', () => {
         );
 
         validationEngine.addFieldValidationAsync('password',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // We will isolate this into common functions
             // minLenght
             // in this case no async stuff
@@ -188,7 +188,7 @@ describe('ValidationEngine Validate Form', () => {
         // Act
         // name mandatory
         validationEngine.addFieldValidationAsync('fullname',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // Required field
             // in this case no async stuff
             // we can directly resolve the promise
@@ -207,7 +207,7 @@ describe('ValidationEngine Validate Form', () => {
 
         // password mandatory and min length 3
         validationEngine.addFieldValidationAsync('password',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // We will isolate this into common functions
             // Required field
             // in this case no async stuff
@@ -226,7 +226,7 @@ describe('ValidationEngine Validate Form', () => {
         );
 
         validationEngine.addFieldValidationAsync('password',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // We will isolate this into common functions
             // minLenght
             // in this case no async stuff
@@ -278,7 +278,7 @@ describe('ValidationEngine Validate Form', () => {
         // Act
         // name mandatory
         validationEngine.addFieldValidationAsync('fullname',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // Required field
             // in this case no async stuff
             // we can directly resolve the promise
@@ -297,7 +297,7 @@ describe('ValidationEngine Validate Form', () => {
 
         // password mandatory and min length 3
         validationEngine.addFieldValidationAsync('password',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // We will isolate this into common functions
             // Required field
             // in this case no async stuff
@@ -316,7 +316,7 @@ describe('ValidationEngine Validate Form', () => {
         );
 
         validationEngine.addFieldValidationAsync('password',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // We will isolate this into common functions
             // minLenght
             // in this case no async stuff
@@ -368,7 +368,7 @@ describe('ValidationEngine Validate Form', () => {
         // Act
         // name mandatory
         validationEngine.addFieldValidationAsync('fullname',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // Required field
             // in this case no async stuff
             // we can directly resolve the promise
@@ -387,7 +387,7 @@ describe('ValidationEngine Validate Form', () => {
 
         // password mandatory and min length 3
         validationEngine.addFieldValidationAsync('password',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // We will isolate this into common functions
             // Required field
             // in this case no async stuff
@@ -406,7 +406,7 @@ describe('ValidationEngine Validate Form', () => {
         );
 
         validationEngine.addFieldValidationAsync('password',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // We will isolate this into common functions
             // minLenght
             // in this case no async stuff
@@ -453,7 +453,7 @@ describe('ValidationEngine Validate Form', () => {
 
         // Act
         validationEngine.addFieldValidationAsync('fullname',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             let error: boolean = true;
             if (error) {
               throw "Intentionally uncontrolled exception, single field validation testing fullform validations"
@@ -741,7 +741,7 @@ describe('ValidationEngine Validate Form', () => {
 
         // Act
         validationEngine.addFieldValidationAsync('address',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // We will isolate this into common functions
             // Required field
             // in this case no async stuff
@@ -803,7 +803,7 @@ describe('ValidationEngine Validate Form', () => {
 
         // Act
         validationEngine.addFieldValidationAsync('address',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // We will isolate this into common functions
             // Required field
             // in this case no async stuff
@@ -865,7 +865,7 @@ describe('ValidationEngine Validate Form', () => {
 
         // Act
         validationEngine.addFieldValidationAsync('address',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // We will isolate this into common functions
             // Required field
             // in this case no async stuff
@@ -927,7 +927,7 @@ describe('ValidationEngine Validate Form', () => {
 
         // Act
         validationEngine.addFieldValidationAsync('address',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             // We will isolate this into common functions
             // Required field
             // in this case no async stuff
@@ -1020,7 +1020,7 @@ describe('ValidationEngine Validate Form', () => {
 
         // Act
         validationEngine.addFieldValidation('fullname',
-          (vm, value): FieldValidationResult => {
+          (value, vm): FieldValidationResult => {
             // Required field
             // in this case no async stuff
             // we can directly resolve the promise
@@ -1060,7 +1060,7 @@ describe('ValidationEngine Validate Form', () => {
 
         // Act
         validationEngine.addFieldValidation('fullname',
-          (vm, value): FieldValidationResult => {
+          (value, vm): FieldValidationResult => {
             // Required field
             // in this case no async stuff
             // we can directly resolve the promise
@@ -1101,7 +1101,7 @@ describe('ValidationEngine Validate Form', () => {
 
         // Act
         validationEngine.addFieldValidation('fullname',
-          (vm, value): FieldValidationResult => {
+          (value, vm): FieldValidationResult => {
             let isFieldInformed: boolean = (value != null && value.length > 0);
             let errorInfo: string = (isFieldInformed) ? "" : "Mandatory field";
 
@@ -1115,7 +1115,7 @@ describe('ValidationEngine Validate Form', () => {
         );
 
         validationEngine.addFieldValidationAsync('password',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             let isFieldInformed: boolean = (value != null && value.length > 0);
             let errorInfo: string = (isFieldInformed) ? "" : "Mandatory field";
 
@@ -1160,7 +1160,7 @@ describe('ValidationEngine Validate Form', () => {
         // Act
         // name mandatory
         validationEngine.addFieldValidation('fullname',
-          (vm, value): FieldValidationResult => {
+          (value, vm): FieldValidationResult => {
             let isFieldInformed: boolean = (value != null && value.length > 0);
             let errorInfo: string = (isFieldInformed) ? "" : "Mandatory field";
 
@@ -1175,7 +1175,7 @@ describe('ValidationEngine Validate Form', () => {
 
         // password mandatory and min length 3
         validationEngine.addFieldValidationAsync('password',
-          (vm, value): Promise<FieldValidationResult> => {
+          (value, vm): Promise<FieldValidationResult> => {
             let isFieldInformed: boolean = (value != null && value.length > 0);
             let errorInfo: string = (isFieldInformed) ? "" : "Mandatory field";
 

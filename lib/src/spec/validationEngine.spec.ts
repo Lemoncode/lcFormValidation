@@ -120,7 +120,7 @@ describe('lcFormValidation', () => {
     'when passing a key equals "test1" and validationsPerField equals ["test2": validationFn]', () => {
       //Arrange
       let key = "test1";
-      let validationFn = (vm, value) => {
+      let validationFn = (value, vm) => {
         let fieldValidationResult = new FieldValidationResult();
         return Promise.resolve(fieldValidationResult);
       };
@@ -138,7 +138,7 @@ describe('lcFormValidation', () => {
     'when passing a key equals "test" and validationsPerField equals ["test": validationFn]', () => {
       //Arrange
       let key = "test";
-      let validationFn = (vm, value) => {
+      let validationFn = (value, vm) => {
         let fieldValidationResult = new FieldValidationResult();
         return Promise.resolve(fieldValidationResult);
       }
@@ -155,7 +155,7 @@ describe('lcFormValidation', () => {
   it('should return itself after adding a validation rule using addFieldValidation method', () => {
     // Arrange
     const key = 'test1';
-    const validationFn = (vm, value) => {
+    const validationFn = (value, vm) => {
       return new FieldValidationResult();
     };
     const validationEngine = new ValidationEngine();
@@ -171,7 +171,7 @@ describe('lcFormValidation', () => {
   it('should return itself after adding a validation rule using addFieldValidationAsync method', () => {
     // Arrange
     const key = 'test1';
-    const validationFn = (vm, value) => {
+    const validationFn = (value, vm) => {
       return Promise.resolve(new FieldValidationResult());
     };
     const validationEngine = new ValidationEngine();
