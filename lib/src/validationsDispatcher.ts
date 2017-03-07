@@ -6,7 +6,7 @@ class ValidationParams {
   constructor(
     public vm: any,
     public value: any,
-    public validationsPerField: Array<(vm, value) => Promise<FieldValidationResult>>) {
+    public validationsPerField: Array<(value, vm) => Promise<FieldValidationResult>>) {
 
   }
 }
@@ -15,7 +15,7 @@ export class ValidationDispatcher {
   fireSingleFieldValidations(
     vm: any,
     value: any,
-    validationsPerField: Array<(vm, value) => Promise<FieldValidationResult>>
+    validationsPerField: Array<(value, vm) => Promise<FieldValidationResult>>
   ): Promise<FieldValidationResult> {
     let validationParams = new ValidationParams(vm, value, validationsPerField);
 
@@ -36,7 +36,7 @@ export class ValidationDispatcher {
     validationParams: ValidationParams,
     currentIndex: number
   ): void {
-    validationParams.validationsPerField[currentIndex](validationParams.vm, validationParams.value)
+    validationParams.validationsPerField[currentIndex](validationParams.value, validationParams.vm)
       .then(fieldValidationResult => {
         if (this.fieldValidationFailedOrLastOne(fieldValidationResult, currentIndex, validationParams.validationsPerField.length)) {
           resolve(fieldValidationResult);

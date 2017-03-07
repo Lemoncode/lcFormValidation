@@ -16,8 +16,8 @@ describe('lcFormValidation simple form', () => {
     const viewModel = { id: '1', fullname: 'john' };
 
     // Act
-    formValidationBase.addFieldValidationAsync('nameId',
-      (vm, value): Promise<FieldValidationResult> => {
+    formValidationBase.addFieldValidationAsync('fullname',
+      (value, vm): Promise<FieldValidationResult> => {
         // Required field
         // in this case no async stuff
         // we can directly resolve the promise
@@ -35,7 +35,7 @@ describe('lcFormValidation simple form', () => {
     )
 
     formValidationBase
-      .triggerFieldValidation(viewModel, 'nameId', 'newContent')
+      .triggerFieldValidation(viewModel, 'fullname', 'newContent')
       .then((errors) => {
         // Assert
         expect(formValidationBase.isValidationInProgress()).to.be.false;
@@ -54,8 +54,8 @@ describe('lcFormValidation simple form', () => {
       const viewModel = { id: '1', fullname: 'john' };
 
       // Act
-      formValidationBase.addFieldValidationAsync('nameId',
-        (vm, value): Promise<FieldValidationResult> => {
+      formValidationBase.addFieldValidationAsync('fullname',
+        (value, vm): Promise<FieldValidationResult> => {
           // Required field
           // in this case no async stuff
           // we can directly resolve the promise
@@ -73,10 +73,10 @@ describe('lcFormValidation simple form', () => {
       );
 
       formValidationBase
-        .triggerFieldValidation(viewModel, 'nameId', '')
+        .triggerFieldValidation(viewModel, 'fullname', '')
         .then((fieldValidationResult: FieldValidationResult) => {
           // Assert
-          expect(fieldValidationResult.key).to.be.equal('nameId');
+          expect(fieldValidationResult.key).to.be.equal('fullname');
           expect(fieldValidationResult.type).to.equal('REQUIRED');
           expect(fieldValidationResult.succeeded).to.be.false;
           expect(fieldValidationResult.errorMessage).to.equal("Mandatory field");
@@ -91,8 +91,8 @@ describe('lcFormValidation simple form', () => {
       const viewModel = { id: '1', fullname: 'john' };
 
       // Act
-      formValidationBase.addFieldValidationAsync('nameId',
-        (vm, value): Promise<FieldValidationResult> => {
+      formValidationBase.addFieldValidationAsync('fullname',
+        (value, vm): Promise<FieldValidationResult> => {
           // Required field
           // in this case no async stuff
           // we can directly resolve the promise
@@ -109,11 +109,11 @@ describe('lcFormValidation simple form', () => {
         }
       );
       formValidationBase
-        .triggerFieldValidation(viewModel, 'nameId', 'john')
+        .triggerFieldValidation(viewModel, 'fullname', 'john')
         .then((fieldValidationResult: FieldValidationResult) => {
 
           // Assert
-          expect(fieldValidationResult.key).to.be.equal('nameId');
+          expect(fieldValidationResult.key).to.be.equal('fullname');
           expect(fieldValidationResult.type).to.equal('REQUIRED');
           expect(fieldValidationResult.succeeded).to.be.true;
           expect(fieldValidationResult.errorMessage).to.be.empty;
@@ -128,8 +128,8 @@ describe('lcFormValidation simple form', () => {
       const viewModel = { id: '1', fullname: 'john' };
 
       // Act
-      formValidationBase.addFieldValidationAsync('nameId',
-        (vm, value): Promise<FieldValidationResult> => {
+      formValidationBase.addFieldValidationAsync('fullname',
+        (value, vm): Promise<FieldValidationResult> => {
           let error = true;
 
           if (error == true) {
@@ -149,7 +149,7 @@ describe('lcFormValidation simple form', () => {
       );
 
       const promise = formValidationBase
-        .triggerFieldValidation(viewModel, 'nameId', '');
+        .triggerFieldValidation(viewModel, 'fullname', '');
 
       //Assert
       expect(promise).to.eventually.be.rejected.notify(done);
