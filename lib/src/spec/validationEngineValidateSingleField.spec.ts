@@ -16,8 +16,6 @@ describe('lcFormValidation simple form', () => {
     const viewModel = { id: '1', fullname: 'john' };
 
     // Act
-    formValidationBase.initialize([{ formFieldName: 'nameId', vmFieldName: 'fullname' }]);
-
     formValidationBase.addFieldValidationAsync('nameId',
       (vm, value): Promise<FieldValidationResult> => {
         // Required field
@@ -56,8 +54,6 @@ describe('lcFormValidation simple form', () => {
       const viewModel = { id: '1', fullname: 'john' };
 
       // Act
-      formValidationBase.initialize([{ formFieldName: 'nameId', vmFieldName: 'fullname' }]);
-
       formValidationBase.addFieldValidationAsync('nameId',
         (vm, value): Promise<FieldValidationResult> => {
           // Required field
@@ -95,8 +91,6 @@ describe('lcFormValidation simple form', () => {
       const viewModel = { id: '1', fullname: 'john' };
 
       // Act
-      formValidationBase.initialize([{ formFieldName: 'nameId', vmFieldName: 'fullname' }]);
-
       formValidationBase.addFieldValidationAsync('nameId',
         (vm, value): Promise<FieldValidationResult> => {
           // Required field
@@ -134,8 +128,6 @@ describe('lcFormValidation simple form', () => {
       const viewModel = { id: '1', fullname: 'john' };
 
       // Act
-      formValidationBase.initialize([{ formFieldName: 'nameId', vmFieldName: 'fullname' }]);
-
       formValidationBase.addFieldValidationAsync('nameId',
         (vm, value): Promise<FieldValidationResult> => {
           let error = true;

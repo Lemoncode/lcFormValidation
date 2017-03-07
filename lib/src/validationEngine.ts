@@ -7,7 +7,6 @@ import { fieldValidationEventFilter } from './fieldValidationEventFilter';
 import { entitiesMapper } from './entitiesMapper';
 
 export interface IValidationEngine {
-  initialize(formNameToFieldNameMappings: Array<FormNameToFieldNameMapping>): void;
   isFormDirty(): boolean;
   isFormPristine(): boolean;
   validateFullForm(vm: any): Promise<FormValidationResult>;
@@ -34,11 +33,7 @@ export class ValidationEngine implements IValidationEngine {
     this._validationsPerField = [];
     this._formNameToFieldNameMappings = new Array<FormNameToFieldNameMapping>();
     this._validationsGlobalForm = [];
-  }
-
-  initialize(formNameToFieldNameMappings: Array<FormNameToFieldNameMapping>): void {
     this._isFormPristine = true;
-    this._formNameToFieldNameMappings = [...formNameToFieldNameMappings];
   }
 
   isFormDirty(): boolean {
@@ -53,8 +48,10 @@ export class ValidationEngine implements IValidationEngine {
 
     const fullFormValidatedPromise = new Promise((resolve, reject) => {
       // Let's add fileValidationResults
-      let fieldValidationResultsPromises = validationsDispatcher.fireAllFieldsValidations(viewModel, this._formNameToFieldNameMappings,
-        this.validateSingleField.bind(this));
+      let fieldValidationResultsPromises = validationsDispatcher.fireAllFieldsValidations(
+        viewModel, 
+        this.validateSingleField.bind(this)
+      );
 
       // Let's add GlobalFormValidations
       if (this._validationsGlobalForm.length > 0) {

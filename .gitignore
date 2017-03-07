@@ -7,4 +7,4 @@ typings/
 lib/README.md
 lib/ReadmeResources/
 lib/coverage/
-lib/yarn.lock
+yarn.lock

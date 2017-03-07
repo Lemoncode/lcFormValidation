@@ -6,12 +6,6 @@ class SignupFormValidation extends BaseFormValidation {
   public constructor() {
     super();
 
-    this._validationEngine.initialize([
-      { formFieldName: 'password', vmFieldName: 'password' },
-      { formFieldName: 'confirmPassword', vmFieldName: 'confirmPassword' },
-      { formFieldName: 'login', vmFieldName: 'login' }
-    ]);
-
     this._validationEngine
       .addFieldValidation('password',
       (vm, value): FieldValidationResult => {

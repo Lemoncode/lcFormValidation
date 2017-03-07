@@ -10,9 +10,6 @@ describe('lcFormValidation', () => {
     // Arrange
     const formValidationBase: ValidationEngine = new ValidationEngine();
 
-    // Act
-    formValidationBase.initialize([]);
-
     // Assert
     expect(formValidationBase.isFormPristine()).to.be.true;
   });
@@ -21,9 +18,6 @@ describe('lcFormValidation', () => {
     // Arrange
     const formValidationBase: ValidationEngine = new ValidationEngine();
     const viewModel = [{ formFieldName: 'nameId', vmFieldName: 'name' }];
-
-    // Act
-    formValidationBase.initialize(viewModel);
 
     formValidationBase
       .triggerFieldValidation(viewModel, 'nameId', 'newContent')
@@ -39,9 +33,6 @@ describe('lcFormValidation', () => {
     // Arrange
     const formValidationBase: ValidationEngine = new ValidationEngine();
 
-    // Act
-    formValidationBase.initialize([]);
-
     // Assert
     expect(formValidationBase.isFormDirty()).to.be.false;
   });
@@ -50,9 +41,6 @@ describe('lcFormValidation', () => {
     // Arrange
     const formValidationBase: ValidationEngine = new ValidationEngine();
     const viewModel = [{ formFieldName: 'nameId', vmFieldName: 'name' }];
-
-    // Act
-    formValidationBase.initialize(viewModel);
 
     formValidationBase
       .triggerFieldValidation(viewModel, 'nameId', 'newContent')
@@ -67,9 +55,6 @@ describe('lcFormValidation', () => {
     // Arrange
     const formValidationBase: ValidationEngine = new ValidationEngine();
 
-    // Act
-    formValidationBase.initialize([]);
-
     // Assert
     expect(formValidationBase.isValidationInProgress()).to.be.false;
   });
@@ -80,8 +65,6 @@ describe('lcFormValidation', () => {
     const viewModel = [{ formFieldName: 'nameId', vmFieldName: 'name' }];
 
     // Act
-    formValidationBase.initialize([]);
-
     formValidationBase
       .triggerFieldValidation(viewModel, 'nameId', 'newContent')
       .then((errors) => {

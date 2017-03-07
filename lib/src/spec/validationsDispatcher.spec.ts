@@ -526,187 +526,81 @@ describe('ValidationsDispatcher', () => {
 
   describe('Group #2 => When calling fireAllFieldsValidations', () => {
     it('Spec #1 => should return empty array' +
-      'When passing vm equals undefined, formFieldToViewModelKeyValues equals undefined and validationFn equals undefined', () => {
-        //Arrange
+      'When passing vm equals undefined and validationFn equals undefined', () => {
+        // Arrange
         let vm = undefined;
-        let formFieldToViewModelKeyValues = undefined;
         let validationFn = undefined;
 
-        //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, formFieldToViewModelKeyValues, validationFn);
+        // Act
+        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, validationFn);
 
-        //Assert
+        // Assert
         expect(fieldValidationResultPromises).to.have.length(0);
       });
 
     it('Spec #2 => should return empty array' +
-      'When passing vm equals undefined, formFieldToViewModelKeyValues equals null and validationFn equals undefined', () => {
+      'When passing vm equals null and validationFn equals undefined', () => {
         //Arrange
-        let vm = undefined;
-        let formFieldToViewModelKeyValues = null;
+        let vm = null;
         let validationFn = undefined;
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, formFieldToViewModelKeyValues, validationFn);
+        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, validationFn);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(0);
       });
 
     it('Spec #3 => should return empty array' +
-      'When passing vm equals undefined, formFieldToViewModelKeyValues equals [] and validationFn equals undefined', () => {
+      'When passing vm equals "" and validationFn equals undefined', () => {
         //Arrange
-        let vm = undefined;
-        let formFieldToViewModelKeyValues = [];
+        let vm = "";
         let validationFn = undefined;
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, formFieldToViewModelKeyValues, validationFn);
+        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, validationFn);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(0);
       });
 
     it('Spec #4 => should return empty array' +
-      'When passing vm equals undefined, formFieldToViewModelKeyValues equals [{id: "testFormId", value: "testVmProperty"}] and validationFn equals undefined', () => {
+      'When passing vm equals { } and validationFn equals undefined', () => {
         //Arrange
-        let vm = undefined;
-
-        let keyValue = new FormNameToFieldNameMapping();
-        keyValue.formFieldName = 'testFormId';
-        keyValue.vmFieldName = 'testVmProperty';
-
-        let formFieldToViewModelKeyValues = [keyValue];
+        let vm = {};
         let validationFn = undefined;
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, formFieldToViewModelKeyValues, validationFn);
+        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, validationFn);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(0);
       });
 
-    it('Spec #5 => should return empty array' +
-      'When passing vm equals null, formFieldToViewModelKeyValues equals [{id: "testFormId", value: "testVmProperty"}] and validationFn equals undefined', () => {
+    it('Spec #5 => should return empty array and it does not call to validationFn' +
+      'When passing vm equals { } and validationFn equals function', () => {
         //Arrange
-        let vm = null;
-
-        let keyValue = new FormNameToFieldNameMapping();
-        keyValue.formFieldName = 'testFormId';
-        keyValue.vmFieldName = 'testVmProperty';
-
-        let formFieldToViewModelKeyValues = [keyValue];
-        let validationFn = undefined;
-
-        //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, formFieldToViewModelKeyValues, validationFn);
-
-        //Assert
-        expect(fieldValidationResultPromises).to.have.length(0);
-      });
-
-    it('Spec #6 => should return empty array' +
-      'When passing vm equals "", formFieldToViewModelKeyValues equals [{id: "testFormId", value: "testVmProperty"}] and validationFn equals undefined', () => {
-        //Arrange
-        let vm = "";
-
-        let keyValue = new FormNameToFieldNameMapping();
-        keyValue.formFieldName = 'testFormId';
-        keyValue.vmFieldName = 'testVmProperty';
-
-        let formFieldToViewModelKeyValues = [keyValue];
-        let validationFn = undefined;
-
-        //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, formFieldToViewModelKeyValues, validationFn);
-
-        //Assert
-        expect(fieldValidationResultPromises).to.have.length(0);
-      });
-
-    it('Spec #7 => should return empty array' +
-      'When passing vm equals { }, formFieldToViewModelKeyValues equals [{id: "testFormId", value: "testVmProperty"}] ' +
-      'and validationFn equals undefined', () => {
-        //Arrange
-        let vm = {
-        };
-
-        let keyValue = new FormNameToFieldNameMapping();
-        keyValue.formFieldName = 'testFormId';
-        keyValue.vmFieldName = 'testVmProperty';
-
-        let formFieldToViewModelKeyValues = [keyValue];
-        let validationFn = undefined;
-
-        //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, formFieldToViewModelKeyValues, validationFn);
-
-        //Assert
-        expect(fieldValidationResultPromises).to.have.length(0);
-      });
-
-    it('Spec #8 => should return empty array and it does not call to validationFn' +
-      'When passing vm equals { }, formFieldToViewModelKeyValues equals [{id: "testFormId", value: "testVmProperty"}] ' +
-      'and validationFn equals function', () => {
-        //Arrange
-        let vm = {
-        };
-
-        let keyValue = new FormNameToFieldNameMapping();
-        keyValue.formFieldName = 'testFormId';
-        keyValue.vmFieldName = 'testVmProperty';
-
-        let formFieldToViewModelKeyValues = [keyValue];
+        let vm = {};
         let validationFnSpy = sinon.spy();
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, formFieldToViewModelKeyValues, validationFnSpy);
+        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, validationFnSpy);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(0);
         expect(validationFnSpy.called).to.be.false;
       });
 
-    it('Spec #9 => should return empty array and it does not call to validationFn' +
-      'When passing vm equals { property: "test" }, formFieldToViewModelKeyValues equals [{id: "testFormId", value: "testVmProperty"}] ' +
-      'and validationFn equals function', () => {
-        //Arrange
-        let vm = {
-          property: 'test'
-        };
-
-        let keyValue = new FormNameToFieldNameMapping();
-        keyValue.formFieldName = 'testFormId';
-        keyValue.vmFieldName = 'testVmProperty';
-
-        let formFieldToViewModelKeyValues = [keyValue];
-        let validationFnSpy = sinon.spy();
-
-        //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, formFieldToViewModelKeyValues, validationFnSpy);
-
-        //Assert
-        expect(fieldValidationResultPromises).to.have.length(0);
-        expect(validationFnSpy.called).to.be.false;
-      });
-
-    it('Spec #10 => should return array with one item and it calls to validationFn' +
-      'When passing vm equals { testVmProperty: "test" }, formFieldToViewModelKeyValues equals [{id: "testFormId", value: "testVmProperty"}] ' +
-      'and validationFn equals function', () => {
+    it('Spec #6 => should return array with one item and it calls to validationFn' +
+      'When passing vm equals { testVmProperty: "test" } and validationFn equals function', () => {
         //Arrange
         let vm = {
           testVmProperty: 'test'
         };
-
-        let keyValue = new FormNameToFieldNameMapping();
-        keyValue.formFieldName = 'testFormId';
-        keyValue.vmFieldName = 'testVmProperty';
-
-        let formFieldToViewModelKeyValues = [keyValue];
         let validationFnSpy = sinon.spy();
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, formFieldToViewModelKeyValues, validationFnSpy);
+        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, validationFnSpy);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(1);

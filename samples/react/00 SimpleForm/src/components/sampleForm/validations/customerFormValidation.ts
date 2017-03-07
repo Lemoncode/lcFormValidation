@@ -5,11 +5,6 @@ class CustomerFormValidation extends BaseFormValidation {
   public constructor() {
     super();
 
-    this._validationEngine.initialize([
-      { formFieldName: 'fullname', vmFieldName: 'fullname' },
-      { formFieldName: 'password', vmFieldName: 'password' }
-    ]);
-
     // TODO: Implement Issue #17
     // TODO: Implement Issue #6
     this._validationEngine.addFieldValidation('fullname',
