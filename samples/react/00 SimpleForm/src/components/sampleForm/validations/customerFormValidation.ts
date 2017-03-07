@@ -8,7 +8,7 @@ class CustomerFormValidation extends BaseFormValidation {
     // TODO: Implement Issue #17
     // TODO: Implement Issue #6
     this._validationEngine.addFieldValidation('fullname',
-      (vm, value): FieldValidationResult => {
+      (value, vm): FieldValidationResult => {
         let isFieldInformed: boolean = (value && value.length > 0);
         let errorInfo: string = (isFieldInformed) ? "" : "Mandatory field";
 
