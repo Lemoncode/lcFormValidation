@@ -79,10 +79,10 @@ export class ValidationEngine implements IValidationEngine {
     return fullFormValidatedPromise;
   }
 
-  triggerFieldValidation(formViewModel: any, key: string, value: any, filter: any = consts.defaultFilter): Promise<FieldValidationResult> {
+  triggerFieldValidation(vm: any, key: string, value: any, filter: any = consts.defaultFilter): Promise<FieldValidationResult> {
     // updated dirty flag and perform validation
     this._isFormPristine = false;
-    return this.validateSingleField(formViewModel, key, value, filter);
+    return this.validateSingleField(vm, key, value, filter);
   }
 
   validateGlobalFormValidations(vm: any): Array<Promise<FieldValidationResult>> {

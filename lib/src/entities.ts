@@ -6,7 +6,7 @@ export class FormNameToFieldNameMapping {
 }
 
 export class FieldValidation {
-  public validationFn: (vm, value) => Promise<FieldValidationResult>;
+  public validationFn: (value, vm) => Promise<FieldValidationResult>;
   public filter: any;
 }
 
