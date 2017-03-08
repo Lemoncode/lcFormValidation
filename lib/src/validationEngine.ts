@@ -1,5 +1,12 @@
 import { } from 'core-js';
-import { FormNameToFieldNameMapping, FormValidationResult, FieldValidationResult, FieldValidation } from "./entities";
+import {
+  FormNameToFieldNameMapping,
+  FormValidationResult,
+  FieldValidationResult,
+  FieldValidation,
+  ValidationResult,
+  FormValidationFunction,
+} from "./entities";
 import { consts } from './consts';
 import { validationsDispatcher } from './validationsDispatcher';
 import { validationsResultBuilder } from './validationsResultBuilder';
@@ -14,8 +21,7 @@ export interface IValidationEngine {
   // TODO: Implement Issue #15
   addFieldValidation(key: string, validation: (value, vm) => FieldValidationResult, filter?: any);
   addFieldValidationAsync(key: string, validation: (value, vm) => Promise<FieldValidationResult>, filter?: any);
-  addFormValidation(validation: (vm) => FieldValidationResult);
-  addFormValidationAsync(validation: (vm) => Promise<FieldValidationResult>);
+  addFormValidation(validation: FormValidationFunction);
   isValidationInProgress(): boolean;
 }
 
@@ -25,7 +31,7 @@ export class ValidationEngine implements IValidationEngine {
   _asyncValidationInProgressCount: number;
   // fieldID will be used as array index
   _validationsPerField: Array<FieldValidation>;
-  _validationsGlobalForm: Array<(vm) => Promise<FieldValidationResult>>;
+  _validationsGlobalForm: FormValidationFunction[];
   _formNameToFieldNameMappings: Array<FormNameToFieldNameMapping>;
 
   public constructor() {
@@ -48,22 +54,22 @@ export class ValidationEngine implements IValidationEngine {
 
     const fullFormValidatedPromise = new Promise((resolve, reject) => {
       // Let's add fileValidationResults
-      let fieldValidationResultsPromises = validationsDispatcher.fireAllFieldsValidations(
+      let fieldValidationResults: ValidationResult[] = validationsDispatcher.fireAllFieldsValidations(
         viewModel,
         this.validateSingleField.bind(this)
       );
 
       // Let's add GlobalFormValidations
       if (this._validationsGlobalForm.length > 0) {
-        fieldValidationResultsPromises = [...fieldValidationResultsPromises, ...this.validateGlobalFormValidations(viewModel)];
+        fieldValidationResults = [...fieldValidationResults, ...this.validateGlobalFormValidations(viewModel)];
       }
 
       // TODO: Implement Issue #16 - Error handling
 
       // Once all the single field validations have been resolved
       // resolve the fullFormValidatePromise
-      Promise.all(fieldValidationResultsPromises)
-        .then((fieldValidationResults: Array<FieldValidationResult>) => {
+      Promise.all(fieldValidationResults)
+        .then((fieldValidationResults: FieldValidationResult[]) => {
           let formValidationResult = validationsResultBuilder.buildFormValidationsResult(fieldValidationResults);
           resolve(formValidationResult);
         })
@@ -85,10 +91,10 @@ export class ValidationEngine implements IValidationEngine {
     return this.validateSingleField(vm, key, value, filter);
   }
 
-  validateGlobalFormValidations(vm: any): Array<Promise<FieldValidationResult>> {
+  validateGlobalFormValidations(vm: any) {
     this._asyncValidationInProgressCount++;
 
-    let globalFieldResultValidations = new Array<Promise<FieldValidationResult>>();
+    let globalFieldResultValidations: ValidationResult[] = [];
 
     if (this._validationsGlobalForm.length == 0) {
       this._asyncValidationInProgressCount--;
@@ -158,7 +164,7 @@ export class ValidationEngine implements IValidationEngine {
     return this;
   }
 
-  addFormValidation(validation: (vm) => FieldValidationResult) {
+  addFormValidation(validation: FormValidationFunction) {
     const validationAsync = (vm): Promise<FieldValidationResult> => {
       return Promise.resolve(validation(vm));
     }
@@ -166,7 +172,7 @@ export class ValidationEngine implements IValidationEngine {
     this.addFormValidationAsync(validationAsync);
   }
 
-  addFormValidationAsync(validation: (vm) => Promise<FieldValidationResult>) {
+  addFormValidationAsync(validation: FormValidationFunction) {
     this._validationsGlobalForm.push(validation);
   }
 

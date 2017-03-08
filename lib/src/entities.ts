@@ -34,3 +34,13 @@ export class FormValidationResult {
     this.fieldErrors = [];
   }
 }
+
+export type ValidationResult = FieldValidationResult | Promise<FieldValidationResult>;
+
+export interface FormValidationFunction {
+  (vm: any): ValidationResult;
+}
+
+export interface ValidationConstraints extends Object {
+  global?: FormValidationFunction[];
+}

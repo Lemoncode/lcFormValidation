@@ -1,9 +1,9 @@
 import { FormNameToFieldNameMapping, FormValidationResult, FieldValidationResult } from "./entities";
-import { BaseFormValidation } from './baseFormValidation';
+import { createFormValidation } from './formValidation';
 
 export {
   FormNameToFieldNameMapping,
   FormValidationResult,
   FieldValidationResult,
-  BaseFormValidation
+  createFormValidation,
 }
