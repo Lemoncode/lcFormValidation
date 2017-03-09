@@ -52,7 +52,6 @@ export interface FormValidationFunction {
   (vm: any): ValidationResult;
 }
 
-
 export interface ValidationConstraints extends Object {
   global?: FormValidationFunction[];
 }

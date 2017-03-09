@@ -3,7 +3,6 @@ import { expect } from 'chai';
 import { FieldValidation } from '../entities';
 import { fieldValidationEventFilter } from '../fieldValidationEventFilter'
 
-
 describe('FieldValidationEventFilter ', () => {
 
   describe('when calling filter ', () => {
