@@ -7,10 +7,6 @@ import * as sinon from 'sinon';
 import { validationsDispatcher } from '../validationsDispatcher';
 import { FieldValidationResult } from '../entities';
 
-// https://www.slalom.com/thinking/building-applications-with-typescript
-// https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/chai-as-promised/chai-as-promised-tests.ts
-chai.use(chaiAsPromised);
-
 describe('ValidationsDispatcher', () => {
   describe('Group #1 => When calling fireSingleFieldValidations', () => {
     it('Spec #1 => should return undefined FieldValidationResult ' +

@@ -6,8 +6,6 @@ import { } from 'core-js';
 import { ValidationEngine } from '../validationEngine';
 import { FieldValidationResult } from '../entities';
 
-chai.use(chaiAsPromised);
-
 //TODO: Implement Issue #20 (Take into account if it returns Promise.resolve(undefined))
 describe('lcFormValidation simple form', () => {
   it('should return isValidationInProgress true if validations are inProgress', (done) => {
