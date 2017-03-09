@@ -42,8 +42,8 @@ export interface FormValidation {
   isValidationInProgress(): boolean;
   isFormDirty(): boolean;
   isFormPristine(): boolean;
-  addFieldValidation(key: string, validation: (value: string, vm: any) => FieldValidationResult);
-  addFieldValidationAsync(key: string, validation: (value: string, vm: any) => Promise<FieldValidationResult>);
+  addFieldValidation(key: string, validation: (value: string, vm: any) => FieldValidationResult, filter?: any): FormValidation;
+  addFieldValidationAsync(key: string, validation: (value: string, vm: any) => Promise<FieldValidationResult>, filter?: any): FormValidation;
 }
 
 export type ValidationResult = FieldValidationResult | Promise<FieldValidationResult>;
