@@ -1,36 +1,25 @@
-import { FieldValidationResult, BaseFormValidation } from 'lc-form-validation';
+import { FieldValidationResult, createFormValidation } from 'lc-form-validation';
 import { QuizEntity, Question } from '../../../entity/quizEntity';
 
-class QuizFormValidation extends BaseFormValidation {
-  public constructor() {
-    super();
-
-    this._validationEngine.addFormValidation((vm) => {
-      const _vm: QuizEntity = <QuizEntity>vm;
-      let isQuizPassed: boolean = this.isThereAnyQuestionSelected(_vm);
-      let errorInfo: string = (isQuizPassed) ? '' : 'Failed';
-      const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
-      fieldValidationResult.type = 'QUIZ_VALIDATION';
-      fieldValidationResult.succeeded = isQuizPassed;
-      fieldValidationResult.errorMessage = errorInfo;
-      return fieldValidationResult;
-    });
-  }
-
-  private isThereAnyQuestionSelected(quiz: QuizEntity): boolean {
-    let _anyQuestionSelected: boolean = false;
-    for (let question in quiz) {
-      let _question = <Question>quiz[question];
-      _anyQuestionSelected = _question.isSelected;
-      if (_anyQuestionSelected) {
-        break;
-      }
-    }
-    return _anyQuestionSelected;
-  }
+function isThereAnyQuestionSelected(quiz: QuizEntity) {
+  return Object.keys(quiz).some(question => (quiz[question] as Question).isSelected);
 }
 
-let quizFormValidation = new QuizFormValidation();
+function quizValidation(quiz: QuizEntity) {
+  let isQuizPassed = isThereAnyQuestionSelected(quiz);
+  let errorInfo = (isQuizPassed) ? '' : 'Failed';
+  const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
+  fieldValidationResult.type = 'QUIZ_VALIDATION';
+  fieldValidationResult.succeeded = isQuizPassed;
+  fieldValidationResult.errorMessage = errorInfo;
+  return fieldValidationResult;
+}
+
+const quizFormValidation = createFormValidation({
+  global: [
+    quizValidation
+  ]
+});
 
 export {
   quizFormValidation
