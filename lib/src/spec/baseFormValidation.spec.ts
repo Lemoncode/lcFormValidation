@@ -4,6 +4,7 @@ import { } from 'core-js';
 import { createFormValidation, BaseFormValidation } from '../baseFormValidation';
 import { ValidationConstraints, FieldValidationResult } from '../entities';
 import { ValidationEngine } from '../validationEngine';
+
 describe('formValidation tests', () => {
   describe('Group#1 => BaseFormValidation tests', () => {
     it('Spec#1 => should return an instance of Formvalidation', () => {
@@ -78,7 +79,7 @@ describe('formValidation tests', () => {
       expect(isValidationInProgress.calledOnce).to.be.true;
     }).bind(this));
 
-    it('Spec#6 => should have a method "addFieldValidation" that calls ValidationEngine.addFieldValidation', sinon.test(() => {
+    it('Spec#6 => should have a method "addFieldValidation" that returns itself and calls ValidationEngine.addFieldValidation', sinon.test(() => {
       // Arrange
       const sinon: sinon.SinonStatic = this;
       const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
@@ -88,27 +89,30 @@ describe('formValidation tests', () => {
 
       // Act
       const formValidation = new BaseFormValidation(validationConstraints);
-      formValidation.addFieldValidation(key, validationFunction);
+      const instance = formValidation.addFieldValidation(key, validationFunction);
 
       // Assert
       expect(addFieldValidation.calledOnce).to.be.true;
+      expect(instance).to.be.equals(formValidation);
     }).bind(this));
 
-    it('Spec#7 => should have a method "addFieldValidationAsync" that calls ValidationEngine.addFieldValidationAsync', sinon.test(() => {
-      // Arrange
-      const sinon: sinon.SinonStatic = this;
-      const addFieldValidationAsync = sinon.stub(ValidationEngine.prototype, 'addFieldValidationAsync', () => { });
-      const validationConstraints = {};
-      const key = 'fullname';
-      const validationFunction = (value: any) => Promise.resolve(new FieldValidationResult());
+    it('Spec#7 => should have a method "addFieldValidationAsync" that returns itself and calls ValidationEngine.addFieldValidationAsync',
+      sinon.test(() => {
+        // Arrange
+        const sinon: sinon.SinonStatic = this;
+        const addFieldValidationAsync = sinon.stub(ValidationEngine.prototype, 'addFieldValidationAsync', () => { });
+        const validationConstraints = {};
+        const key = 'fullname';
+        const validationFunction = (value: any) => Promise.resolve(new FieldValidationResult());
 
-      // Act
-      const formValidation = new BaseFormValidation(validationConstraints);
-      formValidation.addFieldValidationAsync(key, validationFunction);
+        // Act
+        const formValidation = new BaseFormValidation(validationConstraints);
+        const instance = formValidation.addFieldValidationAsync(key, validationFunction);
 
-      // Assert
-      expect(addFieldValidationAsync.calledOnce).to.be.true;
-    }).bind(this));
+        // Assert
+        expect(addFieldValidationAsync.calledOnce).to.be.true;
+        expect(instance).to.be.equals(formValidation);
+      }).bind(this));
   });
 
   describe('Group#2 => createFormValidation tests', () => {

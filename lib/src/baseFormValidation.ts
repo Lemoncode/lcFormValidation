@@ -61,11 +61,13 @@ export class BaseFormValidation implements FormValidation {
   }
 
   addFieldValidation(key: string, validationFunction: (value: string, vm: any) => FieldValidationResult) {
-    return this.validationEngine.addFieldValidation(key, validationFunction);
+    this.validationEngine.addFieldValidation(key, validationFunction);
+    return this;
   }
 
   addFieldValidationAsync(key: string, validationFunction: (value: string, vm: any) => Promise<FieldValidationResult>) {
-    return this.validationEngine.addFieldValidationAsync(key, validationFunction);
+    this.validationEngine.addFieldValidationAsync(key, validationFunction);
+    return this;
   }
 }
 
