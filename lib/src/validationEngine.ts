@@ -16,7 +16,7 @@ import { entitiesMapper } from './entitiesMapper';
 export interface IValidationEngine {
   isFormDirty(): boolean;
   isFormPristine(): boolean;
-  validateFullForm(vm: any): Promise<FormValidationResult>;
+  validateForm(vm: any): Promise<FormValidationResult>;
   triggerFieldValidation(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult>;
   // TODO: Implement Issue #15
   addFieldValidation(key: string, validation: (value, vm) => FieldValidationResult, filter?: any);
@@ -50,7 +50,7 @@ export class ValidationEngine implements IValidationEngine {
     return this._isFormPristine;
   }
 
-  validateFullForm(viewModel: any): Promise<FormValidationResult> {
+  validateForm(viewModel: any): Promise<FormValidationResult> {
 
     const fullFormValidatedPromise = new Promise((resolve, reject) => {
       // Let's add fileValidationResults

@@ -34,7 +34,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -74,7 +74,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
             expect(formValidationResult.fieldErrors).to.have.length(1);
@@ -155,7 +155,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -245,7 +245,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -335,7 +335,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -425,7 +425,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
@@ -474,7 +474,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        let promise = validationEngine.validateFullForm(viewModel);
+        let promise = validationEngine.validateForm(viewModel);
 
         //Assert
         expect(promise).to.eventually.be.rejected.notify(done);
@@ -503,7 +503,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(validationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
             expect(formValidationResult.formGlobalErrors).to.have.length(1);
@@ -536,7 +536,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(validationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -590,7 +590,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(fieldValidationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
@@ -649,7 +649,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(fieldValidationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -708,7 +708,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(fieldValidationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -772,7 +772,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(validationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
@@ -834,7 +834,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(validationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -896,7 +896,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(validationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -958,7 +958,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(validationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -1003,7 +1003,7 @@ describe('ValidationEngine Validate Form', () => {
         return Promise.resolve(validationResult);
       });
 
-      const promise = validationEngine.validateFullForm(viewModel)
+      const promise = validationEngine.validateForm(viewModel)
       expect(promise).to.eventually.be.rejected.notify(done);
     });
   });
@@ -1036,7 +1036,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -1076,7 +1076,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
@@ -1127,7 +1127,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -1187,7 +1187,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
@@ -1229,7 +1229,7 @@ describe('ValidationEngine Validate Form', () => {
           return validationResult;
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
@@ -1264,7 +1264,7 @@ describe('ValidationEngine Validate Form', () => {
           return validationResult;
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -1312,7 +1312,7 @@ describe('ValidationEngine Validate Form', () => {
           return fieldValidationResult;
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
@@ -1365,7 +1365,7 @@ describe('ValidationEngine Validate Form', () => {
           return fieldValidationResult;
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 

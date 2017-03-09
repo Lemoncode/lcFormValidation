@@ -50,10 +50,10 @@ describe('formValidation tests', () => {
       expect(validateSingleField.calledOnce).to.be.true;
     }).bind(this));
 
-    it('Spec#4 => should have a method "validateForm" that calls ValidationEngine.validateFullForm', sinon.test(() => {
+    it('Spec#4 => should have a method "validateForm" that calls ValidationEngine.validateForm', sinon.test(() => {
       // Arrange
       const sinon: sinon.SinonStatic = this;
-      const validateForm = sinon.stub(ValidationEngine.prototype, 'validateFullForm', () => { });
+      const validateForm = sinon.stub(ValidationEngine.prototype, 'validateForm', () => { });
       const validationConstraints = {};
       const viewModel = {};
 

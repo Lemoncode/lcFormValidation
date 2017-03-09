@@ -45,7 +45,7 @@ export class BaseFormValidation implements FormValidation {
   }
 
   validateForm(vm: any) {
-    return this.validationEngine.validateFullForm(vm);
+    return this.validationEngine.validateForm(vm);
   }
 
   isValidationInProgress() {
