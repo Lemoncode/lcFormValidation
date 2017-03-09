@@ -10,7 +10,10 @@
     "emitDecoratorMetadata": false,
     "noLib": false,
     "preserveConstEnums": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "types": [
+      "karma-chai-sinon"
+    ]
   },
   "compileOnSave": false,
   "exclude": [

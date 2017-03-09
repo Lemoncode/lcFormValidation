@@ -33,8 +33,17 @@ export interface IValidationEngine {
   addFieldValidation(key: string, validation: (vm, value) => FieldValidationResult, filter?: any): IValidationEngine;
   addFieldValidationAsync(key: string, validation: (vm, value) => Promise<FieldValidationResult>, filter?: any): IValidationEngine;
   addFormValidation(validation: FormValidationFunction);
-  addFormValidationAsync(validation: (vm: any) => Promise<FieldValidationResult>);
   isValidationInProgress(): boolean;
+}
+
+export interface FormValidation {
+  validateField(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult>;
+  validateForm(vm: any): Promise<FormValidationResult>;
+  isValidationInProgress(): boolean;
+  isFormDirty(): boolean;
+  isFormPristine(): boolean;
+  addFieldValidation(key: string, validation: (value: string, vm: any) => FieldValidationResult);
+  addFieldValidationAsync(key: string, validation: (value: string, vm: any) => Promise<FieldValidationResult>);
 }
 
 export type ValidationResult = FieldValidationResult | Promise<FieldValidationResult>;
@@ -43,9 +52,9 @@ export interface FormValidationFunction {
   (vm: any): ValidationResult;
 }
 
-export class BaseFormValidation {
-  _validationEngine: IValidationEngine;
-  constructor();
-  validateField(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult>;
-  validateForm(vm: any): Promise<FormValidationResult>;
+
+export interface ValidationConstraints extends Object {
+  global?: FormValidationFunction[];
 }
+
+export function createFormValidation(validationCredentials: ValidationConstraints): FormValidation;

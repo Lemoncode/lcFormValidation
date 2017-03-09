@@ -169,10 +169,6 @@ export class ValidationEngine implements IValidationEngine {
       return Promise.resolve(validation(vm));
     }
 
-    this.addFormValidationAsync(validationAsync);
-  }
-
-  addFormValidationAsync(validation: FormValidationFunction) {
     this._validationsGlobalForm.push(validation);
   }
 
