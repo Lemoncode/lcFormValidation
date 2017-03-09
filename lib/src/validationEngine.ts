@@ -1,6 +1,5 @@
 import { } from 'core-js';
 import {
-  FormNameToFieldNameMapping,
   FormValidationResult,
   FieldValidationResult,
   FieldValidation,
@@ -32,12 +31,10 @@ export class ValidationEngine implements IValidationEngine {
   // fieldID will be used as array index
   _validationsPerField: Array<FieldValidation>;
   _validationsGlobalForm: FormValidationFunction[];
-  _formNameToFieldNameMappings: Array<FormNameToFieldNameMapping>;
 
   public constructor() {
     this._asyncValidationInProgressCount = 0;
     this._validationsPerField = [];
-    this._formNameToFieldNameMappings = new Array<FormNameToFieldNameMapping>();
     this._validationsGlobalForm = [];
     this._isFormPristine = true;
   }

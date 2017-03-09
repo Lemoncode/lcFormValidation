@@ -1,10 +1,5 @@
 import { } from 'core-js';
 
-export class FormNameToFieldNameMapping {
-  formFieldName: string;
-  vmFieldName: string;
-}
-
 export class FieldValidation {
   public validationFn: (value, vm) => Promise<FieldValidationResult>;
   public filter: any;
