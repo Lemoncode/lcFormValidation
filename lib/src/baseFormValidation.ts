@@ -26,7 +26,7 @@ export class BaseFormValidation implements FormValidation {
 
   private parseValidationConstraints(validationConstraints: ValidationConstraints) {
     if (validationConstraints && typeof validationConstraints === 'object') {
-      if (validationConstraints.hasOwnProperty('global') && validationConstraints.global instanceof Array) {
+      if (validationConstraints.global && validationConstraints.global instanceof Array) {
         this.addFormValidationFunctions(validationConstraints.global);
       }
     }
