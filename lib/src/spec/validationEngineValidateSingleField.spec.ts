@@ -25,7 +25,7 @@ describe('lcFormValidation simple form', () => {
 
         return Promise.resolve(validationResult);
       }
-    )
+    );
 
     formValidationBase
       .triggerFieldValidation(viewModel, 'fullname', 'newContent')
@@ -101,6 +101,7 @@ describe('lcFormValidation simple form', () => {
           return Promise.resolve(validationResult);
         }
       );
+      
       formValidationBase
         .triggerFieldValidation(viewModel, 'fullname', 'john')
         .then((fieldValidationResult: FieldValidationResult) => {

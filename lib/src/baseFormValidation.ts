@@ -5,6 +5,7 @@ import {
   FormValidationFunction,
   FieldValidationResult,
   FormValidationResult,
+  FieldValidationConstraint,
 } from './entities';
 import { consts } from './consts';
 
@@ -26,8 +27,15 @@ export class BaseFormValidation implements FormValidation {
 
   private parseValidationConstraints(validationConstraints: ValidationConstraints) {
     if (validationConstraints && typeof validationConstraints === 'object') {
-      if (validationConstraints.global && validationConstraints.global instanceof Array) {
-        this.addFormValidationFunctions(validationConstraints.global);
+      const { global, fields } = validationConstraints;
+      if (global && global instanceof Array) {
+        this.addFormValidationFunctions(global);
+      }
+      if (fields && typeof fields === 'object') {
+        for (let field in fields) {
+          const fieldValidationConstraint: FieldValidationConstraint = fields[field];
+          this.addFieldValidation(field, fieldValidationConstraint.validator, fieldValidationConstraint.trigger)
+        }
       }
     }
   }
