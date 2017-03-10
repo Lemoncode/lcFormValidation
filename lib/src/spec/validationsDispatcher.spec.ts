@@ -1,15 +1,5 @@
-import { } from 'mocha';
-import * as chai from 'chai';
-import { expect } from 'chai';
-import * as chaiAsPromised from 'chai-as-promised';
-import { } from 'core-js';
-import * as sinon from 'sinon';
 import { validationsDispatcher } from '../validationsDispatcher';
-import { FieldValidationResult, FormNameToFieldNameMapping } from '../entities';
-
-// https://www.slalom.com/thinking/building-applications-with-typescript
-// https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/chai-as-promised/chai-as-promised-tests.ts
-chai.use(chaiAsPromised);
+import { FieldValidationResult } from '../entities';
 
 describe('ValidationsDispatcher', () => {
   describe('Group #1 => When calling fireSingleFieldValidations', () => {

@@ -1,5 +1,8 @@
-import { } from 'core-js';
-import { FormNameToFieldNameMapping, FieldValidationResult } from './entities';
+import {
+  FieldValidationResult,
+  ValidationResult,
+  FormValidationFunction,
+} from './entities';
 import { consts } from './consts';
 
 class ValidationParams {
@@ -58,7 +61,7 @@ export class ValidationDispatcher {
   fireAllFieldsValidations(
     vm: Object,
     validationFn: (vm, key, value) => Promise<FieldValidationResult>
-  ): Array<Promise<FieldValidationResult>> {
+  ): Promise<FieldValidationResult>[] {
 
     let fieldValidationResultsPromises: Promise<FieldValidationResult>[] = [];
 
@@ -75,15 +78,14 @@ export class ValidationDispatcher {
     return fieldValidationResultsPromises;
   }
 
-  fireGlobalFormValidations(vm: any,
-    validations: Array<(vm) => Promise<FieldValidationResult>>
-  ): Array<Promise<FieldValidationResult>> {
+  fireGlobalFormValidations(vm: any, validations: FormValidationFunction[])
+    : ValidationResult[] {
 
-    let validationResultsPromises: Array<Promise<FieldValidationResult>> = [];
+    let validationResultsPromises: ValidationResult[] = [];
 
     //NOTE: Delegate into validationFn if vm is null, undefined, etc..
     if (this.areParametersDefined(validations)) {
-      validations.forEach((validationFn: (vm) => Promise<FieldValidationResult>) => {
+      validations.forEach((validationFn) => {
         validationResultsPromises.push(validationFn(vm));
       });
     }

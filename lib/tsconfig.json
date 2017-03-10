@@ -10,7 +10,13 @@
     "emitDecoratorMetadata": false,
     "noLib": false,
     "preserveConstEnums": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "types": [
+      "mocha",
+      "core-js",
+      "chai-as-promised",
+      "karma-chai-sinon"
+    ]
   },
   "compileOnSave": false,
   "exclude": [

@@ -9,3 +9,4 @@ lib/ReadmeResources/
 lib/coverage/
 yarn.lock
 .vscode/
+npm-debug.log

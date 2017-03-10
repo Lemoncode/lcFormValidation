@@ -1,6 +1,3 @@
-import { } from 'mocha';
-import { expect } from 'chai';
-import { } from 'core-js';
 import { ValidationEngine } from '../validationEngine';
 import { FieldValidationResult, FormValidationResult } from '../entities';
 import { consts } from '../consts';
@@ -34,7 +31,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -74,7 +71,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
             expect(formValidationResult.fieldErrors).to.have.length(1);
@@ -155,7 +152,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -245,7 +242,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -335,7 +332,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -425,7 +422,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
@@ -474,7 +471,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        let promise = validationEngine.validateFullForm(viewModel);
+        let promise = validationEngine.validateForm(viewModel);
 
         //Assert
         expect(promise).to.eventually.be.rejected.notify(done);
@@ -482,7 +479,7 @@ describe('ValidationEngine Validate Form', () => {
 
   });
 
-  describe('Group #2 => When calling validateFullForm and addFormValidationAsync', () => {
+  describe('Group #2 => When calling validateFullForm and addFormValidation with async function', () => {
     it('Spec #1 => should return a succeeded FormValidationResult with one formGlobalErrors equals ' +
       '{ succeeded: true, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_REQUIRED", errorMessage: "" }' +
       'When passing one global validation rule and viewModel equals { id: "1", fullname: "john" }', (done) => {
@@ -491,7 +488,7 @@ describe('ValidationEngine Validate Form', () => {
         const viewModel = { id: '1', fullname: 'john' };
 
         // Act
-        validationEngine.addFormValidationAsync((vm): Promise<FieldValidationResult> => {
+        validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
           let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
           let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
 
@@ -503,7 +500,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(validationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
             expect(formValidationResult.formGlobalErrors).to.have.length(1);
@@ -524,7 +521,7 @@ describe('ValidationEngine Validate Form', () => {
         const viewModel = { id: '1', fullname: '' };
 
         // Act
-        validationEngine.addFormValidationAsync((vm): Promise<FieldValidationResult> => {
+        validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
           let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
           let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
 
@@ -536,7 +533,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(validationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -560,7 +557,7 @@ describe('ValidationEngine Validate Form', () => {
         const viewModel = { id: '1', fullname: 'john' };
 
         // Act
-        validationEngine.addFormValidationAsync((vm): Promise<FieldValidationResult> => {
+        validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
           let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
           let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
 
@@ -572,7 +569,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(validationResult);
         });
 
-        validationEngine.addFormValidationAsync((vm): Promise<FieldValidationResult> => {
+        validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
           // We will isolate this into common functions
           // minLenght
           // in this case no async stuff
@@ -590,7 +587,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(fieldValidationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
@@ -619,7 +616,7 @@ describe('ValidationEngine Validate Form', () => {
         const viewModel = { id: '1', fullname: 'jo' };
 
         // Act
-        validationEngine.addFormValidationAsync((vm): Promise<FieldValidationResult> => {
+        validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
           let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
           let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
 
@@ -631,7 +628,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(validationResult);
         });
 
-        validationEngine.addFormValidationAsync((vm): Promise<FieldValidationResult> => {
+        validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
           // We will isolate this into common functions
           // minLenght
           // in this case no async stuff
@@ -649,7 +646,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(fieldValidationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -669,7 +666,7 @@ describe('ValidationEngine Validate Form', () => {
           });
       });
 
-    it('Spec #4 => should return a failed FormValidationResult with two formGlobalErrors ' +
+    it('Spec #5 => should return a failed FormValidationResult with two formGlobalErrors ' +
       'first equals { succeeded: false, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_REQUIRED", errorMessage: "Global form check Mandatory field" }' +
       'second equals { succeeded: false, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_MIN_LENGTH", errorMessage: "Global form check must be at least 3 characters" }' +
       'When passing two global validation rules and viewModel equals { id: "1", fullname: "" }', (done) => {
@@ -678,7 +675,7 @@ describe('ValidationEngine Validate Form', () => {
         const viewModel = { id: '1', fullname: '' };
 
         // Act
-        validationEngine.addFormValidationAsync((vm): Promise<FieldValidationResult> => {
+        validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
           let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
           let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
 
@@ -690,7 +687,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(validationResult);
         });
 
-        validationEngine.addFormValidationAsync((vm): Promise<FieldValidationResult> => {
+        validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
           // We will isolate this into common functions
           // minLenght
           // in this case no async stuff
@@ -708,7 +705,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(fieldValidationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -729,7 +726,7 @@ describe('ValidationEngine Validate Form', () => {
       });
   });
 
-  describe('Group #3 => When calling validateFullForm, addFieldValidationAsync and addFormValidationAsync', () => {
+  describe('Group #3 => When calling validateFullForm, addFieldValidationAsync and addFormValidation with async function', () => {
     it('Spec #1 => should return a succeeded FormValidationResult with one fieldErrors and one formGlobalErrors' +
       'first equals { succeeded: true, key: "address", type: "REQUIRED", errorMessage: "" }' +
       'second equals { succeeded: true, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_REQUIRED", errorMessage: "" }' +
@@ -760,7 +757,7 @@ describe('ValidationEngine Validate Form', () => {
         );
 
 
-        validationEngine.addFormValidationAsync((vm): Promise<FieldValidationResult> => {
+        validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
           let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
           let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
 
@@ -772,7 +769,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(validationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
@@ -822,7 +819,7 @@ describe('ValidationEngine Validate Form', () => {
         );
 
 
-        validationEngine.addFormValidationAsync((vm): Promise<FieldValidationResult> => {
+        validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
           let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
           let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
 
@@ -834,7 +831,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(validationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -884,7 +881,7 @@ describe('ValidationEngine Validate Form', () => {
         );
 
 
-        validationEngine.addFormValidationAsync((vm): Promise<FieldValidationResult> => {
+        validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
           let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
           let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
 
@@ -896,7 +893,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(validationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -946,7 +943,7 @@ describe('ValidationEngine Validate Form', () => {
         );
 
 
-        validationEngine.addFormValidationAsync((vm): Promise<FieldValidationResult> => {
+        validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
           let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
           let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
 
@@ -958,7 +955,7 @@ describe('ValidationEngine Validate Form', () => {
           return Promise.resolve(validationResult);
         });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -979,34 +976,33 @@ describe('ValidationEngine Validate Form', () => {
       });
 
 
-    it('Spec #5 => should return a promise rejected ' +
-      'When passing one faulty global validation rule', (done) => {
-        // Arrange
-        const validationEngine: ValidationEngine = new ValidationEngine();
-        const viewModel = { id: '1', fullname: 'john', address: '' };
+    it('Spec #5 => should return a promise rejected when passing one faulty global validation rule', (done) => {
+      // Arrange
+      const validationEngine: ValidationEngine = new ValidationEngine();
+      const viewModel = { id: '1', fullname: 'john', address: '' };
 
-        // Act
-        validationEngine.addFormValidationAsync((vm): Promise<FieldValidationResult> => {
-          let error: boolean = true;
+      // Act
+      validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
+        let error: boolean = true;
 
-          if (error) {
-            throw "Intentionally global form uncontrolled exception"
-          }
+        if (error) {
+          throw "Intentionally global form uncontrolled exception"
+        }
 
-          let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
-          let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
+        let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
+        let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
 
-          const validationResult: FieldValidationResult = new FieldValidationResult();
-          validationResult.type = "GLOBAL_FORM_REQUIRED";
-          validationResult.succeeded = isFieldInformed;
-          validationResult.errorMessage = errorInfo;
+        const validationResult: FieldValidationResult = new FieldValidationResult();
+        validationResult.type = "GLOBAL_FORM_REQUIRED";
+        validationResult.succeeded = isFieldInformed;
+        validationResult.errorMessage = errorInfo;
 
-          return Promise.resolve(validationResult);
-        });
-
-        const promise = validationEngine.validateFullForm(viewModel)
-        expect(promise).to.eventually.be.rejected.notify(done);
+        return Promise.resolve(validationResult);
       });
+
+      const promise = validationEngine.validateForm(viewModel)
+      expect(promise).to.eventually.be.rejected.notify(done);
+    });
   });
 
   describe('Group #4 => When calling validateFullForm, addFieldValidation and addFieldValidationAsync', () => {
@@ -1037,7 +1033,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -1077,7 +1073,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
@@ -1128,7 +1124,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
@@ -1188,7 +1184,7 @@ describe('ValidationEngine Validate Form', () => {
           }
         );
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
@@ -1209,7 +1205,7 @@ describe('ValidationEngine Validate Form', () => {
       });
   });
 
-  describe('Group #5 => When calling validateFullForm, addFormValidation and addFormValidationAsync', () => {
+  describe('Group #5 => When calling validateFullForm and addFormValidation with sync and async functions', () => {
     it('Spec #1 => should return a succeeded FormValidationResult with one formGlobalErrors equals ' +
       '{ succeeded: true, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_REQUIRED", errorMessage: "" }' +
       'When passing one sync global validation rule and viewModel equals { id: "1", fullname: "john" }', (done) => {
@@ -1228,10 +1224,9 @@ describe('ValidationEngine Validate Form', () => {
           validationResult.errorMessage = errorInfo;
 
           return validationResult;
-        }
-        );
+        });
 
-        validationEngine.validateFullForm(viewModel)
+        validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
@@ -1245,151 +1240,146 @@ describe('ValidationEngine Validate Form', () => {
             done();
           });
       });
+
+    it('Spec #2 => should return a failed FormValidationResult with one formGlobalErrors equals ' +
+      '{ succeeded: false, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_REQUIRED", errorMessage: "Global form check Mandatory field" }' +
+      'When passing one global validation rule and viewModel equals { id: "1", fullname: "" }', (done) => {
+        // Arrange
+        const validationEngine: ValidationEngine = new ValidationEngine();
+        const viewModel = { id: '1', fullname: '' };
+
+        // Act
+        validationEngine.addFormValidation((vm): FieldValidationResult => {
+          let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
+          let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
+
+          const validationResult: FieldValidationResult = new FieldValidationResult();
+          validationResult.type = "GLOBAL_FORM_REQUIRED";
+          validationResult.succeeded = isFieldInformed;
+          validationResult.errorMessage = errorInfo;
+
+          return validationResult;
+        });
+
+        validationEngine.validateForm(viewModel)
+          .then((formValidationResult: FormValidationResult) => {
+            expect(formValidationResult.succeeded).to.be.false;
+
+            expect(formValidationResult.formGlobalErrors).to.have.length(1);
+
+            expect(formValidationResult.formGlobalErrors[0].succeeded).to.be.false;
+            expect(formValidationResult.formGlobalErrors[0].key).to.be.equal('_GLOBAL_FORM_');
+            expect(formValidationResult.formGlobalErrors[0].type).to.equal('GLOBAL_FORM_REQUIRED');
+            expect(formValidationResult.formGlobalErrors[0].errorMessage).to.equal('Global form check Mandatory field');
+
+            done();
+          });
+      });
+
+    it('Spec #3 => should return a succeeded FormValidationResult with two formGlobalErrors ' +
+      'first equals { succeeded: true, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_REQUIRED", errorMessage: "" }' +
+      'second equals { succeeded: true, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_MIN_LENGTH", errorMessage: "" }' +
+      'When passing one sync and other async global validation rules and viewModel equals { id: "1", fullname: "john" }', (done) => {
+        // Arrange
+        const validationEngine: ValidationEngine = new ValidationEngine();
+        const viewModel = { id: '1', fullname: 'john' };
+
+        // Act
+        validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
+          let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
+          let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
+
+          const validationResult: FieldValidationResult = new FieldValidationResult();
+          validationResult.type = "GLOBAL_FORM_REQUIRED";
+          validationResult.succeeded = isFieldInformed;
+          validationResult.errorMessage = errorInfo;
+
+          return Promise.resolve(validationResult);
+        });
+
+        validationEngine.addFormValidation((vm): FieldValidationResult => {
+          let minLength: boolean = (vm.fullname != null && vm.fullname.length >= 3);
+          let errorInfo: string = (minLength) ? "" : "Global form check must be at least 3 characters";
+
+          const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
+          fieldValidationResult.type = "GLOBAL_FORM_MIN_LENGTH";
+          fieldValidationResult.succeeded = minLength;
+          fieldValidationResult.errorMessage = errorInfo;
+
+          return fieldValidationResult;
+        });
+
+        validationEngine.validateForm(viewModel)
+          .then((formValidationResult: FormValidationResult) => {
+            expect(formValidationResult.succeeded).to.be.true;
+
+            expect(formValidationResult.formGlobalErrors).to.have.length(2);
+
+            expect(formValidationResult.formGlobalErrors[0].succeeded).to.be.true;
+            expect(formValidationResult.formGlobalErrors[0].key).to.be.equal('_GLOBAL_FORM_');
+            expect(formValidationResult.formGlobalErrors[0].type).to.equal('GLOBAL_FORM_REQUIRED');
+            expect(formValidationResult.formGlobalErrors[0].errorMessage).to.equal('');
+
+            expect(formValidationResult.formGlobalErrors[1].succeeded).to.be.true;
+            expect(formValidationResult.formGlobalErrors[1].key).to.be.equal('_GLOBAL_FORM_');
+            expect(formValidationResult.formGlobalErrors[1].type).to.equal('GLOBAL_FORM_MIN_LENGTH');
+            expect(formValidationResult.formGlobalErrors[1].errorMessage).to.equal('');
+
+            done();
+          });
+      });
+
+    it('Spec #4 => should return a failed FormValidationResult with two formGlobalErrors ' +
+      'first equals { succeeded: true, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_REQUIRED", errorMessage: "" }' +
+      'second equals { succeeded: false, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_MIN_LENGTH", errorMessage: "Global form check must be at least 3 characters" }' +
+      'When passing one sync and other async global validation rules and viewModel equals { id: "1", fullname: "jo" }', (done) => {
+        // Arrange
+        const validationEngine: ValidationEngine = new ValidationEngine();
+        const viewModel = { id: '1', fullname: 'jo' };
+
+        // Act
+        validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
+          let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
+          let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
+
+          const validationResult: FieldValidationResult = new FieldValidationResult();
+          validationResult.type = "GLOBAL_FORM_REQUIRED";
+          validationResult.succeeded = isFieldInformed;
+          validationResult.errorMessage = errorInfo;
+
+          return Promise.resolve(validationResult);
+        });
+
+        validationEngine.addFormValidation((vm): FieldValidationResult => {
+          let minLength: boolean = (vm.fullname != null && vm.fullname.length >= 3);
+          let errorInfo: string = (minLength) ? "" : "Global form check must be at least 3 characters";
+
+          const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
+          fieldValidationResult.type = "GLOBAL_FORM_MIN_LENGTH";
+          fieldValidationResult.succeeded = minLength;
+          fieldValidationResult.errorMessage = errorInfo;
+
+          return fieldValidationResult;
+        });
+
+        validationEngine.validateForm(viewModel)
+          .then((formValidationResult: FormValidationResult) => {
+            expect(formValidationResult.succeeded).to.be.false;
+
+            expect(formValidationResult.formGlobalErrors).to.have.length(2);
+
+            expect(formValidationResult.formGlobalErrors[0].succeeded).to.be.true;
+            expect(formValidationResult.formGlobalErrors[0].key).to.be.equal('_GLOBAL_FORM_');
+            expect(formValidationResult.formGlobalErrors[0].type).to.equal('GLOBAL_FORM_REQUIRED');
+            expect(formValidationResult.formGlobalErrors[0].errorMessage).to.equal('');
+
+            expect(formValidationResult.formGlobalErrors[1].succeeded).to.be.false;
+            expect(formValidationResult.formGlobalErrors[1].key).to.be.equal('_GLOBAL_FORM_');
+            expect(formValidationResult.formGlobalErrors[1].type).to.equal('GLOBAL_FORM_MIN_LENGTH');
+            expect(formValidationResult.formGlobalErrors[1].errorMessage).to.equal('Global form check must be at least 3 characters');
+
+            done();
+          });
+      });
   });
-
-  it('Spec #2 => should return a failed FormValidationResult with one formGlobalErrors equals ' +
-    '{ succeeded: false, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_REQUIRED", errorMessage: "Global form check Mandatory field" }' +
-    'When passing one global validation rule and viewModel equals { id: "1", fullname: "" }', (done) => {
-      // Arrange
-      const validationEngine: ValidationEngine = new ValidationEngine();
-      const viewModel = { id: '1', fullname: '' };
-
-      // Act
-      validationEngine.addFormValidation((vm): FieldValidationResult => {
-        let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
-        let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
-
-        const validationResult: FieldValidationResult = new FieldValidationResult();
-        validationResult.type = "GLOBAL_FORM_REQUIRED";
-        validationResult.succeeded = isFieldInformed;
-        validationResult.errorMessage = errorInfo;
-
-        return validationResult;
-      }
-      );
-
-      validationEngine.validateFullForm(viewModel)
-        .then((formValidationResult: FormValidationResult) => {
-          expect(formValidationResult.succeeded).to.be.false;
-
-          expect(formValidationResult.formGlobalErrors).to.have.length(1);
-
-          expect(formValidationResult.formGlobalErrors[0].succeeded).to.be.false;
-          expect(formValidationResult.formGlobalErrors[0].key).to.be.equal('_GLOBAL_FORM_');
-          expect(formValidationResult.formGlobalErrors[0].type).to.equal('GLOBAL_FORM_REQUIRED');
-          expect(formValidationResult.formGlobalErrors[0].errorMessage).to.equal('Global form check Mandatory field');
-
-          done();
-        });
-    });
-
-  it('Spec #3 => should return a succeeded FormValidationResult with two formGlobalErrors ' +
-    'first equals { succeeded: true, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_REQUIRED", errorMessage: "" }' +
-    'second equals { succeeded: true, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_MIN_LENGTH", errorMessage: "" }' +
-    'When passing one sync and other async global validation rules and viewModel equals { id: "1", fullname: "john" }', (done) => {
-      // Arrange
-      const validationEngine: ValidationEngine = new ValidationEngine();
-      const viewModel = { id: '1', fullname: 'john' };
-
-      // Act
-      validationEngine.addFormValidationAsync((vm): Promise<FieldValidationResult> => {
-        let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
-        let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
-
-        const validationResult: FieldValidationResult = new FieldValidationResult();
-        validationResult.type = "GLOBAL_FORM_REQUIRED";
-        validationResult.succeeded = isFieldInformed;
-        validationResult.errorMessage = errorInfo;
-
-        return Promise.resolve(validationResult);
-      }
-      );
-
-      validationEngine.addFormValidation((vm): FieldValidationResult => {
-        let minLength: boolean = (vm.fullname != null && vm.fullname.length >= 3);
-        let errorInfo: string = (minLength) ? "" : "Global form check must be at least 3 characters";
-
-        const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
-        fieldValidationResult.type = "GLOBAL_FORM_MIN_LENGTH";
-        fieldValidationResult.succeeded = minLength;
-        fieldValidationResult.errorMessage = errorInfo;
-
-        return fieldValidationResult;
-      }
-      );
-
-      validationEngine.validateFullForm(viewModel)
-        .then((formValidationResult: FormValidationResult) => {
-          expect(formValidationResult.succeeded).to.be.true;
-
-          expect(formValidationResult.formGlobalErrors).to.have.length(2);
-
-          expect(formValidationResult.formGlobalErrors[0].succeeded).to.be.true;
-          expect(formValidationResult.formGlobalErrors[0].key).to.be.equal('_GLOBAL_FORM_');
-          expect(formValidationResult.formGlobalErrors[0].type).to.equal('GLOBAL_FORM_REQUIRED');
-          expect(formValidationResult.formGlobalErrors[0].errorMessage).to.equal('');
-
-          expect(formValidationResult.formGlobalErrors[1].succeeded).to.be.true;
-          expect(formValidationResult.formGlobalErrors[1].key).to.be.equal('_GLOBAL_FORM_');
-          expect(formValidationResult.formGlobalErrors[1].type).to.equal('GLOBAL_FORM_MIN_LENGTH');
-          expect(formValidationResult.formGlobalErrors[1].errorMessage).to.equal('');
-
-          done();
-        });
-    });
-
-  it('Spec #4 => should return a failed FormValidationResult with two formGlobalErrors ' +
-    'first equals { succeeded: true, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_REQUIRED", errorMessage: "" }' +
-    'second equals { succeeded: false, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_MIN_LENGTH", errorMessage: "Global form check must be at least 3 characters" }' +
-    'When passing one sync and other async global validation rules and viewModel equals { id: "1", fullname: "jo" }', (done) => {
-      // Arrange
-      const validationEngine: ValidationEngine = new ValidationEngine();
-      const viewModel = { id: '1', fullname: 'jo' };
-
-      // Act
-      validationEngine.addFormValidationAsync((vm): Promise<FieldValidationResult> => {
-        let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
-        let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
-
-        const validationResult: FieldValidationResult = new FieldValidationResult();
-        validationResult.type = "GLOBAL_FORM_REQUIRED";
-        validationResult.succeeded = isFieldInformed;
-        validationResult.errorMessage = errorInfo;
-
-        return Promise.resolve(validationResult);
-      }
-      );
-
-      validationEngine.addFormValidation((vm): FieldValidationResult => {
-        let minLength: boolean = (vm.fullname != null && vm.fullname.length >= 3);
-        let errorInfo: string = (minLength) ? "" : "Global form check must be at least 3 characters";
-
-        const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
-        fieldValidationResult.type = "GLOBAL_FORM_MIN_LENGTH";
-        fieldValidationResult.succeeded = minLength;
-        fieldValidationResult.errorMessage = errorInfo;
-
-        return fieldValidationResult;
-      }
-      );
-
-      validationEngine.validateFullForm(viewModel)
-        .then((formValidationResult: FormValidationResult) => {
-          expect(formValidationResult.succeeded).to.be.false;
-
-          expect(formValidationResult.formGlobalErrors).to.have.length(2);
-
-          expect(formValidationResult.formGlobalErrors[0].succeeded).to.be.true;
-          expect(formValidationResult.formGlobalErrors[0].key).to.be.equal('_GLOBAL_FORM_');
-          expect(formValidationResult.formGlobalErrors[0].type).to.equal('GLOBAL_FORM_REQUIRED');
-          expect(formValidationResult.formGlobalErrors[0].errorMessage).to.equal('');
-
-          expect(formValidationResult.formGlobalErrors[1].succeeded).to.be.false;
-          expect(formValidationResult.formGlobalErrors[1].key).to.be.equal('_GLOBAL_FORM_');
-          expect(formValidationResult.formGlobalErrors[1].type).to.equal('GLOBAL_FORM_MIN_LENGTH');
-          expect(formValidationResult.formGlobalErrors[1].errorMessage).to.equal('Global form check must be at least 3 characters');
-
-          done();
-        });
-    });
 });

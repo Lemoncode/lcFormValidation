@@ -1,12 +1,5 @@
-import { } from 'mocha';
-import * as chai from 'chai';
-import { expect } from 'chai';
-import * as chaiAsPromised from 'chai-as-promised';
-import { } from 'core-js';
 import { ValidationEngine } from '../validationEngine';
 import { FieldValidationResult } from '../entities';
-
-chai.use(chaiAsPromised);
 
 //TODO: Implement Issue #20 (Take into account if it returns Promise.resolve(undefined))
 describe('lcFormValidation simple form', () => {

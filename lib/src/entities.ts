@@ -1,12 +1,5 @@
-import { } from 'core-js';
-
-export class FormNameToFieldNameMapping {
-  formFieldName: string;
-  vmFieldName: string;
-}
-
 export class FieldValidation {
-  public validationFn: (vm, value) => Promise<FieldValidationResult>;
+  public validationFn: (value, vm) => Promise<FieldValidationResult>;
   public filter: any;
 }
 
@@ -33,4 +26,14 @@ export class FormValidationResult {
     this.succeeded = false;
     this.fieldErrors = [];
   }
+}
+
+export type ValidationResult = FieldValidationResult | Promise<FieldValidationResult>;
+
+export interface FormValidationFunction {
+  (vm: any): ValidationResult;
+}
+
+export interface ValidationConstraints extends Object {
+  global?: FormValidationFunction[];
 }
