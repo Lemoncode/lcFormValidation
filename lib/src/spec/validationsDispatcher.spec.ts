@@ -1,9 +1,4 @@
-import { } from 'mocha';
-import * as chai from 'chai';
-import { expect } from 'chai';
-import * as chaiAsPromised from 'chai-as-promised';
 import { } from 'core-js';
-import * as sinon from 'sinon';
 import { validationsDispatcher } from '../validationsDispatcher';
 import { FieldValidationResult } from '../entities';
 

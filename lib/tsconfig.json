@@ -12,6 +12,7 @@
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true,
     "types": [
+      "chai-as-promised",
       "karma-chai-sinon"
     ]
   },
