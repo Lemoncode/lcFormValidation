@@ -18,9 +18,9 @@ export interface IValidationEngine {
   validateForm(vm: any): Promise<FormValidationResult>;
   triggerFieldValidation(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult>;
   // TODO: Implement Issue #15
-  addFieldValidation(key: string, validation: (value, vm) => FieldValidationResult, filter?: any);
-  addFieldValidationAsync(key: string, validation: (value, vm) => Promise<FieldValidationResult>, filter?: any);
-  addFormValidation(validation: FormValidationFunction);
+  addFieldValidation(key: string, validation: (value, vm) => FieldValidationResult, filter?: any): void;
+  addFieldValidationAsync(key: string, validation: (value, vm) => Promise<FieldValidationResult>, filter?: any): void;
+  addFormValidation(validation: FormValidationFunction): void;
   isValidationInProgress(): boolean;
 }
 
@@ -88,7 +88,7 @@ export class ValidationEngine implements IValidationEngine {
     return this.validateSingleField(vm, key, value, filter);
   }
 
-  validateGlobalFormValidations(vm: any) {
+  validateGlobalFormValidations(vm: any): ValidationResult[] {
     this._asyncValidationInProgressCount++;
 
     let globalFieldResultValidations: ValidationResult[] = [];
@@ -138,12 +138,12 @@ export class ValidationEngine implements IValidationEngine {
     return fieldValidationResultPromise;
   }
 
-  isFieldKeyMappingDefined(key: string) {
+  isFieldKeyMappingDefined(key: string): boolean {
     return this._validationsPerField[key] !== undefined &&
       this._validationsPerField[key] !== null;
   }
 
-  addFieldValidation(key: string, validation: (value, vm) => FieldValidationResult, filter: any = consts.defaultFilter) {
+  addFieldValidation(key: string, validation: (value, vm) => FieldValidationResult, filter: any = consts.defaultFilter): IValidationEngine {
     const validationAsync = (value, vm): Promise<FieldValidationResult> => {
       return Promise.resolve(validation(value, vm));
     }
@@ -152,7 +152,7 @@ export class ValidationEngine implements IValidationEngine {
     return this;
   }
 
-  addFieldValidationAsync(key: string, validation: (value, vm) => Promise<FieldValidationResult>, filter: any = consts.defaultFilter) {
+  addFieldValidationAsync(key: string, validation: (value, vm) => Promise<FieldValidationResult>, filter: any = consts.defaultFilter): IValidationEngine {
     if (!this.isFieldKeyMappingDefined(key)) {
       this._validationsPerField[key] = [];
     }
@@ -161,7 +161,7 @@ export class ValidationEngine implements IValidationEngine {
     return this;
   }
 
-  addFormValidation(validation: FormValidationFunction) {
+  addFormValidation(validation: FormValidationFunction): void {
     const validationAsync = (vm): Promise<FieldValidationResult> => {
       return Promise.resolve(validation(vm));
     }

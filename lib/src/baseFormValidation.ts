@@ -40,32 +40,32 @@ export class BaseFormValidation implements FormValidation {
     });
   }
 
-  validateField(vm: any, key: string, value: any, filter?: any) {
+  validateField(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult> {
     return this.validationEngine.validateSingleField(vm, key, value, filter);
   }
 
-  validateForm(vm: any) {
+  validateForm(vm: any): Promise<FormValidationResult> {
     return this.validationEngine.validateForm(vm);
   }
 
-  isValidationInProgress() {
+  isValidationInProgress(): boolean {
     return this.validationEngine.isValidationInProgress();
   }
 
-  isFormDirty() {
+  isFormDirty(): boolean {
     return this.validationEngine.isFormDirty();
   }
 
-  isFormPristine() {
+  isFormPristine(): boolean {
     return this.validationEngine.isFormPristine();
   }
 
-  addFieldValidation(key: string, validationFunction: (value: string, vm: any) => FieldValidationResult) {
+  addFieldValidation(key: string, validationFunction: (value: string, vm: any) => FieldValidationResult): FormValidation {
     this.validationEngine.addFieldValidation(key, validationFunction);
     return this;
   }
 
-  addFieldValidationAsync(key: string, validationFunction: (value: string, vm: any) => Promise<FieldValidationResult>) {
+  addFieldValidationAsync(key: string, validationFunction: (value: string, vm: any) => Promise<FieldValidationResult>): FormValidation {
     this.validationEngine.addFieldValidationAsync(key, validationFunction);
     return this;
   }
