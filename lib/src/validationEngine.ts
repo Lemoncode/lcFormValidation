@@ -1,4 +1,3 @@
-import { } from 'core-js';
 import {
   FormValidationResult,
   FieldValidationResult,

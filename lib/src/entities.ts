@@ -1,5 +1,3 @@
-import { } from 'core-js';
-
 export class FieldValidation {
   public validationFn: (value, vm) => Promise<FieldValidationResult>;
   public filter: any;
