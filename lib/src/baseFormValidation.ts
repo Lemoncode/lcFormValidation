@@ -1,6 +1,7 @@
 import { ValidationEngine } from './validationEngine';
 import {
   ValidationConstraints,
+  FieldValidationFunction,
   FormValidationFunction,
   FieldValidationResult,
   FormValidationResult,
@@ -60,12 +61,12 @@ export class BaseFormValidation implements FormValidation {
     return this.validationEngine.isFormPristine();
   }
 
-  addFieldValidation(key: string, validationFunction: (value: string, vm: any) => FieldValidationResult): FormValidation {
+  addFieldValidation(key: string, validationFunction: FieldValidationFunction): FormValidation {
     this.validationEngine.addFieldValidation(key, validationFunction);
     return this;
   }
 
-  addFieldValidationAsync(key: string, validationFunction: (value: string, vm: any) => Promise<FieldValidationResult>): FormValidation {
+  addFieldValidationAsync(key: string, validationFunction: FieldValidationFunction): FormValidation {
     this.validationEngine.addFieldValidationAsync(key, validationFunction);
     return this;
   }

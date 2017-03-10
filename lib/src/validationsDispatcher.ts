@@ -59,7 +59,7 @@ export class ValidationDispatcher {
   }
 
   fireAllFieldsValidations(
-    vm: Object,
+    vm: any,
     validationFn: (vm, key, value) => Promise<FieldValidationResult>
   ): Promise<FieldValidationResult>[] {
 

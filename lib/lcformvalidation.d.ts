@@ -27,8 +27,20 @@ export interface FormValidationFunction {
   (vm: any): ValidationResult;
 }
 
+export interface FieldValidationFunction {
+  (value: any, vm: any): ValidationResult;
+}
+
+export interface FieldValidationConstraint extends Object {
+  validator: FieldValidationFunction;
+  trigger?: string | string[],
+  customParams?: Object
+}
+
 export interface ValidationConstraints extends Object {
   global?: FormValidationFunction[];
+  field?: { [key: string]: FieldValidationConstraint }
 }
 
 export function createFormValidation(validationCredentials: ValidationConstraints): FormValidation;
+
