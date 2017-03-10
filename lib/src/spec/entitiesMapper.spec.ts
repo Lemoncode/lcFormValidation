@@ -4,7 +4,6 @@ import { entitiesMapper } from '../entitiesMapper';
 
 
 describe('mapper ', () => {
-
   describe('when calling ExtractArrayValidationFnFromFieldValidationArray ', () => {
     it('should returns an empty array ' +
       'when passing an empty array as input parameter', () => {

@@ -18,8 +18,7 @@ export interface IValidationEngine {
   validateForm(vm: any): Promise<FormValidationResult>;
   triggerFieldValidation(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult>;
   // TODO: Implement Issue #15
-  addFieldValidation(key: string, validation: (value, vm) => FieldValidationResult, filter?: any): void;
-  addFieldValidationAsync(key: string, validation: (value, vm) => Promise<FieldValidationResult>, filter?: any): void;
+  addFieldValidation(key: string, validation: FieldValidationFunction, filter?: any): void;
   addFormValidation(validation: FormValidationFunction): void;
   isValidationInProgress(): boolean;
 }
@@ -29,8 +28,8 @@ export class ValidationEngine implements IValidationEngine {
   private isFormChanged: boolean;
   private asyncValidationInProgressCount: number;
   // fieldID will be used as array index
-  validationsPerField: FieldValidation[];
-  validationsGlobalForm: FormValidationFunction[];
+  private validationsPerField: FieldValidationFunction[];
+  private validationsGlobalForm: FormValidationFunction[];
 
   public constructor() {
     this.asyncValidationInProgressCount = 0;
@@ -144,20 +143,15 @@ export class ValidationEngine implements IValidationEngine {
   }
 
   addFieldValidation(key: string, validation: FieldValidationFunction, filter: any = consts.defaultFilter): IValidationEngine {
-    const validationAsync = (value, vm): Promise<FieldValidationResult> => {
+    const asyncValidationFn = (value, vm): Promise<ValidationResult> => {
       return Promise.resolve(validation(value, vm));
     }
 
-    this.addFieldValidationAsync(key, validationAsync, filter);
-    return this;
-  }
-
-  addFieldValidationAsync(key: string, validation: FieldValidationFunction, filter: any = consts.defaultFilter): IValidationEngine {
     if (!this.isFieldKeyMappingDefined(key)) {
       this.validationsPerField[key] = [];
     }
 
-    this.validationsPerField[key].push({ validationFn: validation, filter: filter });
+    this.validationsPerField[key].push({ validationFn: asyncValidationFn, filter });
     return this;
   }
 

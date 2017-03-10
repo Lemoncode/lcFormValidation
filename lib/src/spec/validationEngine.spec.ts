@@ -122,7 +122,7 @@ describe('lcFormValidation', () => {
         return Promise.resolve(fieldValidationResult);
       };
       let validationEngine = new ValidationEngine();
-      validationEngine.addFieldValidationAsync("test2", validationFn);
+      validationEngine.addFieldValidation("test2", validationFn);
 
       //Act
       let result = validationEngine.isFieldKeyMappingDefined(key);
@@ -140,7 +140,7 @@ describe('lcFormValidation', () => {
         return Promise.resolve(fieldValidationResult);
       }
       let validationEngine = new ValidationEngine();
-      validationEngine.addFieldValidationAsync(key, validationFn);
+      validationEngine.addFieldValidation(key, validationFn);
 
       //Act
       let result = validationEngine.isFieldKeyMappingDefined(key);
@@ -165,7 +165,7 @@ describe('lcFormValidation', () => {
     expect(result).to.be.an.instanceOf(ValidationEngine);
   });
 
-  it('should return itself after adding a validation rule using addFieldValidationAsync method', () => {
+  it('should return itself after adding a validation rule using addFieldValidation method', () => {
     // Arrange
     const key = 'test1';
     const validationFn = (value, vm) => {
@@ -174,7 +174,7 @@ describe('lcFormValidation', () => {
     const validationEngine = new ValidationEngine();
 
     // Act
-    const result = validationEngine.addFieldValidationAsync(key, validationFn);
+    const result = validationEngine.addFieldValidation(key, validationFn);
 
     // Assert
     expect(result).not.to.be.undefined;

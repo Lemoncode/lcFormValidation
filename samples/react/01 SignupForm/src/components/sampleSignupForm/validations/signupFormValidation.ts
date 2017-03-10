@@ -4,21 +4,11 @@ import { gitHub } from '../../../api/gitHub';
 
 const signupFormValidation = createFormValidation(null);
 signupFormValidation
-  .addFieldValidation('password', (value, vm): FieldValidationResult => {
-    return requiredValidationHandler(value, vm);
-  })
-  .addFieldValidation('confirmPassword', (value, vm): FieldValidationResult => {
-    return passwordAndConfirmPasswordValidationHandler(value, vm);
-  })
-  .addFieldValidation('confirmPassword', (value, vm): FieldValidationResult => {
-    return requiredValidationHandler(value, vm);
-  })
-  .addFieldValidationAsync('login', (value, vm): Promise<FieldValidationResult> => {
-    return loginExistOnGitHubValidationHandler(value, vm);
-  }, { OnBlur: true })
-  .addFieldValidation('login', (value, vm): FieldValidationResult => {
-    return requiredValidationHandler(value, vm);
-  }, { OnChange: true, OnBlur: true });
+  .addFieldValidation('password', requiredValidationHandler)
+  .addFieldValidation('confirmPassword', passwordAndConfirmPasswordValidationHandler)
+  .addFieldValidation('confirmPassword', requiredValidationHandler)
+  .addFieldValidationAsync('login', loginExistOnGitHubValidationHandler, { OnBlur: true })
+  .addFieldValidation('login', requiredValidationHandler, { OnChange: true, OnBlur: true });
 
 function requiredValidationHandler(value: any, vm: any): FieldValidationResult {
   const isFieldInformed: boolean = (value != null && value.length > 0);

@@ -15,7 +15,6 @@ interface FormValidation {
   isFormDirty(): boolean;
   isFormPristine(): boolean;
   addFieldValidation(key: string, validation: (value: string, vm: any) => FieldValidationResult, filter?: any): FormValidation;
-  addFieldValidationAsync(key: string, validation: (value: string, vm: any) => Promise<FieldValidationResult>, filter?: any): FormValidation;
 }
 
 export class BaseFormValidation implements FormValidation {
@@ -63,11 +62,6 @@ export class BaseFormValidation implements FormValidation {
 
   addFieldValidation(key: string, validationFunction: FieldValidationFunction): FormValidation {
     this.validationEngine.addFieldValidation(key, validationFunction);
-    return this;
-  }
-
-  addFieldValidationAsync(key: string, validationFunction: FieldValidationFunction): FormValidation {
-    this.validationEngine.addFieldValidationAsync(key, validationFunction);
     return this;
   }
 }

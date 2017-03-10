@@ -9,7 +9,7 @@ describe('lcFormValidation simple form', () => {
     const viewModel = { id: '1', fullname: 'john' };
 
     // Act
-    formValidationBase.addFieldValidationAsync('fullname',
+    formValidationBase.addFieldValidation('fullname',
       (value, vm): Promise<FieldValidationResult> => {
         // Required field
         // in this case no async stuff
@@ -47,7 +47,7 @@ describe('lcFormValidation simple form', () => {
       const viewModel = { id: '1', fullname: 'john' };
 
       // Act
-      formValidationBase.addFieldValidationAsync('fullname',
+      formValidationBase.addFieldValidation('fullname',
         (value, vm): Promise<FieldValidationResult> => {
           // Required field
           // in this case no async stuff
@@ -84,7 +84,7 @@ describe('lcFormValidation simple form', () => {
       const viewModel = { id: '1', fullname: 'john' };
 
       // Act
-      formValidationBase.addFieldValidationAsync('fullname',
+      formValidationBase.addFieldValidation('fullname',
         (value, vm): Promise<FieldValidationResult> => {
           // Required field
           // in this case no async stuff
@@ -121,7 +121,7 @@ describe('lcFormValidation simple form', () => {
       const viewModel = { id: '1', fullname: 'john' };
 
       // Act
-      formValidationBase.addFieldValidationAsync('fullname',
+      formValidationBase.addFieldValidation('fullname',
         (value, vm): Promise<FieldValidationResult> => {
           let error = true;
 

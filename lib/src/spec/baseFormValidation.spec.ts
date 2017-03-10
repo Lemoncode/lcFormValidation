@@ -38,10 +38,11 @@ describe('formValidation tests', () => {
       const viewModel = {};
       const key = 'fullname';
       const value = '';
+      const filter = undefined;
 
       // Act
       const formValidation = new BaseFormValidation(validationConstraints);
-      formValidation.validateField(viewModel, key, value);
+      formValidation.validateField(viewModel, key, value, filter);
 
       // Assert
       expect(validateSingleField.calledOnce).to.be.true;
@@ -92,24 +93,6 @@ describe('formValidation tests', () => {
       expect(addFieldValidation.calledOnce).to.be.true;
       expect(instance).to.be.equals(formValidation);
     }).bind(this));
-
-    it('Spec#7 => should have a method "addFieldValidationAsync" that returns itself and calls ValidationEngine.addFieldValidationAsync',
-      sinon.test(() => {
-        // Arrange
-        const sinon: sinon.SinonStatic = this;
-        const addFieldValidationAsync = sinon.stub(ValidationEngine.prototype, 'addFieldValidationAsync', () => { });
-        const validationConstraints = {};
-        const key = 'fullname';
-        const validationFunction = (value: any) => Promise.resolve(new FieldValidationResult());
-
-        // Act
-        const formValidation = new BaseFormValidation(validationConstraints);
-        const instance = formValidation.addFieldValidationAsync(key, validationFunction);
-
-        // Assert
-        expect(addFieldValidationAsync.calledOnce).to.be.true;
-        expect(instance).to.be.equals(formValidation);
-      }).bind(this));
   });
 
   describe('Group#2 => createFormValidation tests', () => {

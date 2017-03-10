@@ -771,7 +771,7 @@ describe('ValidationsDispatcher', () => {
       });
 
     it('Spec #12 => should return rejected promise' +
-      'When passing a validation function that throws an error' +
+      'When passing a validation function that throws an error ' +
       'and error management is set to default behavior for that validation fn'
       , (done) => {
         //Arrange
