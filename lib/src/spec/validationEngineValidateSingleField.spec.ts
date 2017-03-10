@@ -1,8 +1,3 @@
-import { } from 'mocha';
-import * as chai from 'chai';
-import { expect } from 'chai';
-import * as chaiAsPromised from 'chai-as-promised';
-import { } from 'core-js';
 import { ValidationEngine } from '../validationEngine';
 import { FieldValidationResult } from '../entities';
 

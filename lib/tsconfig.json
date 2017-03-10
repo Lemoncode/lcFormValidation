@@ -12,6 +12,9 @@
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true,
     "types": [
+      "mocha",
+      "core-js",
+      "chai-as-promised",
       "karma-chai-sinon"
     ]
   },

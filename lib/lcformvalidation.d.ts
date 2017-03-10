@@ -1,5 +1,3 @@
-import { } from 'core-js';
-
 export class FieldValidationResult {
   key?: string;
   type: string;
@@ -13,7 +11,7 @@ export class FormValidationResult {
   formGlobalErrors: Array<FieldValidationResult>;
 }
 
-export interface FormValidation {
+interface FormValidation {
   validateField(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult>;
   validateForm(vm: any): Promise<FormValidationResult>;
   isValidationInProgress(): boolean;
