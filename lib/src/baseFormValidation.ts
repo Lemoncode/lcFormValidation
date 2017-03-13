@@ -31,12 +31,23 @@ export class BaseFormValidation implements FormValidation {
         this.addFormValidationFunctions(global);
       }
       if (fields && typeof fields === 'object') {
-        for (let field in fields) {
-          const fieldValidationConstraint: FieldValidationConstraint = fields[field];
-          this.addFieldValidation(field, fieldValidationConstraint.validator, fieldValidationConstraint.trigger)
-        }
+        this.addFieldValidationFunctions(fields);
       }
     }
+  }
+
+  private addFieldValidationFunctions(fields: { [key: string]: FieldValidationConstraint[] }) {
+    for (let field in fields) {
+      const fieldValidationConstraints = fields[field];
+      if (fieldValidationConstraints instanceof Array) {
+        fieldValidationConstraints.forEach(fieldValidationConstraint => {
+          if (fieldValidationConstraint && typeof fieldValidationConstraint === 'object') {
+            this.addFieldValidation(field, fieldValidationConstraint.validator, fieldValidationConstraint.trigger)
+          }
+        });
+      }
+    }
+
   }
 
   private addFormValidationFunctions(validationFunctions: FormValidationFunction[]) {

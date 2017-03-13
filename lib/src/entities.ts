@@ -46,5 +46,5 @@ export interface FieldValidationConstraint extends Object {
 
 export interface ValidationConstraints extends Object {
   global?: FormValidationFunction[];
-  fields?: { [key: string]: FieldValidationConstraint };
+  fields?: { [key: string]: FieldValidationConstraint[] };
 }

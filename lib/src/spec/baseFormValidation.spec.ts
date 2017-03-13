@@ -1,5 +1,9 @@
 import { createFormValidation, BaseFormValidation } from '../baseFormValidation';
-import { ValidationConstraints, FieldValidationResult } from '../entities';
+import {
+  ValidationConstraints,
+  FieldValidationResult,
+  FieldValidationConstraint
+} from '../entities';
 import { ValidationEngine } from '../validationEngine';
 
 describe('formValidation tests', () => {
@@ -224,29 +228,22 @@ describe('formValidation tests', () => {
   });
 
   describe('Group #4 => createFormValidation ValidationConstraints.fields object boundaries', () => {
-    it('shoul add field validations with a field with {validator: <function>} value', sinon.test(function () {
+    it('should not add a field validations given a non object', sinon.test(function () {
       // Arrange
       const sinon: sinon.SinonStatic = this;
       const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
-      const validationFunction = () => new FieldValidationResult()
       const validationConstraints: ValidationConstraints = {
-        fields: {
-          fullname: {
-            validator: validationFunction,
-          }
-        }
+        fields: ('test' as any)
       };
 
       // Act
       const formValidation = createFormValidation(validationConstraints);
 
       // Assert
-      expect(addFieldValidation.calledOnce).to.be.true;
-      expect(addFieldValidation.calledWithExactly('fullname', validationFunction, undefined)).to.be.true;
-
+      expect(addFieldValidation.called).to.be.false;
     }));
 
-    it('should not add field validations with a field with null value', sinon.test(function () {
+    it('should not add field validations given null value', sinon.test(function () {
       // Arrange
       const sinon: sinon.SinonStatic = this;
       const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
@@ -261,12 +258,14 @@ describe('formValidation tests', () => {
       expect(addFieldValidation.called).to.be.false;
     }));
 
-    it('should not add a field validations for a non object field in ValidationConstraints.field', sinon.test(function () {
+    it('should not add field validations given a FieldValidationConstraint not being an array ', sinon.test(function () {
       // Arrange
       const sinon: sinon.SinonStatic = this;
       const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
       const validationConstraints: ValidationConstraints = {
-        fields: ('test' as any)
+        fields: {
+          fullname: ('test' as any)
+        }
       };
 
       // Act
@@ -275,5 +274,74 @@ describe('formValidation tests', () => {
       // Assert
       expect(addFieldValidation.called).to.be.false;
     }));
+
+    it('should not add field validations given a FieldValidationConstraint array of non objects', sinon.test(function () {
+      // Arrange
+      const sinon: sinon.SinonStatic = this;
+      const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
+      const validation1 = () => new FieldValidationResult();
+      const validationConstraints: ValidationConstraints = {
+        fields: {
+          fullname: ([undefined, 'foo'] as any),
+        }
+      };
+
+      // Act
+      const formValidation = createFormValidation(validationConstraints);
+
+      // Assert
+      expect(addFieldValidation.calledOnce).to.be.false;
+    }));
+
+    it('should add field validations given an FieldValidationConstraint with {validator: <function>}', sinon.test(function () {
+      // Arrange
+      const sinon: sinon.SinonStatic = this;
+      const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
+      const validation1 = () => new FieldValidationResult();
+      const validation2 = () => new FieldValidationResult();
+      const validationConstraints: ValidationConstraints = {
+        fields: {
+          property1: [
+            { validator: validation1 },
+          ],
+          property2: [
+            { validator: validation2 },
+          ]
+        }
+      };
+
+      // Act
+      const formValidation = createFormValidation(validationConstraints);
+
+      // Assert
+      expect(addFieldValidation.calledTwice).to.be.true;
+      expect(addFieldValidation.calledWithExactly('property1', validation1, undefined)).to.be.true;
+      expect(addFieldValidation.calledWithExactly('property2', validation2, undefined)).to.be.true;
+    }));
+
+    it('should add multiple validations given a property haveing multiple FieldValidationConstraints', sinon.test(function () {
+      // Arrange
+      const sinon: sinon.SinonStatic = this;
+      const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
+      const validation1 = () => new FieldValidationResult();
+      const validation2 = () => new FieldValidationResult();
+      const validationConstraints: ValidationConstraints = {
+        fields: {
+          property1: [
+            { validator: validation1 },
+            { validator: validation2 },
+          ]
+        }
+      };
+
+      // Act
+      const formValidation = createFormValidation(validationConstraints);
+
+      // Assert
+      expect(addFieldValidation.calledTwice).to.be.true;
+      expect(addFieldValidation.calledWithExactly('property1', validation1, undefined)).to.be.true;
+      expect(addFieldValidation.calledWithExactly('property1', validation2, undefined)).to.be.true;
+    }));
+
   });
 });
