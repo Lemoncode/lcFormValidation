@@ -40,11 +40,11 @@ export interface FieldValidationFunction {
 
 export interface FieldValidationConstraint extends Object {
   validator: FieldValidationFunction;
-  trigger?: string | string[],
+  trigger?: { [key: string]: boolean },
   customParams?: Object
 }
 
 export interface ValidationConstraints extends Object {
   global?: FormValidationFunction[];
-  fields?: { [key: string]: FieldValidationConstraint }
+  fields?: { [key: string]: FieldValidationConstraint };
 }

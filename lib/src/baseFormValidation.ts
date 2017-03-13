@@ -15,7 +15,6 @@ interface FormValidation {
   isValidationInProgress(): boolean;
   isFormDirty(): boolean;
   isFormPristine(): boolean;
-  addFieldValidation(key: string, validation: (value: string, vm: any) => FieldValidationResult, filter?: any): FormValidation;
 }
 
 export class BaseFormValidation implements FormValidation {
@@ -68,8 +67,8 @@ export class BaseFormValidation implements FormValidation {
     return this.validationEngine.isFormPristine();
   }
 
-  addFieldValidation(key: string, validationFunction: FieldValidationFunction): FormValidation {
-    this.validationEngine.addFieldValidation(key, validationFunction);
+  private addFieldValidation(key: string, validationFunction: FieldValidationFunction, trigger?: Object): FormValidation {
+    this.validationEngine.addFieldValidation(key, validationFunction, trigger);
     return this;
   }
 }

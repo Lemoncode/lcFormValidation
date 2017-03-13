@@ -16,7 +16,7 @@ describe('formValidation tests', () => {
       expect(formValidation).to.be.an.instanceOf(BaseFormValidation);
     });
 
-    it('Spec#2 => should have a method "isFormDirty" that calls ValidationEngine.isFormDirty', sinon.test(function () {
+    it('Spec#2 => should have an exposed method "isFormDirty" that calls ValidationEngine.isFormDirty', sinon.test(function () {
       // Arrange
       const sinon: sinon.SinonStatic = this;
       const isFormDirty = sinon.stub(ValidationEngine.prototype, 'isFormDirty', () => { });
@@ -30,7 +30,7 @@ describe('formValidation tests', () => {
       expect(isFormDirty.calledOnce).to.be.true;
     }));
 
-    it('Spec#3 => should have a method "validateField" that calls ValidationEngine.validateSingleField', sinon.test(function () {
+    it('Spec#3 => should have an exposed method "validateField" that calls ValidationEngine.validateSingleField', sinon.test(function () {
       // Arrange
       const sinon: sinon.SinonStatic = this;
       const validateSingleField = sinon.stub(ValidationEngine.prototype, 'validateSingleField', () => { });
@@ -48,7 +48,7 @@ describe('formValidation tests', () => {
       expect(validateSingleField.calledOnce).to.be.true;
     }));
 
-    it('Spec#4 => should have a method "validateForm" that calls ValidationEngine.validateForm', sinon.test(function () {
+    it('Spec#4 => should have an exposed method "validateForm" that calls ValidationEngine.validateForm', sinon.test(function () {
       // Arrange
       const sinon: sinon.SinonStatic = this;
       const validateForm = sinon.stub(ValidationEngine.prototype, 'validateForm', () => { });
@@ -63,7 +63,7 @@ describe('formValidation tests', () => {
       expect(validateForm.calledOnce).to.be.true;
     }));
 
-    it('Spec#5 => should have a method "isValidationInProgress" that calls ValidationEngine.isValidationInProgress', sinon.test(function () {
+    it('Spec#5 => should have an exposed method "isValidationInProgress" that calls ValidationEngine.isValidationInProgress', sinon.test(function () {
       // Arrange
       const sinon: sinon.SinonStatic = this;
       const isValidationInProgress = sinon.stub(ValidationEngine.prototype, 'isValidationInProgress', () => { });
@@ -75,23 +75,6 @@ describe('formValidation tests', () => {
 
       // Assert
       expect(isValidationInProgress.calledOnce).to.be.true;
-    }));
-
-    it('Spec#6 => should have a method "addFieldValidation" that returns itself and calls ValidationEngine.addFieldValidation', sinon.test(function () {
-      // Arrange
-      const sinon: sinon.SinonStatic = this;
-      const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
-      const validationConstraints = {};
-      const key = 'fullname';
-      const validationFunction = (value: any) => new FieldValidationResult();
-
-      // Act
-      const formValidation = new BaseFormValidation(validationConstraints);
-      const instance = formValidation.addFieldValidation(key, validationFunction);
-
-      // Assert
-      expect(addFieldValidation.calledOnce).to.be.true;
-      expect(instance).to.be.equals(formValidation);
     }));
   });
 
@@ -244,11 +227,12 @@ describe('formValidation tests', () => {
     it('shoul add field validations with a field with {validator: <function>} value', sinon.test(function () {
       // Arrange
       const sinon: sinon.SinonStatic = this;
-      const addValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
-      const validationConstraints = {
+      const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
+      const validationFunction = () => new FieldValidationResult()
+      const validationConstraints: ValidationConstraints = {
         fields: {
           fullname: {
-            validator: () => new FieldValidationResult()
+            validator: validationFunction,
           }
         }
       };
@@ -257,15 +241,32 @@ describe('formValidation tests', () => {
       const formValidation = createFormValidation(validationConstraints);
 
       // Assert
-      expect(addValidation.calledOnce).to.be.true;
+      expect(addFieldValidation.calledOnce).to.be.true;
+      expect(addFieldValidation.calledWithExactly('fullname', validationFunction, undefined)).to.be.true;
 
     }));
+
     it('should not add field validations with a field with null value', sinon.test(function () {
       // Arrange
       const sinon: sinon.SinonStatic = this;
       const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
-      const validationConstraints = {
+      const validationConstraints: ValidationConstraints = {
         fields: null
+      };
+
+      // Act
+      const formValidation = createFormValidation(validationConstraints);
+
+      // Assert
+      expect(addFieldValidation.called).to.be.false;
+    }));
+
+    it('should not add a field validations for a non object field in ValidationConstraints.field', sinon.test(function () {
+      // Arrange
+      const sinon: sinon.SinonStatic = this;
+      const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
+      const validationConstraints: ValidationConstraints = {
+        fields: ('test' as any)
       };
 
       // Act

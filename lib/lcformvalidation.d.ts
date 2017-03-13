@@ -33,7 +33,7 @@ export interface FieldValidationFunction {
 
 export interface FieldValidationConstraint extends Object {
   validator: FieldValidationFunction;
-  trigger?: string | string[],
+  trigger?: { [key: string]: boolean },
   customParams?: Object
 }
 
