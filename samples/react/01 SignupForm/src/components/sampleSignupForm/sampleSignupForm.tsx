@@ -11,7 +11,7 @@ interface Props extends React.Props<any> {
 }
 
 export class SampleSignupForm extends React.Component<Props, {}> {
-  private applyFieldValidation(event, filter: any = undefined) {
+  private applyFieldValidation(event, filter?: Object) {
     const field = event.target.name;
     const value = event.target.value;
 

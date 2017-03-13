@@ -28,7 +28,7 @@ function passwordAndConfirmPasswordValidationHandler(value: any, vm: any): Field
 
 function loginExistOnGitHubValidationHandler(value: any, vm: any): Promise<FieldValidationResult> {
   return gitHub.doesLoginExists(value)
-    .then((loginExists) => this.resolveLoginExists(loginExists))
+    .then((loginExists) => resolveLoginExists(loginExists))
     .catch(error => console.log('ERROR', error));
 }
 
@@ -51,11 +51,11 @@ const validationConstraints: ValidationConstraints = {
     ],
     login: [
       {
-        validator: requiredValidationHandler,
+        validator: loginExistOnGitHubValidationHandler,
         trigger: { OnBlur: true }
       },
       {
-        validator: loginExistOnGitHubValidationHandler,
+        validator: requiredValidationHandler,
         trigger: { OnChange: true, OnBlur: true }
       }
     ]

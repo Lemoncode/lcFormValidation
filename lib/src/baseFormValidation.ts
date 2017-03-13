@@ -59,7 +59,7 @@ export class BaseFormValidation implements FormValidation {
   }
 
   validateField(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult> {
-    return this.validationEngine.validateSingleField(vm, key, value, filter);
+    return this.validationEngine.triggerFieldValidation(vm, key, value, filter);
   }
 
   validateForm(vm: any): Promise<FormValidationResult> {

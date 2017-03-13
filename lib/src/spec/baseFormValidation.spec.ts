@@ -343,5 +343,31 @@ describe('formValidation tests', () => {
       expect(addFieldValidation.calledWithExactly('property1', validation2, undefined)).to.be.true;
     }));
 
+    it('should pass FieldValidationConstraints to ValidationEngine', sinon.test(function () {
+      // Arrange
+      const sinon: sinon.SinonStatic = this;
+      const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
+      const validation1 = () => new FieldValidationResult();
+      const customParams = { foo: 'bar' };
+      const trigger = { OnBlur: true };
+      const validationConstraints: ValidationConstraints = {
+        fields: {
+          property1: [
+            {
+              validator: validation1,
+              trigger,
+              customParams,
+            },
+          ]
+        }
+      };
+
+      // Act
+      const formValidation = createFormValidation(validationConstraints);
+
+      // Assert
+      expect(addFieldValidation.calledWithExactly('property1', validation1, trigger)).to.be.true;
+    }));
+
   });
 });
