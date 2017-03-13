@@ -1,18 +1,10 @@
 import { } from 'core-js';
-import { createFormValidation, FieldValidationResult } from 'lc-form-validation';
+import { createFormValidation, FieldValidationResult, ValidationConstraints } from 'lc-form-validation';
 import { gitHub } from '../../../api/gitHub';
 
-const signupFormValidation = createFormValidation(null);
-signupFormValidation
-  .addFieldValidation('password', requiredValidationHandler)
-  .addFieldValidation('confirmPassword', passwordAndConfirmPasswordValidationHandler)
-  .addFieldValidation('confirmPassword', requiredValidationHandler)
-  .addFieldValidationAsync('login', loginExistOnGitHubValidationHandler, { OnBlur: true })
-  .addFieldValidation('login', requiredValidationHandler, { OnChange: true, OnBlur: true });
-
-function requiredValidationHandler(value: any, vm: any): FieldValidationResult {
-  const isFieldInformed: boolean = (value != null && value.length > 0);
-  const errorInfo: string = (isFieldInformed) ? '' : 'Mandatory field';
+function requiredValidationHandler(value: string): FieldValidationResult {
+  const isFieldInformed = (value && value.trim().length > 0);
+  const errorInfo = (isFieldInformed) ? '' : 'Mandatory field';
 
   const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
   fieldValidationResult.type = 'REQUIRED';
@@ -36,7 +28,8 @@ function passwordAndConfirmPasswordValidationHandler(value: any, vm: any): Field
 
 function loginExistOnGitHubValidationHandler(value: any, vm: any): Promise<FieldValidationResult> {
   return gitHub.doesLoginExists(value)
-    .then((loginExists) => this.resolveLoginExists(loginExists));
+    .then((loginExists) => this.resolveLoginExists(loginExists))
+    .catch(error => console.log('ERROR', error));
 }
 
 function resolveLoginExists(loginExists: boolean): Promise<FieldValidationResult> {
@@ -46,6 +39,30 @@ function resolveLoginExists(loginExists: boolean): Promise<FieldValidationResult
   fieldValidationResult.errorMessage = (loginExists) ? 'This user exists on GitHub' : '';
   return Promise.resolve(fieldValidationResult);
 }
+
+const validationConstraints: ValidationConstraints = {
+  fields: {
+    password: [{
+      validator: requiredValidationHandler,
+    }],
+    confirmPassword: [
+      { validator: requiredValidationHandler },
+      { validator: passwordAndConfirmPasswordValidationHandler },
+    ],
+    login: [
+      {
+        validator: requiredValidationHandler,
+        trigger: { OnBlur: true }
+      },
+      {
+        validator: loginExistOnGitHubValidationHandler,
+        trigger: { OnChange: true, OnBlur: true }
+      }
+    ]
+  }
+};
+
+const signupFormValidation = createFormValidation(validationConstraints);
 
 export {
   signupFormValidation

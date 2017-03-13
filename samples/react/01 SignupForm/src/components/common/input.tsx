@@ -32,7 +32,7 @@ export class Input extends React.Component<Props, {}> {
             value={this.props.value}
             onChange={this.props.onChange}
             onBlur={this.props.onBlur} />
-          <div className="input">{this.props.error}</div>
+          <div className="help-block">{this.props.error}</div>
         </div>
       </div>
     );

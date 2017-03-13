@@ -11,7 +11,10 @@
     "emitDecoratorMetadata": true,
     "noLib": false,
     "preserveConstEnums": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "types": [
+      "core-js"
+    ]
   },
   "compileOnSave": false,
   "exclude": [

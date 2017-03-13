@@ -1,19 +1,25 @@
-import { FieldValidationResult, createFormValidation } from 'lc-form-validation';
+import { FieldValidationResult, createFormValidation, ValidationConstraints } from 'lc-form-validation';
 
 // TODO: Implement Issue #17
 // TODO: Implement Issue #6
-const customerFormValidation = createFormValidation(null);
-customerFormValidation.addFieldValidation('fullname', (value, vm): FieldValidationResult => {
-  let isFieldInformed: boolean = (value && value.length > 0);
-  let errorInfo: string = (isFieldInformed) ? "" : "Mandatory field";
+function requiredField(value: string): FieldValidationResult {
+  const succeeded = (value && value.trim().length > 0);
+  const errorMessage = (succeeded) ? "" : "Mandatory field";
 
-  const validationResult: FieldValidationResult = new FieldValidationResult();
-  validationResult.type = "REQUIRED";
-  validationResult.succeeded = isFieldInformed;
-  validationResult.errorMessage = errorInfo;
-
-  return validationResult;
-});
+  return {
+    type: 'REQUIRED',
+    succeeded,
+    errorMessage
+  };
+}
+const validationConstraints: ValidationConstraints = {
+  fields: {
+    fullname: [
+      { validator: requiredField }
+    ]
+  }
+};
+const customerFormValidation = createFormValidation(validationConstraints);
 
 export {
   customerFormValidation
