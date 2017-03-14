@@ -40,7 +40,7 @@ function resolveLoginExists(loginExists: boolean): Promise<FieldValidationResult
   return Promise.resolve(fieldValidationResult);
 }
 
-const validationConstraints: ValidationConstraints = {
+const signupValidationConstraints: ValidationConstraints = {
   fields: {
     password: [{
       validator: requiredValidationHandler,
@@ -62,7 +62,7 @@ const validationConstraints: ValidationConstraints = {
   }
 };
 
-const signupFormValidation = createFormValidation(validationConstraints);
+const signupFormValidation = createFormValidation(signupValidationConstraints);
 
 export {
   signupFormValidation

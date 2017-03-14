@@ -12,14 +12,14 @@ function requiredField(value: string): FieldValidationResult {
     errorMessage
   };
 }
-const validationConstraints: ValidationConstraints = {
+const customerValidationConstraints: ValidationConstraints = {
   fields: {
     fullname: [
       { validator: requiredField }
     ]
   }
 };
-const customerFormValidation = createFormValidation(validationConstraints);
+const customerFormValidation = createFormValidation(customerValidationConstraints);
 
 export {
   customerFormValidation

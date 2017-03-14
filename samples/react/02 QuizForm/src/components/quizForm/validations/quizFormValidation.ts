@@ -15,11 +15,13 @@ function quizValidation(quiz: QuizEntity) {
   return fieldValidationResult;
 }
 
-const quizFormValidation = createFormValidation({
+const quizValidationConstraints = {
   global: [
     quizValidation
   ]
-});
+}
+
+const quizFormValidation = createFormValidation(quizValidationConstraints);
 
 export {
   quizFormValidation
