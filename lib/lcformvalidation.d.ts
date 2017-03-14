@@ -29,19 +29,19 @@ export interface FieldValidationFunction {
   (value: any, vm: any): ValidationResult;
 }
 
+export interface ValidationFilter {
+  [key: string]: boolean;
+}
+
 export interface FieldValidationConstraint extends Object {
   validator: FieldValidationFunction;
-  trigger?: { [key: string]: boolean },
+  trigger?: ValidationFilter,
   customParams?: Object
 }
 
 export interface ValidationConstraints extends Object {
   global?: FormValidationFunction[];
   fields?: { [key: string]: FieldValidationConstraint[] }
-}
-
-export interface ValidationFilter {
-  [key: string]: boolean;
 }
 
 export function createFormValidation(validationCredentials: ValidationConstraints): FormValidation;

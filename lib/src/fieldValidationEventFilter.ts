@@ -1,8 +1,8 @@
-import { FieldValidation } from './entities';
+import { FieldValidation, ValidationFilter } from './entities';
 
 class FieldValidationEventFilter {
 
-  public filter(fieldValidations: Array<FieldValidation>, filter: any): Array<FieldValidation> {
+  public filter(fieldValidations: Array<FieldValidation>, filter: ValidationFilter): Array<FieldValidation> {
     let result = new Array<FieldValidation>();
 
     if (filter) {
@@ -16,7 +16,7 @@ class FieldValidationEventFilter {
     return result;
   }
 
-  private matchFilterOr(itemFilter, globalFilter) {
+  private matchFilterOr(itemFilter: FieldValidation, globalFilter: ValidationFilter) {
     let result: boolean = false;
 
     for (var property in globalFilter) {
@@ -29,7 +29,7 @@ class FieldValidationEventFilter {
     return result;
   }
 
-  private propertyMatched(item: any, property: any, globalFilter: any): boolean {
+  private propertyMatched(item: FieldValidation, property: string, globalFilter: ValidationFilter): boolean {
     return (globalFilter.hasOwnProperty(property) &&
       globalFilter[property] == item.filter[property]);
   }

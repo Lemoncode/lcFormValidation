@@ -20,7 +20,7 @@ export interface IValidationEngine {
   validateForm(vm: any): Promise<FormValidationResult>;
   triggerFieldValidation(vm: any, key: string, value: any, filter?: ValidationFilter): Promise<FieldValidationResult>;
   // TODO: Implement Issue #15
-  addFieldValidation(key: string, validation: FieldValidationFunction, filter?: any): void;
+  addFieldValidation(key: string, validation: FieldValidationFunction, filter?: ValidationFilter): void;
   addFormValidation(validation: FormValidationFunction): void;
   isValidationInProgress(): boolean;
 }
@@ -107,10 +107,10 @@ export class ValidationEngine implements IValidationEngine {
   }
 
   // if filter is null all validations are returned (fullform validation case)
-  private validateSingleField(vm: any, key: string, value: any, filter: any = null): Promise<FieldValidationResult> {
+  private validateSingleField(vm: any, key: string, value: any, filter: ValidationFilter = null): Promise<FieldValidationResult> {
     this.asyncValidationInProgressCount++;
 
-    let fieldValidationResultPromise = new Promise((resolve, reject) => {
+    const fieldValidationResultPromise = new Promise((resolve, reject) => {
       // TODO: this should be encapsulated into two separate functions, Issue #26
       if (!this.isFieldKeyMappingDefined(key)) {
         this.asyncValidationInProgressCount--;
