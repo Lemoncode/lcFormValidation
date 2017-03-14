@@ -6,6 +6,7 @@ import {
   FieldValidationResult,
   FormValidationResult,
   FieldValidationConstraint,
+  ValidationFilter,
 } from './entities';
 import { consts } from './consts';
 
@@ -19,6 +20,7 @@ interface FormValidation {
 
 export class BaseFormValidation implements FormValidation {
   private validationEngine: ValidationEngine;
+
   constructor(validationConstraints: ValidationConstraints) {
     this.validationEngine = new ValidationEngine();
     this.parseValidationConstraints(validationConstraints);
@@ -40,9 +42,9 @@ export class BaseFormValidation implements FormValidation {
     for (let field in fields) {
       const fieldValidationConstraints = fields[field];
       if (fieldValidationConstraints instanceof Array) {
-        fieldValidationConstraints.forEach(fieldValidationConstraint => {
+        fieldValidationConstraints.forEach((fieldValidationConstraint) => {
           if (fieldValidationConstraint && typeof fieldValidationConstraint === 'object') {
-            this.addFieldValidation(field, fieldValidationConstraint.validator, fieldValidationConstraint.trigger)
+            this.addFieldValidation(field, fieldValidationConstraint.validator, fieldValidationConstraint.trigger);
           }
         });
       }
@@ -58,7 +60,12 @@ export class BaseFormValidation implements FormValidation {
     });
   }
 
-  validateField(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult> {
+  private addFieldValidation(key: string, validationFunction: FieldValidationFunction, trigger?: ValidationFilter): FormValidation {
+    this.validationEngine.addFieldValidation(key, validationFunction, trigger);
+    return this;
+  }
+
+  validateField(vm: any, key: string, value: any, filter?: ValidationFilter): Promise<FieldValidationResult> {
     return this.validationEngine.triggerFieldValidation(vm, key, value, filter);
   }
 
@@ -76,11 +83,6 @@ export class BaseFormValidation implements FormValidation {
 
   isFormPristine(): boolean {
     return this.validationEngine.isFormPristine();
-  }
-
-  private addFieldValidation(key: string, validationFunction: FieldValidationFunction, trigger?: Object): FormValidation {
-    this.validationEngine.addFieldValidation(key, validationFunction, trigger);
-    return this;
   }
 }
 

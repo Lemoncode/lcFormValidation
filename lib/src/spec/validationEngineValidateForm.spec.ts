@@ -4,7 +4,7 @@ import { consts } from '../consts';
 
 //TODO: Implement Issue #20
 describe('ValidationEngine Validate Form', () => {
-  describe('Group #1 => When calling validateFullForm and addFieldValidation', () => {
+  describe('Group #1 => When calling validateForm and addFieldValidation', () => {
     it('Spec #1 => should return a failed FormValidationResult with one fieldErrors equals ' +
       '{ succeeded: false, key: "fullname", type: "REQUIRED", errorMessage: "Mandatory Field" } ' +
       ' when passing one validation rule with key equals "fullname" and viewModel equals { id: "1", fullname: "" }', (done) => {
@@ -477,9 +477,38 @@ describe('ValidationEngine Validate Form', () => {
         expect(promise).to.eventually.be.rejected.notify(done);
       });
 
+    it('Spec #8 => should not execute second validation if the first one fails', (done) => {
+      // Arrange
+      const validationEngine = new ValidationEngine();
+      const validationFn1 = (): FieldValidationResult => ({
+        type: 'REQUIRED',
+        succeeded: false,
+        errorMessage: 'Mandatory field'
+      });
+      const validationFn2 = (): FieldValidationResult => ({
+        type: 'USER_EXISTS',
+        succeeded: false,
+        errorMessage: 'User already exists'
+      });
+      const validationFn1Spy = sinon.spy(validationFn1);
+      const validationFn2Spy = sinon.spy(validationFn2);
+      const vm = { fullname: '' };
+
+
+      // Act
+      validationEngine.addFieldValidation('fullname', validationFn1Spy, { OnChange: true, OnBlur: true });
+      validationEngine.addFieldValidation('fullname', validationFn2Spy, { OnBlur: true });
+      validationEngine.validateForm(vm).then((validationResult) => {
+
+        // Assert
+        expect(validationFn1Spy.called).to.be.true;
+        expect(validationFn2Spy.called).to.be.false;
+        done();
+      });
+    });
   });
 
-  describe('Group #2 => When calling validateFullForm and addFormValidation with async function', () => {
+  describe('Group #2 => When calling validateForm and addFormValidation with async function', () => {
     it('Spec #1 => should return a succeeded FormValidationResult with one formGlobalErrors equals ' +
       '{ succeeded: true, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_REQUIRED", errorMessage: "" }' +
       'When passing one global validation rule and viewModel equals { id: "1", fullname: "john" }', (done) => {
@@ -726,7 +755,7 @@ describe('ValidationEngine Validate Form', () => {
       });
   });
 
-  describe('Group #3 => When calling validateFullForm, addFieldValidation and addFormValidation with async function', () => {
+  describe('Group #3 => When calling validateForm, addFieldValidation and addFormValidation with async function', () => {
     it('Spec #1 => should return a succeeded FormValidationResult with one fieldErrors and one formGlobalErrors' +
       'first equals { succeeded: true, key: "address", type: "REQUIRED", errorMessage: "" }' +
       'second equals { succeeded: true, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_REQUIRED", errorMessage: "" }' +
@@ -1005,7 +1034,7 @@ describe('ValidationEngine Validate Form', () => {
     });
   });
 
-  describe('Group #4 => When calling validateFullForm, addFieldValidation and addFieldValidation', () => {
+  describe('Group #4 => When calling validateForm, and addFieldValidation with sync function', () => {
     it('Spec #1 => should return a failed FormValidationResult with one fieldErrors equals ' +
       '{ succeeded: false, key: "fullname", type: "REQUIRED", errorMessage: "Mandatory Field" } ' +
       'when passing one sync validation rule with key equals "fullname" and ' +
@@ -1205,7 +1234,7 @@ describe('ValidationEngine Validate Form', () => {
       });
   });
 
-  describe('Group #5 => When calling validateFullForm and addFormValidation with sync and async functions', () => {
+  describe('Group #5 => When calling validateForm and addFormValidation with sync and async functions', () => {
     it('Spec #1 => should return a succeeded FormValidationResult with one formGlobalErrors equals ' +
       '{ succeeded: true, key: "_GLOBAL_FORM_", type: "GLOBAL_FORM_REQUIRED", errorMessage: "" }' +
       'When passing one sync global validation rule and viewModel equals { id: "1", fullname: "john" }', (done) => {

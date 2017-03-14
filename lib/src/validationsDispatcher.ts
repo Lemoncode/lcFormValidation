@@ -2,6 +2,7 @@ import {
   FieldValidationResult,
   ValidationResult,
   FormValidationFunction,
+  FieldValidationFunction,
 } from './entities';
 import { consts } from './consts';
 
@@ -60,19 +61,20 @@ export class ValidationDispatcher {
 
   fireAllFieldsValidations(
     vm: any,
+    vmKeys: string[],
     validationFn: (vm, key, value) => Promise<FieldValidationResult>
   ): Promise<FieldValidationResult>[] {
 
-    let fieldValidationResultsPromises: Promise<FieldValidationResult>[] = [];
+    const fieldValidationResultsPromises: Promise<FieldValidationResult>[] = [];
 
     if (this.areParametersDefined(vm, validationFn)) {
-      for (let vmKey in vm) {
+      vmKeys.forEach((vmKey) => {
         const vmFieldValue = vm[vmKey];
         if (vmFieldValue !== undefined) {
           let fieldValidationResultsPromise = validationFn(vm, vmKey, vmFieldValue);
           fieldValidationResultsPromises.push(fieldValidationResultsPromise);
         }
-      }
+      });
     }
 
     return fieldValidationResultsPromises;

@@ -2,7 +2,7 @@ import { ValidationEngine } from '../validationEngine';
 import { FieldValidationResult } from '../entities';
 
 //TODO: Implement Issue #20
-describe('lcFormValidation', () => {
+describe('ValidaionEngine tests', () => {
   it('should return isFormPristine true after initialization', () => {
     // Arrange
     const formValidationBase: ValidationEngine = new ValidationEngine();

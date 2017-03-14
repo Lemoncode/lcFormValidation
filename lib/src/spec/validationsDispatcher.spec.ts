@@ -516,83 +516,148 @@ describe('ValidationsDispatcher', () => {
 
   describe('Group #2 => When calling fireAllFieldsValidations', () => {
     it('Spec #1 => should return empty array' +
-      'When passing vm equals undefined and validationFn equals undefined', () => {
+      'When passing vm equals undefined, vmKeys equals undefined and validationFn equals undefined', () => {
         // Arrange
-        let vm = undefined;
-        let validationFn = undefined;
+        const vm = undefined;
+        const vmKeys = undefined;
+        const validationFn = undefined;
 
         // Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, validationFn);
+        const fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, vmKeys, validationFn);
 
         // Assert
-        expect(fieldValidationResultPromises).to.have.length(0);
+        expect(fieldValidationResultPromises).to.have.lengthOf(0);
       });
 
     it('Spec #2 => should return empty array' +
-      'When passing vm equals null and validationFn equals undefined', () => {
+      'When passing vm equals null, vmKeys equals null and validationFn equals undefined', () => {
         //Arrange
-        let vm = null;
-        let validationFn = undefined;
+        const vm = null;
+        const vmKeys = null;
+        const validationFn = undefined;
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, validationFn);
+        const fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, vmKeys, validationFn);
 
         //Assert
-        expect(fieldValidationResultPromises).to.have.length(0);
+        expect(fieldValidationResultPromises).to.have.lengthOf(0);
       });
 
     it('Spec #3 => should return empty array' +
-      'When passing vm equals "" and validationFn equals undefined', () => {
+      'When passing vm equals "", vmKeys equals [] and validationFn equals undefined', () => {
         //Arrange
-        let vm = "";
-        let validationFn = undefined;
+        const vm = "";
+        const vmKeys = [];
+        const validationFn = undefined;
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, validationFn);
+        const fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, vmKeys, validationFn);
 
         //Assert
-        expect(fieldValidationResultPromises).to.have.length(0);
+        expect(fieldValidationResultPromises).to.have.lengthOf(0);
       });
 
     it('Spec #4 => should return empty array' +
-      'When passing vm equals { } and validationFn equals undefined', () => {
+      'When passing vm equals { }, vmKeys as non empty array and validationFn equals undefined', () => {
         //Arrange
-        let vm = {};
-        let validationFn = undefined;
+        const vm = {};
+        const vmKeys = ['fullname']
+        const validationFn = undefined;
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, validationFn);
+        const fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, vmKeys, validationFn);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(0);
       });
 
-    it('Spec #5 => should return empty array and it does not call to validationFn' +
-      'When passing vm equals { } and validationFn equals function', () => {
+    it('Spec #5 => should return empty array when passing vm equals null, vmKeys as non empty array ' +
+      'and validationFn equals undefined', () => {
         //Arrange
-        let vm = {};
-        let validationFnSpy = sinon.spy();
+        const vm = null;
+        const vmKeys = ['fullname']
+        const validationFn = undefined;
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, validationFnSpy);
+        const fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, vmKeys, validationFn);
+
+        //Assert
+        expect(fieldValidationResultPromises).to.have.length(0);
+      });
+
+    it('Spec #6 => should return empty array when passing vm equals "", vmKeys as non empty array ' +
+      'and validationFn equals undefined', () => {
+        //Arrange
+        const vm = "";
+        const vmKeys = ['fullname']
+        const validationFn = undefined;
+
+        //Act
+        const fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, vmKeys, validationFn);
+
+        //Assert
+        expect(fieldValidationResultPromises).to.have.length(0);
+      });
+
+    it('Spec #7 => should return empty array when passing vm equals {}, vmKeys as non empty array ' +
+      'and validationFn equals undefined', () => {
+        //Arrange
+        const vm = {};
+        const vmKeys = ['fullname']
+        const validationFn = undefined;
+
+        //Act
+        const fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, vmKeys, validationFn);
+
+        //Assert
+        expect(fieldValidationResultPromises).to.have.length(0);
+      });
+
+    it('Spec #8 => should return empty array and it should not call to validationFn ' +
+      'when passing vm equals { }, vmKeys as non empty array and validationFn equals function', () => {
+        //Arrange
+        const vm = {};
+        const vmKeys = ['fullname']
+        const validationFnSpy = sinon.spy();
+
+        //Act
+        const fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, vmKeys, validationFnSpy);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(0);
         expect(validationFnSpy.called).to.be.false;
       });
 
-    it('Spec #6 => should return array with one item and it calls to validationFn' +
-      'When passing vm equals { testVmProperty: "test" } and validationFn equals function', () => {
+    it('Spec #9 => should return empty array and should not call to validationFn ' +
+      'when passing vm equals { }, vmKeys as non empty array and validationFn equals function', () => {
         //Arrange
-        let vm = {
-          testVmProperty: 'test'
+        const vm = {
+          testVmProperty: ''
         };
-        let validationFnSpy = sinon.spy();
+        const vmKeys = ['otherProperty']
+        const validationFnSpy = sinon.spy();
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, validationFnSpy);
+        const fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, vmKeys, validationFnSpy);
 
         //Assert
+        expect(fieldValidationResultPromises).to.have.length(0);
+        expect(validationFnSpy.called).to.be.false;
+      });
+
+    it('Spec #10 => should not return empty array with one item and it calls to validationFn ' +
+      'when passing vm equals { testVmProperty: "test" }, vmKeys equals [] and validationFn equals function', () => {
+        //Arrange
+        const vm = {
+          testVmProperty: 'test'
+        };
+        const vmKeys = ['testVmProperty'];
+        const validationFnSpy = sinon.spy();
+
+        //Act
+        const fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, vmKeys, validationFnSpy);
+
+        //Ass
         expect(fieldValidationResultPromises).to.have.length(1);
         expect(validationFnSpy.called).to.be.true;
       });

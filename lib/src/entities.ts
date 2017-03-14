@@ -48,3 +48,7 @@ export interface ValidationConstraints extends Object {
   global?: FormValidationFunction[];
   fields?: { [key: string]: FieldValidationConstraint[] };
 }
+
+export interface ValidationFilter {
+  [key: string]: boolean;
+}

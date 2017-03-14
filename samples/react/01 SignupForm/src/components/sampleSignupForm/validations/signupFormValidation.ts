@@ -51,13 +51,13 @@ const validationConstraints: ValidationConstraints = {
     ],
     login: [
       {
+        validator: requiredValidationHandler,
+        trigger: { OnChange: true, OnBlur: true }
+      },
+      {
         validator: loginExistOnGitHubValidationHandler,
         trigger: { OnBlur: true }
       },
-      {
-        validator: requiredValidationHandler,
-        trigger: { OnChange: true, OnBlur: true }
-      }
     ]
   }
 };

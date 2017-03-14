@@ -5,6 +5,7 @@ import {
   FieldValidationFunction,
   ValidationResult,
   FormValidationFunction,
+  ValidationFilter,
 } from "./entities";
 import { consts } from './consts';
 import { validationsDispatcher } from './validationsDispatcher';
@@ -15,8 +16,9 @@ import { entitiesMapper } from './entitiesMapper';
 export interface IValidationEngine {
   isFormDirty(): boolean;
   isFormPristine(): boolean;
+  isValidationInProgress(): boolean;
   validateForm(vm: any): Promise<FormValidationResult>;
-  triggerFieldValidation(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult>;
+  triggerFieldValidation(vm: any, key: string, value: any, filter?: ValidationFilter): Promise<FieldValidationResult>;
   // TODO: Implement Issue #15
   addFieldValidation(key: string, validation: FieldValidationFunction, filter?: any): void;
   addFormValidation(validation: FormValidationFunction): void;
@@ -28,7 +30,7 @@ export class ValidationEngine implements IValidationEngine {
   private isFormChanged: boolean;
   private asyncValidationInProgressCount: number;
   // fieldID will be used as array index
-  private validationsPerField: FieldValidationFunction[];
+  private validationsPerField: Array<{ validationFn: FieldValidationFunction, filter }>;
   private validationsGlobalForm: FormValidationFunction[];
 
   public constructor() {
@@ -52,6 +54,7 @@ export class ValidationEngine implements IValidationEngine {
       // Let's add fileValidationResults
       let fieldValidationResults: ValidationResult[] = validationsDispatcher.fireAllFieldsValidations(
         viewModel,
+        Object.keys(this.validationsPerField),
         this.validateSingleField.bind(this)
       );
 
@@ -81,13 +84,13 @@ export class ValidationEngine implements IValidationEngine {
     return fullFormValidatedPromise;
   }
 
-  triggerFieldValidation(vm: any, key: string, value: any, filter: any = consts.defaultFilter): Promise<FieldValidationResult> {
+  triggerFieldValidation(vm: any, key: string, value: any, filter: ValidationFilter = consts.defaultFilter): Promise<FieldValidationResult> {
     // updated dirty flag and perform validation
     this.isFormChanged = false;
     return this.validateSingleField(vm, key, value, filter);
   }
 
-  validateGlobalFormValidations(vm: any): ValidationResult[] {
+  private validateGlobalFormValidations(vm: any): ValidationResult[] {
     this.asyncValidationInProgressCount++;
 
     let globalFieldResultValidations: ValidationResult[] = [];
@@ -104,7 +107,7 @@ export class ValidationEngine implements IValidationEngine {
   }
 
   // if filter is null all validations are returned (fullform validation case)
-  validateSingleField(vm: any, key: string, value: any, filter: any = null): Promise<FieldValidationResult> {
+  private validateSingleField(vm: any, key: string, value: any, filter: any = null): Promise<FieldValidationResult> {
     this.asyncValidationInProgressCount++;
 
     let fieldValidationResultPromise = new Promise((resolve, reject) => {
@@ -142,7 +145,7 @@ export class ValidationEngine implements IValidationEngine {
       this.validationsPerField[key] !== null;
   }
 
-  addFieldValidation(key: string, validation: FieldValidationFunction, filter: any = consts.defaultFilter): IValidationEngine {
+  addFieldValidation(key: string, validation: FieldValidationFunction, filter: ValidationFilter = consts.defaultFilter): IValidationEngine {
     const asyncValidationFn = (value, vm): Promise<ValidationResult> => {
       return Promise.resolve(validation(value, vm));
     }
