@@ -44,12 +44,11 @@ export class BaseFormValidation implements FormValidation {
       if (fieldValidationConstraints instanceof Array) {
         fieldValidationConstraints.forEach((fieldValidationConstraint) => {
           if (fieldValidationConstraint && typeof fieldValidationConstraint === 'object') {
-            this.addFieldValidation(field, fieldValidationConstraint.validator, fieldValidationConstraint.trigger);
+            this.addFieldValidation(field, fieldValidationConstraint.validator, fieldValidationConstraint.eventFilter);
           }
         });
       }
     }
-
   }
 
   private addFormValidationFunctions(validationFunctions: FormValidationFunction[]) {
@@ -60,8 +59,8 @@ export class BaseFormValidation implements FormValidation {
     });
   }
 
-  private addFieldValidation(key: string, validationFunction: FieldValidationFunction, trigger?: ValidationFilter): FormValidation {
-    this.validationEngine.addFieldValidation(key, validationFunction, trigger);
+  private addFieldValidation(key: string, validationFunction: FieldValidationFunction, eventFilter?: ValidationFilter): FormValidation {
+    this.validationEngine.addFieldValidation(key, validationFunction, eventFilter);
     return this;
   }
 

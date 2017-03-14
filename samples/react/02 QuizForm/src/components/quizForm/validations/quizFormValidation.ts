@@ -6,8 +6,8 @@ function isThereAnyQuestionSelected(quiz: QuizEntity) {
 }
 
 function quizValidation(quiz: QuizEntity) {
-  let isQuizPassed = isThereAnyQuestionSelected(quiz);
-  let errorInfo = (isQuizPassed) ? '' : 'Failed';
+  const isQuizPassed = isThereAnyQuestionSelected(quiz);
+  const errorInfo = (isQuizPassed) ? '' : 'Failed';
   const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
   fieldValidationResult.type = 'QUIZ_VALIDATION';
   fieldValidationResult.succeeded = isQuizPassed;

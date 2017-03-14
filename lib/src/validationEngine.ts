@@ -49,7 +49,6 @@ export class ValidationEngine implements IValidationEngine {
   }
 
   validateForm(viewModel: any): Promise<FormValidationResult> {
-
     const fullFormValidatedPromise = new Promise((resolve, reject) => {
       // Let's add fileValidationResults
       let fieldValidationResults: ValidationResult[] = validationsDispatcher.fireAllFieldsValidations(
@@ -78,7 +77,6 @@ export class ValidationEngine implements IValidationEngine {
           console.log(errorInformation);
           reject(errorInformation);
         });
-
     });
 
     return fullFormValidatedPromise;

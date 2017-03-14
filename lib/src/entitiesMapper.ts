@@ -7,5 +7,4 @@ export class EntitiesMapper {
   }
 }
 
-
 export const entitiesMapper = new EntitiesMapper();

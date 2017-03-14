@@ -349,13 +349,13 @@ describe('formValidation tests', () => {
       const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
       const validation1 = () => new FieldValidationResult();
       const customParams = { foo: 'bar' };
-      const trigger = { OnBlur: true };
+      const eventFilter = { OnBlur: true };
       const validationConstraints: ValidationConstraints = {
         fields: {
           property1: [
             {
               validator: validation1,
-              trigger,
+              eventFilter,
               customParams,
             },
           ]
@@ -366,7 +366,7 @@ describe('formValidation tests', () => {
       const formValidation = createFormValidation(validationConstraints);
 
       // Assert
-      expect(addFieldValidation.calledWithExactly('property1', validation1, trigger)).to.be.true;
+      expect(addFieldValidation.calledWithExactly('property1', validation1, eventFilter)).to.be.true;
     }));
 
   });
