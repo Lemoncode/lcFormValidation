@@ -6,7 +6,7 @@ import {
   FieldValidationResult,
   FormValidationResult,
   FieldValidationConstraint,
-  ValidationFilter,
+  ValidationFilters,
 } from './entities';
 import { consts } from './consts';
 
@@ -30,28 +30,31 @@ export class BaseFormValidation implements FormValidation {
     if (validationConstraints && typeof validationConstraints === 'object') {
       const { global, fields } = validationConstraints;
       if (global && global instanceof Array) {
-        this.addFormValidationFunctions(global);
+        this.parseFormValidations(global);
       }
       if (fields && typeof fields === 'object') {
-        this.addFieldValidationFunctions(fields);
+        this.parseAllFieldsValidations(fields);
       }
     }
   }
 
-  private addFieldValidationFunctions(fields: { [key: string]: FieldValidationConstraint[] }) {
+  private parseFieldValidations(constraint: string, fieldValidationConstraints: FieldValidationConstraint[]) {
+    if (fieldValidationConstraints instanceof Array) {
+      fieldValidationConstraints.forEach((fieldValidationConstraint) => {
+        if (fieldValidationConstraint && typeof fieldValidationConstraint === 'object') {
+          this.addFieldValidation(constraint, fieldValidationConstraint.validator, fieldValidationConstraint.eventFilters);
+        }
+      });
+    }
+  }
+
+  private parseAllFieldsValidations(fields: { [key: string]: FieldValidationConstraint[] }) {
     for (let field in fields) {
-      const fieldValidationConstraints = fields[field];
-      if (fieldValidationConstraints instanceof Array) {
-        fieldValidationConstraints.forEach((fieldValidationConstraint) => {
-          if (fieldValidationConstraint && typeof fieldValidationConstraint === 'object') {
-            this.addFieldValidation(field, fieldValidationConstraint.validator, fieldValidationConstraint.eventFilter);
-          }
-        });
-      }
+      this.parseFieldValidations(field, fields[field]);
     }
   }
 
-  private addFormValidationFunctions(validationFunctions: FormValidationFunction[]) {
+  private parseFormValidations(validationFunctions: FormValidationFunction[]) {
     validationFunctions.forEach((validationFunction: FormValidationFunction) => {
       if (typeof validationFunction === 'function') {
         this.validationEngine.addFormValidation(validationFunction);
@@ -59,12 +62,12 @@ export class BaseFormValidation implements FormValidation {
     });
   }
 
-  private addFieldValidation(key: string, validationFunction: FieldValidationFunction, eventFilter?: ValidationFilter): FormValidation {
-    this.validationEngine.addFieldValidation(key, validationFunction, eventFilter);
+  private addFieldValidation(key: string, validationFunction: FieldValidationFunction, eventFilters?: ValidationFilters): FormValidation {
+    this.validationEngine.addFieldValidation(key, validationFunction, eventFilters);
     return this;
   }
 
-  validateField(vm: any, key: string, value: any, filter?: ValidationFilter): Promise<FieldValidationResult> {
+  validateField(vm: any, key: string, value: any, filter?: ValidationFilters): Promise<FieldValidationResult> {
     return this.validationEngine.triggerFieldValidation(vm, key, value, filter);
   }
 

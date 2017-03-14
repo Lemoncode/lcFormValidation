@@ -1,14 +1,14 @@
-import { FieldValidation, ValidationFilter } from './entities';
+import { FieldValidation, ValidationFilters } from './entities';
 
 class FieldValidationEventFilter {
 
-  public filter(fieldValidations: Array<FieldValidation>, filter: ValidationFilter): Array<FieldValidation> {
-    let result = new Array<FieldValidation>();
+  public filter(fieldValidations: FieldValidation[], filters: ValidationFilters): FieldValidation[] {
+    let result: FieldValidation[] = [];
 
-    if (filter) {
-      result = fieldValidations.filter((element) => {
-        return this.matchFilterOr(element, filter)
-      });
+    if (filters) {
+      result = fieldValidations.filter((fieldValidation) =>
+        this.matchsAnyFilter(fieldValidation, filters)
+      );
     } else {
       result = fieldValidations;
     }
@@ -16,22 +16,10 @@ class FieldValidationEventFilter {
     return result;
   }
 
-  private matchFilterOr(itemFilter: FieldValidation, globalFilter: ValidationFilter) {
-    let result: boolean = false;
-
-    for (var property in globalFilter) {
-      if (this.propertyMatched(itemFilter, property, globalFilter)) {
-        result = true;
-        break;
-      }
-    }
-
-    return result;
-  }
-
-  private propertyMatched(item: FieldValidation, property: string, globalFilter: ValidationFilter): boolean {
-    return (globalFilter.hasOwnProperty(property) &&
-      globalFilter[property] == item.filter[property]);
+  private matchsAnyFilter(fieldValidation: FieldValidation, filters: ValidationFilters) {
+    return Object.keys(filters).some(filter =>
+      filters[filter] === fieldValidation.filters[filter]
+    );
   }
 }
 

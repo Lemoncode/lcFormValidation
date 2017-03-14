@@ -10,7 +10,7 @@ describe('FieldValidationEventFilter ', () => {
         const allValidations: Array<FieldValidation> = [
           {
             validationFn: (vm, value) => { return null },
-            filter: { OnChange: true }
+            filters: { OnChange: true }
           }
         ];
 
@@ -22,7 +22,7 @@ describe('FieldValidationEventFilter ', () => {
 
         //Assert
         expect(result.length).to.be.equal(1);
-        expect(result[0].filter.OnChange).to.be.true;
+        expect(result[0].filters.OnChange).to.be.true;
       });
 
   });
@@ -34,7 +34,7 @@ describe('FieldValidationEventFilter ', () => {
         const allValidations: Array<FieldValidation> = [
           {
             validationFn: (vm, value) => { return null },
-            filter: { OnChange: true }
+            filters: { OnChange: true }
           }
         ];
 
@@ -58,11 +58,11 @@ describe('FieldValidationEventFilter ', () => {
           const allValidations: Array<FieldValidation> = [
             {
               validationFn: (vm, value) => { return null },
-              filter: { OnChange: true }
+              filters: { OnChange: true }
             },
             {
               validationFn: (vm, value) => { return null },
-              filter: { OnBlur: true }
+              filters: { OnBlur: true }
             }
           ];
 
@@ -73,7 +73,7 @@ describe('FieldValidationEventFilter ', () => {
 
           //Assert
           expect(result.length).to.be.equal(1);
-          expect(result[0].filter.OnChange).to.be.true;
+          expect(result[0].filters.OnChange).to.be.true;
         });
     });
   });
@@ -86,15 +86,15 @@ describe('FieldValidationEventFilter ', () => {
           const allValidations: Array<FieldValidation> = [
             {
               validationFn: (vm, value) => { return null },
-              filter: { OnChange: true }
+              filters: { OnChange: true }
             },
             {
               validationFn: (vm, value) => { return null },
-              filter: { OnBlur: true }
+              filters: { OnBlur: true }
             },
             {
               validationFn: (vm, value) => { return null },
-              filter: { OnChange: true }
+              filters: { OnChange: true }
             }
           ];
 
@@ -105,8 +105,8 @@ describe('FieldValidationEventFilter ', () => {
 
           //Assert
           expect(result.length).to.be.equal(2);
-          expect(result[0].filter.OnChange).to.be.true;
-          expect(result[1].filter.OnChange).to.be.true;
+          expect(result[0].filters.OnChange).to.be.true;
+          expect(result[1].filters.OnChange).to.be.true;
         });
     });
   });
@@ -119,15 +119,15 @@ describe('FieldValidationEventFilter ', () => {
           const allValidations: Array<FieldValidation> = [
             {
               validationFn: (vm, value) => { return null },
-              filter: { OnChange: true }
+              filters: { OnChange: true }
             },
             {
               validationFn: (vm, value) => { return null },
-              filter: { OnBlur: true }
+              filters: { OnBlur: true }
             },
             {
               validationFn: (vm, value) => { return null },
-              filter: { OnWhatever: true }
+              filters: { OnWhatever: true }
             }
           ];
 
@@ -138,8 +138,8 @@ describe('FieldValidationEventFilter ', () => {
 
           //Assert
           expect(result.length).to.be.equal(2);
-          expect(result[0].filter.OnChange).to.be.true;
-          expect(result[1].filter.OnBlur).to.be.true;
+          expect(result[0].filters.OnChange).to.be.true;
+          expect(result[1].filters.OnBlur).to.be.true;
         });
     });
   });
@@ -152,15 +152,15 @@ describe('FieldValidationEventFilter ', () => {
           const allValidations: Array<FieldValidation> = [
             {
               validationFn: (vm, value) => { return null },
-              filter: { OnChange: true }
+              filters: { OnChange: true }
             },
             {
               validationFn: (vm, value) => { return null },
-              filter: { OnBlur: true }
+              filters: { OnBlur: true }
             },
             {
               validationFn: (vm, value) => { return null },
-              filter: { OnWhatever: true }
+              filters: { OnWhatever: true }
             }
           ];
 
@@ -171,9 +171,9 @@ describe('FieldValidationEventFilter ', () => {
 
           //Assert
           expect(result.length).to.be.equal(3);
-          expect(result[0].filter.OnChange).to.be.true;
-          expect(result[1].filter.OnBlur).to.be.true;
-          expect(result[2].filter.OnWhatever).to.be.true;
+          expect(result[0].filters.OnChange).to.be.true;
+          expect(result[1].filters.OnBlur).to.be.true;
+          expect(result[2].filters.OnWhatever).to.be.true;
         });
     });
   });

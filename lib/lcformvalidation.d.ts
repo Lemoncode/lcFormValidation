@@ -11,12 +11,12 @@ export class FormValidationResult {
   formGlobalErrors: Array<FieldValidationResult>;
 }
 
-export interface ValidationFilter {
+export interface ValidationFilters {
   [key: string]: boolean;
 }
 
 interface FormValidation {
-  validateField(vm: any, key: string, value: any, filter?: ValidationFilter): Promise<FieldValidationResult>;
+  validateField(vm: any, key: string, value: any, filter?: ValidationFilters): Promise<FieldValidationResult>;
   validateForm(vm: any): Promise<FormValidationResult>;
   isValidationInProgress(): boolean;
   isFormDirty(): boolean;
@@ -35,7 +35,7 @@ export interface FieldValidationFunction {
 
 export interface FieldValidationConstraint extends Object {
   validator: FieldValidationFunction;
-  eventFilter?: ValidationFilter,
+  eventFilters?: ValidationFilters,
   customParams?: Object
 }
 

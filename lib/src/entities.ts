@@ -1,10 +1,10 @@
-export interface ValidationFilter {
+export interface ValidationFilters {
   [key: string]: boolean;
 }
 
 export class FieldValidation {
   public validationFn: (value, vm) => Promise<FieldValidationResult>;
-  public filter: ValidationFilter;
+  public filters: ValidationFilters;
 }
 
 export class FieldValidationResult {
@@ -44,7 +44,7 @@ export interface FieldValidationFunction {
 
 export interface FieldValidationConstraint extends Object {
   validator: FieldValidationFunction;
-  eventFilter?: { [key: string]: boolean },
+  eventFilters?: { [key: string]: boolean },
   customParams?: Object
 }
 

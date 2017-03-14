@@ -31,7 +31,7 @@ describe('mapper ', () => {
               fieldValidationResult.errorMessage = "error test";
               return Promise.resolve(fieldValidationResult);
             },
-            filter: { OnChange: true }
+            filters: { OnChange: true }
           }
         ];
 
@@ -63,7 +63,7 @@ describe('mapper ', () => {
               fieldValidationResult.errorMessage = "error test1";
               return Promise.resolve(fieldValidationResult);
             },
-            filter: { OnChange: true }
+            filters: { OnChange: true }
           },
           {
             validationFn: (vm, value) => {
@@ -73,7 +73,7 @@ describe('mapper ', () => {
               fieldValidationResult.errorMessage = "error test2";
               return Promise.resolve(fieldValidationResult);
             },
-            filter: { OnChange: true }
+            filters: { OnChange: true }
           }
         ];
 
