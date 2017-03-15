@@ -1,3 +1,4 @@
+import { Promise } from 'core-js';
 import {
   FormValidationResult,
   FieldValidationResult,
