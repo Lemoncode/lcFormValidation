@@ -133,7 +133,7 @@ describe('ValidationEngine Validate Form', () => {
         );
 
         validationEngine.addFieldValidation('password',
-          (value, vm): Promise<FieldValidationResult> => {
+          (value): Promise<FieldValidationResult> => {
             // We will isolate this into common functions
             // minLenght
             // in this case no async stuff
@@ -447,34 +447,19 @@ describe('ValidationEngine Validate Form', () => {
         // Arrange
         const validationEngine = new ValidationEngine();
         const viewModel = { id: '1', fullname: '' };
+        const thrownErrorMessage = 'Intentionally uncontrolled error, single field validation testing fullform validations';
 
         // Act
         validationEngine.addFieldValidation('fullname',
           (value, vm): Promise<FieldValidationResult> => {
-            let error: boolean = true;
-            if (error) {
-              throw "Intentionally uncontrolled exception, single field validation testing fullform validations"
-            }
-            // Required field
-            // in this case no async stuff
-            // we can directly resolve the promise
-            let isFieldInformed: boolean = (value != null && value.length > 0);
-            // We could use string ID's if multilanguage is required
-            let errorInfo: string = (isFieldInformed) ? "" : "Mandatory field";
-
-            const validationResult: FieldValidationResult = new FieldValidationResult();
-            validationResult.type = "REQUIRED";
-            validationResult.succeeded = isFieldInformed;
-            validationResult.errorMessage = errorInfo;
-
-            return Promise.resolve(validationResult);
+            throw new Error(thrownErrorMessage);
           }
         );
 
-        let promise = validationEngine.validateForm(viewModel);
+        const promise = validationEngine.validateForm(viewModel);
 
         //Assert
-        expect(promise).to.eventually.be.rejected.notify(done);
+        expect(promise).to.eventually.be.rejected.and.notify(done);
       });
 
     it('Spec #8 => should not execute second validation if the first one fails', (done) => {
@@ -1009,28 +994,17 @@ describe('ValidationEngine Validate Form', () => {
       // Arrange
       const validationEngine: ValidationEngine = new ValidationEngine();
       const viewModel = { id: '1', fullname: 'john', address: '' };
+      const thrownErrorMessage = 'Intentionally global form uncontrolled exception';
 
       // Act
       validationEngine.addFormValidation((vm): Promise<FieldValidationResult> => {
-        let error: boolean = true;
-
-        if (error) {
-          throw "Intentionally global form uncontrolled exception"
-        }
-
-        let isFieldInformed: boolean = (vm.fullname != null && vm.fullname.length > 0);
-        let errorInfo: string = (isFieldInformed) ? "" : "Global form check Mandatory field";
-
-        const validationResult: FieldValidationResult = new FieldValidationResult();
-        validationResult.type = "GLOBAL_FORM_REQUIRED";
-        validationResult.succeeded = isFieldInformed;
-        validationResult.errorMessage = errorInfo;
-
-        return Promise.resolve(validationResult);
+        throw new Error(thrownErrorMessage);
       });
 
       const promise = validationEngine.validateForm(viewModel)
-      expect(promise).to.eventually.be.rejected.notify(done);
+      expect(promise)
+        .to.eventually.be.rejectedWith(Error, thrownErrorMessage)
+        .and.notify(done);
     });
   });
 

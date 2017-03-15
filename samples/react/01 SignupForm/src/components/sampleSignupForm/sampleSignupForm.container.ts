@@ -3,7 +3,7 @@ import { SampleSignupForm } from './sampleSignupForm';
 import { SignupEntity } from '../../entity/signupEntity';
 import { signupRequestStart } from '../../actions/signupRequestStart';
 import { signupUIOnInteractionStart } from '../../actions/signupUIOnInteractionStart';
-import { ValidationFilter } from 'lc-form-validation';
+import { ValidationFilters } from 'lc-form-validation';
 
 let mapStateToProps = (state) => {
   return {
@@ -14,7 +14,7 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    fireValidationField: (viewModel: any, fieldName: string, value: any, filter?: ValidationFilter) => {
+    fireValidationField: (viewModel: any, fieldName: string, value: any, filter?: ValidationFilters) => {
       return dispatch(signupUIOnInteractionStart(viewModel, fieldName, value, filter));
     },
     performSignup: (signup: SignupEntity) => {

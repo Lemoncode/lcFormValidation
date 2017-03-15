@@ -1,17 +1,17 @@
 import { validationsDispatcher } from '../validationsDispatcher';
-import { FieldValidationResult } from '../entities';
+import { FieldValidationResult, FieldValidation } from '../entities';
 
 describe('ValidationsDispatcher', () => {
   describe('Group #1 => When calling fireSingleFieldValidations', () => {
     it('Spec #1 => should return undefined FieldValidationResult ' +
       'When passing vm equals undefined, value equals undefined and validationsPerField equals undefined', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationsPerField = undefined;
+        const vm = undefined;
+        const value = undefined;
+        const validationsPerField = undefined;
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
@@ -24,12 +24,12 @@ describe('ValidationsDispatcher', () => {
     it('Spec #2 => should return undefined FieldValidationResult ' +
       'When passing vm equals undefined, value equals undefined and validationsPerField equals null', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationsPerField = null;
+        const vm = undefined;
+        const value = undefined;
+        const validationsPerField = null;
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
@@ -42,12 +42,12 @@ describe('ValidationsDispatcher', () => {
     it('Spec #3 => should return undefined FieldValidationResult ' +
       'When passing vm equals undefined, value equals undefined and validationsPerField equals []', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationsPerField = [];
+        const vm = undefined;
+        const value = undefined;
+        const validationsPerField = [];
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
@@ -61,26 +61,33 @@ describe('ValidationsDispatcher', () => {
       'When passing vm equals undefined, value equals undefined and validationsPerField equals array with one item ' +
       'equals successful validation function', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationFn = (vm, value) => {
-          let fieldValidationResult = new FieldValidationResult();
+        const vm = undefined;
+        const value = undefined;
+        const validationFn = (vm, value, customParams) => {
+          const fieldValidationResult = new FieldValidationResult();
           fieldValidationResult.succeeded = true;
           return Promise.resolve(fieldValidationResult);
         };
+        const validationFnSpy = sinon.spy(validationFn);
+        const filters = {};
+        const customParams = {};
+        const fieldValidation: FieldValidation = {
+          validationFn: validationFnSpy,
+          filters,
+          customParams
+        };
 
-        let validationFnSpy = sinon.spy(validationFn);
-        let validationsPerField = [validationFnSpy];
+        const validationsPerField = [fieldValidation];
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
           .then(fieldValidationResult => {
             expect(fieldValidationResult.succeeded).to.be.true;
             expect(validationFnSpy.calledOnce).to.be.true;
-            expect(validationFnSpy.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy.calledWith(vm, value, customParams)).to.be.true;
             done();
           });
       });
@@ -89,26 +96,33 @@ describe('ValidationsDispatcher', () => {
       'When passing vm equals undefined, value equals undefined and validationsPerField equals array with one item ' +
       'equals successful validation function', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationFn = (vm, value) => {
-          let fieldValidationResult = new FieldValidationResult();
+        const vm = undefined;
+        const value = undefined;
+        const validationFn = (vm, value, customParams) => {
+          const fieldValidationResult = new FieldValidationResult();
           fieldValidationResult.succeeded = false;
           return Promise.resolve(fieldValidationResult);
         };
+        const validationFnSpy = sinon.spy(validationFn);
+        const filters = {};
+        const customParams = {};
+        const fieldValidation: FieldValidation = {
+          validationFn: validationFnSpy,
+          filters,
+          customParams,
+        };
 
-        let validationFnSpy = sinon.spy(validationFn);
-        let validationsPerField = [validationFnSpy];
+        const validationsPerField = [fieldValidation];
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
           .then(fieldValidationResult => {
             expect(fieldValidationResult.succeeded).to.be.false;
             expect(validationFnSpy.calledOnce).to.be.true;
-            expect(validationFnSpy.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy.calledWith(vm, value, customParams)).to.be.true;
             done();
           });
       });
@@ -118,25 +132,36 @@ describe('ValidationsDispatcher', () => {
       'first equals failed validation function' +
       'second equals failed validation function', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationFn1 = (vm, value) => {
-          let fieldValidationResult = new FieldValidationResult();
+        const vm = undefined;
+        const value = undefined;
+        const validationFn1 = (vm, value, customParams) => {
+          const fieldValidationResult = new FieldValidationResult();
           fieldValidationResult.succeeded = false;
           return Promise.resolve(fieldValidationResult);
         };
-        let validationFn2 = (vm, value) => {
-          let fieldValidationResult = new FieldValidationResult();
+        const validationFn2 = (vm, value, customParams) => {
+          const fieldValidationResult = new FieldValidationResult();
           fieldValidationResult.succeeded = false;
           return Promise.resolve(fieldValidationResult);
         };
-
-        let validationFnSpy1 = sinon.spy(validationFn1);
-        let validationFnSpy2 = sinon.spy(validationFn2);
-        let validationsPerField = [validationFnSpy1, validationFnSpy2];
+        const validationFnSpy1 = sinon.spy(validationFn1);
+        const validationFnSpy2 = sinon.spy(validationFn2);
+        const filters = {};
+        const customParams = {};
+        const fieldValidation1: FieldValidation = {
+          validationFn: validationFnSpy1,
+          filters,
+          customParams,
+        };
+        const fieldValidation2: FieldValidation = {
+          validationFn: validationFnSpy2,
+          filters,
+          customParams,
+        };
+        const validationsPerField = [fieldValidation1, fieldValidation2];
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
@@ -144,10 +169,10 @@ describe('ValidationsDispatcher', () => {
             expect(fieldValidationResult.succeeded).to.be.false;
 
             expect(validationFnSpy1.calledOnce).to.be.true;
-            expect(validationFnSpy1.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy1.calledWith(vm, value, customParams)).to.be.true;
 
             expect(validationFnSpy2.calledOnce).to.be.false;
-            expect(validationFnSpy2.calledWith(vm, value)).to.be.false;
+            expect(validationFnSpy2.calledWith(vm, value, customParams)).to.be.false;
             done();
           });
       });
@@ -157,25 +182,37 @@ describe('ValidationsDispatcher', () => {
       'first equals failed validation function' +
       'second equals successful validation function', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationFn1 = (vm, value) => {
-          let fieldValidationResult = new FieldValidationResult();
+        const vm = undefined;
+        const value = undefined;
+        const validationFn1 = (vm, value, customParams) => {
+          const fieldValidationResult = new FieldValidationResult();
           fieldValidationResult.succeeded = false;
           return Promise.resolve(fieldValidationResult);
         };
-        let validationFn2 = (vm, value) => {
-          let fieldValidationResult = new FieldValidationResult();
+        const validationFn2 = (vm, value, customParams) => {
+          const fieldValidationResult = new FieldValidationResult();
           fieldValidationResult.succeeded = true;
           return Promise.resolve(fieldValidationResult);
         };
+        const filters = {};
+        const customParams = {};
+        const validationFnSpy1 = sinon.spy(validationFn1);
+        const validationFnSpy2 = sinon.spy(validationFn2);
 
-        let validationFnSpy1 = sinon.spy(validationFn1);
-        let validationFnSpy2 = sinon.spy(validationFn2);
-        let validationsPerField = [validationFnSpy1, validationFnSpy2];
+        const fieldValidation1: FieldValidation = {
+          validationFn: validationFnSpy1,
+          filters,
+          customParams,
+        };
+        const fieldValidation2: FieldValidation = {
+          validationFn: validationFnSpy2,
+          filters,
+          customParams,
+        };
+        const validationsPerField = [fieldValidation1, fieldValidation2];
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
@@ -183,10 +220,10 @@ describe('ValidationsDispatcher', () => {
             expect(fieldValidationResult.succeeded).to.be.false;
 
             expect(validationFnSpy1.calledOnce).to.be.true;
-            expect(validationFnSpy1.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy1.calledWith(vm, value, customParams)).to.be.true;
 
             expect(validationFnSpy2.calledOnce).to.be.false;
-            expect(validationFnSpy2.calledWith(vm, value)).to.be.false;
+            expect(validationFnSpy2.calledWith(vm, value, customParams)).to.be.false;
             done();
           });
       });
@@ -196,25 +233,36 @@ describe('ValidationsDispatcher', () => {
       'first equals successful validation function' +
       'second equals failed validation function', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationFn1 = (vm, value) => {
-          let fieldValidationResult = new FieldValidationResult();
+        const vm = undefined;
+        const value = undefined;
+        const validationFn1 = (vm, value, customParams) => {
+          const fieldValidationResult = new FieldValidationResult();
           fieldValidationResult.succeeded = true;
           return Promise.resolve(fieldValidationResult);
         };
-        let validationFn2 = (vm, value) => {
-          let fieldValidationResult = new FieldValidationResult();
+        const validationFn2 = (vm, value, customParams) => {
+          const fieldValidationResult = new FieldValidationResult();
           fieldValidationResult.succeeded = false;
           return Promise.resolve(fieldValidationResult);
         };
-
-        let validationFnSpy1 = sinon.spy(validationFn1);
-        let validationFnSpy2 = sinon.spy(validationFn2);
-        let validationsPerField = [validationFnSpy1, validationFnSpy2];
+        const validationFnSpy1 = sinon.spy(validationFn1);
+        const validationFnSpy2 = sinon.spy(validationFn2);
+        const filters = {};
+        const customParams = {};
+        const fieldValidation1: FieldValidation = {
+          validationFn: validationFnSpy1,
+          filters,
+          customParams
+        };
+        const fieldValidation2: FieldValidation = {
+          validationFn: validationFnSpy2,
+          filters,
+          customParams
+        };
+        const validationsPerField = [fieldValidation1, fieldValidation2];
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
@@ -222,10 +270,10 @@ describe('ValidationsDispatcher', () => {
             expect(fieldValidationResult.succeeded).to.be.false;
 
             expect(validationFnSpy1.calledOnce).to.be.true;
-            expect(validationFnSpy1.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy1.calledWith(vm, value, customParams)).to.be.true;
 
             expect(validationFnSpy2.calledOnce).to.be.true;
-            expect(validationFnSpy2.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy2.calledWith(vm, value, customParams)).to.be.true;
             done();
           });
       });
@@ -235,27 +283,38 @@ describe('ValidationsDispatcher', () => {
       'first equals successful validation function' +
       'second equals successful validation function', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationFn1 = (vm, value) => {
-          let fieldValidationResult = new FieldValidationResult();
+        const vm = undefined;
+        const value = undefined;
+        const validationFn1 = (vm, value, customParams) => {
+          const fieldValidationResult = new FieldValidationResult();
           fieldValidationResult.succeeded = true;
           fieldValidationResult.key = "test1"
           return Promise.resolve(fieldValidationResult);
         };
-        let validationFn2 = (vm, value) => {
-          let fieldValidationResult = new FieldValidationResult();
+        const validationFn2 = (vm, value, customParams) => {
+          const fieldValidationResult = new FieldValidationResult();
           fieldValidationResult.succeeded = true;
           fieldValidationResult.key = "test2";
           return Promise.resolve(fieldValidationResult);
         };
-
-        let validationFnSpy1 = sinon.spy(validationFn1);
-        let validationFnSpy2 = sinon.spy(validationFn2);
-        let validationsPerField = [validationFnSpy1, validationFnSpy2];
+        const validationFnSpy1 = sinon.spy(validationFn1);
+        const validationFnSpy2 = sinon.spy(validationFn2);
+        const filters = {};
+        const customParams = {};
+        const fieldValidation1: FieldValidation = {
+          validationFn: validationFnSpy1,
+          filters,
+          customParams
+        };
+        const fieldValidation2: FieldValidation = {
+          validationFn: validationFnSpy2,
+          filters,
+          customParams
+        };
+        const validationsPerField = [fieldValidation1, fieldValidation2];
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
@@ -264,10 +323,10 @@ describe('ValidationsDispatcher', () => {
             expect(fieldValidationResult.key).to.be.equal("test2");
 
             expect(validationFnSpy1.calledOnce).to.be.true;
-            expect(validationFnSpy1.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy1.calledWith(vm, value, customParams)).to.be.true;
 
             expect(validationFnSpy2.calledOnce).to.be.true;
-            expect(validationFnSpy2.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy2.calledWith(vm, value, customParams)).to.be.true;
             done();
           });
       });
@@ -276,18 +335,23 @@ describe('ValidationsDispatcher', () => {
       'When passing vm equals undefined, value equals undefined and validationsPerField equals array with one item ' +
       'equals validation function resolving a fieldValidationResult equals undefined', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationFn = (vm, value) => {
-          let fieldValidationResult = undefined;
+        const vm = undefined;
+        const value = undefined;
+        const validationFn = (vm, value, customParams) => {
+          const fieldValidationResult = undefined;
           return Promise.resolve(fieldValidationResult);
         };
-
-        let validationFnSpy = sinon.spy(validationFn);
-        let validationsPerField = [validationFnSpy];
-
+        const validationFnSpy = sinon.spy(validationFn);
+        const filters = {};
+        const customParams = {};
+        const fieldValidation: FieldValidation = {
+          validationFn: validationFnSpy,
+          filters,
+          customParams,
+        };
+        const validationsPerField = [fieldValidation];
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
@@ -295,7 +359,7 @@ describe('ValidationsDispatcher', () => {
             expect(fieldValidationResult).to.be.undefined;
 
             expect(validationFnSpy.calledOnce).to.be.true;
-            expect(validationFnSpy.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy.calledWith(vm, value, customParams)).to.be.true;
             done();
           });
       });
@@ -304,18 +368,25 @@ describe('ValidationsDispatcher', () => {
       'When passing vm equals undefined, value equals undefined and validationsPerField equals array with one item ' +
       'equals validation function resolving a fieldValidationResult equals null', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationFn = (vm, value) => {
-          let fieldValidationResult = null;
+        const vm = undefined;
+        const value = undefined;
+        const validationFn = (vm, value, customParams) => {
+          const fieldValidationResult = null;
           return Promise.resolve(fieldValidationResult);
         };
+        const validationFnSpy = sinon.spy(validationFn);
+        const filters = {};
+        const customParams = {};
+        const fieldValidation: FieldValidation = {
+          validationFn: validationFnSpy,
+          filters,
+          customParams,
+        };
+        const validationsPerField = [fieldValidation];
 
-        let validationFnSpy = sinon.spy(validationFn);
-        let validationsPerField = [validationFnSpy];
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
@@ -323,7 +394,7 @@ describe('ValidationsDispatcher', () => {
             expect(fieldValidationResult).to.be.null;
 
             expect(validationFnSpy.calledOnce).to.be.true;
-            expect(validationFnSpy.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy.calledWith(vm, value, customParams)).to.be.true;
             done();
           });
       });
@@ -332,18 +403,24 @@ describe('ValidationsDispatcher', () => {
       'When passing vm equals undefined, value equals undefined and validationsPerField equals array with one item ' +
       'equals validation function resolving a fieldValidationResult equals ""', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationFn = (vm, value) => {
-          let fieldValidationResult = '';
+        const vm = undefined;
+        const value = undefined;
+        const validationFn = (vm, value, customParams) => {
+          const fieldValidationResult = '';
           return Promise.resolve(fieldValidationResult);
         };
-
-        let validationFnSpy = sinon.spy(validationFn);
-        let validationsPerField = [validationFnSpy];
+        const validationFnSpy = sinon.spy(validationFn);
+        const filters = {};
+        const customParams = {};
+        const fieldValidation: FieldValidation = {
+          validationFn: validationFnSpy,
+          filters,
+          customParams,
+        };
+        const validationsPerField = [fieldValidation];
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
@@ -351,7 +428,7 @@ describe('ValidationsDispatcher', () => {
             expect(fieldValidationResult).to.be.empty;
 
             expect(validationFnSpy.calledOnce).to.be.true;
-            expect(validationFnSpy.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy.calledWith(vm, value, customParams)).to.be.true;
             done();
           });
       });
@@ -361,25 +438,37 @@ describe('ValidationsDispatcher', () => {
       'first equals validation function resolving a fieldValidationResult equals undefined' +
       'second equals successful validation function', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationFn1 = (vm, value) => {
-          let fieldValidationResult = undefined;
+        const vm = undefined;
+        const value = undefined;
+        const validationFn1 = (vm, value, customParams) => {
+          const fieldValidationResult = undefined;
           return Promise.resolve(fieldValidationResult);
         };
-        let validationFn2 = (vm, value) => {
-          let fieldValidationResult = new FieldValidationResult();
+        const validationFn2 = (vm, value, customParams) => {
+          const fieldValidationResult = new FieldValidationResult();
           fieldValidationResult.succeeded = true;
           fieldValidationResult.key = "test2";
           return Promise.resolve(fieldValidationResult);
         };
 
-        let validationFnSpy1 = sinon.spy(validationFn1);
-        let validationFnSpy2 = sinon.spy(validationFn2);
-        let validationsPerField = [validationFnSpy1, validationFnSpy2];
+        const validationFnSpy1 = sinon.spy(validationFn1);
+        const validationFnSpy2 = sinon.spy(validationFn2);
+        const filters = {};
+        const customParams = {};
+        const fieldValidation1: FieldValidation = {
+          validationFn: validationFnSpy1,
+          filters,
+          customParams,
+        };
+        const fieldValidation2: FieldValidation = {
+          validationFn: validationFnSpy2,
+          filters,
+          customParams,
+        };
+        const validationsPerField = [fieldValidation1, fieldValidation2];
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
@@ -387,10 +476,10 @@ describe('ValidationsDispatcher', () => {
             expect(fieldValidationResult).to.be.undefined;
 
             expect(validationFnSpy1.calledOnce).to.be.true;
-            expect(validationFnSpy1.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy1.calledWith(vm, value, customParams)).to.be.true;
 
             expect(validationFnSpy2.calledOnce).to.be.false;
-            expect(validationFnSpy2.calledWith(vm, value)).to.be.false;
+            expect(validationFnSpy2.calledWith(vm, value, customParams)).to.be.false;
             done();
           });
       });
@@ -400,25 +489,36 @@ describe('ValidationsDispatcher', () => {
       'first equals validation function resolving a fieldValidationResult equals undefined' +
       'second equals failed validation function', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationFn1 = (vm, value) => {
-          let fieldValidationResult = undefined;
+        const vm = undefined;
+        const value = undefined;
+        const validationFn1 = (vm, value, customParams) => {
+          const fieldValidationResult = undefined;
           return Promise.resolve(fieldValidationResult);
         };
-        let validationFn2 = (vm, value) => {
-          let fieldValidationResult = new FieldValidationResult();
+        const validationFn2 = (vm, value, customParams) => {
+          const fieldValidationResult = new FieldValidationResult();
           fieldValidationResult.succeeded = false;
           fieldValidationResult.key = "test2";
           return Promise.resolve(fieldValidationResult);
         };
-
-        let validationFnSpy1 = sinon.spy(validationFn1);
-        let validationFnSpy2 = sinon.spy(validationFn2);
-        let validationsPerField = [validationFnSpy1, validationFnSpy2];
+        const validationFnSpy1 = sinon.spy(validationFn1);
+        const validationFnSpy2 = sinon.spy(validationFn2);
+        const filters = {};
+        const customParams = {};
+        const fieldValidation1: FieldValidation = {
+          validationFn: validationFnSpy1,
+          filters,
+          customParams,
+        };
+        const fieldValidation2: FieldValidation = {
+          validationFn: validationFnSpy2,
+          filters,
+          customParams,
+        };
+        const validationsPerField = [fieldValidation1, fieldValidation2];
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
@@ -426,10 +526,10 @@ describe('ValidationsDispatcher', () => {
             expect(fieldValidationResult).to.be.undefined;
 
             expect(validationFnSpy1.calledOnce).to.be.true;
-            expect(validationFnSpy1.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy1.calledWith(vm, value, customParams)).to.be.true;
 
             expect(validationFnSpy2.calledOnce).to.be.false;
-            expect(validationFnSpy2.calledWith(vm, value)).to.be.false;
+            expect(validationFnSpy2.calledWith(vm, value, customParams)).to.be.false;
             done();
           });
       });
@@ -439,25 +539,37 @@ describe('ValidationsDispatcher', () => {
       'first equals failed validation function' +
       'second equals validation function resolving a fieldValidationResult equals undefined', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationFn1 = (vm, value) => {
-          let fieldValidationResult = new FieldValidationResult();
+        const vm = undefined;
+        const value = undefined;
+        const validationFn1 = (vm, value, customParams) => {
+          const fieldValidationResult = new FieldValidationResult();
           fieldValidationResult.succeeded = false;
           fieldValidationResult.key = "test1";
           return Promise.resolve(fieldValidationResult);
         };
-        let validationFn2 = (vm, value) => {
-          let fieldValidationResult = undefined;
+        const validationFn2 = (vm, value, customParams) => {
+          const fieldValidationResult = undefined;
           return Promise.resolve(fieldValidationResult);
         };
+        const validationFnSpy1 = sinon.spy(validationFn1);
+        const validationFnSpy2 = sinon.spy(validationFn2);
+        const filters = {};
+        const customParams = {};
+        const fieldValidation1: FieldValidation = {
+          validationFn: validationFnSpy1,
+          filters,
+          customParams
+        };
+        const fieldValidation2: FieldValidation = {
+          validationFn: validationFnSpy2,
+          filters,
+          customParams
+        };
 
-        let validationFnSpy1 = sinon.spy(validationFn1);
-        let validationFnSpy2 = sinon.spy(validationFn2);
-        let validationsPerField = [validationFnSpy1, validationFnSpy2];
+        const validationsPerField = [fieldValidation1, fieldValidation2];
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
@@ -466,10 +578,10 @@ describe('ValidationsDispatcher', () => {
             expect(fieldValidationResult.key).to.be.equal('test1');
 
             expect(validationFnSpy1.calledOnce).to.be.true;
-            expect(validationFnSpy1.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy1.calledWith(vm, value, customParams)).to.be.true;
 
             expect(validationFnSpy2.calledOnce).to.be.false;
-            expect(validationFnSpy2.calledWith(vm, value)).to.be.false;
+            expect(validationFnSpy2.calledWith(vm, value, customParams)).to.be.false;
             done();
           });
       });
@@ -479,25 +591,36 @@ describe('ValidationsDispatcher', () => {
       'first equals successful validation function' +
       'second equals validation function resolving a fieldValidationResult equals undefined', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationFn1 = (vm, value) => {
-          let fieldValidationResult = new FieldValidationResult();
+        const vm = undefined;
+        const value = undefined;
+        const validationFn1 = (vm, value, customParams) => {
+          const fieldValidationResult = new FieldValidationResult();
           fieldValidationResult.succeeded = true;
           fieldValidationResult.key = "test1";
           return Promise.resolve(fieldValidationResult);
         };
-        let validationFn2 = (vm, value) => {
-          let fieldValidationResult = undefined;
+        const validationFn2 = (vm, value, customParams) => {
+          const fieldValidationResult = undefined;
           return Promise.resolve(fieldValidationResult);
         };
-
-        let validationFnSpy1 = sinon.spy(validationFn1);
-        let validationFnSpy2 = sinon.spy(validationFn2);
-        let validationsPerField = [validationFnSpy1, validationFnSpy2];
+        const validationFnSpy1 = sinon.spy(validationFn1);
+        const validationFnSpy2 = sinon.spy(validationFn2);
+        const filters = {};
+        const customParams = {};
+        const fieldValidation1: FieldValidation = {
+          validationFn: validationFnSpy1,
+          filters,
+          customParams,
+        };
+        const fieldValidation2: FieldValidation = {
+          validationFn: validationFnSpy2,
+          filters,
+          customParams,
+        };
+        const validationsPerField = [fieldValidation1, fieldValidation2];
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         fieldValidationResultPromise
@@ -505,13 +628,61 @@ describe('ValidationsDispatcher', () => {
             expect(fieldValidationResult).to.be.undefined;
 
             expect(validationFnSpy1.calledOnce).to.be.true;
-            expect(validationFnSpy1.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy1.calledWith(vm, value, customParams)).to.be.true;
 
             expect(validationFnSpy2.calledOnce).to.be.true;
-            expect(validationFnSpy2.calledWith(vm, value)).to.be.true;
+            expect(validationFnSpy2.calledWith(vm, value, customParams)).to.be.true;
             done();
           });
       });
+
+    it('should pass customParams to its proper validationFunction', (done) => {
+      //Arrange
+      const vm = undefined;
+      const value = undefined;
+      const validationFn1 = (vm, value, customParams) => {
+        const fieldValidationResult = new FieldValidationResult();
+        fieldValidationResult.succeeded = true;
+        fieldValidationResult.key = "test1";
+        return Promise.resolve(fieldValidationResult);
+      };
+      const validationFn2 = (vm, value, customParams) => {
+        const fieldValidationResult = undefined;
+        return Promise.resolve(fieldValidationResult);
+      };
+      const validationFnSpy1 = sinon.spy(validationFn1);
+      const validationFnSpy2 = sinon.spy(validationFn2);
+      const filters = {};
+      const customParams1 = { param1: 'param1' };
+      const customParams2 = { param2: 'param2' };
+      const fieldValidation1: FieldValidation = {
+        validationFn: validationFnSpy1,
+        filters,
+        customParams: customParams1,
+      };
+      const fieldValidation2: FieldValidation = {
+        validationFn: validationFnSpy2,
+        filters,
+        customParams: customParams2,
+      };
+      const validationsPerField = [fieldValidation1, fieldValidation2];
+
+      //Act
+      const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+
+      //Assert
+      fieldValidationResultPromise
+        .then(fieldValidationResult => {
+          expect(fieldValidationResult).to.be.undefined;
+
+          expect(validationFnSpy1.calledOnce).to.be.true;
+          expect(validationFnSpy1.calledWith(vm, value, customParams1)).to.be.true;
+
+          expect(validationFnSpy2.calledOnce).to.be.true;
+          expect(validationFnSpy2.calledWith(vm, value, customParams2)).to.be.true;
+          done();
+        });
+    });
   });
 
   describe('Group #2 => When calling fireAllFieldsValidations', () => {
@@ -667,11 +838,11 @@ describe('ValidationsDispatcher', () => {
     it('Spec #1 => should return empty array ' +
       'When passing vm equals undefined, validations equals undefined', () => {
         //Arrange
-        let vm = undefined;
-        let validations = undefined;
+        const vm = undefined;
+        const validations = undefined;
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
+        const fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(0);
@@ -680,11 +851,11 @@ describe('ValidationsDispatcher', () => {
     it('Spec #2 => should return empty array ' +
       'When passing vm equals undefined, validations equals null', () => {
         //Arrange
-        let vm = undefined;
-        let validations = null;
+        const vm = undefined;
+        const validations = null;
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
+        const fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(0);
@@ -693,11 +864,11 @@ describe('ValidationsDispatcher', () => {
     it('Spec #3 => should return empty array ' +
       'When passing vm equals undefined, validations equals []', () => {
         //Arrange
-        let vm = undefined;
-        let validations = [];
+        const vm = undefined;
+        const validations = [];
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
+        const fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(0);
@@ -706,12 +877,12 @@ describe('ValidationsDispatcher', () => {
     it('Spec #4 => should return array with one item and it calls to validationFn' +
       'When passing vm equals undefined, validations equals array with one validationFn', () => {
         //Arrange
-        let vm = undefined;
-        let validationFnSpy = sinon.spy();
-        let validations = [validationFnSpy];
+        const vm = undefined;
+        const validationFnSpy = sinon.spy();
+        const validations = [validationFnSpy];
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
+        const fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(1);
@@ -722,12 +893,12 @@ describe('ValidationsDispatcher', () => {
     it('Spec #5 => should return array with one item and it calls to validationFn' +
       'When passing vm equals null, validations equals array with one validationFn', () => {
         //Arrange
-        let vm = null;
-        let validationFnSpy = sinon.spy();
-        let validations = [validationFnSpy];
+        const vm = null;
+        const validationFnSpy = sinon.spy();
+        const validations = [validationFnSpy];
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
+        const fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(1);
@@ -738,12 +909,12 @@ describe('ValidationsDispatcher', () => {
     it('Spec #6 => should return array with one item and it calls to validationFn' +
       'When passing vm equals "", validations equals array with one validationFn', () => {
         //Arrange
-        let vm = '';
-        let validationFnSpy = sinon.spy();
-        let validations = [validationFnSpy];
+        const vm = '';
+        const validationFnSpy = sinon.spy();
+        const validations = [validationFnSpy];
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
+        const fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(1);
@@ -754,12 +925,12 @@ describe('ValidationsDispatcher', () => {
     it('Spec #7 => should return array with one item and it calls to validationFn' +
       'When passing vm equals "test", validations equals array with one validationFn', () => {
         //Arrange
-        let vm = 'test';
-        let validationFnSpy = sinon.spy();
-        let validations = [validationFnSpy];
+        const vm = 'test';
+        const validationFnSpy = sinon.spy();
+        const validations = [validationFnSpy];
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
+        const fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(1);
@@ -770,12 +941,12 @@ describe('ValidationsDispatcher', () => {
     it('Spec #8 => should return array with one item and it calls to validationFn' +
       'When passing vm equals 1, validations equals array with one validationFn', () => {
         //Arrange
-        let vm = 1;
-        let validationFnSpy = sinon.spy();
-        let validations = [validationFnSpy];
+        const vm = 1;
+        const validationFnSpy = sinon.spy();
+        const validations = [validationFnSpy];
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
+        const fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(1);
@@ -786,14 +957,14 @@ describe('ValidationsDispatcher', () => {
     it('Spec #9 => should return array with one item and it calls to validationFn' +
       'When passing vm equals function, validations equals array with one validationFn', () => {
         //Arrange
-        let vm = function () {
+        const vm = function () {
           return "this is a function";
         };
-        let validationFnSpy = sinon.spy();
-        let validations = [validationFnSpy];
+        const validationFnSpy = sinon.spy();
+        const validations = [validationFnSpy];
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
+        const fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(1);
@@ -804,12 +975,12 @@ describe('ValidationsDispatcher', () => {
     it('Spec #10 => should return array with one item and it calls to validationFn' +
       'When passing vm equals array, validations equals array with one validationFn', () => {
         //Arrange
-        let vm = Array<any>();
-        let validationFnSpy = sinon.spy();
-        let validations = [validationFnSpy];
+        const vm = Array<any>();
+        const validationFnSpy = sinon.spy();
+        const validations = [validationFnSpy];
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
+        const fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(1);
@@ -820,14 +991,14 @@ describe('ValidationsDispatcher', () => {
     it('Spec #11 => should return array with one item and it calls to validationFn' +
       'When passing vm equals object, validations equals array with one validationFn', () => {
         //Arrange
-        let vm = {
+        const vm = {
           testProperty: "testValue"
         };
-        let validationFnSpy = sinon.spy();
-        let validations = [validationFnSpy];
+        const validationFnSpy = sinon.spy();
+        const validations = [validationFnSpy];
 
         //Act
-        let fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
+        const fieldValidationResultPromises = validationsDispatcher.fireGlobalFormValidations(vm, validations);
 
         //Assert
         expect(fieldValidationResultPromises).to.have.length(1);
@@ -837,30 +1008,28 @@ describe('ValidationsDispatcher', () => {
 
     it('Spec #12 => should return rejected promise' +
       'When passing a validation function that throws an error ' +
-      'and error management is set to default behavior for that validation fn'
-      , (done) => {
+      'and error management is set to default behavior for that validation fn', (done) => {
         //Arrange
-        let vm = undefined;
-        let value = undefined;
-        let validationFn1 = (vm, value) => {
-          let fieldValidationResult = new FieldValidationResult();
-          // throw an error
-          let shouldThrowError = true;
-          if (shouldThrowError == true) {
-            throw "Error !!";
-          }
-
-          return Promise.resolve(fieldValidationResult);
+        const vm = undefined;
+        const value = undefined;
+        const validationFn = (vm, value, customParams) => {
+          throw new Error('Intentionally uncontrolled error, single field validation testing fire single field validations');
+        };
+        const filters = {};
+        const customParams = {};
+        const fieldValidation: FieldValidation = {
+          validationFn: validationFn,
+          filters,
+          customParams,
         };
 
-        let validationsPerField = [validationFn1];
+        const validationsPerField = [fieldValidation];
 
         //Act
-        var fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
+        const fieldValidationResultPromise = validationsDispatcher.fireSingleFieldValidations(vm, value, validationsPerField);
 
         //Assert
         expect(fieldValidationResultPromise).to.eventually.be.rejected.notify(done);
       });
-
   });
 });

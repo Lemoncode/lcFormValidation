@@ -299,6 +299,8 @@ describe('formValidation tests', () => {
       const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
       const validation1 = () => new FieldValidationResult();
       const validation2 = () => new FieldValidationResult();
+      const filters = undefined;
+      const customParams = undefined;
       const validationConstraints: ValidationConstraints = {
         fields: {
           property1: [
@@ -315,8 +317,8 @@ describe('formValidation tests', () => {
 
       // Assert
       expect(addFieldValidation.calledTwice).to.be.true;
-      expect(addFieldValidation.calledWithExactly('property1', validation1, undefined)).to.be.true;
-      expect(addFieldValidation.calledWithExactly('property2', validation2, undefined)).to.be.true;
+      expect(addFieldValidation.calledWithExactly('property1', validation1, filters, customParams)).to.be.true;
+      expect(addFieldValidation.calledWithExactly('property2', validation2, filters, customParams)).to.be.true;
     }));
 
     it('should add multiple validations given a property haveing multiple FieldValidationConstraints', sinon.test(function () {
@@ -325,6 +327,8 @@ describe('formValidation tests', () => {
       const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
       const validation1 = () => new FieldValidationResult();
       const validation2 = () => new FieldValidationResult();
+      const filters = undefined;
+      const customParams = undefined;
       const validationConstraints: ValidationConstraints = {
         fields: {
           property1: [
@@ -339,8 +343,8 @@ describe('formValidation tests', () => {
 
       // Assert
       expect(addFieldValidation.calledTwice).to.be.true;
-      expect(addFieldValidation.calledWithExactly('property1', validation1, undefined)).to.be.true;
-      expect(addFieldValidation.calledWithExactly('property1', validation2, undefined)).to.be.true;
+      expect(addFieldValidation.calledWithExactly('property1', validation1, filters, customParams)).to.be.true;
+      expect(addFieldValidation.calledWithExactly('property1', validation2, filters, customParams)).to.be.true;
     }));
 
     it('should pass FieldValidationConstraints to ValidationEngine', sinon.test(function () {
@@ -366,7 +370,7 @@ describe('formValidation tests', () => {
       const formValidation = createFormValidation(validationConstraints);
 
       // Assert
-      expect(addFieldValidation.calledWithExactly('property1', validation1, eventFilters)).to.be.true;
+      expect(addFieldValidation.calledWithExactly('property1', validation1, eventFilters, customParams)).to.be.true;
     }));
 
   });

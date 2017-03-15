@@ -7,10 +7,11 @@ describe('FieldValidationEventFilter ', () => {
     it('should returns new Array<FieldValidation> having only one elmenent matching the filter {OnChange: true} ' +
       'when passing a list of validations containg only one Element and having OnChange true for that element', () => {
         //Arrange
-        const allValidations: Array<FieldValidation> = [
+        const allValidations: FieldValidation[] = [
           {
             validationFn: (vm, value) => { return null },
-            filters: { OnChange: true }
+            filters: { OnChange: true },
+            customParams: {}
           }
         ];
 
@@ -34,7 +35,8 @@ describe('FieldValidationEventFilter ', () => {
         const allValidations: Array<FieldValidation> = [
           {
             validationFn: (vm, value) => { return null },
-            filters: { OnChange: true }
+            filters: { OnChange: true },
+            customParams: {}
           }
         ];
 
@@ -58,11 +60,13 @@ describe('FieldValidationEventFilter ', () => {
           const allValidations: Array<FieldValidation> = [
             {
               validationFn: (vm, value) => { return null },
-              filters: { OnChange: true }
+              filters: { OnChange: true },
+              customParams: {}
             },
             {
               validationFn: (vm, value) => { return null },
-              filters: { OnBlur: true }
+              filters: { OnBlur: true },
+              customParams: {}
             }
           ];
 
@@ -86,15 +90,18 @@ describe('FieldValidationEventFilter ', () => {
           const allValidations: Array<FieldValidation> = [
             {
               validationFn: (vm, value) => { return null },
-              filters: { OnChange: true }
+              filters: { OnChange: true },
+              customParams: {}
             },
             {
               validationFn: (vm, value) => { return null },
-              filters: { OnBlur: true }
+              filters: { OnBlur: true },
+              customParams: {}
             },
             {
               validationFn: (vm, value) => { return null },
-              filters: { OnChange: true }
+              filters: { OnChange: true },
+              customParams: {}
             }
           ];
 
@@ -119,15 +126,18 @@ describe('FieldValidationEventFilter ', () => {
           const allValidations: Array<FieldValidation> = [
             {
               validationFn: (vm, value) => { return null },
-              filters: { OnChange: true }
+              filters: { OnChange: true },
+              customParams: {}
             },
             {
               validationFn: (vm, value) => { return null },
-              filters: { OnBlur: true }
+              filters: { OnBlur: true },
+              customParams: {}
             },
             {
               validationFn: (vm, value) => { return null },
-              filters: { OnWhatever: true }
+              filters: { OnWhatever: true },
+              customParams: {}
             }
           ];
 
@@ -152,15 +162,18 @@ describe('FieldValidationEventFilter ', () => {
           const allValidations: Array<FieldValidation> = [
             {
               validationFn: (vm, value) => { return null },
-              filters: { OnChange: true }
+              filters: { OnChange: true },
+              customParams: {}
             },
             {
               validationFn: (vm, value) => { return null },
-              filters: { OnBlur: true }
+              filters: { OnBlur: true },
+              customParams: {}
             },
             {
               validationFn: (vm, value) => { return null },
-              filters: { OnWhatever: true }
+              filters: { OnWhatever: true },
+              customParams: {}
             }
           ];
 

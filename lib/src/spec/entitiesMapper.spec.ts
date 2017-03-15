@@ -11,7 +11,7 @@ describe('mapper ', () => {
         const validationsPerField: Array<FieldValidation> = [];
 
         //Act
-        let result = entitiesMapper.ExtractArrayValidationFnFromFieldValidationArray(validationsPerField);
+        const result = entitiesMapper.ExtractArrayValidationFnFromFieldValidationArray(validationsPerField);
 
         //Assert
         expect(result.length).to.be.equal(0);
@@ -31,18 +31,18 @@ describe('mapper ', () => {
               fieldValidationResult.errorMessage = "error test";
               return Promise.resolve(fieldValidationResult);
             },
-            filters: { OnChange: true }
+            filters: { OnChange: true },
+            customParams: {}
           }
         ];
 
         //Act
-        let result = entitiesMapper.ExtractArrayValidationFnFromFieldValidationArray(validationsPerField);
+        const result = entitiesMapper.ExtractArrayValidationFnFromFieldValidationArray(validationsPerField);
 
         //Assert
         expect(result.length).to.be.equal(1);
         expect(result[0]).to.be.a('function');
-        //expect(result[0](null, null).errorMessage)
-        result[0](null, null).then((fieldValidationResult) => {
+        result[0](null, null, null).then((fieldValidationResult) => {
           // Assert
           expect(fieldValidationResult.errorMessage).to.be.equal("error test");
           done();
@@ -63,7 +63,8 @@ describe('mapper ', () => {
               fieldValidationResult.errorMessage = "error test1";
               return Promise.resolve(fieldValidationResult);
             },
-            filters: { OnChange: true }
+            filters: { OnChange: true },
+            customParams: {}
           },
           {
             validationFn: (vm, value) => {
@@ -73,25 +74,26 @@ describe('mapper ', () => {
               fieldValidationResult.errorMessage = "error test2";
               return Promise.resolve(fieldValidationResult);
             },
-            filters: { OnChange: true }
+            filters: { OnChange: true },
+            customParams: {}
           }
         ];
 
         //Act
-        let result = entitiesMapper.ExtractArrayValidationFnFromFieldValidationArray(validationsPerField);
+        const result = entitiesMapper.ExtractArrayValidationFnFromFieldValidationArray(validationsPerField);
 
         //Assert
         expect(result.length).to.be.equal(2);
         expect(result[0]).to.be.a('function');
         expect(result[1]).to.be.a('function');
 
-        result[0](null, null).then((fieldValidationResult) => {
+        result[0](null, null, null).then((fieldValidationResult) => {
           // Assert
           expect(fieldValidationResult.errorMessage).to.be.equal("error test1");
           done();
         });
 
-        result[1](null, null).then((fieldValidationResult) => {
+        result[1](null, null, null).then((fieldValidationResult) => {
           // Assert
           expect(fieldValidationResult.errorMessage).to.be.equal("error test2");
           done();

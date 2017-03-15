@@ -2,17 +2,17 @@ import * as React from 'react';
 import { Input } from '../common/input';
 import { SignupEntity } from '../../entity/signupEntity';
 import { SignupErrors } from '../../entity/signupErrors';
-import { ValidationFilter } from 'lc-form-validation';
+import { ValidationFilters } from 'lc-form-validation';
 
 interface Props extends React.Props<any> {
   signup: SignupEntity;
   errors: SignupErrors;
-  fireValidationField: (viewModel: any, fieldName: string, value: string, filter?: ValidationFilter) => void;
+  fireValidationField: (viewModel: any, fieldName: string, value: string, filter?: ValidationFilters) => void;
   performSignup: (signup: SignupEntity) => void;
 }
 
 export class SampleSignupForm extends React.Component<Props, {}> {
-  private applyFieldValidation(event, filter?: ValidationFilter) {
+  private applyFieldValidation(event, filter?: ValidationFilters) {
     const { name, value } = event.target;
     this.props.fireValidationField(this.props.signup, name, value, filter);
   }

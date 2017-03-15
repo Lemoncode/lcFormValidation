@@ -30,7 +30,7 @@ export interface FormValidationFunction {
 }
 
 export interface FieldValidationFunction {
-  (value: any, vm: any): ValidationResult;
+  (value: any, vm: any, customParams: any): ValidationResult;
 }
 
 export interface FieldValidationConstraint extends Object {

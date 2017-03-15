@@ -115,38 +115,23 @@ describe('lcFormValidation simple form', () => {
         });
     });
 
-  it('should return a promise reject error (validation throws unexpected error)',
-    (done) => {
-      // Arrange
-      const formValidationBase: ValidationEngine = new ValidationEngine();
-      const viewModel = { id: '1', fullname: 'john' };
+  it('should return a promise reject error (validation throws unexpected error)', (done) => {
+    // Arrange
+    const formValidationBase: ValidationEngine = new ValidationEngine();
+    const viewModel = { id: '1', fullname: 'john' };
+    const thrownErrorMessage = "Intentionally uncontrolled error, single field validation testing trigger field validations";
 
-      // Act
-      formValidationBase.addFieldValidation('fullname',
-        (value, vm): Promise<FieldValidationResult> => {
-          let error = true;
+    // Act
+    formValidationBase.addFieldValidation('fullname',
+      (value, vm): Promise<FieldValidationResult> => {
+        throw new Error(thrownErrorMessage);
+      }
+    );
 
-          if (error == true) {
-            throw "Intentionally Uncontrolled test Exception"
-          }
+    const promise = formValidationBase.triggerFieldValidation(viewModel, 'fullname', '');
 
-          let isFieldInformed: boolean = (value != null && value.length > 0);
-          let errorInfo: string = (isFieldInformed) ? "" : "Mandatory field";
-
-          const validationResult: FieldValidationResult = new FieldValidationResult();
-          validationResult.type = "REQUIRED";
-          validationResult.succeeded = isFieldInformed;
-          validationResult.errorMessage = errorInfo;
-
-          return Promise.resolve(validationResult);
-        }
-      );
-
-      const promise = formValidationBase
-        .triggerFieldValidation(viewModel, 'fullname', '');
-
-      //Assert
-      expect(promise).to.eventually.be.rejected.notify(done);
-    });
+    //Assert
+    expect(promise).to.eventually.be.rejected.and.notify(done);
+  });
 
 });

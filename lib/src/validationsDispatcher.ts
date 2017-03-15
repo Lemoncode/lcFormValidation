@@ -3,6 +3,7 @@ import {
   ValidationResult,
   FormValidationFunction,
   FieldValidationFunction,
+  FieldValidation,
 } from './entities';
 import { consts } from './consts';
 
@@ -10,7 +11,7 @@ class ValidationParams {
   constructor(
     public vm: any,
     public value: any,
-    public validationsPerField: Array<(value, vm) => Promise<FieldValidationResult>>) {
+    public validationsPerField: FieldValidation[]) {
 
   }
 }
@@ -19,12 +20,12 @@ export class ValidationDispatcher {
   fireSingleFieldValidations(
     vm: any,
     value: any,
-    validationsPerField: Array<(value, vm) => Promise<FieldValidationResult>>
+    fieldValidations: FieldValidation[],
   ): Promise<FieldValidationResult> {
-    let validationParams = new ValidationParams(vm, value, validationsPerField);
+    let validationParams = new ValidationParams(vm, value, fieldValidations);
 
     let fieldValidationResultPromise = new Promise((resolve, reject) => {
-      if (validationsPerField && validationsPerField.length > 0) {
+      if (fieldValidations && fieldValidations.length > 0) {
         this.fireSingleValidation(resolve, reject, validationParams, 0)
       } else {
         resolve();
@@ -40,7 +41,8 @@ export class ValidationDispatcher {
     validationParams: ValidationParams,
     currentIndex: number
   ): void {
-    validationParams.validationsPerField[currentIndex](validationParams.value, validationParams.vm)
+    const fieldValidation = validationParams.validationsPerField[currentIndex];
+    fieldValidation.validationFn(validationParams.value, validationParams.vm, fieldValidation.customParams)
       .then(fieldValidationResult => {
         if (this.fieldValidationFailedOrLastOne(fieldValidationResult, currentIndex, validationParams.validationsPerField.length)) {
           resolve(fieldValidationResult);
@@ -71,7 +73,7 @@ export class ValidationDispatcher {
       vmKeys.forEach((vmKey) => {
         const vmFieldValue = vm[vmKey];
         if (vmFieldValue !== undefined) {
-          let fieldValidationResultsPromise = validationFn(vm, vmKey, vmFieldValue);
+          const fieldValidationResultsPromise = validationFn(vm, vmKey, vmFieldValue);
           fieldValidationResultsPromises.push(fieldValidationResultsPromise);
         }
       });

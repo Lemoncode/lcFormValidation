@@ -1,9 +1,13 @@
-import { FieldValidation, FieldValidationResult } from './entities';
+import {
+  FieldValidation,
+  FieldValidationResult,
+  AsyncFieldValidationFunction,
+} from './entities';
 
 export class EntitiesMapper {
-  public ExtractArrayValidationFnFromFieldValidationArray(validationsPerField: Array<FieldValidation>)
-    : Array<(vm, value) => Promise<FieldValidationResult>> {
-    return validationsPerField.map(value => value.validationFn);
+  public ExtractArrayValidationFnFromFieldValidationArray(validationsPerField: FieldValidation[])
+    : AsyncFieldValidationFunction[] {
+    return validationsPerField.map(validation => validation.validationFn);
   }
 }
 

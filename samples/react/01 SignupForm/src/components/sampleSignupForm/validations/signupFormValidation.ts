@@ -1,5 +1,10 @@
 import { } from 'core-js';
-import { createFormValidation, FieldValidationResult, ValidationConstraints } from 'lc-form-validation';
+import {
+  createFormValidation,
+  FieldValidationResult,
+  ValidationConstraints,
+  FieldValidationFunction,
+} from 'lc-form-validation';
 import { gitHub } from '../../../api/gitHub';
 
 function requiredValidationHandler(value: string): FieldValidationResult {
@@ -40,11 +45,40 @@ function resolveLoginExists(loginExists: boolean): Promise<FieldValidationResult
   return Promise.resolve(fieldValidationResult);
 }
 
+interface lengthConstraintParams {
+  minLength: number;
+  maxLength: number;
+}
+const lengthConstraint: lengthConstraintParams = {
+  minLength: 4,
+  maxLength: 10
+};
+const minLengthValidationHandler: FieldValidationFunction = (password: string, vm, customParams: lengthConstraintParams) => {
+  const { minLength, maxLength } = customParams;
+  const isValidMinLength = password.length >= minLength;
+  const isValidMaxLength = password.length <= maxLength;
+  const minLengthErrorMessage = `Minimum ${minLength} characters required`;
+  const maxLengthErrorMessage = `Maximum ${maxLength} characters length`;
+  let errorMessage = isValidMaxLength
+    ? isValidMinLength ? '' : minLengthErrorMessage
+    : maxLengthErrorMessage;
+
+  const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
+  fieldValidationResult.type = 'PASSWORD_LENGTH';
+  fieldValidationResult.succeeded = isValidMinLength && isValidMaxLength;
+  fieldValidationResult.errorMessage = errorMessage;
+  return Promise.resolve(fieldValidationResult);
+};
+
 const signupValidationConstraints: ValidationConstraints = {
   fields: {
-    password: [{
-      validator: requiredValidationHandler,
-    }],
+    password: [
+      { validator: requiredValidationHandler },
+      {
+        validator: minLengthValidationHandler,
+        customParams: lengthConstraint,
+      },
+    ],
     confirmPassword: [
       { validator: requiredValidationHandler },
       { validator: passwordAndConfirmPasswordValidationHandler },
@@ -52,11 +86,11 @@ const signupValidationConstraints: ValidationConstraints = {
     login: [
       {
         validator: requiredValidationHandler,
-        eventFilter: { OnChange: true, OnBlur: true }
+        eventFilters: { OnChange: true, OnBlur: true },
       },
       {
         validator: loginExistOnGitHubValidationHandler,
-        eventFilter: { OnBlur: true }
+        eventFilters: { OnBlur: true }
       },
     ]
   }

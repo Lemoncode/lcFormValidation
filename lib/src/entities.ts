@@ -3,8 +3,9 @@ export interface ValidationFilters {
 }
 
 export class FieldValidation {
-  public validationFn: (value, vm) => Promise<FieldValidationResult>;
-  public filters: ValidationFilters;
+  validationFn: (value, vm, customParams) => Promise<FieldValidationResult>;
+  filters: ValidationFilters;
+  customParams: any;
 }
 
 export class FieldValidationResult {
@@ -23,8 +24,8 @@ export class FieldValidationResult {
 
 export class FormValidationResult {
   succeeded: boolean;
-  fieldErrors: Array<FieldValidationResult>;
-  formGlobalErrors: Array<FieldValidationResult>;
+  fieldErrors: FieldValidationResult[];
+  formGlobalErrors: FieldValidationResult[];
 
   constructor() {
     this.succeeded = false;
@@ -38,17 +39,23 @@ export interface FormValidationFunction {
   (vm: any): ValidationResult;
 }
 
-export interface FieldValidationFunction {
-  (value: any, vm: any): ValidationResult;
+export interface SyncValidationFunction {
+  (value: any, vm: any, customParams: any): ValidationResult;
 }
 
-export interface FieldValidationConstraint extends Object {
+export interface AsyncFieldValidationFunction {
+  (value: any, vm: any, customParams: any): Promise<FieldValidationResult>;
+}
+
+export type FieldValidationFunction = SyncValidationFunction | AsyncFieldValidationFunction;
+
+export interface FieldValidationConstraint {
   validator: FieldValidationFunction;
-  eventFilters?: { [key: string]: boolean },
-  customParams?: Object
+  eventFilters?: ValidationFilters;
+  customParams?: any;
 }
 
-export interface ValidationConstraints extends Object {
+export interface ValidationConstraints {
   global?: FormValidationFunction[];
   fields?: { [key: string]: FieldValidationConstraint[] };
 }
