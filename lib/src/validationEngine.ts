@@ -11,7 +11,6 @@ import { consts } from './consts';
 import { validationsDispatcher } from './validationsDispatcher';
 import { validationsResultBuilder } from './validationsResultBuilder';
 import { fieldValidationEventFilter } from './fieldValidationEventFilter';
-import { entitiesMapper } from './entitiesMapper';
 
 export interface IValidationEngine {
   isFormDirty(): boolean;

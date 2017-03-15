@@ -12,7 +12,6 @@ class ValidationParams {
     public vm: any,
     public value: any,
     public validationsPerField: FieldValidation[]) {
-
   }
 }
 
