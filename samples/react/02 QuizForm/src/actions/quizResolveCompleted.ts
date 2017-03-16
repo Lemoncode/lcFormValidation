@@ -10,5 +10,5 @@ export const quizResolveCompleted = (formValidationResult: FormValidationResult)
   return {
     type: actionsDef.quiz.QUIZ_RESOLVE_COMPLETED,
     formValidationResult
-  }
+  };
 }

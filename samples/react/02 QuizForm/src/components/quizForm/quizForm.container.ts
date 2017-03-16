@@ -5,15 +5,15 @@ import { QuizEntity } from '../../entity/quizEntity';
 import { quizResolveStart } from '../../actions/quizResolveStart';
 import { resetQuizResolveCompleted } from '../../actions/resetQuizResolveCompleted';
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     quiz: state.quiz.quiz,
     quizResult: state.quiz.quizResult,
     quizResolveCompleted: state.quiz.quizResolveCompleted
   }
-}
+};
 
-let mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onSelectedQuestionHandler: (questionId: string, value: boolean) => {
       return dispatch(quizUIInputCompleted(questionId, value));
@@ -25,9 +25,9 @@ let mapDispatchToProps = (dispatch) => {
       return dispatch(resetQuizResolveCompleted());
     }
   }
-}
+};
 
 export let ContainerQuizForm = connect(
   mapStateToProps,
   mapDispatchToProps
-)(QuizForm)
+)(QuizForm);

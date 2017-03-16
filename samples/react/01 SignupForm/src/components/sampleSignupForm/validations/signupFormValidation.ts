@@ -47,25 +47,18 @@ function resolveLoginExists(loginExists: boolean): Promise<FieldValidationResult
 
 interface lengthConstraintParams {
   minLength: number;
-  maxLength: number;
 }
 const lengthConstraint: lengthConstraintParams = {
-  minLength: 4,
-  maxLength: 10
+  minLength: 4
 };
 const minLengthValidationHandler: FieldValidationFunction = (password: string, vm, customParams: lengthConstraintParams) => {
-  const { minLength, maxLength } = customParams;
+  const { minLength } = customParams;
   const isValidMinLength = password.length >= minLength;
-  const isValidMaxLength = password.length <= maxLength;
   const minLengthErrorMessage = `Minimum ${minLength} characters required`;
-  const maxLengthErrorMessage = `Maximum ${maxLength} characters length`;
-  let errorMessage = isValidMaxLength
-    ? isValidMinLength ? '' : minLengthErrorMessage
-    : maxLengthErrorMessage;
-
+  const errorMessage = isValidMinLength ? '' : minLengthErrorMessage;
   const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
   fieldValidationResult.type = 'PASSWORD_LENGTH';
-  fieldValidationResult.succeeded = isValidMinLength && isValidMaxLength;
+  fieldValidationResult.succeeded = isValidMinLength;
   fieldValidationResult.errorMessage = errorMessage;
   return Promise.resolve(fieldValidationResult);
 };
