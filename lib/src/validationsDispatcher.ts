@@ -60,6 +60,11 @@ export class ValidationDispatcher {
       this.isLastElement(index, numberOfItems);
   }
 
+  //TODO: Extract to bussines?
+  private isLastElement(index: number, length: number) {
+    return index === (length - 1);
+  }
+
   fireAllFieldsValidations(
     vm: any,
     fieldsToValidate: string[],
@@ -94,11 +99,6 @@ export class ValidationDispatcher {
     }
 
     return validationResultsPromises;
-  }
-
-  //TODO: Extract to bussines?
-  private isLastElement(index: number, length: number) {
-    return index === (length - 1);
   }
 
   //TODO: Extract to bussines?

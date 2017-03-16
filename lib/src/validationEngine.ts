@@ -82,12 +82,6 @@ export class ValidationEngine implements IValidationEngine {
     return fullFormValidatedPromise;
   }
 
-  triggerFieldValidation(vm: any, key: string, value: any, filters: ValidationEventsFilter = consts.defaultFilter): Promise<FieldValidationResult> {
-    // updated dirty flag and perform validation
-    this.isFormChanged = false;
-    return this.validateSingleField(vm, key, value, filters);
-  }
-
   private validateGlobalFormValidations(vm: any): ValidationResult[] {
     this.asyncValidationInProgressCount++;
 
@@ -102,6 +96,12 @@ export class ValidationEngine implements IValidationEngine {
     }
 
     return globalFieldResultValidations;
+  }
+
+  triggerFieldValidation(vm: any, key: string, value: any, filters: ValidationEventsFilter = consts.defaultFilter): Promise<FieldValidationResult> {
+    // updated dirty flag and perform validation
+    this.isFormChanged = false;
+    return this.validateSingleField(vm, key, value, filters);
   }
 
   // if filter is null all validations are returned (fullform validation case)
@@ -137,11 +137,6 @@ export class ValidationEngine implements IValidationEngine {
     return fieldValidationResultPromise;
   }
 
-  isFieldKeyMappingDefined(key: string): boolean {
-    return this.validationsPerField[key] !== undefined &&
-      this.validationsPerField[key] !== null;
-  }
-
   addFieldValidation(
     key: string,
     validation: FieldValidationFunction,
@@ -160,15 +155,20 @@ export class ValidationEngine implements IValidationEngine {
     return this;
   }
 
+  isFieldKeyMappingDefined(key: string): boolean {
+    return this.validationsPerField[key] !== undefined &&
+      this.validationsPerField[key] !== null;
+  }
+
   addFormValidation(validation: FormValidationFunction): void {
     const validationAsync = (vm): Promise<FieldValidationResult> => {
       return Promise.resolve(validation(vm));
     }
 
-    this.validationsGlobalForm.push(validation);
+    this.validationsGlobalForm.push(validationAsync);
   }
 
   isValidationInProgress(): boolean {
-    return (this.asyncValidationInProgressCount > 0)
+    return (this.asyncValidationInProgressCount > 0);
   }
 }

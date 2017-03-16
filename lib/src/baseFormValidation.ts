@@ -38,14 +38,12 @@ export class BaseFormValidation implements FormValidation {
     }
   }
 
-  private parseFieldValidations(constraint: string, fieldValidationConstraints: FieldValidationConstraint[]) {
-    if (fieldValidationConstraints instanceof Array) {
-      fieldValidationConstraints.forEach((fieldValidationConstraint) => {
-        if (fieldValidationConstraint && typeof fieldValidationConstraint === 'object') {
-          this.addFieldValidation(constraint, fieldValidationConstraint);
-        }
-      });
-    }
+  private parseFormValidations(validationFunctions: FormValidationFunction[]) {
+    validationFunctions.forEach((validationFunction: FormValidationFunction) => {
+      if (typeof validationFunction === 'function') {
+        this.validationEngine.addFormValidation(validationFunction);
+      }
+    });
   }
 
   private parseAllFieldsValidations(fields: { [key: string]: FieldValidationConstraint[] }) {
@@ -54,12 +52,14 @@ export class BaseFormValidation implements FormValidation {
     }
   }
 
-  private parseFormValidations(validationFunctions: FormValidationFunction[]) {
-    validationFunctions.forEach((validationFunction: FormValidationFunction) => {
-      if (typeof validationFunction === 'function') {
-        this.validationEngine.addFormValidation(validationFunction);
-      }
-    });
+  private parseFieldValidations(constraint: string, fieldValidationConstraints: FieldValidationConstraint[]) {
+    if (fieldValidationConstraints instanceof Array) {
+      fieldValidationConstraints.forEach((fieldValidationConstraint) => {
+        if (fieldValidationConstraint && typeof fieldValidationConstraint === 'object') {
+          this.addFieldValidation(constraint, fieldValidationConstraint);
+        }
+      });
+    }
   }
 
   private addFieldValidation(field: string, validationConstraint: FieldValidationConstraint): FormValidation {
