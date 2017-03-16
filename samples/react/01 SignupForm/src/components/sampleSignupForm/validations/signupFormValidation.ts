@@ -1,28 +1,15 @@
 import { } from 'core-js';
-import { createFormValidation, FieldValidationResult } from 'lc-form-validation';
+import {
+  createFormValidation,
+  FieldValidationResult,
+  ValidationConstraints,
+  FieldValidationFunction,
+} from 'lc-form-validation';
 import { gitHub } from '../../../api/gitHub';
 
-const signupFormValidation = createFormValidation(null);
-signupFormValidation
-  .addFieldValidation('password', (value, vm): FieldValidationResult => {
-    return requiredValidationHandler(value, vm);
-  })
-  .addFieldValidation('confirmPassword', (value, vm): FieldValidationResult => {
-    return passwordAndConfirmPasswordValidationHandler(value, vm);
-  })
-  .addFieldValidation('confirmPassword', (value, vm): FieldValidationResult => {
-    return requiredValidationHandler(value, vm);
-  })
-  .addFieldValidationAsync('login', (value, vm): Promise<FieldValidationResult> => {
-    return loginExistOnGitHubValidationHandler(value, vm);
-  }, { OnBlur: true })
-  .addFieldValidation('login', (value, vm): FieldValidationResult => {
-    return requiredValidationHandler(value, vm);
-  }, { OnChange: true, OnBlur: true });
-
-function requiredValidationHandler(value: any, vm: any): FieldValidationResult {
-  const isFieldInformed: boolean = (value != null && value.length > 0);
-  const errorInfo: string = (isFieldInformed) ? '' : 'Mandatory field';
+function requiredValidationHandler(value: string): FieldValidationResult {
+  const isFieldInformed = (value && value.trim().length > 0);
+  const errorInfo = (isFieldInformed) ? '' : 'Mandatory field';
 
   const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
   fieldValidationResult.type = 'REQUIRED';
@@ -46,7 +33,8 @@ function passwordAndConfirmPasswordValidationHandler(value: any, vm: any): Field
 
 function loginExistOnGitHubValidationHandler(value: any, vm: any): Promise<FieldValidationResult> {
   return gitHub.doesLoginExists(value)
-    .then((loginExists) => this.resolveLoginExists(loginExists));
+    .then((loginExists) => resolveLoginExists(loginExists))
+    .catch(error => console.log('ERROR', error));
 }
 
 function resolveLoginExists(loginExists: boolean): Promise<FieldValidationResult> {
@@ -56,6 +44,52 @@ function resolveLoginExists(loginExists: boolean): Promise<FieldValidationResult
   fieldValidationResult.errorMessage = (loginExists) ? 'This user exists on GitHub' : '';
   return Promise.resolve(fieldValidationResult);
 }
+
+interface lengthConstraintParams {
+  minLength: number;
+}
+const lengthConstraint: lengthConstraintParams = {
+  minLength: 4
+};
+const minLengthValidationHandler: FieldValidationFunction = (password: string, vm, customParams: lengthConstraintParams) => {
+  const { minLength } = customParams;
+  const isValidMinLength = password.length >= minLength;
+  const minLengthErrorMessage = `Minimum ${minLength} characters required`;
+  const errorMessage = isValidMinLength ? '' : minLengthErrorMessage;
+  const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
+  fieldValidationResult.type = 'PASSWORD_LENGTH';
+  fieldValidationResult.succeeded = isValidMinLength;
+  fieldValidationResult.errorMessage = errorMessage;
+  return Promise.resolve(fieldValidationResult);
+};
+
+const signupValidationConstraints: ValidationConstraints = {
+  fields: {
+    password: [
+      { validator: requiredValidationHandler },
+      {
+        validator: minLengthValidationHandler,
+        customParams: lengthConstraint,
+      },
+    ],
+    confirmPassword: [
+      { validator: requiredValidationHandler },
+      { validator: passwordAndConfirmPasswordValidationHandler },
+    ],
+    login: [
+      {
+        validator: requiredValidationHandler,
+        eventFilters: { OnChange: true, OnBlur: true },
+      },
+      {
+        validator: loginExistOnGitHubValidationHandler,
+        eventFilters: { OnBlur: true }
+      },
+    ]
+  }
+};
+
+const signupFormValidation = createFormValidation(signupValidationConstraints);
 
 export {
   signupFormValidation

@@ -14,14 +14,15 @@ export class Question extends React.Component<Props, {}>{
 
   public render() {
     return (
-      <div>
-        <input
-          style={{ marginRight: 20 + 'px' }}
-          name={this.props.name}
-          type="checkbox"
-          checked={this.props.isSelected}
-          onChange={this.props.onChange} />
-        <label>{this.props.text}</label>
+      <div className="checkbox">
+        <label>
+          <input
+            name={this.props.name}
+            type="checkbox"
+            checked={this.props.isSelected}
+            onChange={this.props.onChange} />
+          <span>{this.props.text}</span>
+        </label>
       </div>
     );
   }

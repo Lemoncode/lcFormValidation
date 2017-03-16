@@ -1,24 +1,26 @@
 import { ValidationEngine } from './validationEngine';
 import {
   ValidationConstraints,
+  FieldValidationFunction,
   FormValidationFunction,
   FieldValidationResult,
   FormValidationResult,
+  FieldValidationConstraint,
+  ValidationEventsFilter,
 } from './entities';
 import { consts } from './consts';
 
 interface FormValidation {
-  validateField(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult>;
+  validateField(vm: any, key: string, value: any, eventsFilter?: any): Promise<FieldValidationResult>;
   validateForm(vm: any): Promise<FormValidationResult>;
   isValidationInProgress(): boolean;
   isFormDirty(): boolean;
   isFormPristine(): boolean;
-  addFieldValidation(key: string, validation: (value: string, vm: any) => FieldValidationResult, filter?: any): FormValidation;
-  addFieldValidationAsync(key: string, validation: (value: string, vm: any) => Promise<FieldValidationResult>, filter?: any): FormValidation;
 }
 
 export class BaseFormValidation implements FormValidation {
   private validationEngine: ValidationEngine;
+
   constructor(validationConstraints: ValidationConstraints) {
     this.validationEngine = new ValidationEngine();
     this.parseValidationConstraints(validationConstraints);
@@ -26,13 +28,17 @@ export class BaseFormValidation implements FormValidation {
 
   private parseValidationConstraints(validationConstraints: ValidationConstraints) {
     if (validationConstraints && typeof validationConstraints === 'object') {
-      if (validationConstraints.global && validationConstraints.global instanceof Array) {
-        this.addFormValidationFunctions(validationConstraints.global);
+      const { global, fields } = validationConstraints;
+      if (global && global instanceof Array) {
+        this.parseFormValidations(global);
+      }
+      if (fields && typeof fields === 'object') {
+        this.parseAllFieldsValidations(fields);
       }
     }
   }
 
-  private addFormValidationFunctions(validationFunctions: FormValidationFunction[]) {
+  private parseFormValidations(validationFunctions: FormValidationFunction[]) {
     validationFunctions.forEach((validationFunction: FormValidationFunction) => {
       if (typeof validationFunction === 'function') {
         this.validationEngine.addFormValidation(validationFunction);
@@ -40,8 +46,34 @@ export class BaseFormValidation implements FormValidation {
     });
   }
 
-  validateField(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult> {
-    return this.validationEngine.validateSingleField(vm, key, value, filter);
+  private parseAllFieldsValidations(fields: { [key: string]: FieldValidationConstraint[] }) {
+    for (let field in fields) {
+      this.parseFieldValidations(field, fields[field]);
+    }
+  }
+
+  private parseFieldValidations(constraint: string, fieldValidationConstraints: FieldValidationConstraint[]) {
+    if (fieldValidationConstraints instanceof Array) {
+      fieldValidationConstraints.forEach((fieldValidationConstraint) => {
+        if (fieldValidationConstraint && typeof fieldValidationConstraint === 'object') {
+          this.addFieldValidation(constraint, fieldValidationConstraint);
+        }
+      });
+    }
+  }
+
+  private addFieldValidation(field: string, validationConstraint: FieldValidationConstraint): FormValidation {
+    this.validationEngine.addFieldValidation(
+      field,
+      validationConstraint.validator,
+      validationConstraint.eventsFilter,
+      validationConstraint.customParams
+    );
+    return this;
+  }
+
+  validateField(vm: any, key: string, value: any, eventsFilter?: ValidationEventsFilter): Promise<FieldValidationResult> {
+    return this.validationEngine.triggerFieldValidation(vm, key, value, eventsFilter);
   }
 
   validateForm(vm: any): Promise<FormValidationResult> {
@@ -58,16 +90,6 @@ export class BaseFormValidation implements FormValidation {
 
   isFormPristine(): boolean {
     return this.validationEngine.isFormPristine();
-  }
-
-  addFieldValidation(key: string, validationFunction: (value: string, vm: any) => FieldValidationResult): FormValidation {
-    this.validationEngine.addFieldValidation(key, validationFunction);
-    return this;
-  }
-
-  addFieldValidationAsync(key: string, validationFunction: (value: string, vm: any) => Promise<FieldValidationResult>): FormValidation {
-    this.validationEngine.addFieldValidationAsync(key, validationFunction);
-    return this;
   }
 }
 

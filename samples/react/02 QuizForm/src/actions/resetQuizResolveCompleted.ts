@@ -1,16 +1,11 @@
 import { actionsDef } from './actionsDef';
 
-interface IQuizResetQuizResolveCompletedAction {
+export interface IQuizResetQuizResolveCompletedAction {
   type: string;
 }
 
-let resetQuizResolveCompleted = (): IQuizResetQuizResolveCompletedAction => {
+export const resetQuizResolveCompleted = (): IQuizResetQuizResolveCompletedAction => {
   return {
     type: actionsDef.quiz.RESET_QUIZ_RESOLVE_COMPLETED
   }
-}
-
-export {
-  IQuizResetQuizResolveCompletedAction,
-  resetQuizResolveCompleted
 }

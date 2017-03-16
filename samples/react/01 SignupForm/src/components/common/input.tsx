@@ -8,6 +8,7 @@ interface Props {
   placeholder?: string;
   value: string;
   error: string;
+  type: string;
 }
 
 export class Input extends React.Component<Props, {}> {
@@ -24,7 +25,8 @@ export class Input extends React.Component<Props, {}> {
       <div className={wrapperClass}>
         <label htmlFor={this.props.name}>{this.props.label}</label>
         <div className="field">
-          <input type="text"
+          <input
+            type={this.props.type}
             name={this.props.name}
             className="form-control"
             placeholder={this.props.placeholder}
@@ -32,7 +34,7 @@ export class Input extends React.Component<Props, {}> {
             value={this.props.value}
             onChange={this.props.onChange}
             onBlur={this.props.onBlur} />
-          <div className="input">{this.props.error}</div>
+          <div className="help-block">{this.props.error}</div>
         </div>
       </div>
     );

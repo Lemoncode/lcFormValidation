@@ -1,6 +1,11 @@
+export interface ValidationEventsFilter {
+  [key: string]: boolean;
+}
+
 export class FieldValidation {
-  public validationFn: (value, vm) => Promise<FieldValidationResult>;
-  public filter: any;
+  validationFn: (value, vm, customParams) => Promise<FieldValidationResult>;
+  eventsFilter: ValidationEventsFilter;
+  customParams: any;
 }
 
 export class FieldValidationResult {
@@ -19,8 +24,8 @@ export class FieldValidationResult {
 
 export class FormValidationResult {
   succeeded: boolean;
-  fieldErrors: Array<FieldValidationResult>;
-  formGlobalErrors: Array<FieldValidationResult>;
+  fieldErrors: FieldValidationResult[];
+  formGlobalErrors: FieldValidationResult[];
 
   constructor() {
     this.succeeded = false;
@@ -34,6 +39,21 @@ export interface FormValidationFunction {
   (vm: any): ValidationResult;
 }
 
-export interface ValidationConstraints extends Object {
+export interface FieldValidationFunction {
+  (value: any, vm: any, customParams: any): Promise<FieldValidationResult> |ValidationResult;
+}
+
+export interface AsyncFieldValidationFunction {
+  (value: any, vm: any, customParams: any): Promise<FieldValidationResult>;
+}
+
+export interface FieldValidationConstraint {
+  validator: FieldValidationFunction;
+  eventsFilter?: ValidationEventsFilter;
+  customParams?: any;
+}
+
+export interface ValidationConstraints {
   global?: FormValidationFunction[];
+  fields?: { [key: string]: FieldValidationConstraint[] };
 }

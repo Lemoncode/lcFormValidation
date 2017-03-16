@@ -14,6 +14,13 @@ interface Props extends React.Props<QuizForm> {
 }
 
 export class QuizForm extends React.Component<Props, {}> {
+  constructor(props) {
+    super(props);
+
+    this.onChange = this.onChange.bind(this);
+    this.onQuizResolve = this.onQuizResolve.bind(this);
+  }
+
   private onSelectedQuestion(event) {
     this.props.onSelectedQuestionHandler(event.target.name, event.target.checked);
   }
@@ -31,6 +38,7 @@ export class QuizForm extends React.Component<Props, {}> {
   }
 
   private showToastr(nextProps: Props): void {
+    toastr.clear();
     if (nextProps.quizResult.succeeded) {
       toastr.success('Test passed');
     } else {
@@ -38,39 +46,35 @@ export class QuizForm extends React.Component<Props, {}> {
     }
   }
 
+  private onChange(event) {
+    this.onSelectedQuestion(event);
+  }
+
   public render() {
     return (
       <div>
         <form>
-          <h1>Mark a question as valid</h1>
+          <h1>Mark any question as valid</h1>
           <Question
             name="questionA"
             text="Question A"
             isSelected={this.props.quiz.questionA.isSelected}
-            onChange={(event) => {
-              this.onSelectedQuestion(event);
-            }} />
+            onChange={this.onChange} />
 
           <Question
             name="questionB"
             text="Question B"
             isSelected={this.props.quiz.questionB.isSelected}
-            onChange={(event) => {
-              this.onSelectedQuestion(event);
-            }} />
+            onChange={this.onChange} />
 
           <Question
             name="questionC"
             text="Question C"
             isSelected={this.props.quiz.questionC.isSelected}
-            onChange={(event) => {
-              this.onSelectedQuestion(event);
-            }} />
+            onChange={this.onChange} />
 
           <input type="submit" value="Validate" className="btn btn-default"
-            onClick={(event) => {
-              this.onQuizResolve(event);
-            }} />
+            onClick={this.onQuizResolve} />
         </form>
       </div>
     );

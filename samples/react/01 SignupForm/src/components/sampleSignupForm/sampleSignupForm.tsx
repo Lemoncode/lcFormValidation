@@ -2,20 +2,19 @@ import * as React from 'react';
 import { Input } from '../common/input';
 import { SignupEntity } from '../../entity/signupEntity';
 import { SignupErrors } from '../../entity/signupErrors';
+import { ValidationFilters } from 'lc-form-validation';
 
 interface Props extends React.Props<any> {
   signup: SignupEntity;
   errors: SignupErrors;
-  fireValidationField: (viewModel: any, fieldName: string, value: string, filter?: any) => void;
+  fireValidationField: (viewModel: any, fieldName: string, value: string, filter?: ValidationFilters) => void;
   performSignup: (signup: SignupEntity) => void;
 }
 
 export class SampleSignupForm extends React.Component<Props, {}> {
-  private applyFieldValidation(event, filter: any = undefined) {
-    const field = event.target.name;
-    const value = event.target.value;
-
-    this.props.fireValidationField(this.props.signup, field, value, filter);
+  private applyFieldValidation(event, filter?: ValidationFilters) {
+    const { name, value } = event.target;
+    this.props.fireValidationField(this.props.signup, name, value, filter);
   }
 
   private onSave(event) {
@@ -28,6 +27,7 @@ export class SampleSignupForm extends React.Component<Props, {}> {
       <form>
         <h1>Signup Form</h1>
         <Input
+          type="text"
           name="login"
           label="login"
           value={this.props.signup.login}
@@ -40,6 +40,7 @@ export class SampleSignupForm extends React.Component<Props, {}> {
           error={(this.props.errors.login) ? this.props.errors.login.errorMessage : ''} />
 
         <Input
+          type="password"
           name="password"
           label="password"
           value={this.props.signup.password}
@@ -49,6 +50,7 @@ export class SampleSignupForm extends React.Component<Props, {}> {
           error={(this.props.errors.password) ? this.props.errors.password.errorMessage : ''} />
 
         <Input
+          type="password"
           name="confirmPassword"
           label="confirm password"
           value={this.props.signup.confirmPassword}
