@@ -39,15 +39,13 @@ export interface FormValidationFunction {
   (vm: any): ValidationResult;
 }
 
-export interface SyncValidationFunction {
-  (value: any, vm: any, customParams: any): ValidationResult;
+export interface FieldValidationFunction {
+  (value: any, vm: any, customParams: any): Promise<FieldValidationResult> |ValidationResult;
 }
 
 export interface AsyncFieldValidationFunction {
   (value: any, vm: any, customParams: any): Promise<FieldValidationResult>;
 }
-
-export type FieldValidationFunction = SyncValidationFunction | AsyncFieldValidationFunction;
 
 export interface FieldValidationConstraint {
   validator: FieldValidationFunction;

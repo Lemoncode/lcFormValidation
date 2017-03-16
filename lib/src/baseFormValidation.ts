@@ -62,9 +62,9 @@ export class BaseFormValidation implements FormValidation {
     });
   }
 
-  private addFieldValidation(constraint: string, validationConstraint: FieldValidationConstraint): FormValidation {
+  private addFieldValidation(field: string, validationConstraint: FieldValidationConstraint): FormValidation {
     this.validationEngine.addFieldValidation(
-      constraint,
+      field,
       validationConstraint.validator,
       validationConstraint.eventsFilter,
       validationConstraint.customParams
