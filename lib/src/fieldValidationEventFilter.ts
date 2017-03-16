@@ -1,13 +1,13 @@
-import { FieldValidation, ValidationFilters } from './entities';
+import { FieldValidation, ValidationEventsFilter } from './entities';
 
 class FieldValidationEventFilter {
 
-  public filter(fieldValidations: FieldValidation[], filters: ValidationFilters): FieldValidation[] {
+  public filter(fieldValidations: FieldValidation[], eventsFilter: ValidationEventsFilter): FieldValidation[] {
     let result: FieldValidation[] = [];
 
-    if (filters) {
+    if (eventsFilter) {
       result = fieldValidations.filter((fieldValidation) =>
-        this.matchsAnyFilter(fieldValidation, filters)
+        this.hasAnyFilter(fieldValidation, eventsFilter)
       );
     } else {
       result = fieldValidations;
@@ -16,9 +16,9 @@ class FieldValidationEventFilter {
     return result;
   }
 
-  private matchsAnyFilter(fieldValidation: FieldValidation, filters: ValidationFilters) {
-    return Object.keys(filters).some(filter =>
-      filters[filter] === fieldValidation.filters[filter]
+  private hasAnyFilter(fieldValidation: FieldValidation, eventsFilter: ValidationEventsFilter) {
+    return Object.keys(eventsFilter).some(filter =>
+      eventsFilter[filter] === fieldValidation.eventsFilter[filter]
     );
   }
 }

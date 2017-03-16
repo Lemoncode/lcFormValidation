@@ -69,11 +69,11 @@ describe('ValidationsDispatcher', () => {
           return Promise.resolve(fieldValidationResult);
         };
         const validationFnSpy = sinon.spy(validationFn);
-        const filters = {};
+        const eventsFilter = {};
         const customParams = {};
         const fieldValidation: FieldValidation = {
           validationFn: validationFnSpy,
-          filters,
+          eventsFilter,
           customParams
         };
 
@@ -104,11 +104,11 @@ describe('ValidationsDispatcher', () => {
           return Promise.resolve(fieldValidationResult);
         };
         const validationFnSpy = sinon.spy(validationFn);
-        const filters = {};
+        const eventsFilter = {};
         const customParams = {};
         const fieldValidation: FieldValidation = {
           validationFn: validationFnSpy,
-          filters,
+          eventsFilter,
           customParams,
         };
 
@@ -146,16 +146,16 @@ describe('ValidationsDispatcher', () => {
         };
         const validationFnSpy1 = sinon.spy(validationFn1);
         const validationFnSpy2 = sinon.spy(validationFn2);
-        const filters = {};
+        const eventsFilter = {};
         const customParams = {};
         const fieldValidation1: FieldValidation = {
           validationFn: validationFnSpy1,
-          filters,
+          eventsFilter,
           customParams,
         };
         const fieldValidation2: FieldValidation = {
           validationFn: validationFnSpy2,
-          filters,
+          eventsFilter,
           customParams,
         };
         const validationsPerField = [fieldValidation1, fieldValidation2];
@@ -194,19 +194,19 @@ describe('ValidationsDispatcher', () => {
           fieldValidationResult.succeeded = true;
           return Promise.resolve(fieldValidationResult);
         };
-        const filters = {};
+        const eventsFilter = {};
         const customParams = {};
         const validationFnSpy1 = sinon.spy(validationFn1);
         const validationFnSpy2 = sinon.spy(validationFn2);
 
         const fieldValidation1: FieldValidation = {
           validationFn: validationFnSpy1,
-          filters,
+          eventsFilter,
           customParams,
         };
         const fieldValidation2: FieldValidation = {
           validationFn: validationFnSpy2,
-          filters,
+          eventsFilter,
           customParams,
         };
         const validationsPerField = [fieldValidation1, fieldValidation2];
@@ -247,16 +247,16 @@ describe('ValidationsDispatcher', () => {
         };
         const validationFnSpy1 = sinon.spy(validationFn1);
         const validationFnSpy2 = sinon.spy(validationFn2);
-        const filters = {};
+        const eventsFilter = {};
         const customParams = {};
         const fieldValidation1: FieldValidation = {
           validationFn: validationFnSpy1,
-          filters,
+          eventsFilter,
           customParams
         };
         const fieldValidation2: FieldValidation = {
           validationFn: validationFnSpy2,
-          filters,
+          eventsFilter,
           customParams
         };
         const validationsPerField = [fieldValidation1, fieldValidation2];
@@ -299,16 +299,16 @@ describe('ValidationsDispatcher', () => {
         };
         const validationFnSpy1 = sinon.spy(validationFn1);
         const validationFnSpy2 = sinon.spy(validationFn2);
-        const filters = {};
+        const eventsFilter = {};
         const customParams = {};
         const fieldValidation1: FieldValidation = {
           validationFn: validationFnSpy1,
-          filters,
+          eventsFilter,
           customParams
         };
         const fieldValidation2: FieldValidation = {
           validationFn: validationFnSpy2,
-          filters,
+          eventsFilter,
           customParams
         };
         const validationsPerField = [fieldValidation1, fieldValidation2];
@@ -342,11 +342,11 @@ describe('ValidationsDispatcher', () => {
           return Promise.resolve(fieldValidationResult);
         };
         const validationFnSpy = sinon.spy(validationFn);
-        const filters = {};
+        const eventsFilter = {};
         const customParams = {};
         const fieldValidation: FieldValidation = {
           validationFn: validationFnSpy,
-          filters,
+          eventsFilter,
           customParams,
         };
         const validationsPerField = [fieldValidation];
@@ -375,11 +375,11 @@ describe('ValidationsDispatcher', () => {
           return Promise.resolve(fieldValidationResult);
         };
         const validationFnSpy = sinon.spy(validationFn);
-        const filters = {};
+        const eventsFilter = {};
         const customParams = {};
         const fieldValidation: FieldValidation = {
           validationFn: validationFnSpy,
-          filters,
+          eventsFilter,
           customParams,
         };
         const validationsPerField = [fieldValidation];
@@ -410,11 +410,11 @@ describe('ValidationsDispatcher', () => {
           return Promise.resolve(fieldValidationResult);
         };
         const validationFnSpy = sinon.spy(validationFn);
-        const filters = {};
+        const eventsFilter = {};
         const customParams = {};
         const fieldValidation: FieldValidation = {
           validationFn: validationFnSpy,
-          filters,
+          eventsFilter,
           customParams,
         };
         const validationsPerField = [fieldValidation];
@@ -453,16 +453,16 @@ describe('ValidationsDispatcher', () => {
 
         const validationFnSpy1 = sinon.spy(validationFn1);
         const validationFnSpy2 = sinon.spy(validationFn2);
-        const filters = {};
+        const eventsFilter = {};
         const customParams = {};
         const fieldValidation1: FieldValidation = {
           validationFn: validationFnSpy1,
-          filters,
+          eventsFilter,
           customParams,
         };
         const fieldValidation2: FieldValidation = {
           validationFn: validationFnSpy2,
-          filters,
+          eventsFilter,
           customParams,
         };
         const validationsPerField = [fieldValidation1, fieldValidation2];
@@ -503,16 +503,16 @@ describe('ValidationsDispatcher', () => {
         };
         const validationFnSpy1 = sinon.spy(validationFn1);
         const validationFnSpy2 = sinon.spy(validationFn2);
-        const filters = {};
+        const eventsFilter = {};
         const customParams = {};
         const fieldValidation1: FieldValidation = {
           validationFn: validationFnSpy1,
-          filters,
+          eventsFilter,
           customParams,
         };
         const fieldValidation2: FieldValidation = {
           validationFn: validationFnSpy2,
-          filters,
+          eventsFilter,
           customParams,
         };
         const validationsPerField = [fieldValidation1, fieldValidation2];
@@ -553,16 +553,16 @@ describe('ValidationsDispatcher', () => {
         };
         const validationFnSpy1 = sinon.spy(validationFn1);
         const validationFnSpy2 = sinon.spy(validationFn2);
-        const filters = {};
+        const eventsFilter = {};
         const customParams = {};
         const fieldValidation1: FieldValidation = {
           validationFn: validationFnSpy1,
-          filters,
+          eventsFilter,
           customParams
         };
         const fieldValidation2: FieldValidation = {
           validationFn: validationFnSpy2,
-          filters,
+          eventsFilter,
           customParams
         };
 
@@ -605,16 +605,16 @@ describe('ValidationsDispatcher', () => {
         };
         const validationFnSpy1 = sinon.spy(validationFn1);
         const validationFnSpy2 = sinon.spy(validationFn2);
-        const filters = {};
+        const eventsFilter = {};
         const customParams = {};
         const fieldValidation1: FieldValidation = {
           validationFn: validationFnSpy1,
-          filters,
+          eventsFilter,
           customParams,
         };
         const fieldValidation2: FieldValidation = {
           validationFn: validationFnSpy2,
-          filters,
+          eventsFilter,
           customParams,
         };
         const validationsPerField = [fieldValidation1, fieldValidation2];
@@ -652,17 +652,17 @@ describe('ValidationsDispatcher', () => {
       };
       const validationFnSpy1 = sinon.spy(validationFn1);
       const validationFnSpy2 = sinon.spy(validationFn2);
-      const filters = {};
+      const eventsFilter = {};
       const customParams1 = { param1: 'param1' };
       const customParams2 = { param2: 'param2' };
       const fieldValidation1: FieldValidation = {
         validationFn: validationFnSpy1,
-        filters,
+        eventsFilter,
         customParams: customParams1,
       };
       const fieldValidation2: FieldValidation = {
         validationFn: validationFnSpy2,
-        filters,
+        eventsFilter,
         customParams: customParams2,
       };
       const validationsPerField = [fieldValidation1, fieldValidation2];
@@ -1015,11 +1015,11 @@ describe('ValidationsDispatcher', () => {
         const validationFn = (vm, value, customParams) => {
           throw new Error('Intentionally uncontrolled error, single field validation testing fire single field validations');
         };
-        const filters = {};
+        const eventsFilter = {};
         const customParams = {};
         const fieldValidation: FieldValidation = {
           validationFn: validationFn,
-          filters,
+          eventsFilter,
           customParams,
         };
 

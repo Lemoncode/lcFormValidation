@@ -1,10 +1,10 @@
-export interface ValidationFilters {
+export interface ValidationEventsFilter {
   [key: string]: boolean;
 }
 
 export class FieldValidation {
   validationFn: (value, vm, customParams) => Promise<FieldValidationResult>;
-  filters: ValidationFilters;
+  eventsFilter: ValidationEventsFilter;
   customParams: any;
 }
 
@@ -51,7 +51,7 @@ export type FieldValidationFunction = SyncValidationFunction | AsyncFieldValidat
 
 export interface FieldValidationConstraint {
   validator: FieldValidationFunction;
-  eventFilters?: ValidationFilters;
+  eventsFilter?: ValidationEventsFilter;
   customParams?: any;
 }
 

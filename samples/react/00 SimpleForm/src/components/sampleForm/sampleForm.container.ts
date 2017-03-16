@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fireValidationFieldValueChanged: (viewModel: any, fieldName: string, value: any) => {
-      return dispatch(customerUIInputStart(viewModel, fieldName, value))
+      return dispatch(customerUIInputStart(viewModel, fieldName, value));
     },
     saveCustomer: (customer: CustomerEntity) => {
       return dispatch(customerSaveStart(customer));

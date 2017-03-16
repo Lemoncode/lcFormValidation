@@ -479,7 +479,6 @@ describe('ValidationEngine Validate Form', () => {
       const validationFn2Spy = sinon.spy(validationFn2);
       const vm = { fullname: '' };
 
-
       // Act
       validationEngine.addFieldValidation('fullname', validationFn1Spy, { OnChange: true, OnBlur: true });
       validationEngine.addFieldValidation('fullname', validationFn2Spy, { OnBlur: true });

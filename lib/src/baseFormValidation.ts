@@ -6,12 +6,12 @@ import {
   FieldValidationResult,
   FormValidationResult,
   FieldValidationConstraint,
-  ValidationFilters,
+  ValidationEventsFilter,
 } from './entities';
 import { consts } from './consts';
 
 interface FormValidation {
-  validateField(vm: any, key: string, value: any, filter?: any): Promise<FieldValidationResult>;
+  validateField(vm: any, key: string, value: any, eventsFilter?: any): Promise<FieldValidationResult>;
   validateForm(vm: any): Promise<FormValidationResult>;
   isValidationInProgress(): boolean;
   isFormDirty(): boolean;
@@ -66,14 +66,14 @@ export class BaseFormValidation implements FormValidation {
     this.validationEngine.addFieldValidation(
       constraint,
       validationConstraint.validator,
-      validationConstraint.eventFilters,
+      validationConstraint.eventsFilter,
       validationConstraint.customParams
     );
     return this;
   }
 
-  validateField(vm: any, key: string, value: any, filter?: ValidationFilters): Promise<FieldValidationResult> {
-    return this.validationEngine.triggerFieldValidation(vm, key, value, filter);
+  validateField(vm: any, key: string, value: any, eventsFilter?: ValidationEventsFilter): Promise<FieldValidationResult> {
+    return this.validationEngine.triggerFieldValidation(vm, key, value, eventsFilter);
   }
 
   validateForm(vm: any): Promise<FormValidationResult> {

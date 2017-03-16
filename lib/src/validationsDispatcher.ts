@@ -62,17 +62,17 @@ export class ValidationDispatcher {
 
   fireAllFieldsValidations(
     vm: any,
-    vmKeys: string[],
+    fieldsToValidate: string[],
     validationFn: (vm, key, value) => Promise<FieldValidationResult>
   ): Promise<FieldValidationResult>[] {
 
     const fieldValidationResultsPromises: Promise<FieldValidationResult>[] = [];
 
     if (this.areParametersDefined(vm, validationFn)) {
-      vmKeys.forEach((vmKey) => {
-        const vmFieldValue = vm[vmKey];
+      fieldsToValidate.forEach((field) => {
+        const vmFieldValue = vm[field];
         if (vmFieldValue !== undefined) {
-          const fieldValidationResultsPromise = validationFn(vm, vmKey, vmFieldValue);
+          const fieldValidationResultsPromise = validationFn(vm, field, vmFieldValue);
           fieldValidationResultsPromises.push(fieldValidationResultsPromise);
         }
       });

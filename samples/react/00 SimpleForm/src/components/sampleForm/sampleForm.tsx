@@ -7,7 +7,7 @@ interface Props extends React.Props<SampleForm> {
   customer: CustomerEntity;
   errors: CustomerErrors;
   fireValidationFieldValueChanged: (viewModel: any, fieldName: string, value: any) => void;
-  saveCustomer: (customer: CustomerEntity) => void
+  saveCustomer: (customer: CustomerEntity) => void;
 }
 
 export class SampleForm extends React.Component<Props, {}> {

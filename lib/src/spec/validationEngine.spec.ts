@@ -25,7 +25,6 @@ describe('ValidationEngine tests', () => {
       });
   });
 
-
   it('should return isFormDirty false after initiazalition', () => {
     // Arrange
     const formValidationBase: ValidationEngine = new ValidationEngine();
