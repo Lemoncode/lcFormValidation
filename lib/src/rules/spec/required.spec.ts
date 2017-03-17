@@ -140,5 +140,20 @@ describe('[required] validation rule tests =>', () => {
       expect(validationResult.type).to.be.equals('REQUIRED');
       expect(validationResult.errorMessage).to.be.equals('Please fill in this mandatory field.');
     });
+
+    it('should trim by default', () => {
+      // Arrange
+      const value = ' ';
+      const vm = undefined;
+      const customParams = undefined;
+
+      // Act
+      const validationResult = required(value, vm, customParams) as FieldValidationResult;
+
+      // Assert
+      expect(validationResult.succeeded).to.be.false;
+      expect(validationResult.type).to.be.equals('REQUIRED');
+      expect(validationResult.errorMessage).to.be.equals('Please fill in this mandatory field.');
+    });
   });
 });

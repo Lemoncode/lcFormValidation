@@ -1,4 +1,5 @@
-import { MinLengthParams, minLength } from '../minLength';
+import { minLength } from '../minLength';
+import { LengthParams } from '../length';
 import { FieldValidationResult } from '../../entities';
 
 describe('[minLength] validation rule tests =>', () => {
@@ -7,7 +8,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Arrange
       const value = undefined;
       const vm = undefined;
-      const customParams: MinLengthParams = { length: 4 };
+      const customParams: LengthParams = { length: 4 };
 
       // Act
       const validationResult = minLength(value, vm, customParams) as FieldValidationResult;
@@ -22,7 +23,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Arrange
       const value = null;
       const vm = undefined;
-      const customParams: MinLengthParams = { length: 4 };
+      const customParams: LengthParams = { length: 4 };
 
       // Act
       const validationResult = minLength(value, vm, customParams) as FieldValidationResult;
@@ -39,7 +40,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Arrange
       const value = '';
       const vm = undefined;
-      const customParams: MinLengthParams = { length: 3 };
+      const customParams: LengthParams = { length: 3 };
 
       // Act
       const validationResult = minLength(value, vm, customParams) as FieldValidationResult;
@@ -54,7 +55,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Arrange
       const value = 'test';
       const vm = undefined;
-      const customParams: MinLengthParams = { length: 2 };
+      const customParams: LengthParams = { length: 2 };
 
       // Act
       const validationResult = minLength(value, vm, customParams) as FieldValidationResult;
@@ -69,7 +70,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Arrange
       const value = 'test';
       const vm = undefined;
-      const customParams: MinLengthParams = { length: 6 };
+      const customParams: LengthParams = { length: 6 };
 
       // Act
       const validationResult = minLength(value, vm, customParams) as FieldValidationResult;
@@ -84,7 +85,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Arrange
       const value = 'test';
       const vm = undefined;
-      const customParams: MinLengthParams = { length: 4 };
+      const customParams: LengthParams = { length: 4 };
 
       // Act
       const validationResult = minLength(value, vm, customParams) as FieldValidationResult;
@@ -99,7 +100,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Arrange
       const value = 'test';
       const vm = undefined;
-      const customParams: MinLengthParams = { length: 0 };
+      const customParams: LengthParams = { length: 0 };
 
       // Act
       const validationResult = minLength(value, vm, customParams) as FieldValidationResult;
@@ -114,7 +115,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Arrange
       const value = '';
       const vm = undefined;
-      const customParams: MinLengthParams = { length: 0 };
+      const customParams: LengthParams = { length: 0 };
 
       // Act
       const validationResult = minLength(value, vm, customParams) as FieldValidationResult;
@@ -131,7 +132,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Arrange
       const value = 't';
       const vm = undefined;
-      const customParams: MinLengthParams = undefined;
+      const customParams: LengthParams = undefined;
       const thrownErrorMessage = 'FieldValidationError: Parameter "length" for minLength in customParams is mandatory and should be a valid number. Example: { length: 4 }.';
 
       // Act
@@ -144,7 +145,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Arrange
       const value = 'test';
       const vm = undefined;
-      const customParams: MinLengthParams = { length: null };
+      const customParams: LengthParams = { length: null };
       const thrownErrorMessage = 'FieldValidationError: Parameter "length" for minLength in customParams is mandatory and should be a valid number. Example: { length: 4 }.';
 
       // Act

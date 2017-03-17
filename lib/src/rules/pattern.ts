@@ -4,6 +4,7 @@ export interface PatternParams {
   pattern: string | RegExp;
 }
 
+const BAD_PARAMETER = 'FieldValidationError: pattern option for pattern validation is mandatory. Example: { pattern: /\d+/ }.';
 export function pattern(value: string, vm, customParams: PatternParams): FieldValidationResult {
   const pattern = parsePattern(customParams);
   const isValid = pattern.test(value);
@@ -17,7 +18,7 @@ export function pattern(value: string, vm, customParams: PatternParams): FieldVa
 
 function parsePattern({ pattern }: PatternParams): RegExp {
   if (pattern === undefined || pattern === null) {
-    throw new Error('FieldValidationError: pattern option for pattern validation is mandatory. Example: { pattern: /\d+/ }.');
+    throw new Error(BAD_PARAMETER);
   }
   return getRegExp(pattern);
 }

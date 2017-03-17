@@ -1,4 +1,5 @@
-import { MaxLengthParams, maxLength } from '../maxLength';
+import { maxLength } from '../maxLength';
+import { LengthParams } from '../length';
 import { FieldValidationResult } from '../../entities';
 
 describe('[maxLength] validation rule tests =>', () => {
@@ -7,7 +8,7 @@ describe('[maxLength] validation rule tests =>', () => {
       // Arrange
       const value = undefined;
       const vm = undefined;
-      const customParams: MaxLengthParams = { length: 4 };
+      const customParams: LengthParams = { length: 4 };
 
       // Act
       const validationResult: FieldValidationResult = maxLength(value, vm, customParams);
@@ -20,7 +21,7 @@ describe('[maxLength] validation rule tests =>', () => {
       // Arrange
       const value = null;
       const vm = undefined;
-      const customParams: MaxLengthParams = { length: 4 };
+      const customParams: LengthParams = { length: 4 };
 
       // Act
       const validationResult: FieldValidationResult = maxLength(value, vm, customParams);
@@ -35,7 +36,7 @@ describe('[maxLength] validation rule tests =>', () => {
       // Arrange
       const value = 'test';
       const vm = undefined;
-      const customParams: MaxLengthParams = { length: 6 };
+      const customParams: LengthParams = { length: 6 };
 
       // Act
       const validationResult: FieldValidationResult = maxLength(value, vm, customParams);
@@ -50,7 +51,7 @@ describe('[maxLength] validation rule tests =>', () => {
       // Arrange
       const value = 'test';
       const vm = undefined;
-      const customParams: MaxLengthParams = { length: 2 };
+      const customParams: LengthParams = { length: 2 };
 
       // Act
       const validationResult: FieldValidationResult = maxLength(value, vm, customParams);
@@ -65,7 +66,7 @@ describe('[maxLength] validation rule tests =>', () => {
       // Arrange
       const value = 'test';
       const vm = undefined;
-      const customParams: MaxLengthParams = { length: 4 };
+      const customParams: LengthParams = { length: 4 };
 
       // Act
       const validationResult: FieldValidationResult = maxLength(value, vm, customParams);
@@ -80,7 +81,7 @@ describe('[maxLength] validation rule tests =>', () => {
       // Arrange
       const value = '';
       const vm = undefined;
-      const customParams: MaxLengthParams = { length: 0 };
+      const customParams: LengthParams = { length: 0 };
 
       // Act
       const validationResult: FieldValidationResult = maxLength(value, vm, customParams);
@@ -97,7 +98,7 @@ describe('[maxLength] validation rule tests =>', () => {
       // Arrange
       const value = 't';
       const vm = undefined;
-      const customParams: MaxLengthParams = undefined;
+      const customParams: LengthParams = undefined;
       const thrownErrorMessage = 'FieldValidationError: Parameter "length" for maxLength in customParams is mandatory and should be a valid number. Example: { length: 4 }.';
 
       // Act
@@ -108,7 +109,7 @@ describe('[maxLength] validation rule tests =>', () => {
       // Arrange
       const value = 'test';
       const vm = undefined;
-      const customParams: MaxLengthParams = { length: null };
+      const customParams: LengthParams = { length: null };
       const thrownErrorMessage = 'FieldValidationError: Parameter "length" for maxLength in customParams is mandatory and should be a valid number. Example: { length: 4 }.';
 
       // Act
