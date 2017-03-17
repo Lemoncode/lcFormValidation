@@ -1,4 +1,4 @@
-import { requiredField, RequiredParams } from '../required';
+import { required, RequiredParams } from '../required';
 import { FieldValidationResult } from '../../entities';
 
 describe('[required] validation rule tests =>', () => {
@@ -10,7 +10,7 @@ describe('[required] validation rule tests =>', () => {
       const customParams: RequiredParams = undefined;
 
       // Act
-      const validationResult = requiredField(value, vm, customParams) as FieldValidationResult;
+      const validationResult = required(value, vm, customParams) as FieldValidationResult;
 
       // Assert
       expect(validationResult.succeeded).to.be.false;
@@ -25,7 +25,7 @@ describe('[required] validation rule tests =>', () => {
       const customParams: RequiredParams = undefined;
 
       // Act
-      const validationResult = requiredField(value, vm, customParams) as FieldValidationResult;
+      const validationResult = required(value, vm, customParams) as FieldValidationResult;
 
       // Assert
       expect(validationResult.succeeded).to.be.false;
@@ -40,7 +40,7 @@ describe('[required] validation rule tests =>', () => {
       const customParams: RequiredParams = undefined;
 
       // Act
-      const validationResult = requiredField(value, vm, customParams) as FieldValidationResult;
+      const validationResult = required(value, vm, customParams) as FieldValidationResult;
 
       // Assert
       expect(validationResult.succeeded).to.be.false;
@@ -55,7 +55,7 @@ describe('[required] validation rule tests =>', () => {
       const customParams: RequiredParams = undefined;
 
       // Act
-      const validationResult = requiredField(value, vm, customParams) as FieldValidationResult;
+      const validationResult = required(value, vm, customParams) as FieldValidationResult;
 
       // Assert
       expect(validationResult.succeeded).to.be.true;
@@ -73,7 +73,7 @@ describe('[required] validation rule tests =>', () => {
       const customParams: RequiredParams = undefined;
 
       // Act
-      const validationResult = requiredField(value, vm, customParams) as FieldValidationResult;
+      const validationResult = required(value, vm, customParams) as FieldValidationResult;
 
       // Assert
       expect(validationResult.succeeded).to.be.false;
@@ -88,7 +88,7 @@ describe('[required] validation rule tests =>', () => {
       const customParams: RequiredParams = { trim: false };
 
       // Act
-      const validationResult = requiredField(value, vm, customParams) as FieldValidationResult;
+      const validationResult = required(value, vm, customParams) as FieldValidationResult;
 
       // Assert
       expect(validationResult.succeeded).to.be.true;
@@ -103,7 +103,7 @@ describe('[required] validation rule tests =>', () => {
       const customParams: RequiredParams = { trim: null };
 
       // Act
-      const validationResult = requiredField(value, vm, customParams) as FieldValidationResult;
+      const validationResult = required(value, vm, customParams) as FieldValidationResult;
 
       // Assert
       expect(validationResult.succeeded).to.be.true;
@@ -118,7 +118,7 @@ describe('[required] validation rule tests =>', () => {
       const customParams: RequiredParams = { trim: undefined };
 
       // Act
-      const validationResult = requiredField(value, vm, customParams) as FieldValidationResult;
+      const validationResult = required(value, vm, customParams) as FieldValidationResult;
 
       // Assert
       expect(validationResult.succeeded).to.be.true;
@@ -133,7 +133,7 @@ describe('[required] validation rule tests =>', () => {
       const customParams: RequiredParams = { trim: true };
 
       // Act
-      const validationResult = requiredField(value, vm, customParams) as FieldValidationResult;
+      const validationResult = required(value, vm, customParams) as FieldValidationResult;
 
       // Assert
       expect(validationResult.succeeded).to.be.false;

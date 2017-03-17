@@ -5,7 +5,7 @@ export interface RequiredParams {
 
 const DEFAULT_PARAMS: RequiredParams = { trim: false };
 
-export const requiredField: FieldValidationFunction = (value, vm, customParams: RequiredParams = DEFAULT_PARAMS) => {
+export const required: FieldValidationFunction = (value, vm, customParams: RequiredParams = DEFAULT_PARAMS) => {
   const validationResult = new FieldValidationResult();
   const isValid = isValidField(value, Boolean(customParams.trim));
   if (!isValid) {
