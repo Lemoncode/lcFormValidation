@@ -1,0 +1,11 @@
+.vscode/
+
+# LcFormValidation
+lib/*
+lib/dist/lc-form-validation.min.js
+
+# Vendors
+vendors/*
+!vendors/jquery/dist/jquery.min.js
+!vendors/bootstrap/dist/css/bootstrap.min.css
+!vendors/bootstrap/dist/js/bootstrap.min.js

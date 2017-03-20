@@ -1,0 +1,36 @@
+{
+  "name": "lcFormValidation-pages",
+  "version": "1.0.0",
+  "homepage": "https://github.com/Lemoncode/lcFormValidation",
+  "authors": [
+    "Braulio Díez Botella <braulio.diez@lemoncode.net>"
+  ],
+  "moduleType": [
+    "amd",
+    "es6",
+    "node"
+  ],
+  "keywords": [
+    "validation",
+    "form validation",
+    "react validation",
+    "validator",
+    "lc-form-validation"
+  ],
+  "description": "A framework agnostic, async form validation library: heavily based on JavaScript (no html attributes / annotations).",
+  "main": "lc-form-validation.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendors/",
+    "test",
+    "tests"
+  ],
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.0"
+  }
+}
