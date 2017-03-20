@@ -11,10 +11,6 @@ export function parseLengthParams(customParams: LengthParams, errorMessage: stri
   return length;
 }
 
-interface LengthValidatorFunction {
-  (value: string, length: number): boolean;
-}
-
 export function isLengthValid(
   value,
   length: number,
