@@ -20,10 +20,5 @@ export function isLengthValid(
   length: number,
   validatorFn: (value: string, length: number) => boolean
 ): boolean {
-  if (typeof value === 'string') {
-    return validatorFn(value, length);
-  }
-
-  // Don't validate non string values
-  return true;
+  return typeof value === 'string' ? validatorFn(value, length) : true;
 }

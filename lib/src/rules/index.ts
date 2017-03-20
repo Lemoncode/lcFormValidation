@@ -19,5 +19,5 @@ export const Validators: ValidatorFunctions = {
   minLength,
   maxLength,
   email,
-  pattern
+  pattern,
 };

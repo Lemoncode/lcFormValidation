@@ -14,7 +14,7 @@ export function maxLength(value: string, vm, customParams: LengthParams = DEFAUL
   const validationResult = new FieldValidationResult();
 
   validationResult.succeeded = isValid;
-  validationResult.key = 'MAX_LENGTH';
+  validationResult.type = 'MAX_LENGTH';
   validationResult.errorMessage = isValid ? '' : `The value provided is too long. Length must not exceed ${length} characters.`;
   return validationResult;
 }

@@ -6,6 +6,7 @@ const EMAIL_PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".
 export const email: FieldValidationFunction = (value: string) => {
   const validationResult = new FieldValidationResult();
   const isValid = EMAIL_PATTERN.test(value);
+
   validationResult.succeeded = isValid;
   validationResult.type = 'EMAIL';
   validationResult.errorMessage = isValid ? '' : 'Please enter a valid email address.';

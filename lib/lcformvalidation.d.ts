@@ -65,5 +65,3 @@ export namespace Validators {
   function email(value: any, vm: any): FieldValidationResult;
   function pattern(value: any, vm: any, customParams: PatternParams): FieldValidationResult;
 }
-
-

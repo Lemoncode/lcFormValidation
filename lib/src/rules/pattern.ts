@@ -5,10 +5,12 @@ export interface PatternParams {
 }
 
 const BAD_PARAMETER = 'FieldValidationError: pattern option for pattern validation is mandatory. Example: { pattern: /\d+/ }.';
+
 export function pattern(value: string, vm, customParams: PatternParams): FieldValidationResult {
   const pattern = parsePattern(customParams);
   const isValid = pattern.test(value);
   const validationResult = new FieldValidationResult();
+
   validationResult.succeeded = isValid;
   validationResult.type = 'PATTERN';
   validationResult.errorMessage = isValid ? '' : `Please provide a valid format.`;
@@ -17,18 +19,13 @@ export function pattern(value: string, vm, customParams: PatternParams): FieldVa
 }
 
 function parsePattern({ pattern }: PatternParams): RegExp {
-  if (pattern === undefined || pattern === null) {
+  // Avoid RegExp like /true/ /false/ and /null/ without an explicit "true", "false" or "null"
+  if (typeof pattern === 'boolean' || pattern === null) {
     throw new Error(BAD_PARAMETER);
   }
   return getRegExp(pattern);
 }
 
 function getRegExp(pattern) {
-  if (typeof pattern === 'string') {
-    return new RegExp(`^${pattern}$`);
-  }
-  if (pattern instanceof RegExp) {
-    return pattern;
-  }
-  return new RegExp(pattern);
+  return pattern instanceof RegExp ? pattern : new RegExp(pattern);
 }

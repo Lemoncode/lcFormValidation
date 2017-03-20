@@ -8,20 +8,19 @@ const DEFAULT_PARAMS: RequiredParams = { trim: true };
 export const required: FieldValidationFunction = (value, vm, customParams: RequiredParams = DEFAULT_PARAMS) => {
   const validationResult = new FieldValidationResult();
   const isValid = isValidField(value, Boolean(customParams.trim));
-  if (!isValid) {
-    validationResult.errorMessage = 'Please fill in this mandatory field.';
-  }
+  validationResult.errorMessage = isValid ? '' : 'Please fill in this mandatory field.';
   validationResult.succeeded = isValid;
   validationResult.type = 'REQUIRED';
   return validationResult;
 }
 
 function isValidField(value, trim: boolean): boolean {
-  if (typeof value === 'string') {
-    return isStringValid(value, trim);
-  }
+  return typeof value === 'string' ?
+    isStringValid(value, trim) :
+    isNotFalsy(value);
+}
 
-  // Allow only 'true'
+function isNotFalsy(value) {
   return value !== null && value !== undefined && value !== false;
 }
 

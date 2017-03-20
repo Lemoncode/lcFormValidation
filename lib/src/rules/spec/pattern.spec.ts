@@ -15,11 +15,11 @@ describe('[pattern] validation rule tests =>', () => {
       expect(pattern.bind(null, value, vm, customParams)).to.throw(Error, thrownErrrorMessage);
     });
 
-    it('should throw an error if pattern is undefined', () => {
+    it('should throw an error if pattern is boolean', () => {
       // Arrange
       const value = 'test';
       const vm = undefined;
-      const customParams: PatternParams = { pattern: undefined };
+      const customParams: PatternParams = { pattern: (false as any) };
       const thrownErrrorMessage = 'FieldValidationError: pattern option for pattern validation is mandatory. Example: { pattern: /\d+/ }.';
 
       // Act
@@ -29,7 +29,7 @@ describe('[pattern] validation rule tests =>', () => {
   });
 
   describe('Given a string as RegExp in pattern option', () => {
-    it('should use the entire pattern as a complete pattern', () => {
+    it('should not use the entire pattern as a complete pattern', () => {
       // Arrange
       const value = 'Some tests needed';
       const vm = undefined;
@@ -39,9 +39,9 @@ describe('[pattern] validation rule tests =>', () => {
       const validationResult = pattern(value, vm, customParams) as FieldValidationResult;
 
       // Assert
-      expect(validationResult.succeeded).to.be.false;
+      expect(validationResult.succeeded).to.be.true;
       expect(validationResult.type).to.be.equals('PATTERN');
-      expect(validationResult.errorMessage).to.be.equals('Please provide a valid format.');
+      expect(validationResult.errorMessage).to.be.empty;
     });
 
     it('should return true for a value that matches pattern', () => {

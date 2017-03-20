@@ -12,9 +12,10 @@ export const minLength: FieldValidationFunction = (value: string, vm, customPara
   const length = parseLengthParams(customParams, BAD_PARAMETER);
   const isValid = isLengthValid(value, length, isStringLengthValid);
   const validationResult = new FieldValidationResult();
+
   validationResult.errorMessage = isValid ? '' : `The value provided must have at least ${length} characters.`;
   validationResult.succeeded = isValid;
-  validationResult.key = 'MIN_LENGTH';
+  validationResult.type = 'MIN_LENGTH';
   return validationResult;
 }
 

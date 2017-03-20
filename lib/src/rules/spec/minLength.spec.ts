@@ -15,7 +15,7 @@ describe('[minLength] validation rule tests =>', () => {
 
       // Assert
       expect(validationResult.succeeded).to.be.true;
-      expect(validationResult.key).to.be.equals('MIN_LENGTH');
+      expect(validationResult.type).to.be.equals('MIN_LENGTH');
       expect(validationResult.errorMessage).to.be.empty;
     });
 
@@ -30,7 +30,7 @@ describe('[minLength] validation rule tests =>', () => {
 
       // Assert
       expect(validationResult.succeeded).to.be.true;
-      expect(validationResult.key).to.be.equals('MIN_LENGTH');
+      expect(validationResult.type).to.be.equals('MIN_LENGTH');
       expect(validationResult.errorMessage).to.be.empty;
     });
   });
@@ -48,7 +48,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Assert
       expect(validationResult.succeeded).to.be.false;
       expect(validationResult.errorMessage).to.be.equals('The value provided must have at least 3 characters.');
-      expect(validationResult.key).to.be.equals('MIN_LENGTH');
+      expect(validationResult.type).to.be.equals('MIN_LENGTH');
     });
 
     it('should return true if value length is greater than length option', () => {
@@ -63,7 +63,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Assert
       expect(validationResult.succeeded).to.be.true;
       expect(validationResult.errorMessage).to.be.empty;
-      expect(validationResult.key).to.be.equals('MIN_LENGTH');
+      expect(validationResult.type).to.be.equals('MIN_LENGTH');
     });
 
     it('should return false if value length is lesser than length option', () => {
@@ -78,7 +78,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Assert
       expect(validationResult.succeeded).to.be.false;
       expect(validationResult.errorMessage).to.be.equals('The value provided must have at least 6 characters.');
-      expect(validationResult.key).to.be.equals('MIN_LENGTH');
+      expect(validationResult.type).to.be.equals('MIN_LENGTH');
     });
 
     it('should return true if value length is equal than length option', () => {
@@ -93,7 +93,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Assert
       expect(validationResult.succeeded).to.be.true;
       expect(validationResult.errorMessage).to.be.empty;
-      expect(validationResult.key).to.be.equals('MIN_LENGTH');
+      expect(validationResult.type).to.be.equals('MIN_LENGTH');
     });
 
     it('should return true if value has length greater than 0 and length option is 0', () => {
@@ -108,7 +108,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Assert
       expect(validationResult.succeeded).to.be.true;
       expect(validationResult.errorMessage).to.be.empty;
-      expect(validationResult.key).to.be.equals('MIN_LENGTH');
+      expect(validationResult.type).to.be.equals('MIN_LENGTH');
     });
 
     it('should return true if valuehas length of 0 and length option is 0', () => {
@@ -123,7 +123,7 @@ describe('[minLength] validation rule tests =>', () => {
       // Assert
       expect(validationResult.succeeded).to.be.true;
       expect(validationResult.errorMessage).to.be.empty;
-      expect(validationResult.key).to.be.equals('MIN_LENGTH');
+      expect(validationResult.type).to.be.equals('MIN_LENGTH');
     });
   });
 

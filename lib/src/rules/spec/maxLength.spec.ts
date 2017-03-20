@@ -43,7 +43,7 @@ describe('[maxLength] validation rule tests =>', () => {
 
       // Assert
       expect(validationResult.succeeded).to.be.true;
-      expect(validationResult.key).to.be.equals('MAX_LENGTH');
+      expect(validationResult.type).to.be.equals('MAX_LENGTH');
       expect(validationResult.errorMessage).to.be.empty;
     });
 
@@ -58,7 +58,7 @@ describe('[maxLength] validation rule tests =>', () => {
 
       // Assert
       expect(validationResult.succeeded).to.be.false;
-      expect(validationResult.key).to.be.equals('MAX_LENGTH');
+      expect(validationResult.type).to.be.equals('MAX_LENGTH');
       expect(validationResult.errorMessage).to.be.equals('The value provided is too long. Length must not exceed 2 characters.');
     });
 
@@ -73,7 +73,7 @@ describe('[maxLength] validation rule tests =>', () => {
 
       // Assert
       expect(validationResult.succeeded).to.be.true;
-      expect(validationResult.key).to.be.equals('MAX_LENGTH');
+      expect(validationResult.type).to.be.equals('MAX_LENGTH');
       expect(validationResult.errorMessage).to.be.empty;
     });
 
@@ -88,7 +88,7 @@ describe('[maxLength] validation rule tests =>', () => {
 
       // Assert
       expect(validationResult.succeeded).to.be.true;
-      expect(validationResult.key).to.be.equals('MAX_LENGTH');
+      expect(validationResult.type).to.be.equals('MAX_LENGTH');
       expect(validationResult.errorMessage).to.be.empty;
     });
   });
