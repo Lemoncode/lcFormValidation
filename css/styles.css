@@ -1,0 +1,7 @@
+article {
+  margin-bottom: 35px;
+}
+
+.arrow-styled {
+  list-style-image: '⇾';
+}
