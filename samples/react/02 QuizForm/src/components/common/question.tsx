@@ -12,11 +12,12 @@ export class Question extends React.Component<Props, {}>{
     super(props);
   }
 
-  public render() {
+  render() {
     return (
       <div className="checkbox">
-        <label>
+        <label htmlFor={this.props.name}>
           <input
+            id={this.props.name}
             name={this.props.name}
             type="checkbox"
             checked={this.props.isSelected}

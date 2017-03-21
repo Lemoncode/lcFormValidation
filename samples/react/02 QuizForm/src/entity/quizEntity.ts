@@ -13,7 +13,7 @@ export class QuizEntity {
 export class Question {
   isSelected: boolean;
 
-  constructor(_isSelected: boolean) {
-    this.isSelected = _isSelected;
+  constructor(isSelected: boolean) {
+    this.isSelected = isSelected;
   }
 }

@@ -6,7 +6,7 @@ interface ISignupRequestCompletedAction {
   formValidationResult: FormValidationResult;
 }
 
-let signupRequestCompleted = (formValidationResult: FormValidationResult): ISignupRequestCompletedAction => {
+const signupRequestCompleted = (formValidationResult: FormValidationResult): ISignupRequestCompletedAction => {
   return {
     type: actionsDef.signup.SIGNUP_REQUEST_COMPLETED,
     formValidationResult

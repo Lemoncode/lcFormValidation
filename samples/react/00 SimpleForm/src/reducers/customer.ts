@@ -10,13 +10,13 @@ export class CustomerState {
   customer: CustomerEntity;
   customerErrors: CustomerErrors;
 
-  public constructor() {
+  constructor() {
     this.customer = new CustomerEntity();
     this.customerErrors = new CustomerErrors();
   }
 }
 
-export let customerReducer = (state: CustomerState = new CustomerState(), action): CustomerState => {
+export const customerReducer = (state: CustomerState = new CustomerState(), action): CustomerState => {
   switch (action.type) {
     case actionsDef.customer.CUSTOMER_PROCESS_UI_INPUT_COMPLETED:
       return customerProcessUIInputCompleted(state, action);
@@ -30,11 +30,11 @@ export let customerReducer = (state: CustomerState = new CustomerState(), action
 }
 
 function customerProcessUIInputCompleted(state: CustomerState, action: ICustomerUIInputCompletedAction): CustomerState {
-  let newCustomer: CustomerEntity = Object.assign({}, state.customer, {
+  const newCustomer: CustomerEntity = Object.assign({}, state.customer, {
     [action.fieldName]: action.value
   });
 
-  let newCustomerErrors: CustomerErrors = Object.assign({}, state.customerErrors, {
+  const newCustomerErrors: CustomerErrors = Object.assign({}, state.customerErrors, {
     [action.fieldName]: action.fieldValidationResult
   });
 
@@ -45,7 +45,7 @@ function customerProcessUIInputCompleted(state: CustomerState, action: ICustomer
 }
 
 function customerSaveCompleted(state: CustomerState, action: ICustomerSaveCompletedAction): CustomerState {
-  let newCustomerErrors: CustomerErrors = Object.assign({}, state.customerErrors);
+  const newCustomerErrors: CustomerErrors = Object.assign({}, state.customerErrors);
 
   action.formValidationResult.fieldErrors.forEach(fieldValidationResult => {
     newCustomerErrors[fieldValidationResult.key] = fieldValidationResult;

@@ -5,7 +5,7 @@ import { signupFormValidation } from '../components/sampleSignupForm/validations
 export function signupRequestStart(viewModel: any) {
   return (dispatcher) => {
     signupFormValidation.validateForm(viewModel).then(
-      function (formValidationResult: FormValidationResult) {
+      (formValidationResult: FormValidationResult) => {
         if (formValidationResult.succeeded) {
           console.log("Sign up completed");
         }

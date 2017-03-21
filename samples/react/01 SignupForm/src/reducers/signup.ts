@@ -10,13 +10,13 @@ class SignupState {
   signup: SignupEntity;
   signupErrors: SignupErrors;
 
-  public constructor() {
+  constructor() {
     this.signup = new SignupEntity();
     this.signupErrors = new SignupErrors();
   }
 }
 
-export let signupReducer = (state: SignupState = new SignupState(), action): SignupState => {
+export const signupReducer = (state: SignupState = new SignupState(), action): SignupState => {
   switch (action.type) {
     case actionsDef.signup.SIGNUP_PROCESS_UI_INTERACTION_COMPLETED:
       return signupProcessCompleted(state, action);
@@ -30,11 +30,11 @@ export let signupReducer = (state: SignupState = new SignupState(), action): Sig
 }
 
 function signupProcessCompleted(state: SignupState, action: ISignupUIOnInteractionCompletedAction): SignupState {
-  let newSignup: SignupEntity = Object.assign({}, state.signup, {
+  const newSignup: SignupEntity = Object.assign({}, state.signup, {
     [action.fieldName]: action.value
   });
 
-  let newSignupErrors: SignupErrors = Object.assign({}, state.signupErrors, {
+  const newSignupErrors: SignupErrors = Object.assign({}, state.signupErrors, {
     [action.fieldName]: action.fieldValidationResult
   });
 
@@ -45,7 +45,7 @@ function signupProcessCompleted(state: SignupState, action: ISignupUIOnInteracti
 }
 
 function performSignupCompleted(state: SignupState, action: ISignupRequestCompletedAction): SignupState {
-  let newSignupErrors: SignupErrors = Object.assign({}, state.signupErrors);
+  const newSignupErrors: SignupErrors = Object.assign({}, state.signupErrors);
 
   action.formValidationResult.fieldErrors.forEach(fieldValidationResult => {
     newSignupErrors[fieldValidationResult.key] = fieldValidationResult;

@@ -22,7 +22,7 @@ module.exports = {
     vendor: [
       "bootstrap",
       "jquery",
-      // "core-js",
+      "core-js",
       "lc-form-validation",
       "react",
       "react-dom",

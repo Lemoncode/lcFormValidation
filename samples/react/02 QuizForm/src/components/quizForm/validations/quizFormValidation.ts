@@ -9,6 +9,7 @@ function quizValidation(quiz: QuizEntity) {
   const isQuizPassed = isAnyQuestionSelected(quiz);
   const errorInfo = (isQuizPassed) ? '' : 'Failed';
   const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
+
   fieldValidationResult.type = 'QUIZ_VALIDATION';
   fieldValidationResult.succeeded = isQuizPassed;
   fieldValidationResult.errorMessage = errorInfo;

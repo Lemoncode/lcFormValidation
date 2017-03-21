@@ -6,9 +6,8 @@ import { customerFormValidation } from '../components/sampleForm/validations/cus
 export function customerSaveStart(viewModel: any) {
 
   return (dispatcher) => {
-
     customerFormValidation.validateForm(viewModel).then(
-      function (formValidationResult: FormValidationResult) {
+      (formValidationResult: FormValidationResult) => {
         if (formValidationResult.succeeded) {
           // Call here the async call to save
           // additional logic or actins to be added on a real case

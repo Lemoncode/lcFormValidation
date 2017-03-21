@@ -6,7 +6,7 @@ interface ICustomerSaveCompletedAction {
   formValidationResult: FormValidationResult;
 }
 
-let customerSaveCompleted = (formValidationResult: FormValidationResult): ICustomerSaveCompletedAction => {
+const customerSaveCompleted = (formValidationResult: FormValidationResult): ICustomerSaveCompletedAction => {
   return {
     type: actionsDef.customer.CUSTOMER_SAVE_COMPLETED,
     formValidationResult

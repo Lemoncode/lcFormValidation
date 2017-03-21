@@ -31,13 +31,13 @@ export class QuizForm extends React.Component<Props, {}> {
   }
 
   public componentWillReceiveProps(nextProps: Props) {
-    if (this.props.quizResolveCompleted != nextProps.quizResolveCompleted && nextProps.quizResolveCompleted) {
+    if (this.props.quizResolveCompleted !== nextProps.quizResolveCompleted && nextProps.quizResolveCompleted) {
       this.showToastr(nextProps);
       this.props.resetQuizResolveCompleted();
     }
   }
 
-  private showToastr(nextProps: Props): void {
+  private showToastr(nextProps: Props) {
     toastr.clear();
     if (nextProps.quizResult.succeeded) {
       toastr.success('Test passed');

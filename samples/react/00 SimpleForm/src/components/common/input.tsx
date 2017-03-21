@@ -10,20 +10,18 @@ interface Props {
 }
 
 export class Input extends React.Component<Props, {}> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  public render() {
-    var wrapperClass: string = 'form-group';
+  render() {
+    let wrapperClass = 'form-group';
     if (this.props.error && this.props.error.length > 0) {
-      wrapperClass += " " + 'has-error';
+      wrapperClass = '${wrapperClass} has-error';
     }
+
     return (
       <div className={wrapperClass}>
         <label htmlFor={this.props.name}>{this.props.label}</label>
         <div className="field">
           <input type="text"
+            id={this.props.name}
             name={this.props.name}
             className="form-control"
             placeholder={this.props.placeholder}

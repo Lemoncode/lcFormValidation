@@ -6,7 +6,7 @@ interface IQuizUIInputCompletedAction {
   value: any;
 }
 
-let quizUIInputCompleted = (questionId: string, value: any): IQuizUIInputCompletedAction => {
+const quizUIInputCompleted = (questionId: string, value: any): IQuizUIInputCompletedAction => {
   return {
     type: actionsDef.quiz.UI_INPUT_CHANGE,
     questionId,

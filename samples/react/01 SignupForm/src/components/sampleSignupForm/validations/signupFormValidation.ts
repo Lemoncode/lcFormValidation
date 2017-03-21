@@ -3,15 +3,13 @@ import {
   createFormValidation,
   FieldValidationResult,
   ValidationConstraints,
-  FieldValidationFunction,
-  LengthParams,
   Validators,
 } from 'lc-form-validation';
 import { gitHub } from '../../../api/gitHub';
 
 function passwordAndConfirmPasswordValidationHandler(value: any, vm: any): FieldValidationResult {
   const passwordAndConfirmPasswordAreEqual = vm.password === value;
-  const errorInfo: string = (passwordAndConfirmPasswordAreEqual) ? '' : 'Passwords do not match';
+  const errorInfo = (passwordAndConfirmPasswordAreEqual) ? '' : 'Passwords do not match';
 
   const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
   fieldValidationResult.type = 'PASSWORD_MATCH';
@@ -41,7 +39,7 @@ const signupValidationConstraints: ValidationConstraints = {
       { validator: Validators.required },
       {
         validator: Validators.minLength,
-        customParams: { length: 4 } as LengthParams,
+        customParams: { length: 4 },
       },
     ],
     confirmPassword: [
