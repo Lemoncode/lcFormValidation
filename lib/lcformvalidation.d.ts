@@ -33,15 +33,35 @@ export interface FieldValidationFunction {
   (value: any, vm: any, customParams: any): ValidationResult;
 }
 
-export interface FieldValidationConstraint{
+export interface FieldValidationConstraint {
   validator: FieldValidationFunction;
   eventFilters?: ValidationEventsFilter;
   customParams?: any;
 }
 
-export interface ValidationConstraints{
+export interface ValidationConstraints {
   global?: FormValidationFunction[];
   fields?: { [key: string]: FieldValidationConstraint[] }
 }
 
 export function createFormValidation(validationCredentials: ValidationConstraints): FormValidation;
+
+export interface LengthParams {
+  length: number;
+}
+
+export interface PatternParams {
+  pattern: string | RegExp;
+}
+
+export interface RequiredParams {
+  trim: boolean;
+}
+
+export namespace Validators {
+  function required(value: any, vm: any, customParams: RequiredParams): FieldValidationResult;
+  function minLength(value: any, vm: any, customParams: LengthParams): FieldValidationResult;
+  function maxLength(value: any, vm: any, customParams: LengthParams): FieldValidationResult;
+  function email(value: any, vm: any): FieldValidationResult;
+  function pattern(value: any, vm: any, customParams: PatternParams): FieldValidationResult;
+}

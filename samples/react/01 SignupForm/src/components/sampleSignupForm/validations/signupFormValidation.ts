@@ -4,23 +4,13 @@ import {
   FieldValidationResult,
   ValidationConstraints,
   FieldValidationFunction,
+  LengthParams,
+  Validators,
 } from 'lc-form-validation';
 import { gitHub } from '../../../api/gitHub';
 
-function requiredValidationHandler(value: string): FieldValidationResult {
-  const isFieldInformed = (value && value.trim().length > 0);
-  const errorInfo = (isFieldInformed) ? '' : 'Mandatory field';
-
-  const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
-  fieldValidationResult.type = 'REQUIRED';
-  fieldValidationResult.succeeded = isFieldInformed;
-  fieldValidationResult.errorMessage = errorInfo;
-
-  return fieldValidationResult;
-}
-
 function passwordAndConfirmPasswordValidationHandler(value: any, vm: any): FieldValidationResult {
-  const passwordAndConfirmPasswordAreEqual: boolean = vm.password === value;
+  const passwordAndConfirmPasswordAreEqual = vm.password === value;
   const errorInfo: string = (passwordAndConfirmPasswordAreEqual) ? '' : 'Passwords do not match';
 
   const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
@@ -45,40 +35,22 @@ function resolveLoginExists(loginExists: boolean): Promise<FieldValidationResult
   return Promise.resolve(fieldValidationResult);
 }
 
-interface lengthConstraintParams {
-  minLength: number;
-}
-const lengthConstraint: lengthConstraintParams = {
-  minLength: 4
-};
-const minLengthValidationHandler: FieldValidationFunction = (password: string, vm, customParams: lengthConstraintParams) => {
-  const { minLength } = customParams;
-  const isValidMinLength = password.length >= minLength;
-  const minLengthErrorMessage = `Minimum ${minLength} characters required`;
-  const errorMessage = isValidMinLength ? '' : minLengthErrorMessage;
-  const fieldValidationResult: FieldValidationResult = new FieldValidationResult();
-  fieldValidationResult.type = 'PASSWORD_LENGTH';
-  fieldValidationResult.succeeded = isValidMinLength;
-  fieldValidationResult.errorMessage = errorMessage;
-  return Promise.resolve(fieldValidationResult);
-};
-
 const signupValidationConstraints: ValidationConstraints = {
   fields: {
     password: [
-      { validator: requiredValidationHandler },
+      { validator: Validators.required },
       {
-        validator: minLengthValidationHandler,
-        customParams: lengthConstraint,
+        validator: Validators.minLength,
+        customParams: { length: 4 } as LengthParams,
       },
     ],
     confirmPassword: [
-      { validator: requiredValidationHandler },
+      { validator: Validators.required },
       { validator: passwordAndConfirmPasswordValidationHandler },
     ],
     login: [
       {
-        validator: requiredValidationHandler,
+        validator: Validators.required,
         eventFilters: { OnChange: true, OnBlur: true },
       },
       {
