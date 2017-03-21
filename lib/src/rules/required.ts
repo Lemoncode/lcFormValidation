@@ -21,9 +21,13 @@ function isValidField(value, trim: boolean): boolean {
 }
 
 function isNotFalsy(value) {
-  return value !== null && value !== undefined && value !== false;
+  return value !== null &&
+    value !== undefined &&
+    value !== false;
 }
 
 function isStringValid(value: string, trim: boolean): boolean {
-  return trim ? value.trim().length > 0 : value.length > 0;
+  return trim ?
+    value.trim().length > 0 :
+    value.length > 0;
 }

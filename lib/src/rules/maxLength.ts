@@ -20,5 +20,7 @@ export function maxLength(value: string, vm, customParams: LengthParams = DEFAUL
 }
 
 function isStringLengthValid(value: string, length: number) {
-  return isNaN(length) ? false : value.length <= length;
+  return isNaN(length) ?
+    false :
+    value.length <= length;
 }

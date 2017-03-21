@@ -27,5 +27,7 @@ function parsePattern({ pattern }: PatternParams): RegExp {
 }
 
 function getRegExp(pattern) {
-  return pattern instanceof RegExp ? pattern : new RegExp(pattern);
+  return pattern instanceof RegExp ?
+    pattern :
+    new RegExp(pattern);
 }

@@ -20,7 +20,7 @@ describe('[email] validation rule tests =>', () => {
 
     it('should return false if value is undefined', () => {
       // Arrange
-      const value = null;
+      const value = undefined;
       const vm = undefined;
       const customParams = undefined;
 
