@@ -19,6 +19,6 @@ export const minLength: FieldValidationFunction = (value: string, vm, customPara
   return validationResult;
 }
 
-function isStringLengthValid(value: string, length: number) {
+function isStringLengthValid(value: string, length: number): boolean {
   return value.length >= length;
 }

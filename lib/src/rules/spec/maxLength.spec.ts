@@ -15,6 +15,8 @@ describe('[maxLength] validation rule tests =>', () => {
 
       // Assert
       expect(validationResult.succeeded).to.be.true;
+      expect(validationResult.type).to.be.equals('MAX_LENGTH');
+      expect(validationResult.errorMessage).to.be.empty;
     });
 
     it('should return true if value is null', () => {
@@ -28,6 +30,8 @@ describe('[maxLength] validation rule tests =>', () => {
 
       // Assert
       expect(validationResult.succeeded).to.be.true;
+      expect(validationResult.type).to.be.equals('MAX_LENGTH');
+      expect(validationResult.errorMessage).to.be.empty;
     });
   });
 

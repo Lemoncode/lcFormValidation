@@ -3,7 +3,7 @@ import { FieldValidationResult } from '../../entities';
 
 describe('[email] validation rule tests =>', () => {
   describe('When validating a non string value', () => {
-    it('should return false if value is null', () => {
+    it('should return true if value is null', () => {
       // Arrange
       const value = null;
       const vm = undefined;
@@ -13,12 +13,12 @@ describe('[email] validation rule tests =>', () => {
       const validationResult = email(value, vm, customParams) as FieldValidationResult;
 
       // Assert
-      expect(validationResult.succeeded).to.be.false;
+      expect(validationResult.succeeded).to.be.true;
       expect(validationResult.type).to.be.equals('EMAIL');
-      expect(validationResult.errorMessage).to.be.equals('Please enter a valid email address.');
+      expect(validationResult.errorMessage).to.be.empty;
     });
 
-    it('should return false if value is undefined', () => {
+    it('should return true if value is undefined', () => {
       // Arrange
       const value = undefined;
       const vm = undefined;
@@ -28,9 +28,9 @@ describe('[email] validation rule tests =>', () => {
       const validationResult = email(value, vm, customParams) as FieldValidationResult;
 
       // Assert
-      expect(validationResult.succeeded).to.be.false;
+      expect(validationResult.succeeded).to.be.true;
       expect(validationResult.type).to.be.equals('EMAIL');
-      expect(validationResult.errorMessage).to.be.equals('Please enter a valid email address.');
+      expect(validationResult.errorMessage).to.be.empty;
     });
 
     it('should return false if value is number', () => {

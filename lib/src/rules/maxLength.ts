@@ -19,7 +19,7 @@ export function maxLength(value: string, vm, customParams: LengthParams = DEFAUL
   return validationResult;
 }
 
-function isStringLengthValid(value: string, length: number) {
+function isStringLengthValid(value: string, length: number): boolean {
   return isNaN(length) ?
     false :
     value.length <= length;

@@ -5,10 +5,22 @@ const EMAIL_PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".
 
 export const email: FieldValidationFunction = (value: string) => {
   const validationResult = new FieldValidationResult();
-  const isValid = EMAIL_PATTERN.test(value);
+  const isValid = isValidEmail(value);
 
   validationResult.succeeded = isValid;
   validationResult.type = 'EMAIL';
   validationResult.errorMessage = isValid ? '' : 'Please enter a valid email address.';
   return validationResult;
 };
+
+function isValidEmail(value): boolean {
+  return isEmptyValue(value) ?
+    true :
+    EMAIL_PATTERN.test(value);
+}
+
+function isEmptyValue(value): boolean {
+  return value === null ||
+    value === undefined ||
+    value === '';
+}
