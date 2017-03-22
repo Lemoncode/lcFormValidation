@@ -92,4 +92,50 @@ describe('[pattern] validation rule tests =>', () => {
     });
   });
 
+  describe('Given an empty value', () => {
+    it('should return true for null value', () => {
+      // Arrange
+      const value = null;
+      const vm = undefined;
+      const customParams: PatternParams = { pattern: 'test' };
+
+      // Act
+      const validationResult = pattern(value, vm, customParams) as FieldValidationResult;
+
+      // Assert
+      expect(validationResult.succeeded).to.be.true;
+      expect(validationResult.type).to.be.equals('PATTERN');
+      expect(validationResult.errorMessage).to.be.empty;
+    });
+
+    it('should return true for undefined value', () => {
+      // Arrange
+      const value = undefined;
+      const vm = undefined;
+      const customParams: PatternParams = { pattern: 'test' };
+
+      // Act
+      const validationResult = pattern(value, vm, customParams) as FieldValidationResult;
+
+      // Assert
+      expect(validationResult.succeeded).to.be.true;
+      expect(validationResult.type).to.be.equals('PATTERN');
+      expect(validationResult.errorMessage).to.be.empty;
+    });
+
+    it('should return true for an empty value', () => {
+      // Arrange
+      const value = '';
+      const vm = undefined;
+      const customParams: PatternParams = { pattern: 'test' };
+
+      // Act
+      const validationResult = pattern(value, vm, customParams) as FieldValidationResult;
+
+      // Assert
+      expect(validationResult.succeeded).to.be.true;
+      expect(validationResult.type).to.be.equals('PATTERN');
+      expect(validationResult.errorMessage).to.be.empty;
+    });
+  });
 });

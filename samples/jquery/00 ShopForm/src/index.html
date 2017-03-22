@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LcFormValidation jQuery ES6 sample</title>
+  </head>
+  <body>
+    <main class="container">
+      <header class="top-buffer">
+        <h2>Buy a mechanical keyboard</h2>
+      </header>
+      <section>
+        <div class="col-md-6">
+          <form id="formProducts" action="#">
+            <div class="form-group">
+              <label for="selBrands" class="control-label">Select a brand</label>
+              <select id="selBrands" name="product" class="form-control">
+                <option value>Select a brand</option>
+              </select>
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <label for="selProducts" class="control-label">Select a product</label>
+              <select id="selProducts" name="version" class="form-control" disabled>
+                <option value>Select a product</option>
+              </select>
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <label for="txtDiscount" class="control-label">Discount code (optional)</label>
+              <input type="text" id="txtDiscount" name="discountCode" class="form-control" placeholder="XXXX-XXX-XXXX">
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <label for="txtNif" class="control-label">NIF/NIE</label>
+              <input type="text" id="txtNif" name="nif" class="form-control">
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
