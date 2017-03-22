@@ -2,6 +2,27 @@ article {
   margin-bottom: 35px;
 }
 
-.arrow-styled {
-  list-style-image: '⇾';
+.main_nenu {
+  top: 0;
+}
+
+.main_nenu.affix > .nav {
+  margin-top: 25px;
+}
+
+.main_nenu .nav .nav {
+  margin-left: 15px;
+}
+
+.main_nenu .nav .nav li a {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+ul.nav li a {
+  color: #333;
+}
+
+.active > a {
+  font-weight: bold;
 }

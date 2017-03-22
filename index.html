@@ -8,17 +8,17 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
   </head>
-  <body>
+  <body data-spy="scroll" data-target=".scrollspy">
     <div class="container">
       <div class="row">
+        <header id="header" class="jumbotron text-center">
+          <h1>LcFormValidation</h1>
+          <p>A framework agnostic, async form validation library</p>
+        </header>
         <main class="col-md-9">
-          <header class="jumbotron text-center">
-            <h1>LcFormValidation</h1>
-            <p>A framework agnostic, async form validation library</p>
-          </header>
-          <section id="introduction">
+          <section>
             <article>
-              <h1>Introduction</h1>
+              <h1 id="introduction">Introduction</h1>
               <p>LcFormValidation is a form validation library:</p>
               <ul class="arrow-styled">
                 <li>Heavily based on JavaScript (no HTML attributes or classes)</li>
@@ -26,7 +26,7 @@
               </ul>
             </article>
             <article>
-              <h2>Why another form library?</h2>
+              <h2 id="why">Why another validation library?</h2>
               <p>
                 Form validation is a complex issue, usually we can find solutions that cover the simple scenarios and are focused on building
                 RAD development just by adding some attributes / annotations to given fields or HTML fields (e.g. input),
@@ -48,7 +48,7 @@
               </ul>
             </article>
             <article>
-              <h2>LcFormValidation approach</h2>
+              <h2 id="approach">LcFormValidation approach</h2>
               <p>
                 The idea is to encapsulate all the common functionality in a base class, and create independent classes that will inherit
                 from this base class to implement the validation of each individual form.
@@ -80,22 +80,38 @@
               </ul>
             </article>
           </section>
-          <section id="getStarted">
-            <h2>Get started</h2>
+          <section>
+            <h2 id="getStarted">Get started</h2>
+            <article>
+              <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit eveniet delectus architecto, sed distinctio, possimus explicabo dicta exercitationem. Modi nulla facere error distinctio, laboriosam eos numquam vero veritatis quasi dolorum?</div>
+              <div>Id cupiditate quae laborum et molestias eveniet facilis laboriosam reiciendis, fugit dolorem consectetur vitae incidunt maxime quod, enim, voluptate facere autem doloremque nesciunt tempore soluta veritatis. Veniam possimus aperiam optio!</div>
+              <div>Ipsum eum, dolor! Pariatur cupiditate similique rerum alias, ut, libero repellendus aperiam natus asperiores labore soluta. Necessitatibus nostrum, dolores quisquam, debitis aut porro ducimus atque accusamus asperiores nihil, hic vero.</div>
+              <div>Itaque explicabo voluptas ad quasi! Nam tempore quasi debitis eum fugit officiis laborum perferendis eveniet, distinctio, itaque suscipit est? Accusantium libero fugiat illo ad asperiores suscipit vero, voluptas, velit temporibus!</div>
+              <div>Amet, ipsum vero deserunt, vel, dolore doloremque minus nostrum illo voluptatum soluta est sit atque aperiam culpa iste, dolores voluptates hic ratione animi autem? Veritatis explicabo optio nam assumenda facilis!</div>
+              <div>Adipisci dignissimos qui, nulla eos omnis quaerat at beatae odio, maiores minima! Iste voluptates dignissimos facere explicabo necessitatibus delectus ipsum, dolore repellendus at saepe, nam error dolores! Quod, dolorum, a.</div>
+              <div>Veritatis cupiditate eveniet quae quam quisquam itaque tenetur, deleniti similique saepe, consectetur laboriosam architecto dolorum quis, mollitia nostrum dolorem nam. Omnis eos rem commodi atque, fugit obcaecati numquam, illum vitae!</div>
+              <div>Animi et doloremque labore illo dolorem, sit vel veritatis molestiae recusandae eum! Rerum quod hic, iure non. Corporis provident, quisquam adipisci perferendis tempore aliquid voluptatibus, obcaecati fuga unde explicabo minus.</div>
+              <div>Impedit nostrum recusandae expedita sunt rerum repudiandae consectetur rem reprehenderit perspiciatis nesciunt. Excepturi voluptatibus cupiditate sequi nostrum nemo, expedita quis harum laborum enim dolorem omnis, illo et! Eos, id, qui!</div>
+              <div>Blanditiis voluptate repudiandae autem libero accusantium vitae animi quia tempore magni, voluptates id, corporis dolorem. Iste dolor, sunt, rem voluptate ad error vitae obcaecati quidem enim fuga labore tenetur? Aut!</div>
+            </article>
           </section>
         </main>
         <aside class="col-md-3">
-          <div data-spy="affix">
-            <nav class="affix">
-              <ul class="nav">
-                <li><a href="#introduction">Introduction</a></li>
-                <li><a href="#download">Download</a></li>
-                <li><a href="#getStarted">Get started</a></li>
-                <li><a href="#rules">Rules</a></li>
-                <li></li>
-              </ul>
-            </nav>
-          </div>
+          <nav class="main_nenu hidden-sm hidden-xs scrollspy" data-toggle="affix" data-spy="affix" data-offset-top="240">
+            <ul class="nav">
+              <li>
+                <a href="#introduction">Introduction</a>
+                <ul class="nav">
+                  <li><a href="#why">Why LcFormValidation</a></li>
+                  <li><a href="#approach">Approach</a></li>
+                </ul>
+              </li>
+              <li><a href="#download">Download</a></li>
+              <li><a href="#getStarted">Get started</a></li>
+              <li><a href="#rules">Rules</a></li>
+              <li></li>
+            </ul>
+          </nav>
         </aside>
       </div>
     </div>
