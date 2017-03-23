@@ -188,7 +188,7 @@ formValidation
   .validateField(null, 'firstname', 'John', { onChange: true })
   .then(validationResult => {
     console.log(validationResult.succeeded); // --> true
-    console.log(validationResult.type); // --> 'PATTERN'
+    console.log(validationResult.type); // --> 'REQUIRED'
     console.log(validationResult.errorMessage); // --> ''
   });
 
@@ -196,7 +196,7 @@ formValidation
   .validateField(null, 'firstname', '', { onSubmit: true })
   .then(validationResult => {
     console.log(validationResult.succeeded); // --> false
-    console.log(validationResult.type); // --> 'PATTERN'
+    console.log(validationResult.type); // --> 'REQUIRED'
     console.log(validationResult.errorMessage);
     // --> 'Please fill in this mandatory field.'
   });
@@ -242,7 +242,7 @@ formValidation
   .validateField(null, 'username', 'jasmine', { onChange: true })
   .then(validationResult => {
     console.log(validationResult.succeeded); // --> true
-    console.log(validationResult.type); // --> 'PATTERN'
+    console.log(validationResult.type); // --> 'MIN_LENGTH'
     console.log(validationResult.errorMessage); // --> ''
   });
 
@@ -250,7 +250,7 @@ formValidation
   .validateField(null, 'username', 'jax', { onChange: true })
   .then(validationResult => {
     console.log(validationResult.succeeded); // --> false
-    console.log(validationResult.type); // --> 'PATTERN'
+    console.log(validationResult.type); // --> 'MIN_LENGTH'
     console.log(validationResult.errorMessage);
     // --> 'The value provided must have at least 4 characters.'
   });</code></pre>
@@ -294,7 +294,7 @@ formValidation
   .validateField(null, 'password', 'test1234', { onChange: true })
   .then(validationResult => {
     console.log(validationResult.succeeded); // --> true
-    console.log(validationResult.type); // --> 'PATTERN'
+    console.log(validationResult.type); // --> 'MAX_LENGTH'
     console.log(validationResult.errorMessage); // --> ''
   });
 
@@ -302,7 +302,7 @@ formValidation
   .validateField(null, 'password', 'toolongp@s$w0rd', { onChange: true })
   .then(validationResult => {
     console.log(validationResult.succeeded); // --> false
-    console.log(validationResult.type); // --> 'PATTERN'
+    console.log(validationResult.type); // --> 'MAX_LENGTH'
     console.log(validationResult.errorMessage);
     // --> 'The value provided is too long. Length must not exceed 8 characters.'
   });
