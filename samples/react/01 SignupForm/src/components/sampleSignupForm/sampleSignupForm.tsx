@@ -22,7 +22,7 @@ export class SampleSignupForm extends React.Component<Props, {}> {
     this.props.performSignup(this.props.signup);
   }
 
-  public render() {
+  render() {
     return (
       <form>
         <h1>Signup Form</h1>

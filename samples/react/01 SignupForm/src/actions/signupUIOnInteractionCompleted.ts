@@ -8,7 +8,7 @@ interface ISignupUIOnInteractionCompletedAction {
   fieldValidationResult: FieldValidationResult;
 }
 
-let signupUIOnInteractionCompleted = (fieldName: string, value: any, fieldValidationResult: FieldValidationResult): ISignupUIOnInteractionCompletedAction => {
+const signupUIOnInteractionCompleted = (fieldName: string, value: any, fieldValidationResult: FieldValidationResult): ISignupUIOnInteractionCompletedAction => {
   return {
     type: actionsDef.signup.SIGNUP_PROCESS_UI_INTERACTION_COMPLETED,
     fieldName,

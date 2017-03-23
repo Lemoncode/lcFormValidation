@@ -4,7 +4,7 @@ import { } from 'whatwg-fetch';
 class GitHub {
   doesLoginExists(login: string): Promise<boolean> {
     const baseGitHubUsersUrl: string = 'https://api.github.com/users/';
-    let fetchGitHubUserUrl: string = baseGitHubUsersUrl + login;
+    const fetchGitHubUserUrl: string = baseGitHubUsersUrl + login;
 
     return fetch(fetchGitHubUserUrl)
       .then((response) => this.checkStatus(response))
@@ -17,8 +17,7 @@ class GitHub {
     if (response.status >= 200 && response.status < 300) {
       return Promise.resolve(response);
     } else {
-      let error = new Error(response.statusText);
-      throw error;
+      throw new Error(response.statusText);
     }
   }
 

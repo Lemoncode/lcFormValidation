@@ -16,16 +16,17 @@ export class Input extends React.Component<Props, {}> {
     super(props);
   }
 
-  public render() {
-    var wrapperClass: string = 'form-group';
+  render() {
+    let wrapperClass: string = 'form-group';
     if (this.props.error && this.props.error.length > 0) {
-      wrapperClass += " " + 'has-error';
+      wrapperClass = '${wrapperClass} has-error';
     }
     return (
       <div className={wrapperClass}>
         <label htmlFor={this.props.name}>{this.props.label}</label>
         <div className="field">
           <input
+            id={this.props.name}
             type={this.props.type}
             name={this.props.name}
             className="form-control"

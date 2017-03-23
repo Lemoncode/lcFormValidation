@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "es6",
+    "moduleResolution": "node",
     "declaration": false,
     "noImplicitAny": false,
     "removeComments": true,
@@ -9,7 +9,6 @@
     "jsx": "react",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "noLib": false,
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true
   },

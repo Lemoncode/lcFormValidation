@@ -7,7 +7,7 @@ export function customerUIInputStart(viewModel: any, fieldName: string, value: a
 
   return (dispatcher) => {
     customerFormValidation.validateField(viewModel, fieldName, value).then(
-      function (fieldValidationResult: FieldValidationResult) {
+      (fieldValidationResult: FieldValidationResult) => {
         dispatcher(customerUIInputCompleted(fieldName, value, fieldValidationResult));
       }
     );

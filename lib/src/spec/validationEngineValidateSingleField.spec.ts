@@ -65,7 +65,7 @@ describe('lcFormValidation simple form', () => {
         }
       );
 
-      return formValidationBase
+      formValidationBase
         .triggerFieldValidation(viewModel, 'fullname', '')
         .then((fieldValidationResult: FieldValidationResult) => {
           // Assert

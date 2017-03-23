@@ -8,8 +8,7 @@ interface ICustomerUIInputCompletedAction {
   fieldValidationResult: FieldValidationResult;
 }
 
-let customerUIInputCompleted = (fieldName: string, value: any, fieldValidationResult: FieldValidationResult): ICustomerUIInputCompletedAction => {
-
+const customerUIInputCompleted = (fieldName: string, value: any, fieldValidationResult: FieldValidationResult): ICustomerUIInputCompletedAction => {
   return {
     type: actionsDef.customer.CUSTOMER_PROCESS_UI_INPUT_COMPLETED,
     fieldName,

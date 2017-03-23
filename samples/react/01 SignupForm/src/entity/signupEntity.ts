@@ -3,7 +3,7 @@ export class SignupEntity {
   password: string;
   confirmPassword: string;
 
-  public constructor() {
+  constructor() {
     this.login = '';
     this.password = '';
     this.confirmPassword = '';

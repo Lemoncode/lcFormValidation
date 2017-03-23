@@ -6,7 +6,7 @@ import { quizResolveCompleted } from './quizResolveCompleted';
 export function quizResolveStart(viewModel: any) {
   return (dispatcher) => {
     quizFormValidation.validateForm(viewModel).then(
-      function (formValidationResult: FormValidationResult) {
+      (formValidationResult: FormValidationResult) => {
         dispatcher(quizResolveCompleted(formValidationResult));
       }
     );
