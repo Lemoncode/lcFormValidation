@@ -150,7 +150,8 @@
                 <img src="img/link.svg" alt="(link this)">
               </a>
             </h1>
-            [[VALIDATORS]]
+            <p>LcFormValidation includes a set of basic validation rules you can use. You can also write
+              <a href="#custom-validators">your own validator functions</a> if you need some specific domain validators.</p>
             <article id="validators-required">
               <h3 class="heading">
                 <span>Validators.required</span>
@@ -170,7 +171,7 @@
                     <code><strong>false</strong></code>).</li>
                 </ul>
               </p>
-              <pre class="snippet"><code class="language-js">import { Validators } from 'lc-form-validation';
+              <pre class="snippet"><code class="language-js">import { createFormValidation, Validators } from 'lc-form-validation';
 const validationConstraints = {
   fields: {
     firstname: [
@@ -187,18 +188,18 @@ const formValidation = createFormValidation(validationConstraints);
 formValidation
   .validateField(null, 'firstname', 'John', { onChange: true })
   .then(validationResult => {
-    console.log(validationResult.succeeded); // --> true
-    console.log(validationResult.type); // --> 'REQUIRED'
-    console.log(validationResult.errorMessage); // --> ''
+    console.log(validationResult.succeeded); // true
+    console.log(validationResult.type); // 'REQUIRED'
+    console.log(validationResult.errorMessage); // ''
   });
 
 formValidation
   .validateField(null, 'firstname', '', { onSubmit: true })
   .then(validationResult => {
-    console.log(validationResult.succeeded); // --> false
-    console.log(validationResult.type); // --> 'REQUIRED'
+    console.log(validationResult.succeeded); // false
+    console.log(validationResult.type); // 'REQUIRED'
     console.log(validationResult.errorMessage);
-    // --> 'Please fill in this mandatory field.'
+    // 'Please fill in this mandatory field.'
   });
                 </code></pre>
             </article>
@@ -220,9 +221,9 @@ formValidation
               </p>
               <p>
                 <strong>Important!</strong> You must always provide<code>customParams.length</code> and it must be a number.
-                In case it is not provided an error will be thrown in the <code>promise.catch</code> block.
+                In case it is not provided an error will be thrown in the <code>catch</code> block of the returned promise.
               </p>
-              <pre class="snippet"><code class="language-js">import { Validators } from 'lc-form-validation';
+              <pre class="snippet"><code class="language-js">import { createFormValidation, Validators } from 'lc-form-validation';
 
 const validationConstraints = {
   fields: {
@@ -241,18 +242,18 @@ const formValidation = createFormValidation(validationConstraints);
 formValidation
   .validateField(null, 'username', 'jasmine', { onChange: true })
   .then(validationResult => {
-    console.log(validationResult.succeeded); // --> true
-    console.log(validationResult.type); // --> 'MIN_LENGTH'
-    console.log(validationResult.errorMessage); // --> ''
+    console.log(validationResult.succeeded); // true
+    console.log(validationResult.type); // 'MIN_LENGTH'
+    console.log(validationResult.errorMessage); // ''
   });
 
 formValidation
   .validateField(null, 'username', 'jax', { onChange: true })
   .then(validationResult => {
-    console.log(validationResult.succeeded); // --> false
-    console.log(validationResult.type); // --> 'MIN_LENGTH'
+    console.log(validationResult.succeeded); // false
+    console.log(validationResult.type); // 'MIN_LENGTH'
     console.log(validationResult.errorMessage);
-    // --> 'The value provided must have at least 4 characters.'
+    // 'The value provided must have at least 4 characters.'
   });</code></pre>
             </article>
             <article id="validators-maxLength">
@@ -263,7 +264,8 @@ formValidation
                 </a>
               </h3>
               <p>
-                The <strong>maxLength</strong> validator will check if the length of the string passed as value is lesser or equals than the length supplied in <code>customParams.length</code>.
+                The <strong>maxLength</strong> validator will check if the length of the string passed as value is lesser
+                or equals than the length supplied in <code>customParams.length</code>.
               </p>
               <p>
                 Note: empty values such <code>null</code> or <code>undefined</code> will be marked as valid values. If you
@@ -272,9 +274,9 @@ formValidation
               </p>
               <p>
                 <strong>Important!</strong> You must always provide<code>customParams.length</code> and it must be a number.
-                In case it is not provided an error will be thrown in the <code>promise.catch</code> block.
+                In case it is not provided an error will be thrown in the <code>catch</code> block of the returned promise.
               </p>
-              <pre class="snippet"><code class="language-js">import { Validators } from 'lc-form-validation';
+              <pre class="snippet"><code class="language-js">import { createFormValidation, Validators } from 'lc-form-validation';
 
 const validationConstraints = {
   fields: {
@@ -293,18 +295,18 @@ const formValidation = createFormValidation(validationConstraints);
 formValidation
   .validateField(null, 'password', 'test1234', { onChange: true })
   .then(validationResult => {
-    console.log(validationResult.succeeded); // --> true
-    console.log(validationResult.type); // --> 'MAX_LENGTH'
-    console.log(validationResult.errorMessage); // --> ''
+    console.log(validationResult.succeeded); // true
+    console.log(validationResult.type); // 'MAX_LENGTH'
+    console.log(validationResult.errorMessage); // ''
   });
 
 formValidation
   .validateField(null, 'password', 'toolongp@s$w0rd', { onChange: true })
   .then(validationResult => {
-    console.log(validationResult.succeeded); // --> false
-    console.log(validationResult.type); // --> 'MAX_LENGTH'
+    console.log(validationResult.succeeded); // false
+    console.log(validationResult.type); // 'MAX_LENGTH'
     console.log(validationResult.errorMessage);
-    // --> 'The value provided is too long. Length must not exceed 8 characters.'
+    // 'The value provided is too long. Length must not exceed 8 characters.'
   });
                 </code></pre>
             </article>
@@ -326,9 +328,9 @@ formValidation
               </p>
               <p>
                 <strong>Important!</strong> You must always provide<code>customParams.pattern</code>. In case it is not provided
-                an error will be thrown in the <code>promise.catch</code> block.
+                an error will be thrown in the <code>catch</code> block of the returned promise.
               </p>
-              <pre class="snippet"><code class="language-js">import { Validators } from 'lc-form-validation';
+              <pre class="snippet"><code class="language-js">import { createFormValidation, Validators } from 'lc-form-validation';
 
 const CODE_PATTERN = /^LC\d{3}$/; // or "^LC\d{3}$"
 const validationConstraints = {
@@ -348,18 +350,18 @@ const formValidation = createFormValidation(validationConstraints);
 formValidation
   .validateField(null, 'code', 'LC001', { onChange: true })
   .then(validationResult => {
-    console.log(validationResult.succeeded); // --> true
-    console.log(validationResult.type); // --> 'PATTERN'
-    console.log(validationResult.errorMessage); // --> ''
+    console.log(validationResult.succeeded); // true
+    console.log(validationResult.type); // 'PATTERN'
+    console.log(validationResult.errorMessage); // ''
   });
 
 formValidation
   .validateField(null, 'code', '003a', { onChange: true })
   .then(validationResult => {
-    console.log(validationResult.succeeded); // --> false
-    console.log(validationResult.type); // --> 'PATTERN'
+    console.log(validationResult.succeeded); // false
+    console.log(validationResult.type); // 'PATTERN'
     console.log(validationResult.errorMessage);
-    // --> 'Please provide a valid format.'
+    // 'Please provide a valid format.'
   });</code></pre>
             </article>
             <article id="validators-email">
@@ -369,8 +371,66 @@ formValidation
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
-              [[VALIDATORS:EMAIL]]
+              <p>
+                The email validator will check if the given string value is a valid email address. LcFormValidation's email validator uses
+                a RegExp provided by <a href="//emailregex.com">emailregex.com</a> that follows RFC 5322
+                Official Standard since email address validation is hard to implement and there is not an unique source of
+                truth. If this email validator doesn't meet your requirements you can write your
+                <a href="#custom-validators">custom validator</a>.
+              </p>
+              <p>
+                Note: empty values such <code>null</code> or <code>undefined</code> will be marked as valid values. If you
+                need to check for non-empty values you may use this validator along with
+                <a href="#validators-required">required</a> validator.
+              </p>
+              <pre class="snippet"><code class="language-js">import { createFormValidation, Validators } from 'lc-form-validation';
+
+const validationConstraints = {
+  fields: {
+    email: [
+      {
+        validator: Validators.email,
+        eventsFilter: { onChange: true }
+      }
+    ]
+  }
+};
+
+const formValidation = createFormValidation(validationConstraints);
+
+formValidation
+  .validateField(null, 'email', 'johndoe@example.com', { onChange: true })
+  .then(validationResult => {
+    console.log(validationResult.succeeded); // true
+    console.log(validationResult.type); // 'EMAIL'
+    console.log(validationResult.errorMessage); // ''
+  });
+
+formValidation
+  .validateField(null, 'email', 'invalidValue', { onChange: true })
+  .then(validationResult => {
+    console.log(validationResult.succeeded); // false
+    console.log(validationResult.type); // 'EMAIL'
+    console.log(validationResult.errorMessage);
+    // 'Please enter a valid email address.'
+  });</code></pre>
             </article>
+            <article id="custom-validators">
+              <h3 class="heading">
+                <span>Implementing a custom validation</span>
+                <a href="#custom-validators">
+                  <img src="img/link.svg" alt="(link this)">
+                </a>
+              </h3>
+            </article>
+          </section>
+          <section id="changelog">
+            <h3 class="heading">
+              <span>Change Log</span>
+              <a href="#changelog">
+                <img src="img/link.svg" alt="(link this)">
+              </a>
+            </h3>
           </section>
         </main>
         <aside class="col-md-3">
@@ -400,9 +460,10 @@ formValidation
                   <li><a href="#validators-maxLength">maxLength</a></li>
                   <li><a href="#validators-pattern">pattern</a></li>
                   <li><a href="#validators-email">email</a></li>
+                  <li><a href="#custom-validators">Custom validator</a></li>
                 </ul>
               </li>
-              <li></li>
+              <li> <a href="#changelog">Change Log</a></li>
             </ul>
           </nav>
         </aside>
