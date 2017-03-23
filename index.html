@@ -166,7 +166,7 @@
                   <li><code>undefined</code></li>
                   <li><code>false</code></li>
                   <li>Empty string <code>""</code></li>
-                  <li>Whitespace only string <code>" "</code> (It can be disabled with <code>customParams.trim</code> set to
+                  <li>Whitespace only string <code>" "</code> (it can be disabled with <code>customParams.trim</code> set to
                     <code><strong>false</strong></code>).</li>
                 </ul>
               </p>
@@ -201,23 +201,65 @@ formValidation
   });
                 </code></pre>
             </article>
-            <article id="validators-minlength">
+            <article id="validators-minLength">
               <h3 class="heading">
-                <span>Validators.minlength</span>
-                <a href="#validators-minlength">
+                <span>Validators.minLength</span>
+                <a href="#validators-minLength">
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
-              [[VALIDATORS:MINLENGTH]]
+              <p>
+                The <strong>minLength</strong> validator will check if the length of the string passed as value is equals
+                or greater than the length supplied in <code>customParams.length</code>.
+              </p>
+              <p>
+                Note: empty values such <code>null</code> or <code>undefined</code> will be marked as valid values. If you need to check for non-empty values you may use this validator along with <a href="#validators-required">required</a> validator.
+              </p>
+              <p>
+                <strong>Important!</strong> You must always provide<code>customParams.length</code> and it must be a number.
+                In case it is not provided an error will be thrown in the <code>promise.catch</code> block.
+              </p>
+              <pre class="snippet"><code class="language-js">import { Validators } from 'lc-form-validation';
+
+const validationConstraints = {
+  fields: {
+    username: [
+      {
+        validator: Validators.minLength,
+        customParams: { length : 4 },
+        eventsFilter: { onChange: true }
+      }
+    ]
+  }
+};
+
+const formValidation = createFormValidation(validationConstraints);
+
+formValidation
+  .validateField({}, 'username', 'jasmine', { onChange: true })
+  .then(validationResult => {
+    console.log(validationResult.succeeded); // --> true
+    console.log(validationResult.type); // --> 'PATTERN'
+    console.log(validationResult.errorMessage); // --> ''
+  });
+
+formValidation
+  .validateField(null, 'username', 'jax', { onChange: true })
+  .then(validationResult => {
+    console.log(validationResult.succeeded); // --> false
+    console.log(validationResult.type); // --> 'PATTERN'
+    console.log(validationResult.errorMessage); // --> 'The value provided must have at least 4 characters.'
+  });</code></pre>
             </article>
-            <article id="validators-maxlength">
+            <article id="validators-maxLength">
               <h3 class="heading">
-                <span>Validators.maxlength</span>
-                <a href="#validators-maxlength">
+                <span>Validators.maxLength</span>
+                <a href="#validators-maxLength">
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
-              [[VALIDATORS:MAXLENGTH]]
+              <pre class="snippet"><code class="language-js">import { Validators } from 'lc-form-validation';
+                </code></pre> [[VALIDATORS:MAXLENGTH]]
             </article>
             <article id="validators-pattern">
               <h3 class="heading">
@@ -237,7 +279,8 @@ formValidation
               </p>
               <p>
                 <strong>Important!</strong> You must always provide<code>customParams.pattern</code>. In case it is not provided
-                an error will be thrown in the <code>promise.catch</code> block.</p>
+                an error will be thrown in the <code>promise.catch</code> block.
+              </p>
               <pre class="snippet"><code class="language-js">import { Validators } from 'lc-form-validation';
 
 const CODE_PATTERN = /^LC\d{3}$/; // or "^LC\d{3}$"
@@ -305,8 +348,8 @@ formValidation
                 <a href="#validators">Validators</a>
                 <ul class="nav">
                   <li><a href="#validators-required">required</a></li>
-                  <li><a href="#validators-minlength">minlength</a></li>
-                  <li><a href="#validators-maxlength">maxlength</a></li>
+                  <li><a href="#validators-minLength">minLength</a></li>
+                  <li><a href="#validators-maxLength">maxLength</a></li>
                   <li><a href="#validators-pattern">pattern</a></li>
                   <li><a href="#validators-email">email</a></li>
                 </ul>
