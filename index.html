@@ -131,11 +131,59 @@
                 <img src="img/link.svg" alt="(link this)">
               </a>
             </h1>
-            <article>
-              <div>
-                [[INTRODUCTION]]
-              </div>
-            </article>
+            <h2>Overview</h2>
+            <p>To start implementing a form validation you just only need an object literal declaring global and/or fields validation constraints with attached methods and filters.</p>
+            <pre class="snippets"><code class="language-js">// validation constraints declaration
+const validationConstraints = {
+  fields: {
+    email: [
+      {
+        validator: Validators.email,
+        eventsFilter: { onChange: true, onSubmit: true }
+      }
+    ]
+    password: [
+      {
+        validator: Validators.required,
+        eventsFilter: { onChange: true, onSubmit: true }
+      },
+      {
+        validator: Validators.minLength,
+        customParams: { length: 4 },
+        eventsFilter: { onChange: true, onSubmit: true },
+      },
+      {
+        validator: Validators.maxLength,
+        customParams: { length: 4 },
+        eventsFilter: { onChange: true, onSubmit: true },
+      }
+    ],
+  },
+  global: [myGlobalFormValidationFn] // (e.g. business validations)
+};
+
+// create an instance of form validation
+const formValidation = createFormValidation(validationConstraints);
+
+// Apply wherever you need the validation result (e.g. on form submit)
+function onSave(viewModel) {
+  // Example:  viewModel: { email: 'johndoe@example.com', password: 'jdoe123' }
+  formValidation
+    .validateForm(viewModel)
+    .then(validationResult => {
+      if(validationResult.succeeded) {
+        // send viewModel to the server
+      } else {
+        // display validation errors
+        displayFormErrors(validationResult);
+      }
+    })
+    .catch(error => {
+      // Oops, an error happened...
+      handleError(error.message);
+    });
+}
+</code></pre>
             <article id="FormValidation">
               <h3 class="heading">
                 <span>FormValidation</span>
