@@ -185,7 +185,7 @@ const validationConstraints = {
 const formValidation = createFormValidation(validationConstraints);
 
 formValidation
-  .validateField({}, 'firstname', 'John', { onChange: true })
+  .validateField(null, 'firstname', 'John', { onChange: true })
   .then(validationResult => {
     console.log(validationResult.succeeded); // --> true
     console.log(validationResult.type); // --> 'PATTERN'
@@ -197,7 +197,8 @@ formValidation
   .then(validationResult => {
     console.log(validationResult.succeeded); // --> false
     console.log(validationResult.type); // --> 'PATTERN'
-    console.log(validationResult.errorMessage); // --> 'Please fill in this mandatory field.'
+    console.log(validationResult.errorMessage);
+    // --> 'Please fill in this mandatory field.'
   });
                 </code></pre>
             </article>
@@ -213,7 +214,9 @@ formValidation
                 or greater than the length supplied in <code>customParams.length</code>.
               </p>
               <p>
-                Note: empty values such <code>null</code> or <code>undefined</code> will be marked as valid values. If you need to check for non-empty values you may use this validator along with <a href="#validators-required">required</a> validator.
+                Note: empty values such <code>null</code> or <code>undefined</code> will be marked as valid values. If you
+                need to check for non-empty values you may use this validator along with
+                <a href="#validators-required">required</a> validator.
               </p>
               <p>
                 <strong>Important!</strong> You must always provide<code>customParams.length</code> and it must be a number.
@@ -236,7 +239,7 @@ const validationConstraints = {
 const formValidation = createFormValidation(validationConstraints);
 
 formValidation
-  .validateField({}, 'username', 'jasmine', { onChange: true })
+  .validateField(null, 'username', 'jasmine', { onChange: true })
   .then(validationResult => {
     console.log(validationResult.succeeded); // --> true
     console.log(validationResult.type); // --> 'PATTERN'
@@ -248,7 +251,8 @@ formValidation
   .then(validationResult => {
     console.log(validationResult.succeeded); // --> false
     console.log(validationResult.type); // --> 'PATTERN'
-    console.log(validationResult.errorMessage); // --> 'The value provided must have at least 4 characters.'
+    console.log(validationResult.errorMessage);
+    // --> 'The value provided must have at least 4 characters.'
   });</code></pre>
             </article>
             <article id="validators-maxLength">
@@ -258,8 +262,51 @@ formValidation
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
+              <p>
+                The <strong>maxLength</strong> validator will check if the length of the string passed as value is lesser or equals than the length supplied in <code>customParams.length</code>.
+              </p>
+              <p>
+                Note: empty values such <code>null</code> or <code>undefined</code> will be marked as valid values. If you
+                need to check for non-empty values you may use this validator along with
+                <a href="#validators-required">required</a> validator.
+              </p>
+              <p>
+                <strong>Important!</strong> You must always provide<code>customParams.length</code> and it must be a number.
+                In case it is not provided an error will be thrown in the <code>promise.catch</code> block.
+              </p>
               <pre class="snippet"><code class="language-js">import { Validators } from 'lc-form-validation';
-                </code></pre> [[VALIDATORS:MAXLENGTH]]
+
+const validationConstraints = {
+  fields: {
+    password: [
+      {
+        validator: Validators.maxLength,
+        customParams: { length : 8 },
+        eventsFilter: { onChange: true }
+      }
+    ]
+  }
+};
+
+const formValidation = createFormValidation(validationConstraints);
+
+formValidation
+  .validateField(null, 'password', 'test1234', { onChange: true })
+  .then(validationResult => {
+    console.log(validationResult.succeeded); // --> true
+    console.log(validationResult.type); // --> 'PATTERN'
+    console.log(validationResult.errorMessage); // --> ''
+  });
+
+formValidation
+  .validateField(null, 'password', 'toolongp@s$w0rd', { onChange: true })
+  .then(validationResult => {
+    console.log(validationResult.succeeded); // --> false
+    console.log(validationResult.type); // --> 'PATTERN'
+    console.log(validationResult.errorMessage);
+    // --> 'The value provided is too long. Length must not exceed 8 characters.'
+  });
+                </code></pre>
             </article>
             <article id="validators-pattern">
               <h3 class="heading">
@@ -311,7 +358,8 @@ formValidation
   .then(validationResult => {
     console.log(validationResult.succeeded); // --> false
     console.log(validationResult.type); // --> 'PATTERN'
-    console.log(validationResult.errorMessage); // --> 'Please provide a valid format.'
+    console.log(validationResult.errorMessage);
+    // --> 'Please provide a valid format.'
   });</code></pre>
             </article>
             <article id="validators-email">
