@@ -158,7 +158,48 @@
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
-              [[VALIDATORS:REQUIRED]]
+              <p>
+                The <strong>required</strong> validator will check the valuse is not a empty value. This validator is useful
+                when you need a fulfilled text field or check a radio or checkbox button. These values are considered empty:
+                <ul>
+                  <li><code>null</code></li>
+                  <li><code>undefined</code></li>
+                  <li><code>false</code></li>
+                  <li>Empty string <code>""</code></li>
+                  <li>Whitespace only string <code>" "</code> (It can be disabled with <code>customParams.trim</code> set to
+                    <code><strong>false</strong></code>).</li>
+                </ul>
+              </p>
+              <pre class="snippet"><code class="language-js">import { Validators } from 'lc-form-validation';
+const validationConstraints = {
+  fields: {
+    firstname: [
+      {
+        validator: Validators.required,
+        eventsFilter: { onChange: true, onSubmit: true }
+      }
+    ]
+  }
+};
+
+const formValidation = createFormValidation(validationConstraints);
+
+formValidation
+  .validateField({}, 'firstname', 'John', { onChange: true })
+  .then(validationResult => {
+    console.log(validationResult.succeeded); // --> true
+    console.log(validationResult.type); // --> 'PATTERN'
+    console.log(validationResult.errorMessage); // --> ''
+  });
+
+formValidation
+  .validateField(null, 'firstname', '', { onSubmit: true })
+  .then(validationResult => {
+    console.log(validationResult.succeeded); // --> false
+    console.log(validationResult.type); // --> 'PATTERN'
+    console.log(validationResult.errorMessage); // --> 'Please fill in this mandatory field.'
+  });
+                </code></pre>
             </article>
             <article id="validators-minlength">
               <h3 class="heading">
@@ -186,13 +227,17 @@
                 </a>
               </h3>
               <p>
-                The pattern validator will check if the value matches a regular expresion given in <code><strong>customParams.pattern</strong></code>                option. This regular expression can be either a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a>                instance or a string. It's important to mention that <code><strong>flags</strong></code> in string patterns
+                The <strong>pattern</strong> validator will check if the value matches a regular expresion given in <code>customParams.pattern</code>                option. This regular expression can be either a
+                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a>                instance or a string. It's important to mention that <code><strong>flags</strong></code> in string patterns
                 are not supported.
               </p>
               <p>
                 If you need flags in string patterns you can use the
                 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp constructor</a>.
               </p>
+              <p>
+                <strong>Important!</strong> You must always provide<code>customParams.pattern</code>. In case it is not provided
+                an error will be thrown in the <code>promise.catch</code> block.</p>
               <pre class="snippet"><code class="language-js">import { Validators } from 'lc-form-validation';
 
 const CODE_PATTERN = /^LC\d{3}$/; // or "^LC\d{3}$"
@@ -225,9 +270,6 @@ formValidation
     console.log(validationResult.type); // --> 'PATTERN'
     console.log(validationResult.errorMessage); // --> 'Please provide a valid format.'
   });</code></pre>
-              <p class="alert">
-                <strong>Important!</strong> <code><strong>customParams.pattern</strong></code> is a mandatory field. In case
-                it is not provided an error will be thrown in the <code>promise.catch</code> block.</p>
             </article>
             <article id="validators-email">
               <h3 class="heading">
