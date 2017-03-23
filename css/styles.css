@@ -1,20 +1,50 @@
+* {
+  /*border: 1px solid red;*/
+}
+
+main section:first-child h1:first-child {
+  margin-top: 0;
+}
+
 article {
   margin-bottom: 35px;
 }
 
-.main_nenu {
+.heading.first {
+  margin-top: 0;
+}
+
+.heading img {
+  visibility: hidden;
+  height: 22px;
+  opacity: .4;
+}
+
+.heading:hover img{
+  visibility: visible;
+}
+
+.heading img:hover{
+  opacity: .8;
+}
+
+.main-menu {
   top: 0;
 }
 
-.main_nenu.affix > .nav {
+.main-menu.affix > .nav {
   margin-top: 25px;
 }
 
-.main_nenu .nav .nav {
+.main-menu .nav .nav {
   margin-left: 15px;
 }
 
-.main_nenu .nav .nav li a {
+.main-menu .nav li:not(.active) a + .nav {
+  display: none;
+}
+
+.main-menu .nav .nav li a {
   padding-top: 5px;
   padding-bottom: 5px;
 }
@@ -25,4 +55,10 @@ ul.nav li a {
 
 .active > a {
   font-weight: bold;
+}
+
+.snippet {
+  font-size: inherit;
+  display: block;
+  padding: 12px 15px;
 }
