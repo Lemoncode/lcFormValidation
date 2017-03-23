@@ -186,11 +186,48 @@
                 </a>
               </h3>
               <p>
-                The pattern validator will check if the value matches a regular expresion given in <strong>pattern</strong>                option. This regular expression can be either a <a href="">RegExp instance</a> or a string.
+                The pattern validator will check if the value matches a regular expresion given in <code><strong>customParams.pattern</strong></code>                option. This regular expression can be either a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a>                instance or a string. It's important to mention that <code><strong>flags</strong></code> in string patterns
+                are not supported.
               </p>
-              <code class="snippet language-javascript">
-                const owo = 'foo';
-              </code>
+              <p>
+                If you need flags in string patterns you can use the
+                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp constructor</a>.
+              </p>
+              <pre class="snippet"><code class="language-js">import { Validators } from 'lc-form-validation';
+
+const CODE_PATTERN = /^LC\d{3}$/; // or "^LC\d{3}$"
+const validationConstraints = {
+  fields: {
+    code: [
+      {
+        validator: Validators.pattern,
+        customParams: { pattern: CODE_PATTERN },
+        eventsFilter: { onChange: true }
+      }
+    ]
+  }
+};
+
+const formValidation = createFormValidation(validationConstraints);
+
+formValidation
+  .validateField(null, 'code', 'LC001', { onChange: true })
+  .then(validationResult => {
+    console.log(validationResult.succeeded); // --> true
+    console.log(validationResult.type); // --> 'PATTERN'
+    console.log(validationResult.errorMessage); // --> ''
+  });
+
+formValidation
+  .validateField(null, 'code', '003a', { onChange: true })
+  .then(validationResult => {
+    console.log(validationResult.succeeded); // --> false
+    console.log(validationResult.type); // --> 'PATTERN'
+    console.log(validationResult.errorMessage); // --> 'Please provide a valid format.'
+  });</code></pre>
+              <p class="alert">
+                <strong>Important!</strong> <code><strong>customParams.pattern</strong></code> is a mandatory field. In case
+                it is not provided an error will be thrown in the <code>promise.catch</code> block.</p>
             </article>
             <article id="validators-email">
               <h3 class="heading">
