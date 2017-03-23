@@ -63,7 +63,7 @@ class App {
     if (!isValidProduct) {
       $selProducts.val('');
     }
-    this.toggleAvailability($selProducts, product !== null);
+    this.toggleAvailability($selProducts, isValidProduct);
     this.loadProductsByBrand(product);
   }
 
