@@ -14,7 +14,7 @@
       <div class="row">
         <header id="header" class="jumbotron text-center">
           <h1>LcFormValidation</h1>
-          <p>A framework agnostic, async form validation library</p>
+          <p>A framework agnostic async form validation library</p>
         </header>
         <main class="col-md-9">
           <section id="introduction">
@@ -26,9 +26,14 @@
                 </a>
               </h1>
               <p>LcFormValidation is a form validation library:</p>
-              <ul class="arrow-styled">
-                <li>Heavily based on JavaScript (no HTML attributes or classes)</li>
-                <li>Full async, all validations are processed as async.</li>
+              <ul class="features">
+                <li>Heavily JavaScript based (no HTML attributes).</li>
+                <li>Support for sync / async validations.</li>
+                <li>Support for field and global form validations.</li>
+                <li>Customizable multi trigger / event validation</li>
+                <li>Extensible validators.</li>
+                <li>Lightweight, just 21KB minified, 6.3KB gzipped.</li>
+                <li>Client / server side validation</li>
               </ul>
             </article>
             <article id="why">
@@ -58,41 +63,6 @@
                 </li>
               </ul>
             </article>
-            <article id="approach">
-              <h3 class="heading">
-                <span>LcFormValidation approach</span>
-                <a href="#approach">
-                  <img src="img/link.svg" alt="(link this)">
-                </a>
-              </h3>
-              <p>
-                The idea is to encapsulate all the common functionality in a base class, and create independent classes that will inherit
-                from this base class to implement the validation of each individual form.
-              </p>
-              <pre class="snippet"><code class="language-js"></code></pre>
-              <p>By following this approach:</p>
-              <ul>
-                <li>
-                  We encapsulate all the generic validation plumbing in a base class. We can implement real world form validation in the specific
-                  classes.
-                </li>
-                <li>
-                  We can benefit from external validation libraries (validate emails, url, iban ...), without having to implement additional
-                  scaffolding (e.g. create a directive for this validation).
-                </li>
-                <li>
-                  We can easily test:
-                  <ul>
-                    <li>The FormValidation</li>
-                    <li>Each specific form validation class.</li>
-                    <li>The generic validator helpers.</li>
-                  </ul>
-                  <li>
-                    We can just run this JavaScript code in the client and server side (e.g. node solution)
-                  </li>
-                </li>
-              </ul>
-            </article>
           </section>
           <section id="download">
             <h1 class="heading">
@@ -110,14 +80,20 @@
             <article>
               <h3>Direct donwload</h3>
               <div class="row">
-                <div class="col-md-12 download">
-                  <div class="col-md-4">
-                    <a role="button" class="btn btn-primary btn-block">v1.0.0 minified version</a>
+                <div class="col-sm-12 download">
+                  <div class="col-sm-4">
+                    <a role="button" class="btn btn-primary btn-block">v1.0.0 production version</a>
+                  </div>
+                  <div class="col-sm-4 row">
+                    <span class="download-description">21,3KB minified, packed</span>
                   </div>
                 </div>
-                <div class="col-md-12 download">
-                  <div class="col-md-4">
+                <div class="col-sm-12 download">
+                  <div class="col-sm-4">
                     <a role="button" class="btn btn-default btn-block">v1.0.0 development version</a>
+                  </div>
+                  <div class="col-sm-4 row">
+                    <span class="download-description">71KB, full source</span>
                   </div>
                 </div>
               </div>
@@ -152,6 +128,14 @@ import { createFormValidation } from 'lc-form-validation';
 &lt;/script&gt;</code></pre>
             </article>
           </section>
+          <section id="examples">
+            <h1 class="heading">
+              <span>Examples</span>
+              <a href="#examples">
+                <img src="img/link.svg" alt="(link this)">
+              </a>
+            </h1>
+          </section>
           <section id="get-started">
             <h1 class="heading">
               <span>Get started</span>
@@ -166,27 +150,36 @@ import { createFormValidation } from 'lc-form-validation';
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h2>
-              <p>Let's say we want to add validation support for a login form with a required login:</p>
+              <p>Let's say we want to add validation support for a login form with next constraints:</p>
+              <ul>
+                <li><code>login</code> is mandatory and has to be a valid email address</li>
+                <li><code>password</code> is mandatory</li>
+              </ul>
               <figure>
                 <img src="img/loginForm.png" alt="Login form" class="img-responsive">
               </figure>
-              <p>To implement the form validation you just only need an object literal declaring a field validation constraint
-                with an attached validator.</p>
-              <pre class="snippet"><code class="language-js">// validation constraints declaration
+              <p>
+                To implement the form validation you just only need an object literal to declare the proper
+                <a href="#ValidationConstraint"> field validation constraints</a> for the two fields:
+              </p>
+              <pre class="snippet"><code class="language-js">// validation constraints definition
 const validationConstraints = {
   fields: {
     login: [
+      { validator: Validators.required },
       { validator: Validators.email }
+    ],
+    password: [
+      { validator: Validators.required }
     ]
   }
-};
-
-// create a form validation instance
-const formValidation = createFormValidation(validationConstraints);
-
-// Apply wherever you need the validation result (e.g. on form submit)
+};</code></pre>
+              <p>Then create an instance of a <a href="#FormValidation"><code>FormValidation</code></a>:</p>
+              <pre class="snippet"><code class="language-js">// create a form validation instance
+const formValidation = createFormValidation(validationConstraints);</code></pre>
+              <p>Finally apply validation when your data needs to be validate (e.g. a submit event handler):</p>
+              <pre class="snippet"><code class="language-js">// e.g. viewModal value: { login: 'johndoe@example.com', password: 'jdoe123' }
 function onSave(viewModel) {
-  // viewModel can contain: { login: 'johndoe@example.com', password: 'jdoe123' }
   formValidation
     .validateForm(viewModel)
     .then(validationResult => {
@@ -203,10 +196,10 @@ function onSave(viewModel) {
     });
 }</code></pre>
             </article>
-            <article id="validation-constraint">
+            <article id="ValidationConstraint">
               <h3 class="heading">
                 <span>Validation constraint</span>
-                <a href="#validation-constraint">
+                <a href="#ValidationConstraint">
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
@@ -221,8 +214,8 @@ function onSave(viewModel) {
               <ul>
                 <li>
                   <code>validator</code> A function that will validate the field and return a
-                  <a href="#FieldValidationResult">FieldValidationResult</a> or a promise wrapping it if the validator is
-                  async
+                  <a href="#FieldValidationResult"><code>FieldValidationResult</code></a> or a promise wrapping it if the
+                  validator is async
                 </li>
                 <li>
                   <code>eventsFilter</code> <strong>(optional)</strong> An object containing one o more event names, that
@@ -264,18 +257,8 @@ function onSave(viewModel) {
               </h3>
               <p>
                 In order to validate a single field or the entire form you have to use the methods
-                <a href="#validateField">validateField</a> and <a href="#validateForm">validateForm</a> of the instance returned
-                by <code>createFormValidation</code> described in the <a href="#api">API</a> section.
+                <a href="#validateField"><code>validateField</code></a> and <a href="#validateForm"><code>validateForm</code></a>                of the instance returned by <code>createFormValidation</code> described in the <a href="#api">API</a> section.
               </p>
-            </article>
-            <article id="field-validation">
-              <h3 class="heading">
-                <span>Field validation</span>
-                <a href="#field-validation">
-                  <img src="img/link.svg" alt="(link this)">
-                </a>
-              </h3>
-              [[FIELDVALIDATION]]
             </article>
           </section>
           <section id="validators">
@@ -345,12 +328,12 @@ formValidation
                 The <strong>minLength</strong> validator will check if the length of the string passed as value is equals
                 or greater than the length supplied in <code>customParams.length</code>.
               </p>
-              <p>
+              <p class="alert alert-info">
                 Note: empty values such <code>null</code> or <code>undefined</code> will be marked as valid values. If you
                 need to check for non-empty values you may use this validator along with
                 <a href="#validators-required">required</a> validator.
               </p>
-              <p>
+              <p class="alert alert-danger">
                 <strong>Important!</strong> You must always provide<code>customParams.length</code> and it must be a number.
                 In case it is not provided an error will be thrown in the <code>catch</code> block of the returned promise.
               </p>
@@ -397,12 +380,12 @@ formValidation
                 The <strong>maxLength</strong> validator will check if the length of the string passed as value is lesser
                 or equals than the length supplied in <code>customParams.length</code>.
               </p>
-              <p>
+              <p class="alert alert-info">
                 Note: empty values such <code>null</code> or <code>undefined</code> will be marked as valid values. If you
                 need to check for non-empty values you may use this validator along with
                 <a href="#validators-required">required</a> validator.
               </p>
-              <p>
+              <p class="alert alert-danger">
                 <strong>Important!</strong> You must always provide<code>customParams.length</code> and it must be a number.
                 In case it is not provided an error will be thrown in the <code>catch</code> block of the returned promise.
               </p>
@@ -505,7 +488,7 @@ formValidation
                 truth. If this email validator doesn't meet your requirements you can write your
                 <a href="#custom-validators">custom validator</a>.
               </p>
-              <p>
+              <p class="alert alert-info">
                 Note: empty values such <code>null</code> or <code>undefined</code> will be marked as valid values. If you
                 need to check for non-empty values you may use this validator along with
                 <a href="#validators-required">required</a> validator.
@@ -543,55 +526,71 @@ formValidation
           </section>
           <section id="custom-validators">
             <h2 class="heading">
-              <span>Implementing a custom validation</span>
+              <span>Implementing a custom validator</span>
               <a href="#custom-validators">
                 <img src="img/link.svg" alt="(link this)">
               </a>
             </h2>
             <article>
-              <h4>Implementing a field validator</h4>
+              <h3>Writing a FieldValidationFunction</h3>
               <p>
-                This validator function will be provided with the value of the field, the entire view model and a fixed plain object with
-                extra parameters. Your field validator must always return a FieldValidationResult (or a wrapper promise for
-                async validations) that returns a FieldValidationResult, that is, a plain object with three properties:
+                To create a field validator you only need to provide a function that accepts first the value of the field and optionally
+                the entire view model and a plain object with extra parameters. These parameters are injected when the validator
+                is called. Your field validator must always return a FieldValidationResult (or a wrapper promise for async
+                validations) that returns a FieldValidationResult. The signature for a
+                <strong>synchronous</strong> field validation function is:
               </p>
-              <p>Your validator would look like this:</p>
-              <pre class="snippet"><code class="lang-js">function myFooValidator(value, vm, customParams) {
-  const isValid = value === 'foo';
-  const errorMessage = 'You must provide a "foo" value';
+              <pre class="snippet"><code class="language-ts">function myValidator(value: any, vm: any, customParams: any):FieldValidationResult</code></pre>
+              <h4>Example of a <strong>synchronous</strong> field validator</h4>
+              <p>This example shows a validator that needs to check if a given date is before today using
+                <a href="//momentjs.com">Moment.js</a>:</p>
+              <pre class="snippet"><code class="lang-js">function isDateBeforeTodayValidator(value, vm, customParams) {
+  const yesterday = moment().substract(1, 'days').startOf('day');
+  const selectedDate = moment(value);
+  const isValid = selectedDate.isSameOrBefore(yesterday);
+  const errorMessage = 'The selected day must be before today.';
   const validationResult = new FieldValidationResult();
-  // You can create an empty object too
 
   validationResult.succeeded = isValid;
-  validationResult.type = 'FOO';
+  validationResult.type = 'BEFORE_YESTERDAY';
   validationResult.errorMessage = isValid ? '' : errorMessage;
   return validationResult;
 }
 </code></pre>
-              <p>Or like this for an async validator:</p>
-              <pre class="snippet"><code class="lang-js">function myFooValidator(value, vm, customParams) {
-  const errorMessage = 'You must provide a "foo" value';
+              <h4>Asynchronous field validator</h4>
+              <p>
+                To write an asynchronous field validation function you only needs a synchronous validation function that returns a promise
+                with the <a href="#FieldValidationResult"><code>FieldValidationResult</code></a>. The signature
+                for an asynchronous field validator is:
+              </p>
+              <pre class="snippet"><code class="language-ts">function myValidator(value: any, vm: any, customParams: any):Promise&lt;FieldValidationResult&gt;</code></pre>
+              <h4>Example of an <strong>asynchronous</strong> field validator</h4>
+              <p>This example validates if the given user <strong>does not exist</strong> in <a href="//github.com">GitHub</a>:</p>
+              <pre class="snippet"><code class="lang-js">function userExistsOnGitHubValidator(value, vm, customParams) {
+  const errorMessage = `The username "${value}" already exists`;
   const validationResult = new FieldValidationResult();
-  validationResult.type = 'ASYNC_FOO';
+  validationResult.type = 'GITHUB_USER_EXISTS';
 
-  return Promise.resolve(asyncFooValidator(value))
-    .then(isValid => {
-      validationResult.isValid = isValid;
-      validationResult.errorMessage = errorMessage;
-      return validationResult;
-    })
-    .catch(error => {
-      validationResult.isValid = false;
-      validationResult.errorMessage = errorMessage;
-      return validationResult;
-    });
-}
-
-function asyncFooValidator() {
-  /*
-    make some server calls and return a deferred
-    object that returns true or false
-  */
+  return new Promise(resolve => {
+    fetch(`https://api.github.com/users/${value}`)
+      .then(result => {
+        // Status 200, meaning user exists, so the given user is not valid
+        validationResult.isValid = false;
+        validationResult.errorMessage = errorMessage;
+        resolve(validationResult);
+      })
+      .catch(error => {
+        if(error.status === 404) {
+          // User does not exists, so the given user is valid
+          validationResult.isValid = true;
+          validationResult.errorMessage = '';
+          resolve(validationResult);
+        } else {
+          // Unexpected error
+          reject(error);
+        }
+      });
+  });
 }
 </code></pre>
             </article>
@@ -616,14 +615,27 @@ function asyncFooValidator() {
                   <code>succeeded</code> <em>boolean</em> - The result of a validation constraint.
                 </li>
                 <li>
-                  <code>type</code> <em>string</em> - A key to recognise the validation result when applied multiple validators
-                  on a field.
+                  <code>type</code> <em>string</em> - An identifier to associate the validation result with a validator,
+                  it is useful for checking out what validation did not get passed when multiple validators on a field are
+                  applied.
                 </li>
                 <li>
                   <code>errorMessage</code> <em>string</em> - A message describing why the field did not get validated. This
                   field can be declared as empty for a successful validation.
                 </li>
               </ul>
+              <p>
+                A fourth property is added when it is returned by <a href="#validateForm"><code>validateForm</code></a> or
+                <a href="#validateField"><code>validateField</code></a> named <code>key</code> that will hold the field name.
+              </p>
+              <p class="alert alert-info">Note: you can use a plain object as validation result without extend FieldValidationResult class.</p>
+              <h4>Example of a FieldValidationResult</h4>
+              <pre class="snippet"><code class="language-js">{
+  succeeded: false,
+  errorMessage: 'Please, fill in this mandatory field',
+  type: 'REQUIRED',
+  key: 'lastName'
+}</code></pre>
             </article>
             <article id="FormValidationResult">
               <h3 class="heading">
@@ -638,90 +650,313 @@ function asyncFooValidator() {
               </p>
               <ul>
                 <li><code>succeeded</code> <em>boolean</em> - The result of the entire form validation.</li>
-                <li><code>fieldErrors</code> - <em>Array&lt;FieldValidationResult&gt;</em> - A list of all field errors given
-                  as a result of validate every field. This property contains every field validation result, so it will be
-                  filled even if all validation passed.</li>
-                <li><code>formGlobalErrors</code> - <em>Array&lt;FieldValidationResult&gt;</em> - A list of all global errors
-                  given as a result of executing every global validation function. This property can be empty if there are
-                  no errors.</li>
+                <li><code>fieldErrors</code> <em>Array&lt;FieldValidationResult&gt;</em> - A list of all field errors given as
+                  a result of validate every field. This property contains every field validation result, so it will be filled
+                  even if all validation passed.</li>
+                <li><code>formGlobalErrors</code> <em>Array&lt;FieldValidationResult&gt;</em> - A list of all global errors given
+                  as a result of executing every global validation function. This property can be empty if there are no errors.</li>
               </ul>
+              <h4>Example of a FormValidationResult</h4>
+              <pre class="snippet"><code class="language-js">{
+  succeeded: true,
+  fieldErrors: [
+    {
+      succeeded: true,
+      errorMessage: '',
+      type: 'EMAIL',
+      key: 'emailAddress'
+    }
+  ],
+  formGlobalErrors: []
+}</code></pre>
             </article>
             <article id="validateForm">
               <h3 class="heading">
-                <span>FormValidation.validateForm</span>
+                <span>validateForm</span>
                 <a href="#validateForm">
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
+              <pre class="snippet inline"><code class="language-ts">formValidation.validateForm(vm: any): Promise&lt;FormValidationResult&gt;;</code></pre>
               <p>
                 It validates the entire viewModel passed as argument triggering all field and global validations previously defined in
-                <a href="#validation-constraint"><code>validationConstraints</code></a>. Field validations are proxied to
+                <a href="#ValidationConstraint"><code>validationConstraints</code></a>. Field validations are proxied to
                 <a href="#FormValidation:validateField"><code>validateField</code></a> and global validations are executed.
               </p>
               <p>
-                When all validations are finished they're merged in a
+                When all validations are executed they're merged in a
                 <a href="#FormValidationResult"><code>FormValidationResult</code></a> and returned in a promise.
               </p>
               <h4>Example:</h4>
-              <pre class="snippet"><code class="language-js">formValidation
+              <pre class="snippet"><code class="language-js">// Define a validator
+function areAllFieldsCheckedValidation(vm) {
+  const validationResult = new FieldValidationResult();
+  const errorMessage = 'All fields must be checked';
+  const isValid = areAllChecked(vm);
+  validationResult.succeeded = validationResult;
+  validationResult.type = 'ALL_CHECKED';
+  validationResult.errorMessage = isValid ? '' : errorMessage;
+
+  return validationResult;
+}
+
+function isAllChecked(vm) {
+  return Object.keys(vm).every(field => vm[field].checked === true);
+}
+
+// Define the form validation constraints
+const validationConstraints = {
+  global: [areAllFieldsCheckedValidation]
+}
+
+// Create an instance of FormValidation
+const formValidation = createFormValidation(validationConstraints);
+const viewModel = {
+  fieldA: { value: 'A', checked: true },
+  fieldB: { value: 'B', checked: true },
+  fieldC: { value: 'C', checked: true },
+};
+
+// Apply validation
+formValidation
   .validateForm(viewModel)
   .then(validationResult => {
-    // handle validation global validation result
+    console.log(validationResult.succeeded); // true
+    console.log(validationResult.fieldErrors); // []
+    console.log(validationResult.formGlobalErrors);
+    // [{ errorMessage: '', type: 'ALL_CHECKED', key: '_GLOBAL_FORM_', succeeded: true }]
   })
   .catch(error => {
     // handle error
   });</code></pre>
             </article>
-            <article id="#validateField">
+            <article id="validateField">
               <h3 class="heading">
-                <span>FormValidation.validateField</span>
+                <span>validateField</span>
                 <a href="#validateField">
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
+              <pre class="snippet inline"><code class="language-ts">validateField(vm: any, key: string, value: any, eventsFilter?: ValidationEventsFilter): Promise&lt;FieldValidationResult&gt;;</code></pre>
               <p>
                 It validates a value against all constraints for a field previously defined in
-                <a href="#validation-constraint"><code>validationConstraints</code></a>. It will trigger every field validation
+                <a href="#ValidationConstraint"><code>validationConstraints</code></a>. It will trigger every field validation
                 function sequentially and evaluate its <a href="#FieldValidationResult"><code>FieldValidationResult</code></a>,
                 if the validation result is not successful it will stop executing the next field validation function, so
                 <strong>it will always return the first error</strong>.
               </p>
-              <p>It receives four arguments:</p>
+              <p>It accepts four arguments:</p>
               <ul>
-                <li><code>vm</code> <em>Object</em> - The entire viewModel. This can be optionally passed as <code>null</code>                  if your field validation does not needs to do checks againsts your viewModel.</li>
+                <li><code>vm</code> <em>any</em> - The entire viewModel. This can be optionally passed as <code>null</code> if
+                  your field validation does not needs to do checks againsts your viewModel.</li>
                 <li><code>key</code> <em>string</em> - The name of the field that requires validation. This key has to be the
-                  same as defined in your <a href="#validation-constraint"><code>ValidationConstraints</code></a>.</li>
-                <li><code>value</code> <em>any</em> - Your value to validate against the field validation constraints.</li>
-                <li><code>eventsFilter</code> <strong>(optional)</strong> <em>Object</em> - An object with the event to filter
-                  which validation functions are triggered. The default value is: <code>{ onChange: true }</code>.</li>
+                  same as defined in your <a href="#ValidationConstraint"><code>ValidationConstraints</code></a>.</li>
+                <li><code>value</code> <em>any</em> - The value to validate against the field validation constraints.</li>
+                <li><code>eventsFilter</code> <strong>(optional)</strong> <em>Object</em> - An object with the signature <code>{ &lt;eventName&gt;: boolean }</code>                  describing the event (or events) to filter what validation functions are triggered. <strong>Only the validations matching the filter will be executed.</strong>                  If you need to trigger a validation function multiple times you can add more event filters. The default
+                  value is:
+                  <code>{ onChange: true }</code>. You can also define your custom event names.</li>
               </ul>
-              <p>
+              <p class="alert alert-info">Note: This events are not directly attached to DOM, their purpose is only to filter validation functions.</p>
+              <p class="alert alert-danger">
                 <strong>Important!</strong> Since every field validation function is executed sequentially <strong>the order you define the field validation functions matters</strong>.
               </p>
+              <h4>Example - single validation:</h4>
+              <pre class="snippet inline"><code class="language-js">// Define a validator
+function firstUpperCaseValidator(value) {
+  const validationResult = new FieldvalidationResult();
+  const errorMessage = 'First name's first letter must be uppercase';
+  const isValid = value.charAt(0).toUpperCase() === value.charAt(0);
+  validationResult.succeeded = isValid;
+  validationResult.errorMessage = isValid ? '' : errorMessage;
+  validationResult.type = 'FIRSTNAME';
+
+  return validationResult;
+}
+
+// Define the field validation constraints
+const validationConstraints = {
+  fields: {
+    firstName: [
+      { validator: Validators.required },
+      { validator: firstUpperCaseValidator }
+    ]
+  }
+};
+
+// Create an instance of FormValidation
+const formValidation = createFormValidation(validationConstraints);
+
+// Apply validation
+formValidation
+  .validateField(null, 'firstName', 'John')
+  .then(validationResult => {
+    console.log(validationResult.succeeded); // true
+    console.log(validationResult.errorMessage); // ''
+    console.log(validationResult.type); // 'FIRSTNAME'
+    console.log(validationResult.key); // 'firstName'
+  })
+  .catch(error => {
+    // handle error
+  });
+</code></pre>
             </article>
-            <article id="#isValidationInProgress">
+            <article id="isValidationInProgress">
               <h3 class="heading">
-                <span>FormValidation.isValidationInProgress</span>
+                <span>isValidationInProgress</span>
                 <a href="#isValidationInProgress">
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
+              <pre class="snippet inline"><code class="language-ts">formValidation.isValidationInProgress(): boolean;</code></pre>
+              <p>It checks if a form or a field validation is currently in progress by returning <code>true</code> or <code>false</code>.</p>
+              <h4>Example:</h4>
+              <pre class="snippet"><code class="language-js">const validationConstraints = {
+  fields: {
+    firstName: [
+      { validator: Validators.required }
+    ],
+    lastName: [
+      { validator: Validators.required }
+    ],
+  }
+};
+
+const formValidation = createFormValidation(validationConstraints);
+const viewModel = {
+  firstName: 'John',
+  lastName: 'Doe',
+};
+
+formValidation
+  .validateform(viewModel)
+  .then(validationResult => {
+    console.log(formValidation.isValidationInProgress()); // false (validation finished)
+  });
+
+console.log(formValidation.isValidationInProgress()); // true (validation started)
+</code></pre>
+              <h3>Using <code>eventsFilter</code> to filter validations</h3>
+              <p>
+                By default <code>{ onChange: true }</code> is applied when the eventsFilter object is not passed. Suppose
+                we need to apply a validation to signup a new user and the username with the next constraints:
+              </p>
+              <ul>
+                <li>The username is mandatory.</li>
+                <li>The username can only contains lowercase letters and numbers.</li>
+                <li>The username must not exist in the database.</li>
+              </ul>
+              <p>
+                We can apply the required and format validation when the user types and apply the database verification when the input foucs
+                out. The resulting validation constraints would look like this:
+              </p>
+              <pre class="snippet inline"><code class="language-js">const validationConstraints = {
+  fields: {
+    username: [
+      { validator: Validators.required },
+      { validator: Validators.pattern },
+      {
+        // your custom validatort that queries the database
+        validator: usernameDoesNotExistsValidator,
+        eventsFilter: { onBlur: true }
+      }
+    ]
+  }
+};
+
+const formValidation = createFormValidation(validationConstraints);</code></pre>
+              <p>Then attach the proper events to your form input and validate the field. For a jQuery implementation it would
+                look like this:</p>
+              <pre class="snippet inline"><code class="language-js">$('#txtUsername').keyup(function() {
+  formValidation
+    .validateField(null, 'username', $(this).val())
+    .then(function(validationResult) {
+      if (validationResult.succeeded) {
+        $('#usernameErrorMessage').hide().val('');
+      } else {
+        $('#usenameErrorMessage').val(validationResult.errorMessage).show();
+      }
+    });
+});
+
+$('#txtUsername').blur(function() {
+  formValidation
+    .validateField(null, 'username', $(this).val(), { onBlur: true }) // apply event filter
+    .then(function(validationResult) {
+      if (validationResult.succeeded) {
+        $('#usernameErrorMessage').hide().val('');
+      } else {
+        $('#usenameErrorMessage').val(validationResult.errorMessage).show();
+      }
+    });
+});
             </article>
-            <article id="#isFormPristine">
+            <article id="isFormPristine">
               <h3 class="heading">
                 <span>isFormPristine</span>
                 <a href="#isFormPristine">
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
+              <pre class="snippet inline"><code class="language-ts">formValidation.isFormPristine(): boolean;</code></pre>
+              <p>
+                It checks if the form was validated at least once using <a href="#validateForm"><code>validateForm</code></a>                or <a href="#validateField"><code>validateField</code></a>. It returns <code>true</code> or <code>false</code>.
+              </p>
+              <h4>Example:</h4>
+              <pre class="snippet"><code class="language-js">const validationConstraints = {
+  fields: {
+    firstName: [
+      { validator: Validators.required }
+    ],
+    lastName: [
+      { validator: Validators.required }
+    ],
+  }
+};
+
+const formValidation = createFormValidation(validationConstraints);
+const viewModel = {
+  firstName: 'John',
+  lastName: 'Doe',
+};
+
+console.log(formValidation.isFormPristine()); // true
+formValidation
+  .validateform(viewModel)
+  .then(validationResult => {
+    console.log(formValidation.isFormPristine()); // false
+  });
+</code></pre>
             </article>
-            <article id="#isFormDirty">
+            <article id="isFormDirty">
               <h3 class="heading">
                 <span>isFormDirty</span>
                 <a href="#isFormDirty">
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
+              <pre class="snippet inline"><code class="language-ts">formValidation.isFormDirty(): boolean;</code></pre>
+              <p>
+                This method is the counterpart of <a href="#isFormPristine"><code>isFormPristine</code></a>. It will return
+                <code>false</code> when then form was never validated, and <code>true</code> if it was.
+              </p>
+              <pre class="snippet"><code class="language-js">const validationConstraints = {
+  fields: {
+    firstName: [
+      { validator: Validators.required }
+    ],
+    lastName: [
+      { validator: Validators.required }
+    ],
+  }
+};
+
+const formValidation = createFormValidation(validationConstraints);
+console.log(formValidation.isFormDirty()); // false
+formValidation
+  .validateField(null, 'firstName', 'John')
+  .then(validationResult => {
+    console.log(formValidation.isFormDirty()); // true
+  });</code></pre>
             </article>
           </section>
           <section id="changelog">
@@ -745,23 +980,26 @@ function asyncFooValidator() {
               </li>
               <li><a href="#download">Download</a></li>
               <li><a href="#installation">Installation</a></li>
+              <li><a href="#examples">Examples</a></li>
               <li>
                 <a href="#get-started">Get started</a>
                 <ul class="nav">
                   <li><a href="#overview">Overview</a></li>
-                  <li><a href="#validation-constraint">Validation constraint</a></li>
+                  <li><a href="#ValidationConstraint">Validation constraint</a></li>
                   <li><a href="#validating-form">Validating form</a></li>
                 </ul>
               </li>
               <li>
-                <li><a href="#validators">Validators</a></li>
-                <ul class="nav">
-                  <li><a href="#validators-required">required</a></li>
-                  <li><a href="#validators-minLength">minLength</a></li>
-                  <li><a href="#validators-maxLength">maxLength</a></li>
-                  <li><a href="#validators-pattern">pattern</a></li>
-                  <li><a href="#validators-email">email</a></li>
-                </ul>
+                <li>
+                  <a href="#validators">Validators</a>
+                  <ul class="nav">
+                    <li><a href="#validators-required">required</a></li>
+                    <li><a href="#validators-minLength">minLength</a></li>
+                    <li><a href="#validators-maxLength">maxLength</a></li>
+                    <li><a href="#validators-pattern">pattern</a></li>
+                    <li><a href="#validators-email">email</a></li>
+                  </ul>
+                </li>
                 <li><a href="#custom-validators">Custom validator</a></li>
               </li>
               <li>
@@ -770,7 +1008,7 @@ function asyncFooValidator() {
                   <li><a href="#FieldValidationResult">FieldValidationResult</a></li>
                   <li><a href="#FormValidationResult">FormValidationResult</a></li>
                   <li>
-                    <a>FormValidation</a>
+                    <a href="#validateForm">FormValidation</a>
                     <ul class="nav">
                       <li><a href="#validateForm">validateForm</a></li>
                       <li><a href="#validateField">validateField</a></li>

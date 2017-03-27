@@ -6,7 +6,6 @@ main section:first-child h1:first-child {
   margin-top: 0;
 }
 
-
 .heading.first {
   margin-top: 0;
 }
@@ -38,7 +37,7 @@ main section:first-child h1:first-child {
 }
 
 .main-menu .nav li:not(.active) a + .nav {
-  /*display: none;*/
+  display: none;
 }
 
 .main-menu .nav .nav li a {
@@ -54,7 +53,7 @@ ul.nav li a {
   font-weight: bold;
 }
 
-article, figure, pre.snippet[class*="language-"] {
+article, figure, pre.snippet[class*="language-"]:not(.inline) {
   margin-bottom: 35px;
 }
 
@@ -62,6 +61,24 @@ article, figure, pre.snippet[class*="language-"] {
   margin-top: 10px;
 }
 
+.download-description {
+	padding: 6px 12px;
+	display: block;
+}
+
 a > code {
 	color: #286090;
+	background-color: transparent;
+}
+
+.features {
+	list-style: none;
+	padding-left: 15px;
+}
+
+.features li {
+	font-size: 1.65rem;
+}
+.features li:before {
+	content: '➞\00a0\00a0\00a0';
 }
