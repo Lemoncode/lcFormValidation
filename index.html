@@ -101,18 +101,27 @@
                 <img src="img/link.svg" alt="(link this)">
               </a>
             </h1>
-            <div class="row">
-              <div class="col-md-12 download">
-                <div class="col-md-4">
-                  <a role="button" class="btn btn-primary btn-block">v1.0.0 minified version</a>
+            <article>
+              <h3>Using npm</h3>
+              <p>
+                <pre class="snippet"><code class="language-bash">npm install lc-form-validation</code></pre>
+              </p>
+            </article>
+            <article>
+              <h3>Direct donwload</h3>
+              <div class="row">
+                <div class="col-md-12 download">
+                  <div class="col-md-4">
+                    <a role="button" class="btn btn-primary btn-block">v1.0.0 minified version</a>
+                  </div>
+                </div>
+                <div class="col-md-12 download">
+                  <div class="col-md-4">
+                    <a role="button" class="btn btn-default btn-block">v1.0.0 development version</a>
+                  </div>
                 </div>
               </div>
-              <div class="col-md-12 download">
-                <div class="col-md-4">
-                  <a role="button" class="btn btn-default btn-block">v1.0.0 development version</a>
-                </div>
-              </div>
-            </div>
+            </article>
           </section>
           <section id="installation">
             <h1 class="heading">
@@ -122,8 +131,9 @@
               </a>
             </h1>
             <article>
-              <h4>Using Requited.js/AMD</h4>
+              <h4>Using Required.js/AMD</h4>
               <pre class="snippet"><code class="language-js">require(['lc-form-validation'], function(lcFormValidation) {
+  var createFormValidation = lcFormValidation.createFormValidation;
   // ...
 }</code></pre>
             </article>
@@ -217,7 +227,7 @@ function onSave(viewModel) {
                 <li>
                   <code>eventsFilter</code> <strong>(optional)</strong> An object containing one o more event names, that
                   will be used as a filter when the validator needs to be triggered on a specific event, and a boolean value
-                  poiting out . The default value of: <code>{ onChange: true }</code>;
+                  (true to use the filter). The default value is: <code>{ onChange: true }</code>.
                 </li>
                 <li>
                   <code>customParams</code> <strong>(optional)</strong> An object with some values needed by the validator
@@ -615,16 +625,44 @@ function asyncFooValidator() {
                 </li>
               </ul>
             </article>
-            <article id="validateForm">
+            <article id="FormValidationResult">
               <h3 class="heading">
-                <span>FormValidation.validateForm(viewModel)</span>
+                <span>FormValidationResult</span>
                 <a href="#validateForm">
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
-              <p>It validates the entire viewModel triggering all validations per field and globals previously defined in <code>validationConstraints</code>.
-                Every field validations will be executed sequentially </p>
-              <p>Returns a promise with a <a href="#FormValidationResult">FormValidationResult</a>.</p>
+              <p>
+                FormValidationResult is an global validation result returned by
+                <a href="#FormValidation:validateForm"><code>validateForm</code></a>. It has three main properties:
+              </p>
+              <ul>
+                <li><code>succeeded</code> <em>boolean</em> - The result of the entire form validation.</li>
+                <li><code>fieldErrors</code> - <em>Array&lt;FieldValidationResult&gt;</em> - A list of all field errors given
+                  as a result of validate every field. This property contains every field validation result, so it will be
+                  filled even if all validation passed.</li>
+                <li><code>formGlobalErrors</code> - <em>Array&lt;FieldValidationResult&gt;</em> - A list of all global errors
+                  given as a result of executing every global validation function. This property can be empty if there are
+                  no errors.</li>
+              </ul>
+            </article>
+            <article id="validateForm">
+              <h3 class="heading">
+                <span>FormValidation.validateForm</span>
+                <a href="#validateForm">
+                  <img src="img/link.svg" alt="(link this)">
+                </a>
+              </h3>
+              <p>
+                It validates the entire viewModel passed as argument triggering all field and global validations previously defined in
+                <a href="#validation-constraint"><code>validationConstraints</code></a>. Field validations are proxied to
+                <a href="#FormValidation:validateField"><code>validateField</code></a> and global validations are executed.
+              </p>
+              <p>
+                When all validations are finished they're merged in a
+                <a href="#FormValidationResult"><code>FormValidationResult</code></a> and returned in a promise.
+              </p>
+              <h4>Example:</h4>
               <pre class="snippet"><code class="language-js">formValidation
   .validateForm(viewModel)
   .then(validationResult => {
@@ -636,15 +674,34 @@ function asyncFooValidator() {
             </article>
             <article id="#validateField">
               <h3 class="heading">
-                <span>validateField</span>
+                <span>FormValidation.validateField</span>
                 <a href="#validateField">
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
+              <p>
+                It validates a value against all constraints for a field previously defined in
+                <a href="#validation-constraint"><code>validationConstraints</code></a>. It will trigger every field validation
+                function sequentially and evaluate its <a href="#FieldValidationResult"><code>FieldValidationResult</code></a>,
+                if the validation result is not successful it will stop executing the next field validation function, so
+                <strong>it will always return the first error</strong>.
+              </p>
+              <p>It receives four arguments:</p>
+              <ul>
+                <li><code>vm</code> <em>Object</em> - The entire viewModel. This can be optionally passed as <code>null</code>                  if your field validation does not needs to do checks againsts your viewModel.</li>
+                <li><code>key</code> <em>string</em> - The name of the field that requires validation. This key has to be the
+                  same as defined in your <a href="#validation-constraint"><code>ValidationConstraints</code></a>.</li>
+                <li><code>value</code> <em>any</em> - Your value to validate against the field validation constraints.</li>
+                <li><code>eventsFilter</code> <strong>(optional)</strong> <em>Object</em> - An object with the event to filter
+                  which validation functions are triggered. The default value is: <code>{ onChange: true }</code>.</li>
+              </ul>
+              <p>
+                <strong>Important!</strong> Since every field validation function is executed sequentially <strong>the order you define the field validation functions matters</strong>.
+              </p>
             </article>
             <article id="#isValidationInProgress">
               <h3 class="heading">
-                <span>isValidationInProgress</span>
+                <span>FormValidation.isValidationInProgress</span>
                 <a href="#isValidationInProgress">
                   <img src="img/link.svg" alt="(link this)">
                 </a>
