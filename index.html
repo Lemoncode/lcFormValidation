@@ -38,6 +38,7 @@
                 <li>CreateExtensible validators.</li>
                 <li>Lightweight library, just 21.3KB minified (6.3KB gzipped).</li>
                 <li>Client / server side validation.</li>
+                <li>It uses native <a href="//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promises</a>                  to handle validations (polyfill is included).</li>
               </ul>
             </article>
           </section>
@@ -114,28 +115,43 @@ import { createFormValidation } from 'lc-form-validation';
             </h1>
             <article>
               <h3>Simple form</h3>
-              <p>A simple form with fullname and password fields using React. Applied validations:</p>
+              <p>A simple form with fullname and password fields using React + TypeScript. Applied validations:</p>
               <ul>
-                <li>fullname field is mandatory.</li>
-                <li>password field is mandatory.</li>
+                <li>both fullname and password fields are mandatory (<a href="#validators-required"><code>required</code></a>                  validator + custom validator).</li>
               </ul>
               <p><a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/00%20SimpleForm" target="_blank">View source code</a></p>
             </article>
             <article>
               <h3>Signup form</h3>
-              <p>A sign up form with login, password and confirm password fields using React with the next validation constraints:</p>
+              <p>
+                A sign up form with login, password and confirm password fields using React + TypeScript with the next validation constraints:
+              </p>
               <ul>
-                <li>login is required and has to not exists on GitHub.</li>
-                <li>password is mandatory and has to be minimum 4 characters length.</li>
-                <li>confirm password is mandatory and has to be the same value as password field.</li>
+                <li>login is required and has to not exists on GitHub (<a href="#validators-required"><code>required</code></a>                  validator + custom validator).</li>
+                <li>password is mandatory and has to be minimum 4 characters length (<a href="#validators-minLength"><code>minLength</code></a>                  validator).</li>
+                <li>confirm password is mandatory and has to be the same value as password field (custom validator).</li>
               </ul>
               <p><a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/01%20SignupForm" target="_blank">View source code</a></p>
             </article>
             <article>
               <h3>Quiz form</h3>
-              <p>A simple quiz with three options made with React where there has to be at least one checked option to pass
-                the validation.</p>
+              <p>
+                A simple quiz with three options made with React + TypeScript where there has to be at least one checked option to pass the
+                validation (custom global validation).
+              </p>
               <p><a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/02%20QuizForm" target="_blank">View source code</a></p>
+            </article>
+            <article>
+              <h3>Shopping form</h3>
+              <p>A ittle shopping form using jQuery + ES6 where the user has to select a product with a version and optionally
+                apply a discount code and enter its NIF. Validations applied:</p>
+              <ul>
+                <li>The brand and product fields are mandatory (<a href="#validators-required"><code>required</code></a> validator).</li>
+                <li>The discount code is optional but needs to have a valid format if fulfilled (<a href="#validators-pattern"><code>pattern</code></a>                  validator).</li>
+                <li>NIF field is mandatory with a valid format (<a href="#validators-required"><code>required</code></a> validator
+                  + custom validator</li>
+              </ul>
+              <p><a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/" target="_blank">View source code</a></p>
             </article>
           </section>
           <section id="get-started">
@@ -679,7 +695,7 @@ formValidation
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
-              <pre class="snippet inline"><code class="language-ts">formValidation.validateForm(vm: any): Promise&lt;FormValidationResult&gt;;</code></pre>
+              <pre class="snippet"><code class="language-ts">formValidation.validateForm(vm: any): Promise&lt;FormValidationResult&gt;;</code></pre>
               <p>
                 It validates the entire viewModel passed as argument triggering all field and global validations previously defined in
                 <a href="#ValidationConstraint"><code>validationConstraints</code></a>. Field validations are proxied to
@@ -739,7 +755,7 @@ formValidation
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
-              <pre class="snippet inline"><code class="language-ts">validateField(vm: any, key: string, value: any, eventsFilter?: ValidationEventsFilter): Promise&lt;FieldValidationResult&gt;;</code></pre>
+              <pre class="snippet"><code class="language-ts">validateField(vm: any, key: string, value: any, eventsFilter?: ValidationEventsFilter): Promise&lt;FieldValidationResult&gt;;</code></pre>
               <p>
                 It validates a value against all constraints for a field previously defined in
                 <a href="#ValidationConstraint"><code>validationConstraints</code></a>. It will trigger every field validation
@@ -763,7 +779,7 @@ formValidation
                 <strong>Important!</strong> Since every field validation function is executed sequentially <strong>the order you define the field validation functions matters</strong>.
               </p>
               <h4>Example - single validation:</h4>
-              <pre class="snippet inline"><code class="language-js">// Define a validator
+              <pre class="snippet"><code class="language-js">// Define a validator
 function firstUpperCaseValidator(value) {
   const validationResult = new FieldvalidationResult();
   const errorMessage = 'First name's first letter must be uppercase';
@@ -809,7 +825,7 @@ formValidation
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
-              <pre class="snippet inline"><code class="language-ts">formValidation.isValidationInProgress(): boolean;</code></pre>
+              <pre class="snippet"><code class="language-ts">formValidation.isValidationInProgress(): boolean;</code></pre>
               <p>It checks if a form or a field validation is currently in progress by returning <code>true</code> or <code>false</code>.</p>
               <h4>Example:</h4>
               <pre class="snippet"><code class="language-js">const validationConstraints = {
@@ -837,11 +853,20 @@ formValidation
 
 console.log(formValidation.isValidationInProgress()); // true (validation started)
 </code></pre>
-              <h3>Using <code>eventsFilter</code> to filter validations</h3>
+              <h3 id="eventsFilter" class="heading">
+                <span>Using <code>eventsFilter</code> to filter validations</span>
+                <a href="#eventsFilter">
+                  <img src="img/link.svg" alt="(link this)">
+                </a>
+              </h3>
               <p>
-                By default <code>{ onChange: true }</code> is applied when the eventsFilter object is not passed. Suppose
-                we need to apply a validation to signup a new user and the username with the next constraints:
+                By default <code>{ onChange: true }</code> is applied when the <code>eventsFilter</code> object is not passed.
+                You can pass the name of a event or a identifier to track when certain validations are triggered..
               </p>
+              <p class="alert alert-danger"><strong>Important!</strong> If you filter a validation using a <strong>non registered event name</strong> the
+                <a href="#FieldValidationResult"><code>FieldValidationResult</code></a> will be <strong><code>undefined</code></strong>.</p>
+              <p>Let's take a look at the next example. Suppose we need to apply a validation to signup a new user and the username
+                with the next constraints:</p>
               <ul>
                 <li>The username is mandatory.</li>
                 <li>The username can only contains lowercase letters and numbers.</li>
@@ -856,7 +881,8 @@ console.log(formValidation.isValidationInProgress()); // true (validation starte
     username: [
       { validator: Validators.required },
       {
-        validator: Validators.pattern
+        validator: Validators.pattern,
+        customParams: { pattern: /^[a-z\d]+$/ },
         eventsFilter: { onChange: true, onBlur: true },
       },
       {
@@ -903,7 +929,7 @@ const formValidation = createFormValidation(validationConstraints);</code></pre>
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
-              <pre class="snippet inline"><code class="language-ts">formValidation.isFormPristine(): boolean;</code></pre>
+              <pre class="snippet"><code class="language-ts">formValidation.isFormPristine(): boolean;</code></pre>
               <p>
                 It checks if the form was validated at least once using <a href="#validateForm"><code>validateForm</code></a>                or <a href="#validateField"><code>validateField</code></a>. It returns <code>true</code> or <code>false</code>.
               </p>
@@ -940,7 +966,7 @@ formValidation
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
-              <pre class="snippet inline"><code class="language-ts">formValidation.isFormDirty(): boolean;</code></pre>
+              <pre class="snippet"><code class="language-ts">formValidation.isFormDirty(): boolean;</code></pre>
               <p>
                 This method is the counterpart of <a href="#isFormPristine"><code>isFormPristine</code></a>. It will return
                 <code>false</code> when then form was never validated, and <code>true</code> if it was.
@@ -1017,7 +1043,12 @@ formValidation
                     <a href="#validateForm">FormValidation</a>
                     <ul class="nav">
                       <li><a href="#validateForm">validateForm</a></li>
-                      <li><a href="#validateField">validateField</a></li>
+                      <li>
+                        <a href="#validateField">validateField</a>
+                        <ul class="nav">
+                          <li><a href="#eventsFilter">Filter validations</a></li>
+                        </ul>
+                      </li>
                       <li><a href="#isValidationInProgress">isValidationInProgress</a></li>
                       <li><a href="#isFormPristine">isFormPristine</a></li>
                       <li><a href="#isFormDirty">isFormDirty</a></li>
