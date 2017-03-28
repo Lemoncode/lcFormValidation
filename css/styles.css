@@ -68,14 +68,15 @@ a > code {
 }
 
 .features {
-	list-style: none;
-	padding-left: 15px;
+  list-style: none;
+  padding-left: 15px;
 }
 
 .features li {
-	font-size: 1.65rem;
+  font-size: 1.65rem;
 }
 
 .features li:before {
-	content: '➞\00a0\00a0\00a0';
+  content: '➞\00a0\00a0\00a0';
 }
+

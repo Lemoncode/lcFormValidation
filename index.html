@@ -14,17 +14,19 @@
       <div class="row">
         <header id="header">
           <div class="col-xs-12">
-            <h1 class="text-justify" style="font-size: 5vw;">LcFormValidation</h1>
-            <p>A framework agnostic async form validation library</p>
+            <h1 id="introduction" class="text-justify" style="font-size: 5vw;">LcFormValidation</h1>
           </div>
         </header>
         <main class="col-md-9">
-          <section id="introduction">
+          <section>
             <article>
               <p>
                 LcFormValidation is a small JavaScript library that provides you form validation without any framework nor library attachment
                 so you can easily integrate it in your stack. Validate your viewmodel either on client or server side with
-                <a href="//nodejs.org" target="_blank">Node.js</a>. It is licensed under <a href="//raw.githubusercontent.com/Lemoncode/lcFormValidation/master/LICENSE">MIT software license</a>                being an open-source component of <a href="//lemoncode.net/">Lemoncode</a>.
+                <a href="//nodejs.org" target="_blank">Node.js</a>.
+              </p>
+              <p>
+                LcFormValidation is licensed under <a href="//raw.githubusercontent.com/Lemoncode/lcFormValidation/master/LICENSE">MIT software license</a>                being an open-source component of <a href="//lemoncode.net/">Lemoncode</a>.
               </p>
               <ul class="features">
                 <li>Heavily JavaScript based (no HTML attributes).</li>
@@ -109,46 +111,73 @@ import { createFormValidation } from 'lc-form-validation';
                 <img src="img/link.svg" alt="(link this)">
               </a>
             </h1>
-            <article>
-              <h3>Simple form</h3>
-              <p>A simple form with fullname and password fields using React + TypeScript. Applied validations:</p>
-              <ul>
-                <li>both fullname and password fields are mandatory (<a href="#validators-required"><code>required</code></a>                  validator + custom validator).</li>
-              </ul>
-              <p><a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/00%20SimpleForm" target="_blank">View source code</a></p>
-            </article>
-            <article>
-              <h3>Signup form</h3>
-              <p>
-                A sign up form with username, password and confirm password fields using React + TypeScript with the next validation constraints:
-              </p>
-              <ul>
-                <li>username is mandatory and has to not exists on GitHub (<a href="#validators-required"><code>required</code></a>                  validator + custom validator).</li>
-                <li>password is mandatory and has to be minimum 4 characters length (<a href="#validators-minLength"><code>minLength</code></a>                  validator).</li>
-                <li>confirm password is mandatory and has to be the same value as password field (custom validator).</li>
-              </ul>
-              <p><a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/01%20SignupForm" target="_blank">View source code</a></p>
-            </article>
-            <article>
-              <h3>Quiz form</h3>
-              <p>
-                A simple quiz with three options made with React + TypeScript where there has to be at least one checked option to pass the
-                validation (custom global validation).
-              </p>
-              <p><a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/02%20QuizForm" target="_blank">View source code</a></p>
-            </article>
-            <article>
-              <h3>Shopping form</h3>
-              <p>A ittle shopping form using jQuery + ES6 where the user has to select a product with a version and optionally
-                apply a discount code and enter its NIF. Validations applied:</p>
-              <ul>
-                <li>The brand and product fields are mandatory (<a href="#validators-required"><code>required</code></a> validator).</li>
-                <li>The discount code is optional but needs to have a valid format if fulfilled (<a href="#validators-pattern"><code>pattern</code></a>                  validator).</li>
-                <li>NIF field is mandatory with a valid format (<a href="#validators-required"><code>required</code></a> validator
-                  + custom validator</li>
-              </ul>
-              <p><a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/" target="_blank">View source code</a></p>
-            </article>
+            <section id="examples-react">
+              <h2 class="heading">
+                <span>React examples</span>
+                <a href="#examples-react">
+                  <img src="img/link.svg" alt="(link this)">
+                </a>
+              </h2>
+              <article>
+                <h3>Simple form</h3>
+                <p>A simple form with fullname and password fields. Applied validations:</p>
+                <ul>
+                  <li>both fullname and password fields are mandatory (<a href="#validators-required"><code>required</code></a>                    validator + custom validator).</li>
+                </ul>
+                <p>
+                  <a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/00%20SimpleForm" target="_blank">View source code</a>
+                </p>
+              </article>
+              <article>
+                <h3>Signup form</h3>
+                <p>
+                  A sign up form with username, password and confirm password fields with the next validation constraints:
+                </p>
+                <ul>
+                  <li>username is mandatory and has to not exists on GitHub (<a href="#validators-required"><code>required</code></a>                    validator + custom validator).</li>
+                  <li>password is mandatory and has to be minimum 4 characters length (<a href="#validators-minLength"><code>minLength</code></a>                    validator).</li>
+                  <li>confirm password is mandatory and has to be the same value as password field (custom validator).</li>
+                </ul>
+                <p>
+                  <a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/01%20SignupForm" target="_blank">View source code</a>
+                </p>
+              </article>
+              <article>
+                <h3>Quiz form</h3>
+                <p>
+                  A simple quiz with three options where there has to be at least one checked option to pass the validation (custom global
+                  validation).
+                </p>
+                <p>
+                  <a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/02%20QuizForm" target="_blank">View source code</a>
+                </p>
+              </article>
+            </section>
+            <section id="examples-jquery">
+              <h2 class="heading">
+                <span>jQuery examples</span>
+                <a href="#examples-jquery">
+                  <img src="img/link.svg" alt="(link this)">
+                </a>
+              </h2>
+              <article>
+                <h3>Shopping form</h3>
+                <p>
+                  A ittle shopping form where the user has to select a product with a version and optionally apply a discount code and enter
+                  its NIF. Validations applied:
+                </p>
+                <ul>
+                  <li>The brand and product fields are mandatory (<a href="#validators-required"><code>required</code></a> validator).</li>
+                  <li>
+                    The discount code is optional but needs to have a valid format if fulfilled (<a href="#validators-pattern"><code>pattern</code></a>                    validator).
+                  </li>
+                  <li>
+                    NIF field is mandatory with a valid format (<a href="#validators-required"><code>required</code></a>                    validator + custom validator
+                  </li>
+                </ul>
+                <p><a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/" target="_blank">View source code</a></p>
+              </article>
+            </section>
           </section>
           <section id="get-started">
             <h1 class="heading">
@@ -558,7 +587,7 @@ formValidation
               <h4>Example of a <strong>synchronous</strong> field validator</h4>
               <p>This example shows a validator that needs to check if a given date is before today using
                 <a href="//momentjs.com">Moment.js</a>:</p>
-              <pre class="snippet"><code class="lang-js">function isDateBeforeTodayValidator(value, vm, customParams) {
+              <pre class="snippet"><code class="lang-js">function isDatePriorToCurrentDate(value, vm, customParams) {
   const yesterday = moment().substract(1, 'days').startOf('day');
   const selectedDate = moment(value);
   const isValid = selectedDate.isSameOrBefore(yesterday);
@@ -566,11 +595,10 @@ formValidation
   const validationResult = new FieldValidationResult();
 
   validationResult.succeeded = isValid;
-  validationResult.type = 'BEFORE_YESTERDAY';
+  validationResult.type = 'NOT_PRIOR_CURRENT_DATE';
   validationResult.errorMessage = isValid ? '' : errorMessage;
   return validationResult;
-}
-</code></pre>
+}</code></pre>
               <h4>Asynchronous field validator</h4>
               <p>
                 To write an asynchronous field validation function you only needs a validation function that returns a promise with the
@@ -605,8 +633,8 @@ formValidation
         }
       });
   });
-}
-</code></pre>
+}</code></pre>
+              <p class="alert alert-info">Note: This is a basic example, </p>
             </article>
           </section>
           <section id="api">
@@ -918,6 +946,9 @@ const formValidation = createFormValidation(validationConstraints);</code></pre>
       });
   }
 });</code></pre>
+              <p class="alert alert-info">
+                Note: This is a basic example, you could move this to a more mantenible helper instead of a huge object.
+              </p>
             </article>
             <article id="isFormPristine">
               <h3 class="heading">
