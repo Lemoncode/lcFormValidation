@@ -148,3 +148,10 @@ main {
   margin-top: -50px;
   visibility: hidden;
 }
+
+.jumbotron {
+  color: #ADE028;
+  background: #474739;
+  background: -webkit-linear-gradient(to bottom, #474739, #353526);
+  background: linear-gradient(to bottom, #474739, #353526);
+}
