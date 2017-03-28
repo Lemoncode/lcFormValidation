@@ -7,54 +7,70 @@
     <title>LcFormValidation</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="css/jquery.sidr.bare.css">
+    <link rel="stylesheet" href="css/jquery.sidr.light.min.css">
     <link rel="stylesheet" href="css/styles.css">
   </head>
   <body data-spy="scroll" data-target=".scrollspy">
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
         <header id="header">
-          <div class="col-xs-12">
-            <h1 id="introduction" class="text-justify" style="font-size: 5vw;">LcFormValidation</h1>
+          <div class="hidden-md hidden-lg">
+            <nav class="navbar navbar-default navbar-mobile">
+              <div class="navbar-header col-xs-12">
+                <a id="navigation" href="#navigation" aria-controls="bs-navbar" aria-expanded="true" class="navbar-toggle">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </a>
+                <strong class="navbar-brand">LcFormValidation</strong>
+              </div>
+            </nav>
+          </div>
+          <div class="col-xs-12 jumbotron text-center">
+            <h1 class="offset" id="introduction">LcFormValidation</h1>
+            <p>A framework agnostic, async form validation library</p>
+            <p>
+              <a href="//github.com/lemoncode/lcformvalidation"><img class="img-link" src="//wilsonwong.me/images/logos/githublogo.png" alt="GitHub"></a>
+              <strong>1.0.0</strong>
+            </p>
           </div>
         </header>
-        <main class="col-md-9">
-          <section>
-            <article>
-              <p>
-                LcFormValidation is a small JavaScript library that provides you form validation without any framework nor library attachment
-                so you can easily integrate it in your stack. Validate your viewmodel either on client or server side with
-                <a href="//nodejs.org" target="_blank">Node.js</a>.
-              </p>
-              <p>
-                LcFormValidation is licensed under <a href="//raw.githubusercontent.com/Lemoncode/lcFormValidation/master/LICENSE">MIT software license</a>                being an open-source component of <a href="//lemoncode.net/">Lemoncode</a>.
-              </p>
-              <ul class="features">
-                <li>Heavily JavaScript based (no HTML attributes).</li>
-                <li>Support for sync / async validations.</li>
-                <li>Support for field and global form validations.</li>
-                <li>Customizable multi trigger / event validation.</li>
-                <li>CreateExtensible validators.</li>
-                <li>Lightweight library, just 21.3KB minified (6.3KB gzipped).</li>
-                <li>Client / server side validation.</li>
-                <li>It uses native <a href="//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promises</a>                  to handle validations (polyfill is included).</li>
-              </ul>
-            </article>
-          </section>
-          <section id="download">
-            <h1 class="heading">
+        <main class="col-md-9 col-sm-12">
+          <p>
+            LcFormValidation is a small JavaScript library that provides you form validation without any framework nor library attachment
+            so you can easily integrate it in your stack. Validate your viewmodel either on client or server side with
+            <a href="//nodejs.org" target="_blank">Node.js</a>.
+          </p>
+          <p>
+            LcFormValidation is licensed under
+            <a href="//raw.githubusercontent.com/Lemoncode/lcFormValidation/master/LICENSE">MIT software license</a> being
+            an open-source component of <a href="//lemoncode.net/">Lemoncode</a>.
+          </p>
+          <ul class="features">
+            <li>Heavily JavaScript based (no HTML attributes).</li>
+            <li>Support for sync / async validations.</li>
+            <li>Support for field and global form validations.</li>
+            <li>Customizable multi trigger / event validation.</li>
+            <li>CreateExtensible validators.</li>
+            <li>Lightweight library, just 21.3KB minified (6.3KB gzipped).</li>
+            <li>Client / server side validation.</li>
+            <li>It uses native <a href="//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">Promises</a>              to handle validations (polyfill is included).</li>
+          </ul>
+          <section id="download" class="offset">
+            <h2 class="heading">
               <span>Download</span>
               <a href="#download">
-                <img src="img/link.svg" alt="(link this)">
+                <img class="img-link" src="img/link.svg" alt="(link this)">
               </a>
-            </h1>
+            </h2>
             <article>
               <h3>Using npm</h3>
-              <p>
-                <pre class="snippet"><code class="language-bash">npm install lc-form-validation</code></pre>
-              </p>
+              <pre class="snippet"><code class="language-bash">npm install lc-form-validation</code></pre>
             </article>
             <article>
-              <h3>Direct donwload</h3>
+              <h3>Direct download</h3>
               <div class="row">
                 <div class="col-sm-12 download">
                   <div class="col-sm-4">
@@ -75,13 +91,13 @@
               </div>
             </article>
           </section>
-          <section id="installation">
-            <h1 class="heading">
+          <section id="installation" class="offset">
+            <h2 class="heading">
               <span>Installation</span>
               <a href="#installation">
-                <img src="img/link.svg" alt="(link this)">
+                <img class="img-link" src="img/link.svg" alt="(link this)">
               </a>
-            </h1>
+            </h2>
             <article>
               <h4>Using Required.js/AMD</h4>
               <pre class="snippet"><code class="language-js">require(['lc-form-validation'], function(lcFormValidation) {
@@ -104,22 +120,22 @@ import { createFormValidation } from 'lc-form-validation';
 &lt;/script&gt;</code></pre>
             </article>
           </section>
-          <section id="examples">
-            <h1 class="heading">
+          <section id="examples" class="offset">
+            <h2 class="heading">
               <span>Examples</span>
               <a href="#examples">
-                <img src="img/link.svg" alt="(link this)">
+                <img class="img-link" src="img/link.svg" alt="(link this)">
               </a>
-            </h1>
-            <section id="examples-react">
-              <h2 class="heading">
+            </h2>
+            <section id="examples-react" class="offset">
+              <h3 class="heading">
                 <span>React examples</span>
                 <a href="#examples-react">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
-              </h2>
+              </h3>
               <article>
-                <h3>Simple form</h3>
+                <h4>Simple form</h4>
                 <p>A simple form with fullname and password fields. Applied validations:</p>
                 <ul>
                   <li>both fullname and password fields are mandatory (<a href="#validators-required"><code>required</code></a>                    validator + custom validator).</li>
@@ -129,7 +145,7 @@ import { createFormValidation } from 'lc-form-validation';
                 </p>
               </article>
               <article>
-                <h3>Signup form</h3>
+                <h4>Signup form</h4>
                 <p>
                   A sign up form with username, password and confirm password fields with the next validation constraints:
                 </p>
@@ -143,7 +159,7 @@ import { createFormValidation } from 'lc-form-validation';
                 </p>
               </article>
               <article>
-                <h3>Quiz form</h3>
+                <h4>Quiz form</h4>
                 <p>
                   A simple quiz with three options where there has to be at least one checked option to pass the validation (custom global
                   validation).
@@ -153,11 +169,11 @@ import { createFormValidation } from 'lc-form-validation';
                 </p>
               </article>
             </section>
-            <section id="examples-jquery">
+            <section id="examples-jquery" class="offset">
               <h2 class="heading">
                 <span>jQuery examples</span>
                 <a href="#examples-jquery">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h2>
               <article>
@@ -179,20 +195,20 @@ import { createFormValidation } from 'lc-form-validation';
               </article>
             </section>
           </section>
-          <section id="get-started">
-            <h1 class="heading">
+          <section id="get-started" class="offset">
+            <h2 class="heading">
               <span>Get started</span>
               <a href="#get-started">
-                <img src="img/link.svg" alt="(link this)">
+                <img class="img-link" src="img/link.svg" alt="(link this)">
               </a>
-            </h1>
-            <article id="overview">
-              <h2 class="heading">
+            </h2>
+            <article id="overview" class="offset">
+              <h3 class="heading">
                 <span>Overview</span>
                 <a href="#overview">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
-              </h2>
+              </h3>
               <p>Let's say we want to add validation support for a login form with next constraints:</p>
               <ul>
                 <li><code>login</code> is mandatory and has to be a valid email address.</li>
@@ -239,11 +255,11 @@ function onSave(viewModel) {
     });
 }</code></pre>
             </article>
-            <article id="ValidationConstraint">
+            <article id="ValidationConstraint" class="offset">
               <h3 class="heading">
                 <span>Validation constraint</span>
                 <a href="#ValidationConstraint">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
               <p>
@@ -285,17 +301,17 @@ function onSave(viewModel) {
               <h4><strong>global</strong></h4>
               <p>
                 The global property will hold an array of validation functions that will validate the entire viewModel:
-                <pre class="snippet"><code class="language-js">global: [
+              </p>
+              <pre class="snippet"><code class="language-js">global: [
   &lt;globalValidatorFunction&gt;, // function(viewModel)
   ...
 ]</code></pre>
-              </p>
             </article>
-            <article id="validating-form">
+            <article id="validating-form" class="offset">
               <h3 class="heading">
                 <span>Validating form</span>
                 <a href="#validating-form">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
               <p>
@@ -304,34 +320,34 @@ function onSave(viewModel) {
               </p>
             </article>
           </section>
-          <section id="validators">
-            <h1 class="heading">
+          <section id="validators" class="offset">
+            <h2 class="heading">
               <span>Validators</span>
               <a href="#validators">
-                <img src="img/link.svg" alt="(link this)">
+                <img class="img-link" src="img/link.svg" alt="(link this)">
               </a>
-            </h1>
+            </h2>
             <p>LcFormValidation includes a set of basic validation rules you can use. You can also write
               <a href="#custom-validators">your own validator functions</a> if you need some specific domain validators.</p>
-            <article id="validators-required">
+            <article id="validators-required" class="offset">
               <h3 class="heading">
                 <span>Validators.required</span>
                 <a href="#validators-required">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
               <p>
                 The <strong>required</strong> validator will check the value is not empty. This validator is useful when
                 you need a fulfilled text field or a radio / checkbox button marked. These values are considered empty:
-                <ul>
-                  <li><code>null</code></li>
-                  <li><code>undefined</code></li>
-                  <li><code>false</code></li>
-                  <li>Empty string <code>""</code></li>
-                  <li>Whitespace only string <code>" "</code> (it can be disabled with <code>customParams.trim</code> set to
-                    <code><strong>false</strong></code>).</li>
-                </ul>
               </p>
+              <ul>
+                <li><code>null</code></li>
+                <li><code>undefined</code></li>
+                <li><code>false</code></li>
+                <li>Empty string <code>""</code></li>
+                <li>Whitespace only string <code>" "</code> (it can be disabled with <code>customParams.trim</code> set to
+                  <code><strong>false</strong></code>).</li>
+              </ul>
               <pre class="snippet"><code class="language-js">import { createFormValidation, Validators } from 'lc-form-validation';
 const validationConstraints = {
   fields: {
@@ -360,11 +376,11 @@ formValidation
     // 'Please fill in this mandatory field.'
   });</code></pre>
             </article>
-            <article id="validators-minLength">
+            <article id="validators-minLength" class="offset">
               <h3 class="heading">
                 <span>Validators.minLength</span>
                 <a href="#validators-minLength">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
               <p>
@@ -412,11 +428,11 @@ formValidation
     // 'The value provided must have at least 4 characters.'
   });</code></pre>
             </article>
-            <article id="validators-maxLength">
+            <article id="validators-maxLength" class="offset">
               <h3 class="heading">
                 <span>Validators.maxLength</span>
                 <a href="#validators-maxLength">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
               <p>
@@ -464,11 +480,11 @@ formValidation
     // 'The value provided is too long. Length must not exceed 8 characters.'
   });</code></pre>
             </article>
-            <article id="validators-pattern">
+            <article id="validators-pattern" class="offset">
               <h3 class="heading">
                 <span>Validators.pattern</span>
                 <a href="#validators-pattern">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
               <p>
@@ -517,11 +533,11 @@ formValidation
     // 'Please provide a valid format.'
   });</code></pre>
             </article>
-            <article id="validators-email">
+            <article id="validators-email" class="offset">
               <h3 class="heading">
                 <span>Validators.email</span>
                 <a href="#validators-email">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
               <p>
@@ -567,11 +583,11 @@ formValidation
   });</code></pre>
             </article>
           </section>
-          <section id="custom-validators">
+          <section id="custom-validators" class="offset">
             <h2 class="heading">
               <span>Implementing a custom validator</span>
               <a href="#custom-validators">
-                <img src="img/link.svg" alt="(link this)">
+                <img class="img-link" src="img/link.svg" alt="(link this)">
               </a>
             </h2>
             <article>
@@ -637,18 +653,18 @@ formValidation
               <p class="alert alert-info">Note: This is a basic example, </p>
             </article>
           </section>
-          <section id="api">
-            <h1 class="heading">
+          <section id="api" class="offset">
+            <h2 class="heading">
               <span>API</span>
               <a href="#api">
-                <img src="img/link.svg" alt="(link this)">
+                <img class="img-link" src="img/link.svg" alt="(link this)">
               </a>
-            </h1>
-            <article id="FieldValidationResult">
+            </h2>
+            <article id="FieldValidationResult" class="offset">
               <h3 class="heading">
                 <span>FieldValidationResult</span>
                 <a href="#FieldValidationResult">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
               <p>FieldValidationResult is a simple class with three main properties:</p>
@@ -679,11 +695,11 @@ formValidation
   key: 'lastName'
 }</code></pre>
             </article>
-            <article id="FormValidationResult">
+            <article id="FormValidationResult" class="offset">
               <h3 class="heading">
                 <span>FormValidationResult</span>
                 <a href="#validateForm">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
               <p>
@@ -698,6 +714,7 @@ formValidation
                 <li><code>formGlobalErrors</code> <em>Array&lt;FieldValidationResult&gt;</em> - A list of all global errors given
                   as a result of executing every global validation function. This property can be empty if there are no errors.</li>
               </ul>
+              <br>
               <h4>Example of a FormValidationResult</h4>
               <pre class="snippet"><code class="language-js">{
   succeeded: true,
@@ -712,11 +729,11 @@ formValidation
   formGlobalErrors: []
 }</code></pre>
             </article>
-            <article id="validateForm">
+            <article id="validateForm" class="offset">
               <h3 class="heading">
                 <span>validateForm</span>
                 <a href="#validateForm">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
               <pre class="snippet"><code class="language-ts">formValidation.validateForm(vm: any): Promise&lt;FormValidationResult&gt;;</code></pre>
@@ -729,6 +746,7 @@ formValidation
                 When all validations are executed they're merged in a
                 <a href="#FormValidationResult"><code>FormValidationResult</code></a> and returned in a promise.
               </p>
+              <br>
               <h4>Example:</h4>
               <pre class="snippet"><code class="language-js">// Define a validator
 function areAllFieldsCheckedValidation(vm) {
@@ -772,11 +790,11 @@ formValidation
     // handle error
   });</code></pre>
             </article>
-            <article id="validateField">
+            <article id="validateField" class="offset">
               <h3 class="heading">
                 <span>validateField</span>
                 <a href="#validateField">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
               <pre class="snippet"><code class="language-ts">validateField(vm: any, key: string, value: any, eventsFilter?: ValidationEventsFilter): Promise&lt;FieldValidationResult&gt;;</code></pre>
@@ -843,11 +861,11 @@ formValidation
   });
 </code></pre>
             </article>
-            <article id="isValidationInProgress">
+            <article id="isValidationInProgress" class="offset">
               <h3 class="heading">
                 <span>isValidationInProgress</span>
                 <a href="#isValidationInProgress">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
               <pre class="snippet"><code class="language-ts">formValidation.isValidationInProgress(): boolean;</code></pre>
@@ -881,7 +899,7 @@ console.log(formValidation.isValidationInProgress()); // true (validation starte
               <h3 id="eventsFilter" class="heading">
                 <span>Using <code>eventsFilter</code> to filter validations</span>
                 <a href="#eventsFilter">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
               <p>
@@ -950,11 +968,11 @@ const formValidation = createFormValidation(validationConstraints);</code></pre>
                 Note: This is a basic example, you could move this to a more mantenible helper instead of a huge object.
               </p>
             </article>
-            <article id="isFormPristine">
+            <article id="isFormPristine" class="offset">
               <h3 class="heading">
                 <span>isFormPristine</span>
                 <a href="#isFormPristine">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
               <pre class="snippet"><code class="language-ts">formValidation.isFormPristine(): boolean;</code></pre>
@@ -987,11 +1005,11 @@ formValidation
   });
 </code></pre>
             </article>
-            <article id="isFormDirty">
+            <article id="isFormDirty" class="offset">
               <h3 class="heading">
                 <span>isFormDirty</span>
                 <a href="#isFormDirty">
-                  <img src="img/link.svg" alt="(link this)">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
               </h3>
               <pre class="snippet"><code class="language-ts">formValidation.isFormDirty(): boolean;</code></pre>
@@ -1019,28 +1037,42 @@ formValidation
   });</code></pre>
             </article>
           </section>
-          <section id="changelog">
-            <h3 class="heading">
+          <section id="changelog" class="offset">
+            <h2 class="heading">
               <span>Change Log</span>
               <a href="#changelog">
-                <img src="img/link.svg" alt="(link this)">
+                <img class="img-link" src="img/link.svg" alt="(link this)">
               </a>
-            </h3>
+            </h2>
+            <div class="changelog">
+              <strong class="release">1.0.0</strong> Mar 28, 2017
+              <ul>
+                <li>Replaced extended instance of FormValidation with a factory.</li>
+                <li>Added validators: required, email, pattern, minLength and maxLength</li>
+                <li>Added ValidationConstraints object to initialize FormValidation.</li>
+              </ul>
+            </div>
+            <div class="changelog">
+              <strong class="release">0.1.7</strong> May 8, 2016
+              <ul>
+                <li>Initial release</li>
+              </ul>
+            </div>
           </section>
         </main>
         <aside class="col-md-3">
-          <nav class="main-menu hidden-sm hidden-xs scrollspy" data-toggle="affix" data-spy="affix" data-offset-top="240">
+          <nav id="sidr-right" class="main-menu scrollspy" data-toggle="affix" data-spy="affix" data-offset-top="240">
             <ul class="nav">
-              <li>
-                <a href="#introduction">LcFormValidation</a>
-                <ul class="nav">
-                  <li><a href="#why">Why LcFormValidation</a></li>
-                  <li><a href="#approach">Approach</a></li>
-                </ul>
-              </li>
+              <li><a href="#introduction">LcFormValidation</a></li>
               <li><a href="#download">Download</a></li>
               <li><a href="#installation">Installation</a></li>
-              <li><a href="#examples">Examples</a></li>
+              <li>
+                <a href="#examples">Examples</a>
+                <ul class="nav">
+                  <li><a href="#examples-react">React</a></li>
+                  <li><a href="#examples-jquery">jQuery</a></li>
+                </ul>
+              </li>
               <li>
                 <a href="#get-started">Get started</a>
                 <ul class="nav">
@@ -1050,18 +1082,16 @@ formValidation
                 </ul>
               </li>
               <li>
-                <li>
-                  <a href="#validators">Validators</a>
-                  <ul class="nav">
-                    <li><a href="#validators-required">required</a></li>
-                    <li><a href="#validators-minLength">minLength</a></li>
-                    <li><a href="#validators-maxLength">maxLength</a></li>
-                    <li><a href="#validators-pattern">pattern</a></li>
-                    <li><a href="#validators-email">email</a></li>
-                  </ul>
-                </li>
-                <li><a href="#custom-validators">Custom validator</a></li>
+                <a href="#validators">Validators</a>
+                <ul class="nav">
+                  <li><a href="#validators-required">required</a></li>
+                  <li><a href="#validators-minLength">minLength</a></li>
+                  <li><a href="#validators-maxLength">maxLength</a></li>
+                  <li><a href="#validators-pattern">pattern</a></li>
+                  <li><a href="#validators-email">email</a></li>
+                </ul>
               </li>
+              <li><a href="#custom-validators">Custom validator</a></li>
               <li>
                 <a href="#api">API</a>
                 <ul class="nav">
@@ -1093,6 +1123,7 @@ formValidation
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/prism.js" async></script>
+    <script src="js/jquery.sidr.min.js"></script>
     <script src="js/index.js"></script>
   </body>
 </html>

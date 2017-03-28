@@ -6,43 +6,23 @@ main section:first-child h1:first-child {
   margin-top: 0;
 }
 
-.heading img {
-  visibility: hidden;
+.img-link {
   height: 22px;
-  opacity: .4;
+  vertical-align: text-top;
 }
 
-.heading:hover img{
+.heading img {
+  visibility: hidden;
+  opacity: .4;
+  vertical-align: middle;
+}
+
+.heading:hover img {
   visibility: visible;
 }
 
-.heading img:hover{
+.heading img:hover {
   opacity: .8;
-}
-
-.main-menu {
-  top: 0;
-}
-
-.main-menu.affix > .nav {
-  margin-top: 25px;
-}
-
-.main-menu .nav .nav {
-  margin-left: 15px;
-}
-
-.main-menu .nav li:not(.active) a + .nav {
-  display: none;
-}
-
-.main-menu .nav .nav li a {
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-ul.nav li a {
-  color: #333;
 }
 
 .active > a {
@@ -80,3 +60,91 @@ a > code {
   content: '➞\00a0\00a0\00a0';
 }
 
+.changelog .release {
+  font-size: 2rem;
+}
+
+.changelog .release:after {
+  content: '\00a0–\00a0';
+}
+
+@media (min-width: 992px) {
+  .main-menu .nav {
+    margin-left: 15px;
+  }
+  .affix-top.sidr, .affix.sidr {
+    box-shadow: unset;
+    background: unset;
+    font-family: inherit;
+    font-size: inherit;
+  }
+  .affix-top.sidr ul, .affix.sidr ul {
+    border-top: unset;
+    border-bottom: unset;
+  }
+  .affix-top.sidr ul li, .affix.sidr ul li {
+    border-top: unset;
+    border-bottom: unset;
+    line-height: initial;
+  }
+  .affix.sidr ul li:hover>a, .affix-top.sidr ul li:hover>a, .affix.sidr ul li:hover>a, .affix-top.sidr ul li:hover>a, .affix.sidr ul li:hover>a, .affix-top.sidr ul li:hover>a, .affix.sidr ul li:hover>span, .affix-top.sidr ul li:hover>span, .affix.sidr ul li.active>a, .affix-top.sidr ul li.active>a, .affix.sidr ul li.active>span, .affix-top.sidr ul li.active>span, .affix.sidr ul li.sidr-class-active>a, .affix-top.sidr ul li.sidr-class-active>a, .affix.sidr ul li.sidr-class-active>span, .affix-top.sidr ul li.sidr-class-active>span {
+    box-shadow: unset;
+  }
+  .affix.sidr ul li ul li:hover, .affix-top.sidr ul li ul li:hover, .affix.sidr ul li ul li.active, .affix-top.sidr ul li ul li.active, .affix.sidr ul li ul li.sidr-class-active .sidr.affix-top, .affix-top.sidr ul li ul li.sidr-class-active .sidr.affix-top {
+    width: auto;
+    position: unset;
+    line-height: inherit;
+  }
+  .sidr.right.affix, .sidr.right.affix-top {
+    left: unset;
+    right: unset;
+  }
+  .sidr.right.affix-top {
+    position: unset;
+  }
+  .main-menu.affix > .nav {
+    margin-top: 25px;
+  }
+  .main-menu .nav li:not(.active) a + .nav {
+    display: none;
+  }
+  .main-menu ul.nav li a {
+    color: #333;
+    padding: 10px 15px;
+  }
+}
+
+.navbar-mobile {
+  margin-bottom: 0;
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+}
+
+.navbar-mobile .navbar-brand {
+  float: right;
+}
+
+@media (min-width: 768px) {
+  .navbar-mobile .navbar-toggle {
+    display: block;
+  }
+}
+
+@media (max-width: 991px) {
+  .jumbotron {
+    margin-top: 50px;
+  }
+}
+
+main {
+  margin-bottom: 50px;
+}
+
+.offset:before {
+  display: block;
+  content: ' ';
+  height: 50px;
+  margin-top: -50px;
+  visibility: hidden;
+}
