@@ -25,42 +25,19 @@
                   <img src="img/link.svg" alt="(link this)">
                 </a>
               </h1>
-              <p>LcFormValidation is a form validation library:</p>
+              <p>
+                LcFormValidation is a small JavaScript library that provides you form validation without any framework nor library attachment
+                so you can easily integrate it in your stack. Validate your viewmodel either on client or server side with
+                <a href="//nodejs.org" target="_blank">Node.js</a>.
+              </p>
               <ul class="features">
                 <li>Heavily JavaScript based (no HTML attributes).</li>
                 <li>Support for sync / async validations.</li>
                 <li>Support for field and global form validations.</li>
-                <li>Customizable multi trigger / event validation</li>
-                <li>Extensible validators.</li>
-                <li>Lightweight, just 21KB minified, 6.3KB gzipped.</li>
-                <li>Client / server side validation</li>
-              </ul>
-            </article>
-            <article id="why">
-              <h3 class="heading">
-                <span>Why another validation library?</span>
-                <a href="#why">
-                  <img src="img/link.svg" alt="(link this)">
-                </a>
-              </h3>
-              <p>
-                Form validation is a complex issue, usually we can find solutions that cover the simple scenarios and are focused on building
-                RAD development just by adding some attributes / annotations to given fields or HTML fields (e.g. input),
-                the disadvantage that we have found to this approach:
-              </p>
-              <ul>
-                <li>
-                  There are different approaches for each scenario: sometimes you have to add some tweaking for async validations, some other
-                  take care of special scenarios (like validations that depends on more than one field).
-                </li>
-                <li>
-                  Usually you can easily unit test one validation (directive / annotation), but testing the whole form is a complex task (directives
-                  are coupled to e.g. HTML).
-                </li>
-                <li>
-                  Validations are tightly coupled to e.g. directives or markup is not easy to reuse this validation code in e.g. server side
-                  (universal JavaScript application).
-                </li>
+                <li>Customizable multi trigger / event validation.</li>
+                <li>CreateExtensible validators.</li>
+                <li>Lightweight library, just 21.3KB minified (6.3KB gzipped).</li>
+                <li>Client / server side validation.</li>
               </ul>
             </article>
           </section>
@@ -135,6 +112,31 @@ import { createFormValidation } from 'lc-form-validation';
                 <img src="img/link.svg" alt="(link this)">
               </a>
             </h1>
+            <article>
+              <h3>Simple form</h3>
+              <p>A simple form with fullname and password fields using React. Applied validations:</p>
+              <ul>
+                <li>fullname field is mandatory.</li>
+                <li>password field is mandatory.</li>
+              </ul>
+              <p><a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/00%20SimpleForm" target="_blank">View source code</a></p>
+            </article>
+            <article>
+              <h3>Signup form</h3>
+              <p>A sign up form with login, password and confirm password fields using React with the next validation constraints:</p>
+              <ul>
+                <li>login is required and has to not exists on GitHub.</li>
+                <li>password is mandatory and has to be minimum 4 characters length.</li>
+                <li>confirm password is mandatory and has to be the same value as password field.</li>
+              </ul>
+              <p><a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/01%20SignupForm" target="_blank">View source code</a></p>
+            </article>
+            <article>
+              <h3>Quiz form</h3>
+              <p>A simple quiz with three options made with React where there has to be at least one checked option to pass
+                the validation.</p>
+              <p><a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/02%20QuizForm" target="_blank">View source code</a></p>
+            </article>
           </section>
           <section id="get-started">
             <h1 class="heading">
@@ -152,8 +154,8 @@ import { createFormValidation } from 'lc-form-validation';
               </h2>
               <p>Let's say we want to add validation support for a login form with next constraints:</p>
               <ul>
-                <li><code>login</code> is mandatory and has to be a valid email address</li>
-                <li><code>password</code> is mandatory</li>
+                <li><code>login</code> is mandatory and has to be a valid email address.</li>
+                <li><code>password</code> is mandatory.</li>
               </ul>
               <figure>
                 <img src="img/loginForm.png" alt="Login form" class="img-responsive">
@@ -849,13 +851,16 @@ console.log(formValidation.isValidationInProgress()); // true (validation starte
                 We can apply the required and format validation when the user types and apply the database verification when the input foucs
                 out. The resulting validation constraints would look like this:
               </p>
-              <pre class="snippet inline"><code class="language-js">const validationConstraints = {
+              <pre class="snippet"><code class="language-js">const validationConstraints = {
   fields: {
     username: [
       { validator: Validators.required },
-      { validator: Validators.pattern },
       {
-        // your custom validatort that queries the database
+        validator: Validators.pattern
+        eventsFilter: { onChange: true, onBlur: true },
+      },
+      {
+        // your custom validator that queries the database
         validator: usernameDoesNotExistsValidator,
         eventsFilter: { onBlur: true }
       }
@@ -866,29 +871,30 @@ console.log(formValidation.isValidationInProgress()); // true (validation starte
 const formValidation = createFormValidation(validationConstraints);</code></pre>
               <p>Then attach the proper events to your form input and validate the field. For a jQuery implementation it would
                 look like this:</p>
-              <pre class="snippet inline"><code class="language-js">$('#txtUsername').keyup(function() {
-  formValidation
-    .validateField(null, 'username', $(this).val())
-    .then(function(validationResult) {
-      if (validationResult.succeeded) {
-        $('#usernameErrorMessage').hide().val('');
-      } else {
-        $('#usenameErrorMessage').val(validationResult.errorMessage).show();
-      }
-    });
-});
-
-$('#txtUsername').blur(function() {
-  formValidation
-    .validateField(null, 'username', $(this).val(), { onBlur: true }) // apply event filter
-    .then(function(validationResult) {
-      if (validationResult.succeeded) {
-        $('#usernameErrorMessage').hide().val('');
-      } else {
-        $('#usenameErrorMessage').val(validationResult.errorMessage).show();
-      }
-    });
-});
+              <pre class="snippet"><code class="language-js">$('#txtUsername').on({
+  keyup: function() {
+    formValidation
+      .validateField(null, 'username', $(this).val())
+      .then(function(validationResult) {
+        if (validationResult.succeeded) {
+          $('#usernameErrorMessage').hide().val('');
+        } else {
+          $('#usenameErrorMessage').val(validationResult.errorMessage).show();
+        }
+      });
+  },
+  blur: function() {
+    formValidation
+      .validateField(null, 'username', $(this).val(), { onBlur: true }) // apply event filter
+      .then(function(validationResult) {
+        if (validationResult.succeeded) {
+          $('#usernameErrorMessage').hide().val('');
+        } else {
+          $('#usenameErrorMessage').val(validationResult.errorMessage).show();
+        }
+      });
+  }
+});</code></pre>
             </article>
             <article id="isFormPristine">
               <h3 class="heading">
