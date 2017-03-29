@@ -32,7 +32,8 @@
             <h1 class="offset" id="introduction">LcFormValidation</h1>
             <p>A framework agnostic, async form validation library</p>
             <p>
-              <a href="//github.com/lemoncode/lcformvalidation"><img class="img-link" src="//static1.squarespace.com/static/ta/56cdb491a3360cdd18de5e16/527/assets/social-icons/github.png" alt="GitHub"></a>
+              <a href="//github.com/lemoncode/lcformvalidation"><img class="img-link" src="//static1.squarespace.com/static/ta/56cdb491a3360cdd18de5e16/527/assets/social-icons/github.png"
+                  alt="GitHub"></a>
               <strong>v1.0.0</strong>
             </p>
           </div>
@@ -53,7 +54,7 @@
             <li>Support for sync / async validations.</li>
             <li>Support for field and global form validations.</li>
             <li>Customizable multi trigger / event validation.</li>
-            <li>CreateExtensible validators.</li>
+            <li>Create extensible validators.</li>
             <li>Lightweight library, just 21.3KB minified (6.3KB gzipped).</li>
             <li>Client / server side validation.</li>
             <li>It uses native <a href="//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">Promises</a>              to handle validations (polyfill is included).</li>
@@ -67,7 +68,7 @@
             </h2>
             <article>
               <h3>Using npm</h3>
-              <pre class="snippet"><code class="language-bash">npm install lc-form-validation</code></pre>
+              <pre class="snippet"><code class="language-bash">npm install --save lc-form-validation</code></pre>
             </article>
             <article>
               <h3>Direct download</h3>
@@ -170,16 +171,16 @@ import { createFormValidation } from 'lc-form-validation';
               </article>
             </section>
             <section id="examples-jquery" class="offset">
-              <h2 class="heading">
+              <h3 class="heading">
                 <span>jQuery examples</span>
                 <a href="#examples-jquery">
                   <img class="img-link" src="img/link.svg" alt="(link this)">
                 </a>
-              </h2>
+              </h3>
               <article>
-                <h3>Shopping form</h3>
+                <h4>Shopping form</h4>
                 <p>
-                  A ittle shopping form where the user has to select a product with a version and optionally apply a discount code and enter
+                  A little shopping form where the user has to select a product with a version and optionally apply a discount code and enter
                   its NIF. Validations applied:
                 </p>
                 <ul>
@@ -237,7 +238,7 @@ const validationConstraints = {
               <pre class="snippet"><code class="language-js">// create a form validation instance
 const formValidation = createFormValidation(validationConstraints);</code></pre>
               <p>Finally apply validation when your data needs to be validate (e.g. a submit event handler):</p>
-              <pre class="snippet"><code class="language-js">// e.g. viewModal value: { login: 'johndoe@example.com', password: 'jdoe123' }
+              <pre class="snippet"><code class="language-js">// e.g. viewModel value: { login: 'johndoe@example.com', password: 'jdoe123' }
 function onSave(viewModel) {
   formValidation
     .validateForm(viewModel)
