@@ -28,10 +28,7 @@ function validateNif(value) {
       .replace(/^[Z]/, '2');
     const letter = valueToUpper.substr(-1);
     const charIndex = parseInt(nie.substr(0, 8)) % 23;
-
-    if (validChars.charAt(charIndex) === letter) {
-      isValid = true;
-    }
+    isValid = (validChars.charAt(charIndex) === letter);
   }
 
   return isValid;

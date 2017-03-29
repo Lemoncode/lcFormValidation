@@ -1,4 +1,4 @@
-const products = [
+const brands = [
   {
     id: 18,
     description: 'Corsair',
@@ -59,10 +59,10 @@ const products = [
   },
 ];
 
-function fetchProducts() {
-  return Promise.resolve(products);
+function fetchBrands() {
+  return Promise.resolve(brands);
 }
 
 export const productsService = {
-  fetchProducts,
+  fetchBrands,
 };

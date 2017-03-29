@@ -31,7 +31,7 @@ class App {
   }
 
   loadBrands() {
-    productsService.fetchProducts()
+    productsService.fetchBrands()
       .then(fetchedProducts => {
         this.brands = fetchedProducts;
         this.loadSelect($selBrands, this.brands);
@@ -75,15 +75,15 @@ class App {
     }
   }
 
-  loadProductsByBrand(id) {
-    if (id !== null) {
-      const osList = this.getProductsByBrand(id);
-      this.loadSelect($selProducts, osList);
+  loadProductsByBrand(brand) {
+    if (brand !== null) {
+      const products = this.getProductsByBrand(brand);
+      this.loadSelect($selProducts, products);
     }
   }
 
   getProductsByBrand(id) {
-    const brand = this.brands.filter(product => product.id === id);
+    const brand = this.brands.filter(brand => brand.id === id);
     return brand[0] && brand[0].products;
   }
 
@@ -107,24 +107,26 @@ class App {
   getModel($form) {
     return $form
       .serializeArray()
+
       // from { name: <prop>, value: <val> } to [<prop>, <val>] }
       .map(field => ({ [field.name]: field.value }))
+
       // reduce all in an object
       .reduce((vm, field) => ({ ...vm, ...field }), {});
-  };
+  }
 
   handleFieldValidationResult($form) {
-    return (function (fieldValidationResult) {
+    return (fieldValidationResult) => {
       const field = $form.get(0)[fieldValidationResult.key];
       this.toggleErrorMessage(fieldValidationResult, $(field));
-    }).bind(this);
+    };
   }
 
   onFieldChange(event) {
     const $field = $(event.currentTarget);
     productsFormValidation
       .validateField(null, $field.attr('name'), $field.val(), { onChange: true })
-      .then((validationResult) => {
+      .then(validationResult => {
         this.toggleErrorMessage(validationResult, $field);
       })
       .catch(error => {
@@ -148,5 +150,5 @@ class App {
 }
 
 export {
-  App,
+  App
 };
