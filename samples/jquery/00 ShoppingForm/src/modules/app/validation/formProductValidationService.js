@@ -12,30 +12,25 @@ const validationConstraints = {
     product: [
       {
         validator: Validators.required,
-        eventsFilter: { onSubmit: true, onChange: true },
       },
     ],
     version: [
       {
         validator: Validators.required,
-        eventsFilter: { onSubmit: true, onChange: true },
       },
     ],
     discountCode: [
       {
         validator: Validators.pattern,
         customParams: { pattern: DISCOUNT_REGEXP },
-        eventsFilter: { onSubmit: true, onChange: true },
       }
     ],
     nif: [
       {
         validator: Validators.required,
-        eventsFilter: { onSubmit: true, onChange: true },
       },
       {
         validator: nifValidator,
-        eventsFilter: { onSubmit: true, onChange: true },
       }
     ]
   }

@@ -50,8 +50,8 @@ class App {
 
   setEventHandlers() {
     $selBrands.change(this.onBrandSelect);
-    $txtNif.change(this.onFieldChange);
-    $txtDiscount.change(this.onFieldChange);
+    $txtNif.keyup(this.onFieldChange);
+    $txtDiscount.keyup(this.onFieldChange);
     $txtDiscount.on('input', this.onDiscountType);
     $formProducts.submit(this.onSubmit);
   }
@@ -59,7 +59,7 @@ class App {
   onBrandSelect(event) {
     this.onFieldChange(event);
     const product = Number(event.currentTarget.value) || null;
-    const isValidProduct = product !== null;
+    const isValidProduct = (product !== null);
     if (!isValidProduct) {
       $selProducts.val('');
     }
@@ -125,7 +125,7 @@ class App {
   onFieldChange(event) {
     const $field = $(event.currentTarget);
     productsFormValidation
-      .validateField(null, $field.attr('name'), $field.val(), { onChange: true })
+      .validateField(null, $field.attr('name'), $field.val())
       .then(validationResult => {
         this.toggleErrorMessage(validationResult, $field);
       })

@@ -7,20 +7,10 @@ var basePath = __dirname;
 
 module.exports = {
   context: path.join(basePath, "src"),
-  resolve: {
-    // .js is required for react imports.
-    // .tsx is for our app entry point.
-    // .ts is optional, in case you will be importing any regular ts files.
-    extensions: ['.js']
-  },
 
   entry: {
     app: './index.js',
-    styles: [
-      './css/site.css',
-    ],
     vendor: [
-      "bootstrap",
       "jquery",
       "core-js",
       "lc-form-validation",
@@ -74,7 +64,6 @@ module.exports = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      filaneme: 'vendor.js'
     }),
     //Generate index.html in /dist => https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
@@ -83,10 +72,5 @@ module.exports = {
     }),
     //Generate bundle.css => https://github.com/webpack/extract-text-webpack-plugin
     new ExtractTextPlugin('[name].css'),
-    //Expose jquery used by bootstrap
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery"
-    })
   ]
 }
