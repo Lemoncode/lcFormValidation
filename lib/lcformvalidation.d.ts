@@ -35,7 +35,7 @@ export interface FieldValidationFunction {
 
 export interface FieldValidationConstraint {
   validator: FieldValidationFunction;
-  eventFilters?: ValidationEventsFilter;
+  eventsFilter?: ValidationEventsFilter;
   customParams?: any;
 }
 

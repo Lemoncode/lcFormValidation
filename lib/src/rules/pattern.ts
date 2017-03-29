@@ -8,7 +8,7 @@ const BAD_PARAMETER = 'FieldValidationError: pattern option for pattern validati
 
 export function pattern(value: string, vm, customParams: PatternParams): FieldValidationResult {
   const pattern = parsePattern(customParams);
-  const isValid = pattern.test(value);
+  const isValid = isValidPattern(value, pattern);
   const validationResult = new FieldValidationResult();
 
   validationResult.succeeded = isValid;
@@ -30,4 +30,16 @@ function getRegExp(pattern): RegExp {
   return pattern instanceof RegExp ?
     pattern :
     new RegExp(pattern);
+}
+
+function isEmptyValue(value) {
+  return value === null ||
+    value === undefined ||
+    value === '';
+}
+
+export function isValidPattern(value, pattern: RegExp): boolean {
+  return isEmptyValue(value) ?
+    true :
+    pattern.test(value);
 }
