@@ -52,11 +52,11 @@ export class BaseFormValidation implements FormValidation {
     }
   }
 
-  private parseFieldValidations(constraint: string, fieldValidationConstraints: FieldValidationConstraint[]) {
+  private parseFieldValidations(field: string, fieldValidationConstraints: FieldValidationConstraint[]) {
     if (fieldValidationConstraints instanceof Array) {
       fieldValidationConstraints.forEach((fieldValidationConstraint) => {
         if (fieldValidationConstraint && typeof fieldValidationConstraint === 'object') {
-          this.addFieldValidation(constraint, fieldValidationConstraint);
+          this.addFieldValidation(field, fieldValidationConstraint);
         }
       });
     }
