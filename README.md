@@ -48,7 +48,7 @@ customerFormValidation
         { succeeded: true, type: "REQUIRED", key: "lastName", errorMessage: "" }
       ]*/
   })
-  .catch(error => {
+  .catch((error) => {
     // handle unexpected errors
   });
 ```
@@ -66,7 +66,7 @@ customerFormValidation
     console.log(validationResult.key); // "firstName"
     console.log(validationResult.errorMessage); // ""
   })
-  .catch(error => {
+  .catch((error) => {
     // handle unexpected errors
   });
 
@@ -80,7 +80,7 @@ customerFormValidation
     console.log(validationResult.errorMessage);
     // "Please, fill in this mandatory field."
   })
-  .catch(error => {
+  .catch((error) => {
     // handle unexpected errors
   });
 ```
@@ -114,7 +114,7 @@ const loginFormValidation = createFormValidation(loginValidationConstraints);
 Trigger field validation:
 ```js
 loginFormValidation
-  .validateField(null, 'login', 'jdoe', { onBlur: true})
+  .validateField(null, 'login', 'jdoe', { onBlur: true })
   .then((validationResult) => {
     console.log(validationResult.succeeded); // false
     console.log(validationResult.type); // "EMAIL"
@@ -122,7 +122,7 @@ loginFormValidation
     console.log(validationResult.errorMessage);
     // 'Please enter a valid email address.'
   })
-  .catch(error => {
+  .catch((error) => {
     // handle unexpected errors
   });
 ```
@@ -143,7 +143,7 @@ const loginFormValidationConstraints = {
       {
         validator: Validators.pattern,
         customParams: {
-          // It must belong to "lemoncode.net" domain
+          // login must belong to "lemoncode.net" domain
           pattern: /\@lemoncode.net$/
         }
       }
@@ -152,7 +152,7 @@ const loginFormValidationConstraints = {
 };
 ```
 
-### Custom validators:
+### Custom validators
 
 #### Field validator
 
@@ -161,7 +161,7 @@ A field validator must return a `FieldValidationResult`. You can pass the entire
 ```js
 function allowLowerCaseOnly(value, viewModel, customParams) {
   const isValid = value.toLowerCase() === value;
-  const errorMessage = 'Field must be lowercase.`;
+  const errorMessage = 'Field must be lowercase.';
   const validationResult = new FieldValidationResult();
   validationResult.succeeded = isValid;
   validationResult.errorMessage = isValid ? '' : errorMessage;
@@ -188,9 +188,9 @@ const signupValidationConstraints = {
 A global validator will accept the entire viewModel and return a `FieldValidationResult`. Put your global validators inside `global` property of your validation constraints. It is useful, e.g., for validating dynamic properties:
 
 ```js
-function validateQuestions(...questions) {
+function validateQuestions(questions) {
   // All questions must be answered.
-  return questions.every((question) => question.answer.trim().length);
+  return questions.every((question) => question.answer.trim().length > 0);
 }
 
 function questionsValidator(viewModel) {
@@ -213,13 +213,38 @@ const testFormValidation = createFormValidation(testFormValidationConstraints);
 
 const viewModel = {
   questions: [
-    { id: 29, title: 'What method does merge two or more objects?', anwser: 'Object.assign' },
-    { id: 14, title: '', anwser: '' },
-    { id: 42, title: '', anwser: '' },
-    { id: 85, title: '', anwser: '' },
+    {
+      id: 29,
+      title: 'What method does merge two or more objects?',
+      anwser: 'Object.assign'
+    },
+    {
+      id: 14, title: 'What character do you need to do string interpolation?',
+      anwser: 'Backticks'
+    },
+    {
+      id: 42,
+      title: 'How to solve 0.1 + 0.2 === 0.3?',
+      anwser: '+(0.1 + 0.2).toFixed(1)'
+    },
+    {
+      id: 85,
+      title: 'What month will new Date("2017", "04", "19").getMonth() produce?',
+      anwser: 'May'
+    },
   ]
 };
-testFormValidation.validateForm()
+
+testFormValidation
+  .validateForm(viewModel)
+  .then((validationResult) => {
+    console.log(validationResult.succeeded); // true
+    console.log(validationResult.formGlobalErrors) // []
+    console.log(validationResult.fieldErrors); //  []
+  })
+  .catch((error) => {
+    // handle unexpected errors
+  });
 ```
 
 ## Documentation
@@ -267,8 +292,6 @@ Form validation is a complex issue, usually we can find solutions that cover the
 - Usually you can easily unit test one validation (directive / annotation), but testing the whole form is a complex task (directives are coupled to e.g. HTML).
 
 - Validations are tightly coupled to e.g. directives or markup is not easy to reuse this validation code in e.g. server side (universal javascript).
-
-We are looking for contributors to implement samples and support for libraries such as Angularjs, Ember... if you would like to cooperate don't hesitate contacting us.
 
 ## License
 [MIT](./LICENSE)
