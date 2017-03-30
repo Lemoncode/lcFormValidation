@@ -32,9 +32,12 @@
             <h1 class="offset" id="introduction">LcFormValidation</h1>
             <p>A framework agnostic, async form validation library</p>
             <p>
-              <a href="//github.com/lemoncode/lcformvalidation"><img class="img-link" src="//static1.squarespace.com/static/ta/56cdb491a3360cdd18de5e16/527/assets/social-icons/github.png"
-                  alt="GitHub"></a>
-              <strong>v1.0.0</strong>
+              <a href="//github.com/lemoncode/lcformvalidation">
+                <img class="img-link" src="//static1.squarespace.com/static/ta/56cdb491a3360cdd18de5e16/527/assets/social-icons/github.png"
+                  alt="GitHub">
+                <strong>v1.0.0</strong>
+              </a>
+
             </p>
           </div>
         </header>
@@ -651,7 +654,10 @@ formValidation
       });
   });
 }</code></pre>
-              <p class="alert alert-info">Note: This is a basic example, </p>
+              <p class="alert alert-info">
+                Note: This is a basic example, consider using helpers to modularize your code and follow the
+                <a href="//en.wikipedia.org/wiki/Single_responsibility_principle">Single Responsability Principle</a>.
+              </p>
             </article>
           </section>
           <section id="api" class="offset">
@@ -684,8 +690,9 @@ formValidation
                 </li>
               </ul>
               <p>
-                A fourth read-only property is added when it is returned by <a href="#validateForm"><code>validateForm</code></a> or
-                <a href="#validateField"><code>validateField</code></a> named <code>key</code> that will hold the field name to distinguish which field the validation was made.
+                A fourth read-only property is added when it is returned by <a href="#validateForm"><code>validateForm</code></a>                or
+                <a href="#validateField"><code>validateField</code></a> named <code>key</code> that will hold the field name
+                to distinguish which field the validation was made.
               </p>
               <p class="alert alert-info">Note: you can use a plain object as validation result without extend FieldValidationResult class.</p>
               <h4>Example of a FieldValidationResult</h4>
