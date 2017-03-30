@@ -9,7 +9,10 @@ const customerValidationConstraints: ValidationConstraints = {
   fields: {
     fullname: [
       { validator: Validators.required }
-    ]
+    ],
+    password: [
+      { validator: Validators.required }
+    ],
   }
 };
 const customerFormValidation = createFormValidation(customerValidationConstraints);

@@ -15,7 +15,7 @@ export class SampleSignupForm extends React.Component {
     performSignup: React.PropTypes.func.isRequired,
   };
 
-  constructor() {
+  constructor(props) {
     super(props);
 
     this.onSave = this.onSave.bind(this);

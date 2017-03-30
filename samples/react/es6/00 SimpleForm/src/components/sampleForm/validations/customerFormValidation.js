@@ -4,7 +4,10 @@ const customerValidationConstraints = {
   fields: {
     fullname: [
       { validator: Validators.required }
-    ]
+    ],
+    password: [
+      { validator: Validators.required }
+    ],
   }
 };
 
