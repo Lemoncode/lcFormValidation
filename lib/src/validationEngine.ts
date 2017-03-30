@@ -18,7 +18,6 @@ export interface IValidationEngine {
   isValidationInProgress(): boolean;
   validateForm(vm: any): Promise<FormValidationResult>;
   validateField(vm: any, key: string, value: any, eventsFilter?: ValidationEventsFilter): Promise<FieldValidationResult>;
-  // TODO: Implement Issue #15
   addFieldValidation(key: string, validation: FieldValidationFunction, eventsFilter?: ValidationEventsFilter): void;
   addFormValidation(validation: FormValidationFunction): void;
   isValidationInProgress(): boolean;
@@ -60,8 +59,6 @@ export class ValidationEngine implements IValidationEngine {
       if (this.validationsGlobalForm.length > 0) {
         fieldValidationResults = [...fieldValidationResults, ...this.validateGlobalFormValidations(viewModel)];
       }
-
-      // TODO: Implement Issue #16 - Error handling
 
       // Once all the single field validations have been resolved
       // resolve the fullFormValidatePromise
@@ -108,7 +105,7 @@ export class ValidationEngine implements IValidationEngine {
     this.asyncValidationInProgressCount++;
 
     const fieldValidationResultPromise = new Promise((resolve, reject) => {
-      // TODO: this should be encapsulated into two separate functions, Issue #26
+      // TODO: this should be encapsulated into two separate functions
       if (!this.isFieldKeyMappingDefined(key)) {
         this.asyncValidationInProgressCount--;
         resolve();

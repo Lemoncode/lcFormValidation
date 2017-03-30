@@ -2,7 +2,6 @@ import { ValidationEngine } from '../validationEngine';
 import { FieldValidationResult, FormValidationResult } from '../entities';
 import { consts } from '../consts';
 
-//TODO: Implement Issue #20
 describe('ValidationEngine Validate Form', () => {
   describe('Group #1 => When calling validateForm and addFieldValidation', () => {
     it('Spec #1 => should return a failed FormValidationResult with one fieldErrors equals ' +

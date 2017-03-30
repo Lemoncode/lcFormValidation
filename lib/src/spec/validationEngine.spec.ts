@@ -1,7 +1,6 @@
 import { ValidationEngine } from '../validationEngine';
 import { FieldValidationResult } from '../entities';
 
-//TODO: Implement Issue #20
 describe('ValidationEngine tests', () => {
   it('should return isFormPristine true after initialization', () => {
     // Arrange

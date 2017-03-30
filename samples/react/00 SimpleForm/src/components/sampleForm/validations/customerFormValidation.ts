@@ -5,8 +5,6 @@ import {
   RequiredParams,
 } from 'lc-form-validation';
 
-// TODO: Implement Issue #17
-// TODO: Implement Issue #6
 const customerValidationConstraints: ValidationConstraints = {
   fields: {
     fullname: [
