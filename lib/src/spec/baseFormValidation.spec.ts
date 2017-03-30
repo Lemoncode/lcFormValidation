@@ -353,7 +353,7 @@ describe('formValidation tests', () => {
       const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
       const validation1 = () => new FieldValidationResult();
       const customParams = { foo: 'bar' };
-      const eventsFilter = { OnBlur: true };
+      const eventsFilter = { onBlur: true };
       const validationConstraints: ValidationConstraints = {
         fields: {
           property1: [

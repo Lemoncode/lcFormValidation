@@ -480,8 +480,8 @@ describe('ValidationEngine Validate Form', () => {
       const vm = { fullname: '' };
 
       // Act
-      validationEngine.addFieldValidation('fullname', validationFn1Spy, { OnChange: true, OnBlur: true });
-      validationEngine.addFieldValidation('fullname', validationFn2Spy, { OnBlur: true });
+      validationEngine.addFieldValidation('fullname', validationFn1Spy, { onChange: true, onBlur: true });
+      validationEngine.addFieldValidation('fullname', validationFn2Spy, { onBlur: true });
       validationEngine.validateForm(vm).then((validationResult) => {
 
         // Assert
