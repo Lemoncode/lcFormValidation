@@ -28,7 +28,7 @@ describe('lcFormValidation simple form', () => {
     );
 
     formValidationBase
-      .triggerFieldValidation(viewModel, 'fullname', 'newContent')
+      .validateField(viewModel, 'fullname', 'newContent')
       .then((errors) => {
         // Assert
         expect(formValidationBase.isValidationInProgress()).to.be.false;
@@ -66,7 +66,7 @@ describe('lcFormValidation simple form', () => {
       );
 
       formValidationBase
-        .triggerFieldValidation(viewModel, 'fullname', '')
+        .validateField(viewModel, 'fullname', '')
         .then((fieldValidationResult: FieldValidationResult) => {
           // Assert
           expect(fieldValidationResult.key).to.be.equal('fullname');
@@ -103,7 +103,7 @@ describe('lcFormValidation simple form', () => {
       );
 
       formValidationBase
-        .triggerFieldValidation(viewModel, 'fullname', 'john')
+        .validateField(viewModel, 'fullname', 'john')
         .then((fieldValidationResult: FieldValidationResult) => {
 
           // Assert
@@ -128,7 +128,7 @@ describe('lcFormValidation simple form', () => {
       }
     );
 
-    const promise = formValidationBase.triggerFieldValidation(viewModel, 'fullname', '');
+    const promise = formValidationBase.validateField(viewModel, 'fullname', '');
 
     //Assert
     expect(promise).to.eventually.be.rejected.and.notify(done);

@@ -17,7 +17,7 @@ export interface IValidationEngine {
   isFormPristine(): boolean;
   isValidationInProgress(): boolean;
   validateForm(vm: any): Promise<FormValidationResult>;
-  triggerFieldValidation(vm: any, key: string, value: any, eventsFilter?: ValidationEventsFilter): Promise<FieldValidationResult>;
+  validateField(vm: any, key: string, value: any, eventsFilter?: ValidationEventsFilter): Promise<FieldValidationResult>;
   // TODO: Implement Issue #15
   addFieldValidation(key: string, validation: FieldValidationFunction, eventsFilter?: ValidationEventsFilter): void;
   addFormValidation(validation: FormValidationFunction): void;
@@ -53,7 +53,7 @@ export class ValidationEngine implements IValidationEngine {
       let fieldValidationResults: ValidationResult[] = validationsDispatcher.fireAllFieldsValidations(
         viewModel,
         Object.keys(this.validationsPerField),
-        this.validateSingleField.bind(this)
+        this.fireFieldValidations.bind(this)
       );
 
       // Let's add GlobalFormValidations
@@ -97,14 +97,14 @@ export class ValidationEngine implements IValidationEngine {
     return globalFieldResultValidations;
   }
 
-  triggerFieldValidation(vm: any, key: string, value: any, filters: ValidationEventsFilter = consts.defaultFilter): Promise<FieldValidationResult> {
+  validateField(vm: any, key: string, value: any, filters: ValidationEventsFilter = consts.defaultFilter): Promise<FieldValidationResult> {
     // updated dirty flag and perform validation
     this.isFormChanged = false;
-    return this.validateSingleField(vm, key, value, filters);
+    return this.fireFieldValidations(vm, key, value, filters);
   }
 
   // if filter is null all validations are returned (fullform validation case)
-  private validateSingleField(vm: any, key: string, value: any, filters: ValidationEventsFilter = null): Promise<FieldValidationResult> {
+  private fireFieldValidations(vm: any, key: string, value: any, filters: ValidationEventsFilter = null): Promise<FieldValidationResult> {
     this.asyncValidationInProgressCount++;
 
     const fieldValidationResultPromise = new Promise((resolve, reject) => {
