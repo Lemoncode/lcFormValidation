@@ -1,7 +1,6 @@
 import { ValidationEngine } from '../validationEngine';
 import { FieldValidationResult } from '../entities';
 
-//TODO: Implement Issue #20
 describe('ValidationEngine tests', () => {
   it('should return isFormPristine true after initialization', () => {
     // Arrange
@@ -17,7 +16,7 @@ describe('ValidationEngine tests', () => {
     const viewModel = [{ formFieldName: 'nameId', vmFieldName: 'name' }];
 
     formValidationBase
-      .triggerFieldValidation(viewModel, 'nameId', 'newContent')
+      .validateField(viewModel, 'nameId', 'newContent')
       .then((errors) => {
         // Assert
         expect(formValidationBase.isFormPristine()).to.be.false;
@@ -39,7 +38,7 @@ describe('ValidationEngine tests', () => {
     const viewModel = [{ formFieldName: 'nameId', vmFieldName: 'name' }];
 
     formValidationBase
-      .triggerFieldValidation(viewModel, 'nameId', 'newContent')
+      .validateField(viewModel, 'nameId', 'newContent')
       .then((errors) => {
         // Assert
         expect(formValidationBase.isFormDirty()).to.be.true;
@@ -62,7 +61,7 @@ describe('ValidationEngine tests', () => {
 
     // Act
     formValidationBase
-      .triggerFieldValidation(viewModel, 'nameId', 'newContent')
+      .validateField(viewModel, 'nameId', 'newContent')
       .then((errors) => {
         // Assert
         expect(formValidationBase.isValidationInProgress()).to.be.false;

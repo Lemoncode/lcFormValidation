@@ -40,7 +40,7 @@ export class SampleSignupForm extends React.Component<Props, {}> {
             this.applyFieldValidation(event);
           }}
           onBlur={(event) => {
-            this.applyFieldValidation(event, { OnBlur: true });
+            this.applyFieldValidation(event, { onBlur: true });
           }}
           error={(this.props.errors.login) ? this.props.errors.login.errorMessage : ''} />
 

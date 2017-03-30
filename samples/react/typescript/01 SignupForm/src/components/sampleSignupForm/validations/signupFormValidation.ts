@@ -49,11 +49,11 @@ const signupValidationConstraints: ValidationConstraints = {
     login: [
       {
         validator: Validators.required,
-        eventsFilter: { OnChange: true, OnBlur: true },
+        eventsFilter: { onChange: true, onBlur: true },
       },
       {
         validator: loginExistOnGitHubValidationHandler,
-        eventsFilter: { OnBlur: true }
+        eventsFilter: { onBlur: true }
       },
     ]
   }

@@ -52,11 +52,11 @@ export class BaseFormValidation implements FormValidation {
     }
   }
 
-  private parseFieldValidations(constraint: string, fieldValidationConstraints: FieldValidationConstraint[]) {
+  private parseFieldValidations(field: string, fieldValidationConstraints: FieldValidationConstraint[]) {
     if (fieldValidationConstraints instanceof Array) {
       fieldValidationConstraints.forEach((fieldValidationConstraint) => {
         if (fieldValidationConstraint && typeof fieldValidationConstraint === 'object') {
-          this.addFieldValidation(constraint, fieldValidationConstraint);
+          this.addFieldValidation(field, fieldValidationConstraint);
         }
       });
     }
@@ -73,7 +73,7 @@ export class BaseFormValidation implements FormValidation {
   }
 
   validateField(vm: any, key: string, value: any, eventsFilter?: ValidationEventsFilter): Promise<FieldValidationResult> {
-    return this.validationEngine.triggerFieldValidation(vm, key, value, eventsFilter);
+    return this.validationEngine.validateField(vm, key, value, eventsFilter);
   }
 
   validateForm(vm: any): Promise<FormValidationResult> {

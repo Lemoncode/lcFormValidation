@@ -2,7 +2,6 @@ import { ValidationEngine } from '../validationEngine';
 import { FieldValidationResult, FormValidationResult } from '../entities';
 import { consts } from '../consts';
 
-//TODO: Implement Issue #20
 describe('ValidationEngine Validate Form', () => {
   describe('Group #1 => When calling validateForm and addFieldValidation', () => {
     it('Spec #1 => should return a failed FormValidationResult with one fieldErrors equals ' +
@@ -480,8 +479,8 @@ describe('ValidationEngine Validate Form', () => {
       const vm = { fullname: '' };
 
       // Act
-      validationEngine.addFieldValidation('fullname', validationFn1Spy, { OnChange: true, OnBlur: true });
-      validationEngine.addFieldValidation('fullname', validationFn2Spy, { OnBlur: true });
+      validationEngine.addFieldValidation('fullname', validationFn1Spy, { onChange: true, onBlur: true });
+      validationEngine.addFieldValidation('fullname', validationFn2Spy, { onBlur: true });
       validationEngine.validateForm(vm).then((validationResult) => {
 
         // Assert

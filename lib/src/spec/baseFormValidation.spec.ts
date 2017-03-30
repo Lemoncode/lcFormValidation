@@ -34,10 +34,10 @@ describe('formValidation tests', () => {
       expect(isFormDirty.calledOnce).to.be.true;
     }));
 
-    it('Spec#3 => should have an exposed method "validateField" that calls ValidationEngine.validateSingleField', sinon.test(function () {
+    it('Spec#3 => should have an exposed method "validateField" that calls ValidationEngine.fireFieldValidations', sinon.test(function () {
       // Arrange
       const sinon: sinon.SinonStatic = this;
-      const validateSingleField = sinon.stub(ValidationEngine.prototype, 'validateSingleField', () => { });
+      const fireFieldValidations = sinon.stub(ValidationEngine.prototype, 'fireFieldValidations', () => { });
       const validationConstraints = {};
       const viewModel = {};
       const key = 'fullname';
@@ -49,7 +49,7 @@ describe('formValidation tests', () => {
       formValidation.validateField(viewModel, key, value, eventsFilter);
 
       // Assert
-      expect(validateSingleField.calledOnce).to.be.true;
+      expect(fireFieldValidations.calledOnce).to.be.true;
     }));
 
     it('Spec#4 => should have an exposed method "validateForm" that calls ValidationEngine.validateForm', sinon.test(function () {
@@ -353,7 +353,7 @@ describe('formValidation tests', () => {
       const addFieldValidation = sinon.stub(ValidationEngine.prototype, 'addFieldValidation', () => { });
       const validation1 = () => new FieldValidationResult();
       const customParams = { foo: 'bar' };
-      const eventsFilter = { OnBlur: true };
+      const eventsFilter = { onBlur: true };
       const validationConstraints: ValidationConstraints = {
         fields: {
           property1: [

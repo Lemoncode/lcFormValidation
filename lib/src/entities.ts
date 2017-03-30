@@ -40,11 +40,7 @@ export interface FormValidationFunction {
 }
 
 export interface FieldValidationFunction {
-  (value: any, vm: any, customParams: any): Promise<FieldValidationResult> |ValidationResult;
-}
-
-export interface AsyncFieldValidationFunction {
-  (value: any, vm: any, customParams: any): Promise<FieldValidationResult>;
+  (value: any, vm: any, customParams: any): ValidationResult;
 }
 
 export interface FieldValidationConstraint {
