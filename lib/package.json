@@ -1,7 +1,7 @@
 {
   "name": "lc-form-validation",
-  "version": "0.9.0",
-  "description": "lcFormValidation is form library validation: heavily based on javascript (no html attributes / annotations), async by default. lcFormValidation is third party / framework agnostic, it can be easily integrated with frameworks like React.",
+  "version": "1.0.0-beta.0",
+  "description": "lcFormValidation is an async form validation library heavily based on JavaScript (no HTML attributes or annotations). lcFormValidation is third party / framework agnostic so it can be easily integrated with frameworks like React.",
   "main": "dist/lc-form-validation.js",
   "scripts": {
     "test": "karma start --browsers PhantomJS --single-run",
@@ -15,9 +15,8 @@
   "files": [
     "dist",
     "src",
-    "lcformvalidation.d.ts",
+    "lc-form-validation.d.ts",
     "package.json",
-    "typings.json",
     "README.md",
     "ReadmeResources"
   ],
@@ -57,7 +56,7 @@
     "typescript": "2.2.1",
     "webpack": "2.2.1"
   },
-  "typings": "./lcformvalidation.d.ts",
+  "types": "./lc-form-validation.d.ts",
   "keywords": [
     "validation",
     "form validation",
