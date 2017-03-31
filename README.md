@@ -275,7 +275,7 @@ A simple quiz with three options where there has to be at least one checked opti
 
 ### jQuery examples
 
-#### Shopping form ([ES6](./samples/jquery/00%20Shoppingform))
+#### Shopping form ([ES6](./samples/jquery/00%20ShoppingForm))
 
 A little shopping form where the user has to select a product with a version and optionally apply a discount code and enter its NIF. Validations applied:
 
