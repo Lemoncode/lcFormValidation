@@ -255,7 +255,7 @@ You can see the full documentation in the [github.io page](http://lemoncode.gith
 
 ### React examples
 
-#### Simple form ([ES6](), [TypeScript](./samples/react/00%20SimpleForm))
+#### Simple form ([ES6](./samples/react/es6/00%20SimpleForm)), [TypeScript](./samples/react/typescript/00%20SimpleForm))
 
 A simple form with fullname and password fields. Applied validations:
 
@@ -269,13 +269,13 @@ A sign up form with username, password and confirm password fields with the next
 - password is mandatory and has to be minimum 4 characters length (minLength validator).
 - confirm password is mandatory and has to be the same value as password field (custom validator).
 
-#### Quiz form ([ES6](), [TypeScript](./samples/react/02%20QuizForm))
+#### Quiz form ([ES6](./samples/react/es6/02%20QuizForm)), [TypeScript](./samples/react/typescript/02%20QuizForm))
 
 A simple quiz with three options where there has to be at least one checked option to pass the validation (custom global validation).
 
 ### jQuery examples
 
-#### Shopping form ([ES6](./samples/jquery/Shopping%20form))
+#### Shopping form ([ES6](./samples/jquery/00%20Shoppingform))
 
 A little shopping form where the user has to select a product with a version and optionally apply a discount code and enter its NIF. Validations applied:
 
