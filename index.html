@@ -331,8 +331,14 @@ function onSave(viewModel) {
                 <img class="img-link" src="img/link.svg" alt="(link this)">
               </a>
             </h2>
-            <p>LcFormValidation includes a set of basic validation rules you can use. You can also write
-              <a href="#custom-validators">your own validator functions</a> if you need some specific domain validators.</p>
+            <p>
+              LcFormValidation includes a set of basic validation rules to use in common scenarios. You can also write
+              <a href="#custom-validators">your own validator functions</a> if you need some specific domain validators.
+            </p>
+            <p class="alert alert-info">
+              Note: All validators come with a default message. If you need to override it you cand do it by hand when you catch the
+              <a href="#FieldValidationResult">FieldValidationResult</a>. For i18n support, please see <a href="#i18n">this section</a>.
+            </p>
             <article id="validators-required" class="offset">
               <h3 class="heading">
                 <span>Validators.required</span>
@@ -355,7 +361,7 @@ function onSave(viewModel) {
               <pre class="snippet"><code class="language-js">import { createFormValidation, Validators } from 'lc-form-validation';
 const validationConstraints = {
   fields: {
-    firstname: [
+    firstName: [
       { validator: Validators.required }
     ]
   }
@@ -363,19 +369,23 @@ const validationConstraints = {
 
 const formValidation = createFormValidation(validationConstraints);
 
+// Example of a successful validation
 formValidation
-  .validateField(null, 'firstname', 'John')
+  .validateField(null, 'firstName', 'John')
   .then(validationResult => {
     console.log(validationResult.succeeded); // true
     console.log(validationResult.type); // 'REQUIRED'
+    console.log(validationResult.key); // 'firstName'
     console.log(validationResult.errorMessage); // ''
   });
 
+// Example of a unsuccessful validation
 formValidation
-  .validateField(null, 'firstname', '')
+  .validateField(null, 'firstName', '')
   .then(validationResult => {
     console.log(validationResult.succeeded); // false
     console.log(validationResult.type); // 'REQUIRED'
+    console.log(validationResult.key); // 'firstName'
     console.log(validationResult.errorMessage);
     // 'Please fill in this mandatory field.'
   });</code></pre>
@@ -415,19 +425,23 @@ const validationConstraints = {
 
 const formValidation = createFormValidation(validationConstraints);
 
+// Example of a successful validation
 formValidation
   .validateField(null, 'username', 'jasmine')
   .then(validationResult => {
     console.log(validationResult.succeeded); // true
     console.log(validationResult.type); // 'MIN_LENGTH'
+    console.log(validationResult.key); // 'username'
     console.log(validationResult.errorMessage); // ''
   });
 
+// Example of a unsuccessful validation
 formValidation
   .validateField(null, 'username', 'jax')
   .then(validationResult => {
     console.log(validationResult.succeeded); // false
     console.log(validationResult.type); // 'MIN_LENGTH'
+    console.log(validationResult.key); // 'username'
     console.log(validationResult.errorMessage);
     // 'The value provided must have at least 4 characters.'
   });</code></pre>
@@ -467,19 +481,23 @@ const validationConstraints = {
 
 const formValidation = createFormValidation(validationConstraints);
 
+// Example of a successful validation
 formValidation
   .validateField(null, 'password', 'test1234')
   .then(validationResult => {
     console.log(validationResult.succeeded); // true
     console.log(validationResult.type); // 'MAX_LENGTH'
+    console.log(validationResult.key); // 'password'
     console.log(validationResult.errorMessage); // ''
   });
 
+// Example of a unsuccessful validation
 formValidation
   .validateField(null, 'password', 'loooooongp@s$w0rd')
   .then(validationResult => {
     console.log(validationResult.succeeded); // false
     console.log(validationResult.type); // 'MAX_LENGTH'
+    console.log(validationResult.key); // 'password'
     console.log(validationResult.errorMessage);
     // 'The value provided is too long. Length must not exceed 8 characters.'
   });</code></pre>
@@ -520,6 +538,7 @@ const validationConstraints = {
 
 const formValidation = createFormValidation(validationConstraints);
 
+// Example of a successful validation
 formValidation
   .validateField(null, 'code', 'LC001')
   .then(validationResult => {
@@ -528,11 +547,13 @@ formValidation
     console.log(validationResult.errorMessage); // ''
   });
 
+// Example of a unsuccessful validation
 formValidation
   .validateField(null, 'code', '003a')
   .then(validationResult => {
     console.log(validationResult.succeeded); // false
     console.log(validationResult.type); // 'PATTERN'
+    console.log(validationResult.key); // 'code'
     console.log(validationResult.errorMessage);
     // 'Please provide a valid format.'
   });</code></pre>
@@ -569,19 +590,23 @@ const validationConstraints = {
 
 const formValidation = createFormValidation(validationConstraints);
 
+// Example of a successful validation
 formValidation
   .validateField(viewModel, 'email', 'johndoe@example.com')
   .then(validationResult => {
     console.log(validationResult.succeeded); // true
     console.log(validationResult.type); // 'EMAIL'
+    console.log(validationResult.key); // 'email'
     console.log(validationResult.errorMessage); // ''
   });
 
+// Example of a unsuccessful validation
 formValidation
   .validateField(null, 'email', 'invalidValue')
   .then(validationResult => {
     console.log(validationResult.succeeded); // false
     console.log(validationResult.type); // 'EMAIL'
+    console.log(validationResult.key); // 'email'
     console.log(validationResult.errorMessage);
     // 'Please enter a valid email address.'
   });</code></pre>
@@ -660,6 +685,21 @@ formValidation
               </p>
             </article>
           </section>
+          <section id="i18n" class="offset">
+            <h2 class="heading">
+              <span>i18n support</span>
+              <a href="#validating-form">
+                <img class="img-link" src="img/link.svg" alt="(link this)">
+              </a>
+            </h2>
+            <p>
+              If you need internationalization support you will need to implement a custom service that parse the FieldValidationResult
+              `type` (and optionally `key`) and return the proper message. See this little example:
+              <pre class="snippet"><code class="language-js">
+                </code></pre>
+            </p>
+            </article>
+          </section>
           <section id="api" class="offset">
             <h2 class="heading">
               <span>API</span>
@@ -694,7 +734,7 @@ formValidation
                 <a href="#validateField"><code>validateField</code></a> named <code>key</code> that will hold the field name
                 to distinguish which field the validation was made.
               </p>
-              <p class="alert alert-info">Note: you can use a plain object as validation result without extend FieldValidationResult class.</p>
+              <p class="alert alert-info">Note: You can use a plain object as validation result without extending the FieldValidationResult class.</p>
               <h4>Example of a FieldValidationResult</h4>
               <pre class="snippet"><code class="language-js">{
   succeeded: false,
@@ -1053,7 +1093,8 @@ formValidation
               </a>
             </h2>
             <p>
-              This library follows <a href="//semver.org/">Semantic Versioning</a> system. Every release is documented on the
+              This library follows <a href="//semver.org/">Semantic Versioning</a> system. Every release is documented on
+              the
               <a href="//github.com/Lemoncode/lcFormValidation/releases">Releases</a> section.
             </p>
           </section>
@@ -1090,6 +1131,7 @@ formValidation
                 </ul>
               </li>
               <li><a href="#custom-validators">Custom validator</a></li>
+              <li><a href="#i18n">i18n support</a></li>
               <li>
                 <a href="#api">API</a>
                 <ul class="nav">
