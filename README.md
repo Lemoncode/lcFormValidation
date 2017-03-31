@@ -261,7 +261,7 @@ A simple form with fullname and password fields. Applied validations:
 
 - Both fullname and password fields are mandatory (required validator + custom validator).
 
-#### Signup form ([ES6](), [TypeScript](./samples/react/01%20SignupForm))
+#### Signup form ([ES6](./samples/react/es6/01%20SignupForm)), [TypeScript](./samples/react/typescript/01%20SignupForm))
 
 A sign up form with username, password and confirm password fields with the next validation constraints:
 
