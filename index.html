@@ -49,8 +49,8 @@
           </p>
           <p>
             LcFormValidation is licensed under
-            <a href="//raw.githubusercontent.com/Lemoncode/lcFormValidation/master/LICENSE">MIT software license</a> being
-            an open-source component of <a href="//lemoncode.net/">Lemoncode</a>.
+            <a href="//raw.githubusercontent.com/Lemoncode/lcFormValidation/master/LICENSE" target="_blank">MIT software license</a> being
+            an open-source component of <a href="//lemoncode.net" target="_blank">Lemoncode</a>.
           </p>
           <ul class="features">
             <li>Heavily JavaScript based (no HTML attributes).</li>
@@ -78,7 +78,7 @@
               <div class="row">
                 <div class="col-sm-12 download">
                   <div class="col-sm-4">
-                    <a href="//unpkg.com/lc-form-validation@0.1.7/dist/lc-form-validation.min.js" role="button" class="btn btn-primary btn-block">v1.0.0 production version</a>
+                    <a href="//unpkg.com/lc-form-validation@latest/dist/lc-form-validation.min.js" target="_blank" role="button" class="btn btn-primary btn-block">v1.0.0 production version</a>
                   </div>
                   <div class="col-sm-4">
                     <span class="download-description">21,3KB minified, packed</span>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-sm-12 download">
                   <div class="col-sm-4">
-                    <a href="//unpkg.com/lc-form-validation@0.1.7/dist/lc-form-validation.js" role="button" class="btn btn-default btn-block">v1.0.0 development version</a>
+                    <a href="//unpkg.com/lc-form-validation@latest/dist/lc-form-validation.js" target="_blank" role="button" class="btn btn-default btn-block">v1.0.0 development version</a>
                   </div>
                   <div class="col-sm-4">
                     <span class="download-description">71KB, full source</span>
@@ -139,17 +139,20 @@ import { createFormValidation } from 'lc-form-validation';
                 </a>
               </h3>
               <article>
-                <h4>Simple form</h4>
+                <h4>
+                  Simple form (<a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/es6/00%20SimpleForm" target="_blank">ES6</a>,
+                  <a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/typescript/00%20SimpleForm" target="_blank">TypeScript</a>)
+                </h4>
                 <p>A simple form with fullname and password fields. Applied validations:</p>
                 <ul>
                   <li>both fullname and password fields are mandatory (<a href="#validators-required"><code>required</code></a>                    validator + custom validator).</li>
                 </ul>
-                <p>
-                  <a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/00%20SimpleForm" target="_blank">View source code</a>
-                </p>
               </article>
               <article>
-                <h4>Signup form</h4>
+                <h4>
+                  Signup form (<a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/es6/01%20SignupForm" target="_blank">ES6</a>,
+                  <a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/typescript/01%20SignupForm" target="_blank">TypeScript</a>)
+                </h4>
                 <p>
                   A sign up form with username, password and confirm password fields with the next validation constraints:
                 </p>
@@ -159,17 +162,16 @@ import { createFormValidation } from 'lc-form-validation';
                   <li>confirm password is mandatory and has to be the same value as password field (custom validator).</li>
                 </ul>
                 <p>
-                  <a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/01%20SignupForm" target="_blank">View source code</a>
                 </p>
               </article>
               <article>
-                <h4>Quiz form</h4>
+                <h4>
+                  Quiz form (<a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/es6/02%20QuizForm" target="_blank">ES6</a>,
+                  <a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/typescript/02%20QuizForm" target="_blank">TypeScript</a>)
+                </h4>
                 <p>
                   A simple quiz with three options where there has to be at least one checked option to pass the validation (custom global
                   validation).
-                </p>
-                <p>
-                  <a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/react/02%20QuizForm" target="_blank">View source code</a>
                 </p>
               </article>
             </section>
@@ -181,7 +183,9 @@ import { createFormValidation } from 'lc-form-validation';
                 </a>
               </h3>
               <article>
-                <h4>Shopping form</h4>
+                <h4>
+                  Shopping form (<a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/jquery/00%20ShoppingForm" target="_blank">ES6</a>)
+                </h4>
                 <p>
                   A little shopping form where the user has to select a product with a version and optionally apply a discount code and enter
                   its NIF. Validations applied:
@@ -195,7 +199,6 @@ import { createFormValidation } from 'lc-form-validation';
                     NIF field is mandatory with a valid format (<a href="#validators-required"><code>required</code></a>                    validator + custom validator
                   </li>
                 </ul>
-                <p><a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/" target="_blank">View source code</a></p>
               </article>
             </section>
           </section>
@@ -237,7 +240,7 @@ const validationConstraints = {
     ]
   }
 };</code></pre>
-              <p>Then create an instance of a <a href="#FormValidation"><code>FormValidation</code></a>:</p>
+              <p>Then create an instance of a <a href="#validateForm"><code>FormValidation</code></a>:</p>
               <pre class="snippet"><code class="language-js">// create a form validation instance
 const formValidation = createFormValidation(validationConstraints);</code></pre>
               <p>Finally apply validation when your data needs to be validate (e.g. a submit event handler):</p>
@@ -511,12 +514,12 @@ formValidation
               </h3>
               <p>
                 The <strong>pattern</strong> validator will check if the value matches a regular expresion given in <code>customParams.pattern</code>                option. This regular expression can be either a
-                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a>                instance or a string. It's important to mention that <code><strong>flags</strong></code> in string patterns
+                <a href="//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp" target="_blank">RegExp</a>                instance or a string. It's important to mention that <code><strong>flags</strong></code> in string patterns
                 are not supported.
               </p>
               <p>
                 If you need flags in string patterns you can use the
-                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp constructor</a>.
+                <a href="//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp" target="_blank">RegExp constructor</a>.
               </p>
               <p>
                 <strong>Important!</strong> You must always provide<code>customParams.pattern</code>. In case it is not provided
@@ -567,7 +570,7 @@ formValidation
               </h3>
               <p>
                 The email validator will check if the given string value is a valid email address. LcFormValidation's email validator uses
-                a RegExp provided by <a href="//emailregex.com">emailregex.com</a> that follows RFC 5322
+                a RegExp provided by <a href="//emailregex.com" target="_blank">emailregex.com</a> that follows RFC 5322
                 Official Standard since email address validation is hard to implement and there is not an unique source of
                 truth. If this email validator doesn't meet your requirements you can write your
                 <a href="#custom-validators">custom validator</a>.
@@ -631,7 +634,7 @@ formValidation
               <pre class="snippet"><code class="language-ts">function myValidator(value: any, vm: any, customParams: any): FieldValidationResult</code></pre>
               <h4>Example of a <strong>synchronous</strong> field validator</h4>
               <p>This example shows a validator that needs to check if a given date is before today using
-                <a href="//momentjs.com">Moment.js</a>:</p>
+                <a href="//momentjs.com" target="_blank">Moment.js</a>:</p>
               <pre class="snippet"><code class="lang-js">function isDatePriorToCurrentDate(value, vm, customParams) {
   const yesterday = moment().substract(1, 'days').startOf('day');
   const selectedDate = moment(value);
@@ -652,7 +655,7 @@ formValidation
               </p>
               <pre class="snippet"><code class="language-ts">function myValidator(value: any, vm: any, customParams: any):Promise&lt;FieldValidationResult&gt;</code></pre>
               <h4>Example of an <strong>asynchronous</strong> field validator</h4>
-              <p>This example validates if the given user <strong>does not exist</strong> in <a href="//github.com">GitHub</a>:</p>
+              <p>This example validates if the given user <strong>does not exist</strong> in <a href="//github.com" target="_blank">GitHub</a>:</p>
               <pre class="snippet"><code class="lang-js">function userExistsOnGitHubValidator(value, vm, customParams) {
   const errorMessage = `The username "${value}" already exists`;
   const validationResult = new FieldValidationResult();
@@ -681,7 +684,7 @@ formValidation
 }</code></pre>
               <p class="alert alert-info">
                 Note: This is a basic example, consider using helpers to modularize your code and follow the
-                <a href="//en.wikipedia.org/wiki/Single_responsibility_principle">Single Responsability Principle</a>.
+                <a href="//en.wikipedia.org/wiki/Single_responsibility_principle" target="_blank">Single Responsability Principle</a>.
               </p>
             </article>
           </section>
@@ -695,9 +698,97 @@ formValidation
             <p>
               If you need internationalization support you will need to implement a custom service that parse the FieldValidationResult
               `type` (and optionally `key`) and return the proper message. See this little example:
-              <pre class="snippet"><code class="language-js">
-                </code></pre>
             </p>
+            <p>Create a i18n service (or use yours):</p>
+            <pre class="snippet"><code class="language-js">// ./i18n/es_ES.js
+export default {
+  'CUSTOMERFORM.PATTERN.phone': 'Please, enter a valid phone number.'
+};
+
+// ./i18n/es_ES.js
+export default {
+  'CUSTOMERFORM.PATTERN.phone': 'Por favor, introduzca un número de teléfono válido.'
+};
+
+// ./i18n/kr_KO.js
+export default {
+  'CUSTOMERFORM.PATTERN.phone': '유효한 전화 번호를 입력합니다.'
+};
+
+// ./i18n/i18n.js
+import en_US from './i18n/en_US';
+import es_ES from './i18n/es_ES';
+import kr_KO from './i18n/kr_KO.js';
+
+const SUPPORTED_LOCALES = {
+  en_US,
+  es_ES,
+  kr_KO,
+};
+
+// Accept a locale and return the translation function
+export function i18n(locale) {
+  if (!SUPPORTED_LOCALES[locale]) {
+    throw new Error(`Locale ${locale} is not supported`);
+  }
+
+  // Accept a dictionary key and return the message or null;
+  return function (key) {
+    return SUPPORTED_LOCALES[locale][key] || null;
+  }
+}</code></pre>
+            <p class="alert alert-info">
+              Note: This is a very basic example. You may have your dictionaries in JSON files and request them when the user changes the
+              language.
+            </p>
+            <p>Create a form validation instance that uses the service</p>
+            <pre class="snippet"><code class="language-js">import { i18n } from './i18n/i18n';
+import { createFormValidation, Validators } from 'lc-form-validation';
+
+// get language and invoke service
+const locale = localStorage.getItem('app.i18n.lang'); // "es_ES"
+const translate = i18n(locale); //
+
+// Define validation constraints
+const customerFormValidationConstraints = {
+  fields: {
+    phone: [
+      {
+        validator: Validators.pattern,
+        customParams: { pattern: /^\d{3}((((?:)\s?)\d{2}){3}|(((?:)\s?)\d{3}){2})$/ }
+      },
+    ],
+  }
+};
+
+// create a FormValidation instance
+const customerFormValidation = createFormValidation(customerFormValidationConstraints);
+
+// Validate field
+customerFormValidation
+  .validateField(null, 'phone', '698 52 01 47')
+  .then((validationResult) => {
+    if (!validationResult.succeded) {
+      // set translation
+      const { key, type } = validationResult;
+      const i18nKey = getI18nKey(type, key);
+      validationResult.errorMessage = translate(i18nKey);
+      // "Por favor, introduzca un número de teléfono válido."
+
+      // Handle unsuccessful validation
+      handleUnsuccessfulValidation(validationResult);
+    }
+  })
+  .catch((error) => {
+    // handle unexpected error
+  });
+
+// Get dictionary key for CUSTOMERFORM namespace
+function getI18nKey(type, field) {
+  return `CUSTOMERFORM.${type}.${field}`;
+}
+
+function handleUnsuccessfulValidation(validationResult) { /* .... */ };</code></pre>
             </article>
           </section>
           <section id="api" class="offset">
@@ -752,7 +843,7 @@ formValidation
               </h3>
               <p>
                 FormValidationResult is an global validation result returned by
-                <a href="#FormValidation:validateForm"><code>validateForm</code></a>. It has three main properties:
+                <a href="#validateForm"><code>validateForm</code></a>. It has three main properties:
               </p>
               <ul>
                 <li><code>succeeded</code> <em>boolean</em> - The result of the entire form validation.</li>
@@ -788,7 +879,7 @@ formValidation
               <p>
                 It validates the entire viewModel passed as argument triggering all field and global validations previously defined in
                 <a href="#ValidationConstraint"><code>validationConstraints</code></a>. Field validations are proxied to
-                <a href="#FormValidation:validateField"><code>validateField</code></a> and global validations are executed.
+                <a href="#validateField"><code>validateField</code></a> and global validations are executed.
               </p>
               <p>
                 When all validations are executed they're merged in a
@@ -1093,9 +1184,9 @@ formValidation
               </a>
             </h2>
             <p>
-              This library follows <a href="//semver.org/">Semantic Versioning</a> system. Every release is documented on
+              This library follows <a href="//semver.org" target="_blank">Semantic Versioning</a> system. Every release is documented on
               the
-              <a href="//github.com/Lemoncode/lcFormValidation/releases">Releases</a> section.
+              <a href="//github.com/Lemoncode/lcFormValidation/releases" target="_blank">Releases</a> section.
             </p>
           </section>
         </main>
