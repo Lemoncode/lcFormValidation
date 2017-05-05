@@ -1,4 +1,4 @@
-import {RecipeEntity} from '../../model/recipe';
+import {RecipeEntity} from '../../model';
 
 export const mockRecipes: RecipeEntity[] = [
   {

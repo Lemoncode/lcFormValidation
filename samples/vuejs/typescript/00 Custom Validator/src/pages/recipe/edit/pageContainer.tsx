@@ -1,6 +1,5 @@
 import Vue, {ComponentOptions} from 'vue';
-import {RecipeEntity} from '../../../model/recipe';
-import {RecipeError} from '../../../model/recipeError';
+import {RecipeEntity, RecipeError} from '../../../model';
 import {recipeAPI} from '../../../api/recipe';
 import {EditRecipePage} from './page';
 import {router} from '../../../router';

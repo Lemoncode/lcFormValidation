@@ -1,9 +1,7 @@
 import Vue, {ComponentOptions} from 'vue';
-import {RecipeEntity} from '../../../model/recipe';
-import {RecipeError} from '../../../model/recipeError';
+import {RecipeEntity, RecipeError} from '../../../model';
 import {
-  ValidationComponent, InputComponent, InputButtonComponent,
-  TextareaComponent
+  ValidationComponent, InputComponent, InputButtonComponent
 } from '../../../common/components/form';
 import {IngredientListComponent} from './ingredientList';
 

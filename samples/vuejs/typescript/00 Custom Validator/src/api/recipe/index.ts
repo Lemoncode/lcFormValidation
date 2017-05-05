@@ -1,4 +1,4 @@
-import {RecipeEntity} from '../../model/recipe';
+import {RecipeEntity} from '../../model';
 import {mockRecipes} from './mockData';
 
 let recipes = mockRecipes;
