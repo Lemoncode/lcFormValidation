@@ -5,9 +5,7 @@ import {
 } from '../../../../common/components/form';
 import {IngredientListComponent} from './ingredientList';
 
-const classNames: any = require('./formStyles');
-
-interface FormComponentProperties extends Vue {
+interface FormComponentOptions extends Vue {
   recipe: RecipeEntity;
   recipeError: RecipeError;
   updateRecipe: (name) => void;
@@ -27,11 +25,9 @@ export const FormComponent = Vue.extend({
     'removeIngredient',
     'save',
   ],
-  data: function() {
-    return {
-      ingredient: ''
-    }
-  },
+  data: () => ({
+    ingredient: ''
+  }),
   methods: {
     addIngredientHandler: function(e) {
       e.preventDefault();
@@ -94,4 +90,4 @@ export const FormComponent = Vue.extend({
       </form>
     );
   },
-} as ComponentOptions<FormComponentProperties>);
+} as ComponentOptions<FormComponentOptions>);

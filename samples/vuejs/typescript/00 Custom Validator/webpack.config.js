@@ -8,7 +8,7 @@ var basePath = __dirname;
 module.exports = {
   context: path.join(basePath, 'src'),
   resolve: {
-    extensions: ['.js', '.ts', '.tsx', '.css'],
+    extensions: ['.js', '.ts', '.tsx'],
   },
   entry: {
     app: './main.tsx',
@@ -39,22 +39,6 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: /node_modules/,
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: {
-            loader: 'css-loader',
-            options: {
-              module: true,
-              localIdentName: '[name]__[local]___[hash:base64:5]',
-              camelCase: true,
-            }
-          },
-        }),
-      },
-      {
-        test: /\.css$/,
-        include: /node_modules/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: {

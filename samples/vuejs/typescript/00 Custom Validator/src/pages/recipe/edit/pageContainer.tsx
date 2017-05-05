@@ -86,6 +86,10 @@ export const EditRecipeContainer = Vue.extend({
         .then((result) => {
           result.fieldErrors
             .map((error) => this.updateRecipeError(error.key, error));
+
+          if(result.succeeded) {
+            console.log('Save recipe');
+          }
         });
     },
   }

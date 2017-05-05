@@ -1,5 +1,10 @@
-import Vue from 'vue';
+import Vue, {ComponentOptions} from 'vue';
 import {IngredientRowComponent} from './ingredientRow';
+
+interface Props extends Vue {
+  ingredients: string[];
+  removeIngredient: (ingredient) => void;
+}
 
 export const IngredientListComponent = Vue.extend({
   props: [
@@ -23,4 +28,4 @@ export const IngredientListComponent = Vue.extend({
       </div>
     );
   },
-});
+} as ComponentOptions<Props>);
