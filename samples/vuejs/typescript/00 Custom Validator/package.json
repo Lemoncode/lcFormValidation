@@ -1,7 +1,7 @@
 {
   "name": "sample-vue-js",
   "version": "1.0.0",
-  "description": "Sample working with TypeScript and Webpack",
+  "description": "Sample working with VueJS and lc-form-validation",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
@@ -9,20 +9,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lemoncode/vuejs-by-sample.git"
+    "url": "git+https://github.com/Lemoncode/lcFormValidation.git"
   },
   "keywords": [
     "vue.js",
     "samples",
     "typescript",
-    "webpack"
+    "webpack",
+    "lc-form-validation"
   ],
   "author": "Lemoncode",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Lemoncode/vuejs-by-sample/issues"
+    "url": "https://github.com/Lemoncode/lcFormValidation/issues"
   },
-  "homepage": "https://github.com/Lemoncode/vuejs-by-sample#readme",
+  "homepage": "https://github.com/Lemoncode/lcFormValidation#readme",
   "devDependencies": {
     "@types/webpack-env": "^1.13.0",
     "awesome-typescript-loader": "^3.1.2",
