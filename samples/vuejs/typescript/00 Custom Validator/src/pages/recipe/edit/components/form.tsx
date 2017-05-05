@@ -10,7 +10,7 @@ const classNames: any = require('./formStyles');
 interface FormComponentProperties extends Vue {
   recipe: RecipeEntity;
   recipeError: RecipeError;
-  updateRecipe: (field, value) => void;
+  updateRecipe: (name) => void;
   addIngredient: (ingredient) => void;
   removeIngredient: (ingredient) => void;
   save: () => void;
@@ -53,7 +53,7 @@ export const FormComponent = Vue.extend({
               label="Name"
               name="name"
               value={this.recipe.name}
-              inputHandler={(e) => { this.updateRecipe('name', e.target.value)}}
+              inputHandler={(e) => { this.updateRecipe(e.target.value)}}
             />
           </ValidationComponent>
         </div>
