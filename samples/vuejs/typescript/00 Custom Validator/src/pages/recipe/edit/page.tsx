@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import {FormComponent} from './form';
+import {FormComponent} from './components';
 
 export const EditRecipePage = Vue.extend({
   props: [

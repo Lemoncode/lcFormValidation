@@ -1,7 +1,7 @@
 import {
   ValidationConstraints, createFormValidation, Validators
 } from 'lc-form-validation';
-import {hasItems} from './arrayValidation';
+import {hasItems} from '../../../../common/validations/arrayValidation';
 
 const constraints: ValidationConstraints = {
   fields: {

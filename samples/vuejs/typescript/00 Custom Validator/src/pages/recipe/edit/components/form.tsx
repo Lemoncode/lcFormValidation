@@ -1,8 +1,8 @@
 import Vue, {ComponentOptions} from 'vue';
-import {RecipeEntity, RecipeError} from '../../../model';
+import {RecipeEntity, RecipeError} from '../../../../model';
 import {
   ValidationComponent, InputComponent, InputButtonComponent
-} from '../../../common/components/form';
+} from '../../../../common/components/form';
 import {IngredientListComponent} from './ingredientList';
 
 const classNames: any = require('./formStyles');
