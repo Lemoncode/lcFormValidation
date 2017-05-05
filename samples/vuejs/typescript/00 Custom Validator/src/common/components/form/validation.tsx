@@ -1,4 +1,10 @@
-import Vue from 'vue';
+import Vue, {ComponentOptions} from 'vue';
+
+interface Props extends Vue {
+  hasError: boolean;
+  errorMessage: string;
+  className: string;
+}
 
 export const ValidationComponent = Vue.extend({
   props: [
@@ -22,4 +28,4 @@ export const ValidationComponent = Vue.extend({
       </div>
     );
   },
-});
+} as ComponentOptions<Props>);

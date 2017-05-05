@@ -1,4 +1,14 @@
-import Vue from 'vue';
+import Vue, {ComponentOptions} from 'vue';
+
+interface Props extends Vue {
+  className: string;
+  placeholder: string;
+  type: string;
+  value: any;
+  inputHandler: (event) => void;
+  label: string;
+  name: string;
+}
 
 export const InputComponent = Vue.extend({
   props: [
@@ -27,4 +37,4 @@ export const InputComponent = Vue.extend({
       </div>
     );
   },
-});
+} as ComponentOptions<Props>);
