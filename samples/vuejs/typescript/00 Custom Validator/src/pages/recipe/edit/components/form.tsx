@@ -1,0 +1,93 @@
+import Vue, {ComponentOptions} from 'vue';
+import {RecipeEntity, RecipeError} from '../../../../model';
+import {
+  ValidationComponent, InputComponent, InputButtonComponent
+} from '../../../../common/components/form';
+import {IngredientListComponent} from './ingredientList';
+
+interface FormComponentOptions extends Vue {
+  recipe: RecipeEntity;
+  recipeError: RecipeError;
+  updateRecipe: (name) => void;
+  addIngredient: (ingredient) => void;
+  removeIngredient: (ingredient) => void;
+  save: () => void;
+  ingredient: string;
+  addIngredientHandler: (event) => void;
+}
+
+export const FormComponent = Vue.extend({
+  props: [
+    'recipe',
+    'recipeError',
+    'updateRecipe',
+    'addIngredient',
+    'removeIngredient',
+    'save',
+  ],
+  data: () => ({
+    ingredient: ''
+  }),
+  methods: {
+    addIngredientHandler: function(e) {
+      e.preventDefault();
+      if(this.ingredient) {
+        this.addIngredient(this.ingredient);
+      }
+    },
+  },
+  render: function(h) {
+    return (
+      <form class="container">
+        <div class="row">
+          <ValidationComponent
+            hasError={!this.recipeError.name.succeeded}
+            errorMessage={this.recipeError.name.errorMessage}
+          >
+            <InputComponent
+              type="text"
+              label="Name"
+              name="name"
+              value={this.recipe.name}
+              inputHandler={(e) => { this.updateRecipe(e.target.value)}}
+            />
+          </ValidationComponent>
+        </div>
+        <div class="row">
+          <InputButtonComponent
+            label="Ingredients"
+            type="text"
+            placeholder="Add ingredient"
+            value={this.ingredient}
+            inputHandler={(e) => { this.ingredient = e.target.value}}
+            buttonText="Add"
+            buttonClassName="btn btn-primary"
+            buttonClickHandler={this.addIngredientHandler}
+          />
+        </div>
+        <div class="row">
+          <ValidationComponent
+            hasError={!this.recipeError.ingredients.succeeded}
+            errorMessage={this.recipeError.ingredients.errorMessage}
+          >
+            <IngredientListComponent
+              ingredients={this.recipe.ingredients}
+              removeIngredient={this.removeIngredient}
+            />
+          </ValidationComponent>
+        </div>
+        <div class="row">
+          <div class="form-group pull-right">
+            <button
+              type="button"
+              class="btn btn-lg btn-success"
+              onClick={this.save}
+              >
+                Save
+              </button>
+          </div>
+        </div>
+      </form>
+    );
+  },
+} as ComponentOptions<FormComponentOptions>);
