@@ -399,7 +399,7 @@ describe('ValidationsDispatcher', () => {
           });
       });
 
-    it('Spec #11 => should return empty FieldValidationResult and calls to validation functions ' +
+    it('Spec #12 => should return empty FieldValidationResult and calls to validation functions ' +
       'When passing vm equals undefined, value equals undefined and validationsPerField equals array with one item ' +
       'equals validation function resolving a fieldValidationResult equals ""', (done) => {
         //Arrange
@@ -433,7 +433,7 @@ describe('ValidationsDispatcher', () => {
           });
       });
 
-    it('Spec #12 => should return undefined FieldValidationResult and calls to first validation function ' +
+    it('Spec #13 => should return undefined FieldValidationResult and calls to first validation function ' +
       'When passing vm equals undefined, value equals undefined and validationsPerField equals array with two items ' +
       'first equals validation function resolving a fieldValidationResult equals undefined' +
       'second equals successful validation function', (done) => {
@@ -484,7 +484,7 @@ describe('ValidationsDispatcher', () => {
           });
       });
 
-    it('Spec #13 => should return undefined FieldValidationResult and calls to first validation function ' +
+    it('Spec #14 => should return undefined FieldValidationResult and calls to first validation function ' +
       'When passing vm equals undefined, value equals undefined and validationsPerField equals array with two items ' +
       'first equals validation function resolving a fieldValidationResult equals undefined' +
       'second equals failed validation function', (done) => {
@@ -534,7 +534,7 @@ describe('ValidationsDispatcher', () => {
           });
       });
 
-    it('Spec #14 => should return failed and key equals "test1" FieldValidationResult and calls to first validation function ' +
+    it('Spec #15 => should return failed and key equals "test1" FieldValidationResult and calls to first validation function ' +
       'When passing vm equals undefined, value equals undefined and validationsPerField equals array with two items ' +
       'first equals failed validation function' +
       'second equals validation function resolving a fieldValidationResult equals undefined', (done) => {
@@ -586,7 +586,7 @@ describe('ValidationsDispatcher', () => {
           });
       });
 
-    it('Spec #15 => should return undefined FieldValidationResult and calls to first and second validation functions ' +
+    it('Spec #16 => should return undefined FieldValidationResult and calls to first and second validation functions ' +
       'When passing vm equals undefined, value equals undefined and validationsPerField equals array with two items ' +
       'first equals successful validation function' +
       'second equals validation function resolving a fieldValidationResult equals undefined', (done) => {
@@ -636,7 +636,7 @@ describe('ValidationsDispatcher', () => {
           });
       });
 
-    it('should pass customParams to its proper validationFunction', (done) => {
+    it('Spec #17 => should pass customParams to its proper validationFunction', (done) => {
       //Arrange
       const vm = undefined;
       const value = undefined;
@@ -800,7 +800,7 @@ describe('ValidationsDispatcher', () => {
       });
 
     it('Spec #9 => should return empty array and should not call to validationFn ' +
-      'when passing vm equals { }, vmKeys as non empty array and validationFn equals function', () => {
+      'when passing vm equals { testVmProperty: "" }, vmKeys equals ["otherProperty"] and validationFn equals function', () => {
         //Arrange
         const vm = {
           testVmProperty: ''
@@ -816,13 +816,32 @@ describe('ValidationsDispatcher', () => {
         expect(validationFnSpy.called).to.be.false;
       });
 
-    it('Spec #10 => should not return empty array with one item and it calls to validationFn ' +
-      'when passing vm equals { testVmProperty: "test" }, vmKeys equals [] and validationFn equals function', () => {
+    it('Spec #10 => should return array with one item and it calls to validationFn ' +
+      'when passing vm equals { testVmProperty: "test" }, vmKeys equals [testVmProperty] and validationFn equals function', () => {
         //Arrange
         const vm = {
           testVmProperty: 'test'
         };
         const vmKeys = ['testVmProperty'];
+        const validationFnSpy = sinon.spy();
+
+        //Act
+        const fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, vmKeys, validationFnSpy);
+
+        //Ass
+        expect(fieldValidationResultPromises).to.have.length(1);
+        expect(validationFnSpy.called).to.be.true;
+      });
+
+    it('Spec #11 => should return array with one item and it calls to validationFn ' +
+      'when passing vm equals { test: { property: "test"} }, vmKeys equals ["test.property"] and validationFn equals function', () => {
+        //Arrange
+        const vm = {
+          test: {
+            property: 'test',
+          },
+        };
+        const vmKeys = ['test.property'];
         const validationFnSpy = sinon.spy();
 
         //Act
@@ -957,7 +976,7 @@ describe('ValidationsDispatcher', () => {
     it('Spec #9 => should return array with one item and it calls to validationFn' +
       'When passing vm equals function, validations equals array with one validationFn', () => {
         //Arrange
-        const vm = function () {
+        const vm = function() {
           return "this is a function";
         };
         const validationFnSpy = sinon.spy();
