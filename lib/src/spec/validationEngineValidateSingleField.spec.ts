@@ -133,4 +133,89 @@ describe('lcFormValidation simple form', () => {
     expect(promise).to.eventually.be.rejected.and.notify(done);
   });
 
+  it('should pass validation when feeding viewModel with nested properties, value equals "john" and validation required',
+    (done) => {
+      // Arrange
+      const formValidationBase: ValidationEngine = new ValidationEngine();
+      const viewModel = {
+        id: '1',
+        fullname: {
+          firstName: '',
+          secondName: 'doe',
+        },
+      };
+
+      const value = 'john';
+
+      // Act
+      formValidationBase.addFieldValidation('fullname.firstName',
+        (value, vm): Promise<FieldValidationResult> => {
+          let isFieldInformed: boolean = (value != null && value.length > 0);
+
+          let errorInfo: string = (isFieldInformed) ? "" : "Mandatory field";
+
+          const validationResult: FieldValidationResult = new FieldValidationResult();
+          validationResult.type = "REQUIRED";
+          validationResult.succeeded = isFieldInformed;
+          validationResult.errorMessage = errorInfo;
+
+          return Promise.resolve(validationResult);
+        }
+      );
+
+      formValidationBase
+        .validateField(viewModel, 'fullname.firstName', value)
+        .then((fieldValidationResult: FieldValidationResult) => {
+
+          // Assert
+          expect(fieldValidationResult.key).to.be.equal('fullname.firstName');
+          expect(fieldValidationResult.type).to.equal('REQUIRED');
+          expect(fieldValidationResult.succeeded).to.be.true;
+          expect(fieldValidationResult.errorMessage).to.be.empty;
+          done();
+        });
+    });
+
+  it('should fail validation when feeding viewModel with nested properties, value equals "" and validation required',
+    (done) => {
+      // Arrange
+      const formValidationBase: ValidationEngine = new ValidationEngine();
+      const viewModel = {
+        id: '1',
+        fullname: {
+          firstName: '',
+          secondName: 'doe',
+        },
+      };
+
+      const value = '';
+
+      // Act
+      formValidationBase.addFieldValidation('fullname.firstName',
+        (value, vm): Promise<FieldValidationResult> => {
+          let isFieldInformed: boolean = (value != null && value.length > 0);
+
+          let errorInfo: string = (isFieldInformed) ? "" : "Mandatory field";
+
+          const validationResult: FieldValidationResult = new FieldValidationResult();
+          validationResult.type = "REQUIRED";
+          validationResult.succeeded = isFieldInformed;
+          validationResult.errorMessage = errorInfo;
+
+          return Promise.resolve(validationResult);
+        }
+      );
+
+      formValidationBase
+        .validateField(viewModel, 'fullname.firstName', value)
+        .then((fieldValidationResult: FieldValidationResult) => {
+
+          // Assert
+          expect(fieldValidationResult.key).to.be.equal('fullname.firstName');
+          expect(fieldValidationResult.type).to.equal('REQUIRED');
+          expect(fieldValidationResult.succeeded).to.be.false;
+          expect(fieldValidationResult.errorMessage).to.equal('Mandatory field');
+          done();
+        });
+    });
 });
