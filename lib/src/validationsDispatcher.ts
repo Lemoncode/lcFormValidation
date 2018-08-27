@@ -75,7 +75,6 @@ export class ValidationDispatcher {
     if (this.areParametersDefined(vm, validationFn)) {
       fieldsToValidate.forEach((field) => {
         const vmFieldValue = get(vm, field, undefined);
-        //const vmFieldValue = vm[field];
         if (vmFieldValue !== undefined) {
           const fieldValidationResultsPromise = validationFn(vm, field, vmFieldValue);
           fieldValidationResultsPromises.push(fieldValidationResultsPromise);

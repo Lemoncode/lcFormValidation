@@ -800,7 +800,7 @@ describe('ValidationsDispatcher', () => {
       });
 
     it('Spec #9 => should return empty array and should not call to validationFn ' +
-      'when passing vm equals { }, vmKeys as non empty array and validationFn equals function', () => {
+      'when passing vm equals { testVmProperty: "" }, vmKeys equals ["otherProperty"] and validationFn equals function', () => {
         //Arrange
         const vm = {
           testVmProperty: ''
@@ -816,13 +816,32 @@ describe('ValidationsDispatcher', () => {
         expect(validationFnSpy.called).to.be.false;
       });
 
-    it('Spec #10 => should not return empty array with one item and it calls to validationFn ' +
-      'when passing vm equals { testVmProperty: "test" }, vmKeys equals [] and validationFn equals function', () => {
+    it('Spec #10 => should return array with one item and it calls to validationFn ' +
+      'when passing vm equals { testVmProperty: "test" }, vmKeys equals [testVmProperty] and validationFn equals function', () => {
         //Arrange
         const vm = {
           testVmProperty: 'test'
         };
         const vmKeys = ['testVmProperty'];
+        const validationFnSpy = sinon.spy();
+
+        //Act
+        const fieldValidationResultPromises = validationsDispatcher.fireAllFieldsValidations(vm, vmKeys, validationFnSpy);
+
+        //Ass
+        expect(fieldValidationResultPromises).to.have.length(1);
+        expect(validationFnSpy.called).to.be.true;
+      });
+
+    it('Spec #11 => should return array with one item and it calls to validationFn ' +
+      'when passing vm equals { test: { property: "test"} }, vmKeys equals ["test.property"] and validationFn equals function', () => {
+        //Arrange
+        const vm = {
+          test: {
+            property: 'test',
+          },
+        };
+        const vmKeys = ['test.property'];
         const validationFnSpy = sinon.spy();
 
         //Act
@@ -957,7 +976,7 @@ describe('ValidationsDispatcher', () => {
     it('Spec #9 => should return array with one item and it calls to validationFn' +
       'When passing vm equals function, validations equals array with one validationFn', () => {
         //Arrange
-        const vm = function () {
+        const vm = function() {
           return "this is a function";
         };
         const validationFnSpy = sinon.spy();
