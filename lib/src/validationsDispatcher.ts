@@ -6,6 +6,7 @@ import {
   FieldValidation,
 } from './entities';
 import { consts } from './consts';
+import get from 'lodash.get';
 
 class ValidationParams {
   constructor(
@@ -75,7 +76,8 @@ export class ValidationDispatcher {
 
     if (this.areParametersDefined(vm, validationFn)) {
       fieldsToValidate.forEach((field) => {
-        const vmFieldValue = vm[field];
+        const vmFieldValue = get(vm, field, undefined);
+        //const vmFieldValue = vm[field];
         if (vmFieldValue !== undefined) {
           const fieldValidationResultsPromise = validationFn(vm, field, vmFieldValue);
           fieldValidationResultsPromises.push(fieldValidationResultsPromise);
