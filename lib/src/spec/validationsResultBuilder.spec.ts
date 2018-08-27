@@ -158,7 +158,7 @@ describe('ValidationsResultBuilder ', () => {
             succeeded: false,
             errorMessage: '',
             type: '',
-          },
+          } as FieldValidationResult,
         });
       });
 
@@ -323,7 +323,7 @@ describe('ValidationsResultBuilder ', () => {
             succeeded: false,
             errorMessage: '',
             type: '',
-          },
+          } as FieldValidationResult,
         });
       });
 
@@ -349,7 +349,7 @@ describe('ValidationsResultBuilder ', () => {
             succeeded: false,
             errorMessage: '',
             type: '',
-          },
+          } as FieldValidationResult,
         });
       });
 
@@ -376,13 +376,13 @@ describe('ValidationsResultBuilder ', () => {
             succeeded: false,
             errorMessage: '',
             type: '',
-          },
+          } as FieldValidationResult,
           test2: {
             key: 'test2',
             succeeded: false,
             errorMessage: '',
             type: '',
-          },
+          } as FieldValidationResult,
         });
       });
 
