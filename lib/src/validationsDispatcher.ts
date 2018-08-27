@@ -2,10 +2,8 @@ import {
   FieldValidationResult,
   ValidationResult,
   FormValidationFunction,
-  FieldValidationFunction,
   FieldValidation,
 } from './entities';
-import { consts } from './consts';
 import get from 'lodash.get';
 
 class ValidationParams {
