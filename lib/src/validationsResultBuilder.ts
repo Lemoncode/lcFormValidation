@@ -1,5 +1,6 @@
 import { FieldValidationResult, FormValidationResult } from './entities';
 import { consts } from './consts';
+import set from 'lodash.set';
 
 export class ValidationsResultBuilder {
   buildFormValidationsResult(fieldValidationResults: Array<FieldValidationResult>): FormValidationResult {
@@ -10,7 +11,8 @@ export class ValidationsResultBuilder {
       this.setGlobalKeyToEmptyKeys(filteredFieldValidationResults);
 
       formValidationResult.succeeded = filteredFieldValidationResults.every(fvr => fvr.succeeded);
-      formValidationResult.fieldErrors = filteredFieldValidationResults.filter(fvr => fvr.key !== consts.globalFormValidationId);
+      const fieldValidationResultList = filteredFieldValidationResults.filter(fvr => fvr.key !== consts.globalFormValidationId);
+      formValidationResult.fieldErrors = this.mapFieldValidationResultListToFieldErrorsObject(fieldValidationResultList);
       formValidationResult.formGlobalErrors = filteredFieldValidationResults.filter(fvr => fvr.key === consts.globalFormValidationId);
     }
 
@@ -31,6 +33,10 @@ export class ValidationsResultBuilder {
       }
     });
   }
+
+  private mapFieldValidationResultListToFieldErrorsObject = (fieldValidationResultList: FieldValidationResult[]): { [key: string]: FieldValidationResult } => (
+    fieldValidationResultList.reduce((errors, result) => set(errors, result.key, result), {})
+  )
 }
 
 let validationsResultBuilder = new ValidationsResultBuilder();

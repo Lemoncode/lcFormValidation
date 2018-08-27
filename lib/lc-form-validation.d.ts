@@ -7,7 +7,7 @@ export class FieldValidationResult {
 
 export class FormValidationResult {
   succeeded: boolean;
-  fieldErrors: Array<FieldValidationResult>;
+  fieldErrors: { [key: string]: FieldValidationResult };
   formGlobalErrors: Array<FieldValidationResult>;
 }
 
