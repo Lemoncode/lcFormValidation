@@ -43,10 +43,10 @@ customerFormValidation
     console.log(validationResult.success); // true
     console.log(validationResult.formGlobalErrors); // []
     console.log(validationResult.fieldErrors);
-    /*[
-        { succeeded: true, type: "REQUIRED", key: "firstName", errorMessage: "" },
-        { succeeded: true, type: "REQUIRED", key: "lastName", errorMessage: "" }
-      ]*/
+    /*{
+        firstName: { succeeded: true, type: "REQUIRED", key: "firstName", errorMessage: "" },
+        lastName: { succeeded: true, type: "REQUIRED", key: "lastName", errorMessage: "" }
+      }*/
   })
   .catch((error) => {
     // handle unexpected errors
@@ -240,7 +240,7 @@ testFormValidation
   .then((validationResult) => {
     console.log(validationResult.succeeded); // true
     console.log(validationResult.formGlobalErrors) // []
-    console.log(validationResult.fieldErrors); //  []
+    console.log(validationResult.fieldErrors); //  {}
   })
   .catch((error) => {
     // handle unexpected errors
