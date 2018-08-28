@@ -48,14 +48,11 @@ function signupProcessCompleted(state: SignupState, action: ISignupUIOnInteracti
 }
 
 function performSignupCompleted(state: SignupState, action: ISignupRequestCompletedAction): SignupState {
-  const newSignupErrors: SignupErrors = { ...state.signupErrors };
-
-  action.formValidationResult.fieldErrors.forEach(fieldValidationResult => {
-    newSignupErrors[fieldValidationResult.key] = fieldValidationResult;
-  });
-
   return {
     ...state,
-    signupErrors: newSignupErrors
+    signupErrors: {
+      ...state.signupErrors,
+      ...action.formValidationResult.fieldErrors,
+    }
   };
 }

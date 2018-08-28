@@ -21,8 +21,7 @@ function passwordAndConfirmPasswordValidationHandler(value: any, vm: any): Field
 
 function loginExistOnGitHubValidationHandler(value: any, vm: any): Promise<FieldValidationResult> {
   return gitHub.doesLoginExists(value)
-    .then((loginExists) => resolveLoginExists(loginExists))
-    .catch(error => console.log('ERROR', error));
+    .then((loginExists) => resolveLoginExists(loginExists));
 }
 
 function resolveLoginExists(loginExists: boolean): Promise<FieldValidationResult> {
