@@ -43,14 +43,11 @@ function signupProcessCompleted(state, action) {
 }
 
 function performSignupCompleted(state, action) {
-  const newSignupErrors = { ...state.signupErrors };
-
-  action.formValidationResult.fieldErrors.forEach(fieldValidationResult => {
-    newSignupErrors[fieldValidationResult.key] = fieldValidationResult;
-  });
-
   return {
     ...state,
-    signupErrors: newSignupErrors
+    signupErrors: {
+      ...state.signupErrors,
+      ...action.formValidationResult.fieldErrors,
+    },
   };
 }

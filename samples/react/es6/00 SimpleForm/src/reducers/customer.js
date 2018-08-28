@@ -46,6 +46,7 @@ function customerSaveCompleted(state, action) {
   return {
     ...state,
     customerErrors: {
+      ...state.customerErrors,
       ...action.formValidationResult.fieldErrors,
     },
   };
