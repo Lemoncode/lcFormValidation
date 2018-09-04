@@ -188,8 +188,8 @@ import { createFormValidation } from 'lc-form-validation';
                 </h4>
                 <p>A form about recipes and ingredients with the next validation constraints:</p>
                 <ul>
-                  <li>Name field is mandatory (<a href="#validators-required"><code>required</code></a> validator.</li>
-                  <li>Ingredients field has custom array validator (Should have at least one ingredient.</li>
+                  <li>Name field is mandatory (<a href="#validators-required"><code>required</code></a> validator).</li>
+                  <li>Ingredients field has custom array validator (Should have at least one ingredient).</li>
                 </ul>
               </article>
             </section>
@@ -214,7 +214,7 @@ import { createFormValidation } from 'lc-form-validation';
                     The discount code is optional but needs to have a valid format if fulfilled (<a href="#validators-pattern"><code>pattern</code></a>                    validator).
                   </li>
                   <li>
-                    NIF field is mandatory with a valid format (<a href="#validators-required"><code>required</code></a>                    validator + custom validator
+                    NIF field is mandatory with a valid format (<a href="#validators-required"><code>required</code></a>                    validator + custom validator).
                   </li>
                 </ul>
               </article>
@@ -865,7 +865,7 @@ function handleUnsuccessfulValidation(validationResult) { /* .... */ };</code></
               </p>
               <ul>
                 <li><code>succeeded</code> <em>boolean</em> - The result of the entire form validation.</li>
-                <li><code>fieldErrors</code> <em>Array&lt;FieldValidationResult&gt;</em> - A list of all field errors given as
+                <li><code>fieldErrors</code> <em>{ [key: string]: FieldValidationResult };</em> - An object of all field errors given as
                   a result of validate every field. This property contains every field validation result, so it will be filled
                   even if all validation passed.</li>
                 <li><code>formGlobalErrors</code> <em>Array&lt;FieldValidationResult&gt;</em> - A list of all global errors given
@@ -875,14 +875,14 @@ function handleUnsuccessfulValidation(validationResult) { /* .... */ };</code></
               <h4>Example of a FormValidationResult</h4>
               <pre class="snippet"><code class="language-js">{
   succeeded: true,
-  fieldErrors: [
-    {
+  fieldErrors: {
+    emailAddress: {
       succeeded: true,
       errorMessage: '',
       type: 'EMAIL',
       key: 'emailAddress'
     }
-  ],
+  },
   formGlobalErrors: []
 }</code></pre>
             </article>
@@ -939,7 +939,7 @@ formValidation
   .validateForm(viewModel)
   .then(validationResult => {
     console.log(validationResult.succeeded); // true
-    console.log(validationResult.fieldErrors); // []
+    console.log(validationResult.fieldErrors); // {}
     console.log(validationResult.formGlobalErrors);
     // [{ errorMessage: '', type: 'ALL_CHECKED', key: '_GLOBAL_FORM_', succeeded: true }]
   })
