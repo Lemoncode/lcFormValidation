@@ -2,7 +2,6 @@ import $ from 'jquery';
 import { productsService } from '../../services/productsService';
 import { productsFormValidation } from './validation/formProductValidationService';
 
-let storedProducts = [];
 let $selBrands, $selProducts, $formProducts, $txtNif, $txtDiscount;
 
 class App {
@@ -94,7 +93,9 @@ class App {
     productsFormValidation
       .validateForm(vm)
       .then(validationResult => {
-        validationResult.fieldErrors.forEach(this.handleFieldValidationResult($form));
+        Object.keys(validationResult.fieldErrors).forEach((key) => {
+          this.handleFieldValidationResult($form)(validationResult.fieldErrors[key]);
+        });
         if (validationResult.succeeded) {
           console.log('Form is sent');
         }

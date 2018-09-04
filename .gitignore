@@ -10,4 +10,4 @@ lib/coverage/
 yarn.lock
 .vscode/
 npm-debug.log
-lib/package-lock\.json
+package-lock\.json

@@ -1,8 +1,8 @@
-import Vue, {ComponentOptions} from 'vue';
-import {RecipeEntity, RecipeError} from '../../../model';
-import {recipeAPI} from '../../../api/recipe';
-import {editFormValidation} from './validations/editFormValidation';
-import {EditRecipePage} from './page';
+import Vue, { ComponentOptions } from 'vue';
+import { RecipeEntity, RecipeError } from '../../../model';
+import { recipeAPI } from '../../../api/recipe';
+import { editFormValidation } from './validations/editFormValidation';
+import { EditRecipePage } from './page';
 
 interface EditRecipeContainerOptions extends Vue {
   recipe: RecipeEntity;
@@ -84,10 +84,12 @@ export const EditRecipeContainer = Vue.extend({
     save: function() {
       editFormValidation.validateForm(this.recipe)
         .then((result) => {
-          result.fieldErrors
-            .map((error) => this.updateRecipeError(error.key, error));
+          this.recipeError = {
+            ...this.recipeError,
+            ...result.fieldErrors,
+          };
 
-          if(result.succeeded) {
+          if (result.succeeded) {
             console.log('Save recipe');
           }
         });

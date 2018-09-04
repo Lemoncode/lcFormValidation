@@ -48,14 +48,11 @@ function customerProcessUIInputCompleted(state: CustomerState, action: ICustomer
 }
 
 function customerSaveCompleted(state: CustomerState, action: ICustomerSaveCompletedAction): CustomerState {
-  const newCustomerErrors: CustomerErrors = Object.assign({}, state.customerErrors);
-
-  action.formValidationResult.fieldErrors.forEach(fieldValidationResult => {
-    newCustomerErrors[fieldValidationResult.key] = fieldValidationResult;
-  });
-
   return {
     ...state,
-    customerErrors: newCustomerErrors
+    customerErrors: {
+      ...state.customerErrors,
+      ...action.formValidationResult.fieldErrors,
+    }
   };
 }

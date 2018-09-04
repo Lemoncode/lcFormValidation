@@ -1,4 +1,4 @@
-import Vue, {ComponentOptions} from 'vue';
+import Vue, { ComponentOptions } from 'vue';
 
 interface Props extends Vue {
   hasError: boolean;
@@ -15,7 +15,7 @@ export const ValidationComponent = Vue.extend({
   render: function(h) {
     let wrapperClass = `${this.className}`;
 
-    if(this.hasError) {
+    if (this.hasError) {
       wrapperClass = `${wrapperClass} has-error`
     }
 

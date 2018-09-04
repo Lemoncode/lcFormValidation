@@ -34,11 +34,14 @@ describe('ValidationEngine Validate Form', () => {
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
-            expect(formValidationResult.fieldErrors).to.have.length(1);
-            expect(formValidationResult.fieldErrors[0].succeeded).to.be.false;
-            expect(formValidationResult.fieldErrors[0].key).to.be.equal('fullname');
-            expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('Mandatory field');
+            expect(formValidationResult.fieldErrors).to.deep.equal({
+              fullname: {
+                key: 'fullname',
+                succeeded: false,
+                type: 'REQUIRED',
+                errorMessage: 'Mandatory field',
+              } as FieldValidationResult,
+            });
             done();
           });
       });
@@ -73,11 +76,14 @@ describe('ValidationEngine Validate Form', () => {
         validationEngine.validateForm(viewModel)
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
-            expect(formValidationResult.fieldErrors).to.have.length(1);
-            expect(formValidationResult.fieldErrors[0].succeeded).to.be.true;
-            expect(formValidationResult.fieldErrors[0].key).to.be.equal('fullname');
-            expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('');
+            expect(formValidationResult.fieldErrors).to.deep.equal({
+              fullname: {
+                key: 'fullname',
+                succeeded: true,
+                type: 'REQUIRED',
+                errorMessage: '',
+              } as FieldValidationResult,
+            });
             done();
           });
       });
@@ -155,17 +161,20 @@ describe('ValidationEngine Validate Form', () => {
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
-            expect(formValidationResult.fieldErrors).to.have.length(2);
-
-            expect(formValidationResult.fieldErrors[0].succeeded).to.be.false;
-            expect(formValidationResult.fieldErrors[0].key).to.be.equal('fullname');
-            expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('Mandatory field');
-
-            expect(formValidationResult.fieldErrors[1].succeeded).to.be.false;
-            expect(formValidationResult.fieldErrors[1].key).to.be.equal('password');
-            expect(formValidationResult.fieldErrors[1].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[1].errorMessage).to.equal('Mandatory field');
+            expect(formValidationResult.fieldErrors).to.deep.equal({
+              fullname: {
+                key: 'fullname',
+                succeeded: false,
+                type: 'REQUIRED',
+                errorMessage: 'Mandatory field',
+              } as FieldValidationResult,
+              password: {
+                key: 'password',
+                succeeded: false,
+                type: 'REQUIRED',
+                errorMessage: 'Mandatory field',
+              } as FieldValidationResult,
+            });
 
             done();
           });
@@ -245,17 +254,20 @@ describe('ValidationEngine Validate Form', () => {
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
-            expect(formValidationResult.fieldErrors).to.have.length(2);
-
-            expect(formValidationResult.fieldErrors[0].succeeded).to.be.false;
-            expect(formValidationResult.fieldErrors[0].key).to.be.equal('fullname');
-            expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('Mandatory field');
-
-            expect(formValidationResult.fieldErrors[1].succeeded).to.be.false;
-            expect(formValidationResult.fieldErrors[1].key).to.be.equal('password');
-            expect(formValidationResult.fieldErrors[1].type).to.equal('MINLENGTH');
-            expect(formValidationResult.fieldErrors[1].errorMessage).to.equal('Password must be at least 3 characters');
+            expect(formValidationResult.fieldErrors).to.deep.equal({
+              fullname: {
+                key: 'fullname',
+                succeeded: false,
+                type: 'REQUIRED',
+                errorMessage: 'Mandatory field',
+              } as FieldValidationResult,
+              password: {
+                key: 'password',
+                succeeded: false,
+                type: 'MINLENGTH',
+                errorMessage: 'Password must be at least 3 characters',
+              } as FieldValidationResult,
+            });
 
             done();
           });
@@ -335,17 +347,20 @@ describe('ValidationEngine Validate Form', () => {
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
-            expect(formValidationResult.fieldErrors).to.have.length(2);
-
-            expect(formValidationResult.fieldErrors[0].succeeded).to.be.false;
-            expect(formValidationResult.fieldErrors[0].key).to.be.equal('fullname');
-            expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('Mandatory field');
-
-            expect(formValidationResult.fieldErrors[1].succeeded).to.be.true;
-            expect(formValidationResult.fieldErrors[1].key).to.be.equal('password');
-            expect(formValidationResult.fieldErrors[1].type).to.equal('MINLENGTH');
-            expect(formValidationResult.fieldErrors[1].errorMessage).to.equal('');
+            expect(formValidationResult.fieldErrors).to.deep.equal({
+              fullname: {
+                key: 'fullname',
+                succeeded: false,
+                type: 'REQUIRED',
+                errorMessage: 'Mandatory field',
+              } as FieldValidationResult,
+              password: {
+                key: 'password',
+                succeeded: true,
+                type: 'MINLENGTH',
+                errorMessage: '',
+              } as FieldValidationResult,
+            });
 
             done();
           });
@@ -425,17 +440,20 @@ describe('ValidationEngine Validate Form', () => {
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
-            expect(formValidationResult.fieldErrors).to.have.length(2);
-
-            expect(formValidationResult.fieldErrors[0].succeeded).to.be.true;
-            expect(formValidationResult.fieldErrors[0].key).to.be.equal('fullname');
-            expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('');
-
-            expect(formValidationResult.fieldErrors[1].succeeded).to.be.true;
-            expect(formValidationResult.fieldErrors[1].key).to.be.equal('password');
-            expect(formValidationResult.fieldErrors[1].type).to.equal('MINLENGTH');
-            expect(formValidationResult.fieldErrors[1].errorMessage).to.equal('');
+            expect(formValidationResult.fieldErrors).to.deep.equal({
+              fullname: {
+                key: 'fullname',
+                succeeded: true,
+                type: 'REQUIRED',
+                errorMessage: '',
+              } as FieldValidationResult,
+              password: {
+                key: 'password',
+                succeeded: true,
+                type: 'MINLENGTH',
+                errorMessage: '',
+              } as FieldValidationResult,
+            });
 
             done();
           });
@@ -518,12 +536,17 @@ describe('ValidationEngine Validate Form', () => {
         .then((formValidationResult: FormValidationResult) => {
           expect(formValidationResult.succeeded).to.be.true;
 
-          expect(formValidationResult.fieldErrors).to.have.length(1);
+          expect(formValidationResult.fieldErrors).to.deep.equal({
+            fullname: {
+              firstName: {
+                key: 'fullname.firstName',
+                succeeded: true,
+                type: 'REQUIRED',
+                errorMessage: '',
+              } as FieldValidationResult
+            },
+          });
 
-          expect(formValidationResult.fieldErrors[0].succeeded).to.be.true;
-          expect(formValidationResult.fieldErrors[0].key).to.be.equal('fullname.firstName');
-          expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-          expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('');
           done();
         });
     });
@@ -556,12 +579,17 @@ describe('ValidationEngine Validate Form', () => {
         .then((formValidationResult: FormValidationResult) => {
           expect(formValidationResult.succeeded).to.be.false;
 
-          expect(formValidationResult.fieldErrors).to.have.length(1);
+          expect(formValidationResult.fieldErrors).to.deep.equal({
+            fullname: {
+              firstName: {
+                key: 'fullname.firstName',
+                succeeded: false,
+                type: 'REQUIRED',
+                errorMessage: 'Mandatory field',
+              } as FieldValidationResult
+            },
+          });
 
-          expect(formValidationResult.fieldErrors[0].succeeded).to.be.false;
-          expect(formValidationResult.fieldErrors[0].key).to.be.equal('fullname.firstName');
-          expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-          expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('Mandatory field');
           done();
         });
     });
@@ -861,11 +889,14 @@ describe('ValidationEngine Validate Form', () => {
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
-            expect(formValidationResult.fieldErrors).to.have.length(1);
-            expect(formValidationResult.fieldErrors[0].succeeded).to.be.true;
-            expect(formValidationResult.fieldErrors[0].key).to.be.equal('address');
-            expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('');
+            expect(formValidationResult.fieldErrors).to.deep.equal({
+              address: {
+                key: 'address',
+                succeeded: true,
+                type: 'REQUIRED',
+                errorMessage: '',
+              } as FieldValidationResult,
+            });
 
             expect(formValidationResult.formGlobalErrors).to.have.length(1);
             expect(formValidationResult.formGlobalErrors[0].succeeded).to.be.true;
@@ -923,11 +954,14 @@ describe('ValidationEngine Validate Form', () => {
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
-            expect(formValidationResult.fieldErrors).to.have.length(1);
-            expect(formValidationResult.fieldErrors[0].succeeded).to.be.false;
-            expect(formValidationResult.fieldErrors[0].key).to.be.equal('address');
-            expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('Mandatory field');
+            expect(formValidationResult.fieldErrors).to.deep.equal({
+              address: {
+                key: 'address',
+                succeeded: false,
+                type: 'REQUIRED',
+                errorMessage: 'Mandatory field',
+              } as FieldValidationResult,
+            });
 
             expect(formValidationResult.formGlobalErrors).to.have.length(1);
             expect(formValidationResult.formGlobalErrors[0].succeeded).to.be.false;
@@ -985,11 +1019,14 @@ describe('ValidationEngine Validate Form', () => {
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
-            expect(formValidationResult.fieldErrors).to.have.length(1);
-            expect(formValidationResult.fieldErrors[0].succeeded).to.be.true;
-            expect(formValidationResult.fieldErrors[0].key).to.be.equal('address');
-            expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('');
+            expect(formValidationResult.fieldErrors).to.deep.equal({
+              address: {
+                key: 'address',
+                succeeded: true,
+                type: 'REQUIRED',
+                errorMessage: '',
+              } as FieldValidationResult,
+            });
 
             expect(formValidationResult.formGlobalErrors).to.have.length(1);
             expect(formValidationResult.formGlobalErrors[0].succeeded).to.be.false;
@@ -1047,11 +1084,14 @@ describe('ValidationEngine Validate Form', () => {
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
-            expect(formValidationResult.fieldErrors).to.have.length(1);
-            expect(formValidationResult.fieldErrors[0].succeeded).to.be.false;
-            expect(formValidationResult.fieldErrors[0].key).to.be.equal('address');
-            expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('Mandatory field');
+            expect(formValidationResult.fieldErrors).to.deep.equal({
+              address: {
+                key: 'address',
+                succeeded: false,
+                type: 'REQUIRED',
+                errorMessage: 'Mandatory field',
+              } as FieldValidationResult,
+            });
 
             expect(formValidationResult.formGlobalErrors).to.have.length(1);
             expect(formValidationResult.formGlobalErrors[0].succeeded).to.be.true;
@@ -1114,11 +1154,14 @@ describe('ValidationEngine Validate Form', () => {
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
-            expect(formValidationResult.fieldErrors).to.have.length(1);
-            expect(formValidationResult.fieldErrors[0].succeeded).to.be.false;
-            expect(formValidationResult.fieldErrors[0].key).to.be.equal('fullname');
-            expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('Mandatory field');
+            expect(formValidationResult.fieldErrors).to.deep.equal({
+              fullname: {
+                key: 'fullname',
+                succeeded: false,
+                type: 'REQUIRED',
+                errorMessage: 'Mandatory field',
+              } as FieldValidationResult,
+            });
             done();
           });
       });
@@ -1154,11 +1197,14 @@ describe('ValidationEngine Validate Form', () => {
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
-            expect(formValidationResult.fieldErrors).to.have.length(1);
-            expect(formValidationResult.fieldErrors[0].succeeded).to.be.true;
-            expect(formValidationResult.fieldErrors[0].key).to.be.equal('fullname');
-            expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('');
+            expect(formValidationResult.fieldErrors).to.deep.equal({
+              fullname: {
+                key: 'fullname',
+                succeeded: true,
+                type: 'REQUIRED',
+                errorMessage: '',
+              } as FieldValidationResult,
+            });
             done();
           });
       });
@@ -1205,17 +1251,20 @@ describe('ValidationEngine Validate Form', () => {
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.false;
 
-            expect(formValidationResult.fieldErrors).to.have.length(2);
-
-            expect(formValidationResult.fieldErrors[0].succeeded).to.be.false;
-            expect(formValidationResult.fieldErrors[0].key).to.be.equal('fullname');
-            expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('Mandatory field');
-
-            expect(formValidationResult.fieldErrors[1].succeeded).to.be.false;
-            expect(formValidationResult.fieldErrors[1].key).to.be.equal('password');
-            expect(formValidationResult.fieldErrors[1].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[1].errorMessage).to.equal('Mandatory field');
+            expect(formValidationResult.fieldErrors).to.deep.equal({
+              fullname: {
+                key: 'fullname',
+                succeeded: false,
+                type: 'REQUIRED',
+                errorMessage: 'Mandatory field',
+              } as FieldValidationResult,
+              password: {
+                key: 'password',
+                succeeded: false,
+                type: 'REQUIRED',
+                errorMessage: 'Mandatory field',
+              } as FieldValidationResult,
+            });
 
             done();
           });
@@ -1265,17 +1314,20 @@ describe('ValidationEngine Validate Form', () => {
           .then((formValidationResult: FormValidationResult) => {
             expect(formValidationResult.succeeded).to.be.true;
 
-            expect(formValidationResult.fieldErrors).to.have.length(2);
-
-            expect(formValidationResult.fieldErrors[0].succeeded).to.be.true;
-            expect(formValidationResult.fieldErrors[0].key).to.be.equal('fullname');
-            expect(formValidationResult.fieldErrors[0].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[0].errorMessage).to.equal('');
-
-            expect(formValidationResult.fieldErrors[1].succeeded).to.be.true;
-            expect(formValidationResult.fieldErrors[1].key).to.be.equal('password');
-            expect(formValidationResult.fieldErrors[1].type).to.equal('REQUIRED');
-            expect(formValidationResult.fieldErrors[1].errorMessage).to.equal('');
+            expect(formValidationResult.fieldErrors).to.deep.equal({
+              fullname: {
+                key: 'fullname',
+                succeeded: true,
+                type: 'REQUIRED',
+                errorMessage: '',
+              } as FieldValidationResult,
+              password: {
+                key: 'password',
+                succeeded: true,
+                type: 'REQUIRED',
+                errorMessage: '',
+              } as FieldValidationResult,
+            });
 
             done();
           });

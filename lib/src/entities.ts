@@ -24,12 +24,12 @@ export class FieldValidationResult {
 
 export class FormValidationResult {
   succeeded: boolean;
-  fieldErrors: FieldValidationResult[];
+  fieldErrors: { [key: string]: FieldValidationResult };
   formGlobalErrors: FieldValidationResult[];
 
   constructor() {
     this.succeeded = false;
-    this.fieldErrors = [];
+    this.fieldErrors = {};
   }
 }
 

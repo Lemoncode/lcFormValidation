@@ -104,7 +104,7 @@ describe('ValidationsResultBuilder ', () => {
         expect(result.succeeded).to.be.true;
       });
 
-    it('Spec #8 => should returns new FormValidationResult equals { fieldErrors: [] } ' +
+    it('Spec #8 => should returns new FormValidationResult equals { fieldErrors: {} } ' +
       'when passing fieldValidationResults equals undefined', () => {
         //Arrange
         let fieldValidationResults = undefined;
@@ -113,10 +113,10 @@ describe('ValidationsResultBuilder ', () => {
         let result = validationsResultBuilder.buildFormValidationsResult(fieldValidationResults);
 
         //Assert
-        expect(result.fieldErrors).to.be.empty;
+        expect(result.fieldErrors).to.deep.equals({});
       });
 
-    it('Spec #9 => should returns new FormValidationResult equals { fieldErrors: [] } ' +
+    it('Spec #9 => should returns new FormValidationResult equals { fieldErrors: {} } ' +
       'when passing fieldValidationResults equals null', () => {
         //Arrange
         let fieldValidationResults = null;
@@ -125,10 +125,10 @@ describe('ValidationsResultBuilder ', () => {
         let result = validationsResultBuilder.buildFormValidationsResult(fieldValidationResults);
 
         //Assert
-        expect(result.fieldErrors).to.be.empty;
+        expect(result.fieldErrors).to.deep.equals({});
       });
 
-    it('Spec #10 => should returns new FormValidationResult equals { fieldErrors: [] } ' +
+    it('Spec #10 => should returns new FormValidationResult equals { fieldErrors: {} } ' +
       'when passing fieldValidationResults equals empty', () => {
         //Arrange
         let fieldValidationResults = [];
@@ -137,11 +137,11 @@ describe('ValidationsResultBuilder ', () => {
         let result = validationsResultBuilder.buildFormValidationsResult(fieldValidationResults);
 
         //Assert
-        expect(result.fieldErrors).to.be.empty;
+        expect(result.fieldErrors).to.deep.equals({});
       });
 
     it('Spec #11 => should returns new FormValidationResult equals ' +
-      '{ fieldErrors: [{ key: "test" }] } with length equals 1 ' +
+      '{ fieldErrors: { test: { key: "test", succeeded: false, errorMessage: "", type: "" } } }' +
       'when passing fieldValidationResults with one item equals { key: "test" }', () => {
         //Arrange
         let fieldValidationResult = new FieldValidationResult();
@@ -152,12 +152,18 @@ describe('ValidationsResultBuilder ', () => {
         let result = validationsResultBuilder.buildFormValidationsResult(fieldValidationResults);
 
         //Assert
-        expect(result.fieldErrors).to.have.length(1);
-        expect(result.fieldErrors[0].key).to.be.equal('test');
+        expect(result.fieldErrors).to.deep.equal({
+          test: {
+            key: 'test',
+            succeeded: false,
+            errorMessage: '',
+            type: '',
+          } as FieldValidationResult,
+        });
       });
 
     it('Spec #12 => should returns new FormValidationResult equals ' +
-      '{ fieldErrors: [] } with length equals 0 ' +
+      '{ fieldErrors: {} } without properties ' +
       'when passing fieldValidationResults with one item equals { key: null }', () => {
         //Arrange
         let fieldValidationResult = new FieldValidationResult();
@@ -168,11 +174,11 @@ describe('ValidationsResultBuilder ', () => {
         let result = validationsResultBuilder.buildFormValidationsResult(fieldValidationResults);
 
         //Assert
-        expect(result.fieldErrors).to.have.length(0);
+        expect(result.fieldErrors).to.deep.equals({});
       });
 
     it('Spec #13 => should returns new FormValidationResult equals ' +
-      '{ fieldErrors: [] } with length equals 0 ' +
+      '{ fieldErrors: {} } without properties ' +
       'when passing fieldValidationResults with one item equals { key: undefined }', () => {
         //Arrange
         let fieldValidationResult = new FieldValidationResult();
@@ -183,11 +189,11 @@ describe('ValidationsResultBuilder ', () => {
         let result = validationsResultBuilder.buildFormValidationsResult(fieldValidationResults);
 
         //Assert
-        expect(result.fieldErrors).to.have.length(0);
+        expect(result.fieldErrors).to.deep.equals({});
       });
 
     it('Spec #14 => should returns new FormValidationResult equals ' +
-      '{ fieldErrors: [] } with length equals 0 ' +
+      '{ fieldErrors: {} } without properties ' +
       'when passing fieldValidationResults with one item equals { key: "" }', () => {
         //Arrange
         let fieldValidationResult = new FieldValidationResult();
@@ -198,11 +204,11 @@ describe('ValidationsResultBuilder ', () => {
         let result = validationsResultBuilder.buildFormValidationsResult(fieldValidationResults);
 
         //Assert
-        expect(result.fieldErrors).to.have.length(0);
+        expect(result.fieldErrors).to.deep.equals({});
       });
 
     it('Spec #15 => should returns new FormValidationResult equals ' +
-      '{ fieldErrors: [] } with length equals 0 ' +
+      '{ fieldErrors: {} } without properties ' +
       'when passing fieldValidationResults with one item equals { key: "_GLOBAL_FORM_" }', () => {
         //Arrange
         let fieldValidationResult = new FieldValidationResult();
@@ -213,7 +219,7 @@ describe('ValidationsResultBuilder ', () => {
         let result = validationsResultBuilder.buildFormValidationsResult(fieldValidationResults);
 
         //Assert
-        expect(result.fieldErrors).to.have.length(0);
+        expect(result.fieldErrors).to.deep.equals({});
       });
 
     it('Spec #16 => should returns new FormValidationResult equals ' +
@@ -296,7 +302,7 @@ describe('ValidationsResultBuilder ', () => {
       });
 
     it('Spec #21 => should returns new FormValidationResult equals ' +
-      '{ fieldErrors: [{ key: "test" }] } with length equals 1 ' +
+      '{ fieldErrors: { test: { key: "test" } } } ' +
       'when passing fieldValidationResults with two item first equals { key: "test" }' +
       'and second equals null', () => {
         //Arrange
@@ -311,12 +317,18 @@ describe('ValidationsResultBuilder ', () => {
         let result = validationsResultBuilder.buildFormValidationsResult(fieldValidationResults);
 
         //Assert
-        expect(result.fieldErrors).to.have.length(1);
-        expect(result.fieldErrors[0].key).to.be.equal('test');
+        expect(result.fieldErrors).to.deep.equal({
+          test: {
+            key: 'test',
+            succeeded: false,
+            errorMessage: '',
+            type: '',
+          } as FieldValidationResult,
+        });
       });
 
     it('Spec #22 => should returns new FormValidationResult equals ' +
-      '{ fieldErrors: [{ key: "test" }] } with length equals 1 ' +
+      '{ fieldErrors: { test: { key: "test" } } } ' +
       'when passing fieldValidationResults with two item first equals { key: "test" }' +
       'and second equals undefined', () => {
         //Arrange
@@ -331,11 +343,50 @@ describe('ValidationsResultBuilder ', () => {
         let result = validationsResultBuilder.buildFormValidationsResult(fieldValidationResults);
 
         //Assert
-        expect(result.fieldErrors).to.have.length(1);
-        expect(result.fieldErrors[0].key).to.be.equal('test');
+        expect(result.fieldErrors).to.deep.equal({
+          test: {
+            key: 'test',
+            succeeded: false,
+            errorMessage: '',
+            type: '',
+          } as FieldValidationResult,
+        });
       });
 
     it('Spec #23 => should returns new FormValidationResult equals ' +
+      '{ fieldErrors: { test1: { key: "test1" }, test2: { key: "test2" } } } ' +
+      'when passing fieldValidationResults with two item first equals { key: "test1" }' +
+      'and second equals { key: "test2" }', () => {
+        //Arrange
+        const fieldValidationResult1 = new FieldValidationResult();
+        fieldValidationResult1.key = 'test1';
+
+        const fieldValidationResult2 = new FieldValidationResult();
+        fieldValidationResult2.key = 'test2';
+
+        const fieldValidationResults = [fieldValidationResult1, fieldValidationResult2];
+
+        //Act
+        const result = validationsResultBuilder.buildFormValidationsResult(fieldValidationResults);
+
+        //Assert
+        expect(result.fieldErrors).to.deep.equal({
+          test1: {
+            key: 'test1',
+            succeeded: false,
+            errorMessage: '',
+            type: '',
+          } as FieldValidationResult,
+          test2: {
+            key: 'test2',
+            succeeded: false,
+            errorMessage: '',
+            type: '',
+          } as FieldValidationResult,
+        });
+      });
+
+    it('Spec #24 => should returns new FormValidationResult equals ' +
       '{ formGlobalErrors: [{ key: "_GLOBAL_FORM_" }] } with length equals 1 ' +
       'when passing fieldValidationResults with two item first equals { key: "_GLOBAL_FORM_" }' +
       'and second equals null', () => {
@@ -355,7 +406,7 @@ describe('ValidationsResultBuilder ', () => {
         expect(result.formGlobalErrors[0].key).to.be.equal('_GLOBAL_FORM_');
       });
 
-    it('Spec #24 => should returns new FormValidationResult equals ' +
+    it('Spec #25 => should returns new FormValidationResult equals ' +
       '{ formGlobalErrors: [{ key: "_GLOBAL_FORM_" }] } with length equals 1 ' +
       'when passing fieldValidationResults with two item first equals { key: "_GLOBAL_FORM_" }' +
       'and second equals undefined', () => {
