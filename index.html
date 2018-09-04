@@ -35,7 +35,7 @@
               <a href="//github.com/lemoncode/lcformvalidation">
                 <img class="img-link" src="//static1.squarespace.com/static/ta/56cdb491a3360cdd18de5e16/527/assets/social-icons/github.png"
                   alt="GitHub">
-                <strong>v1.0.0</strong>
+                <strong>v2.0.0</strong>
               </a>
 
             </p>
@@ -58,7 +58,7 @@
             <li>Support for field and global form validations.</li>
             <li>Customizable multi trigger / event validation.</li>
             <li>Create extensible validators.</li>
-            <li>Lightweight library, just 21.3KB minified (6.3KB gzipped).</li>
+            <li>Lightweight library, just 31KB minified (9KB gzipped).</li>
             <li>Client / server side validation.</li>
             <li>It uses native <a href="//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">Promises</a>              to handle validations (polyfill is included).</li>
           </ul>
@@ -78,18 +78,18 @@
               <div class="row">
                 <div class="col-sm-12 download">
                   <div class="col-sm-4">
-                    <a href="//unpkg.com/lc-form-validation@latest/dist/lc-form-validation.min.js" target="_blank" role="button" class="btn btn-primary btn-block">v1.0.0 production version</a>
+                    <a href="//unpkg.com/lc-form-validation@latest/dist/lc-form-validation.min.js" target="_blank" role="button" class="btn btn-primary btn-block">v2.0.0 production version</a>
                   </div>
                   <div class="col-sm-4">
-                    <span class="download-description">21,3KB minified, packed</span>
+                    <span class="download-description">31KB minified, packed</span>
                   </div>
                 </div>
                 <div class="col-sm-12 download">
                   <div class="col-sm-4">
-                    <a href="//unpkg.com/lc-form-validation@latest/dist/lc-form-validation.js" target="_blank" role="button" class="btn btn-default btn-block">v1.0.0 development version</a>
+                    <a href="//unpkg.com/lc-form-validation@latest/dist/lc-form-validation.js" target="_blank" role="button" class="btn btn-default btn-block">v2.0.0 development version</a>
                   </div>
                   <div class="col-sm-4">
-                    <span class="download-description">71KB, full source</span>
+                    <span class="download-description">Full source</span>
                   </div>
                 </div>
               </div>
@@ -173,6 +173,24 @@ import { createFormValidation } from 'lc-form-validation';
                   A simple quiz with three options where there has to be at least one checked option to pass the validation (custom global
                   validation).
                 </p>
+              </article>
+            </section>
+            <section id="examples-vuejs" class="offset">
+              <h3 class="heading">
+                <span>Vue.js examples</span>
+                <a href="#examples-vuejs">
+                  <img class="img-link" src="img/link.svg" alt="(link this)">
+                </a>
+              </h3>
+              <article>
+                <h4>
+                  Custom Validator (<a href="//github.com/Lemoncode/lcFormValidation/tree/master/samples/vuejs/typescript/00%20Custom%20Validator" target="_blank">Typescript</a>,
+                </h4>
+                <p>A form about recipes and ingredients with the next validation constraints:</p>
+                <ul>
+                  <li>Name field is mandatory (<a href="#validators-required"><code>required</code></a> validator.</li>
+                  <li>Ingredients field has custom array validator (Should have at least one ingredient.</li>
+                </ul>
               </article>
             </section>
             <section id="examples-jquery" class="offset">
@@ -1200,6 +1218,7 @@ formValidation
                 <a href="#examples">Examples</a>
                 <ul class="nav">
                   <li><a href="#examples-react">React</a></li>
+                  <li><a href="#examples-vuejs">Vue.js</a></li>
                   <li><a href="#examples-jquery">jQuery</a></li>
                 </ul>
               </li>
