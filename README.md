@@ -7,6 +7,10 @@ It is third party / framework agnostic, so you can easily add it in your stack, 
 - Heavily based on JavaScript (no html attributes annotations).
 - Full async, all validations are processed as async using native [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) (LcFormValidation already gives you a polyfill for browsers that do not support promises).
 
+## Documentation
+
+Check the full documentation in [github.io page](http://lemoncode.github.io/lcFormValidation/).
+
 ## Quick start
 
 ### Defining validation constraints
@@ -246,10 +250,6 @@ testFormValidation
     // handle unexpected errors
   });
 ```
-
-## Documentation
-
-You can see the full documentation in the [github.io page](http://lemoncode.github.io/lcFormValidation/).
 
 ## Examples
 
